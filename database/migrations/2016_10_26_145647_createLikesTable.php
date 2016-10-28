@@ -20,12 +20,6 @@ class CreateLikesTable extends Migration
             $table->timestamps();
             $table->softDeletes();
 
-            $table->foreign('idea_id')
-              ->references('id')->on('ideas')
-              ->onDelete('cascade');
-            $table->foreign('user_id')
-              ->references('id')->on('users')
-              ->onDelete('cascade');
             $table->index(['idea_id', 'user_id']);
         });
     }

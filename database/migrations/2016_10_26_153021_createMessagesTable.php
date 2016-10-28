@@ -21,12 +21,6 @@ class CreateMessagesTable extends Migration
             $table->timestamps();
             $table->softDeletes();
 
-            $table->foreign('discuss_id')
-              ->references('id')->on('discusses')
-              ->onDelete('cascade');
-            $table->foreign('user_id')
-              ->references('id')->on('users')
-              ->onDelete('cascade');
             $table->index(['discuss_id', 'user_id']);
         });
     }

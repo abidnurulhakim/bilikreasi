@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateDiscussesTable extends Migration
+class CreatePhotosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,14 @@ class CreateDiscussesTable extends Migration
      */
     public function up()
     {
-        Schema::create('discusses', function (Blueprint $table) {
+        Schema::create('photos', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('idea_id')->unsigned();
-            $table->string('name');
+            $table->bigInteger('attachment_id')->unsigned();
             $table->timestamps();
             $table->softDeletes();
 
-            $table->index(['idea_id']);
+            $table->index(['idea_id', 'attachment_id']);
         });
     }
 
@@ -31,6 +31,6 @@ class CreateDiscussesTable extends Migration
      */
     public function down()
     {
-        Schema::drop('discusses');
+        Schema::drop('photos');
     }
 }

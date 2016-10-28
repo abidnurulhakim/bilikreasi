@@ -17,6 +17,7 @@ class CreateUsersTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('email')->unique();
+            $table->dateTime('birthday')->nullable();
             $table->string('password');
             $table->string('reset_password');
             $table->boolean('confirmed')->default(false);
@@ -26,10 +27,6 @@ class CreateUsersTable extends Migration
             $table->ipAddress('last_login_ip_address')->nullable();
             $table->timestamps();
             $table->softDeletes();
-
-            $table->foreign('photo_profile')
-              ->references('id')->on('attachments')
-              ->onDelete('cascade');
         }); 
     }
 

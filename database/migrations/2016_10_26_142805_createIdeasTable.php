@@ -25,10 +25,6 @@ class CreateIdeasTable extends Migration
             $table->integer('comment_count')->unsigned()->default(0);
             $table->integer('share_count')->unsigned()->default(0);
             $table->timestamps();
-
-            $table->foreign('user_id')
-              ->references('id')->on('users')
-              ->onDelete('cascade');
         });
     }
 

@@ -48,4 +48,9 @@ class Idea extends Model
     {
     	is_empty($this->members()->where('user_id', $user->id)->first());
     }
+
+    public function photos()
+    {
+        return $this->hasMany('App\Models\Photo', 'idea_id');
+    }
 }

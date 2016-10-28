@@ -4,12 +4,17 @@ namespace App\Models;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Models\Traits\AttachmentAble;
 
 class User extends Authenticatable
 {
     use SoftDeletes;
+    use AttachmentAble;
 
     protected $table = 'users';
+    protected $attachmentable = [
+        'photo_profile'
+    ];
     protected $fillable = [
         'name', 'email', 'password', 'confirmed', 'role', 'last_login_at', 'last_login_ip_address', 'birthday'
     ];
@@ -31,7 +36,7 @@ class User extends Authenticatable
     {
         $query = $this->hasMany('App\Models\Comment', 'user_id');
         if (is_empty($idea)) {
-            return $query
+            return $query;
         }
         return $query->where('idea_id', $idea->id);
     }
@@ -40,7 +45,7 @@ class User extends Authenticatable
     {
         $query = $this->hasMany('App\Models\Like', 'user_id');
         if (is_empty($idea)) {
-            return $query
+            return $query;
         }
         return $query->where('idea_id', $idea->id);
     }
@@ -54,7 +59,7 @@ class User extends Authenticatable
     {
         $query = $this->hasMany('App\Models\Message', 'user_id');
         if (is_empty($discuss)) {
-            return $query
+            return $query;
         }
         return $query->where('discuss_id', $discuss->id);
     }
