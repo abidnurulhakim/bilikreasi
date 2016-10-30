@@ -15,7 +15,7 @@
           </div>
           <div class="col-md-7 col-padding idea">
             <div class="col-md-12 no-padding title">
-              <span class="subject">Bandung Movie Club</span> - <a href="#" class="creator">Joshua</a>
+              <span class="subject">Bandung Movie Club</span> &mdash; <a href="#" class="creator">Joshua</a>
             </div>
             <div class="col-md-12 no-padding category">
               <span class="tag tag-pill tag-primary">Movie</span>
@@ -50,7 +50,7 @@
           </div>
           <div class="col-md-7 col-padding idea">
             <div class="col-md-12 no-padding title">
-              <span class="subject">Bandung Movie Club</span> - <a href="#" class="creator">Joshua</a>
+              <span class="subject">Bandung Movie Club</span> &mdash; <a href="#" class="creator">Joshua</a>
             </div>
             <div class="col-md-12 no-padding category">
               <span class="tag tag-pill tag-primary">Movie</span>
@@ -85,7 +85,7 @@
           </div>
           <div class="col-md-7 col-padding idea">
             <div class="col-md-12 no-padding title">
-              <span class="subject">Bandung Movie Club</span> - <a href="#" class="creator">Joshua</a>
+              <span class="subject">Bandung Movie Club</span> &mdash; <a href="#" class="creator">Joshua</a>
             </div>
             <div class="col-md-12 no-padding category">
               <span class="tag tag-pill tag-primary">Movie</span>
@@ -120,7 +120,7 @@
           </div>
           <div class="col-md-7 col-padding idea">
             <div class="col-md-12 no-padding title">
-              <span class="subject">Bandung Movie Club</span> - <a href="#" class="creator">Joshua</a>
+              <span class="subject">Bandung Movie Club</span> &mdash; <a href="#" class="creator">Joshua</a>
             </div>
             <div class="col-md-12 no-padding category">
               <span class="tag tag-pill tag-primary">Movie</span>

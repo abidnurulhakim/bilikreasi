@@ -3,7 +3,7 @@
     <div class="title">
       {{ $pageTitle }}
     </div>
-    @if(empty($emptyShares))
+    @if($useMediaShare)
       @include('layout.media-shares')
     @endif
   </div>

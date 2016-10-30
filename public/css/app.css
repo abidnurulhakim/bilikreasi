@@ -71,6 +71,17 @@ a.email {
   margin: 10px 0;
 }
 
+/*dropdown*/
+.dropdown-login {
+  padding: 12px !important;
+}
+.menubar-xs > a.login {
+  border: 1px solid #fff;
+}
+.menubar-xs > a.login:focus {
+  border: 0;
+}
+
 /*message*/
 .message {
   padding: 6px;
@@ -86,6 +97,7 @@ a.email {
 .message.owner{
   float: right;
 }
+
 /*discuss*/
 .card-block.discusses {
   max-height: 440px;
@@ -195,14 +207,14 @@ span > i {
 }
 ul.nav.navbar-nav > li.menubar {
   margin: -19px 0;
-  padding: 19px 0;
+  padding: 20px 0;
 }
 ul.nav.navbar-nav > li > a{
   color: #fff;
   font-size: 16px;
 }
 ul.nav.navbar-nav > li.menubar > a {
-  font-size: 22px;
+  font-size: 20px;
   font-weight: bold;
 }
 ul.nav.navbar-nav > li.menubar:hover,
@@ -214,6 +226,25 @@ ul.nav.navbar-nav > li.menubar.active > a{
   color: #51AFAE;
   background: #fff;
 }
+
+ul.nav.navbar-nav > li.menubar-xs {
+  margin: -19px 0;
+  padding: 19px 0;
+}
+ul.nav.navbar-nav > li.menubar-xs > a {
+  font-size: 18px;
+  font-weight: bold;
+}
+ul.nav.navbar-nav > li.menubar-xs:hover,
+ul.nav.navbar-nav > li.menubar-xs.active{
+  background: #fff;
+}
+ul.nav.navbar-nav > li.menubar-xs:hover > a,
+ul.nav.navbar-nav > li.menubar-xs.active > a{
+  color: #51AFAE;
+  background: #fff;
+}
+
 .navbar-nav > .user-menu > .dropdown-menu {
   border-top-right-radius: 0;
   border-top-left-radius: 0;
@@ -316,18 +347,22 @@ ul.nav.navbar-nav > li.menubar.active > a{
   margin-bottom: 0;
 }
 
-ul.list-group > a.list-group-item.discuss {
+ul.list-group > a.list-group-item.discuss,
+ul.list-group > a.list-group-item.member {
   color: #51AFAE;
   background-color: #fff;
 }
 
-ul.list-group > a.list-group-item.discuss.active {
+ul.list-group > a.list-group-item.discuss.active,
+ul.list-group > a.list-group-item.discuss.member {
   color: #fff;
   background-color: #51AFAE;
 }
 
 ul.list-group > a.list-group-item.discuss:hover,
-ul.list-group > a.list-group-item.discuss:focus {
+ul.list-group > a.list-group-item.discuss:focus,
+ul.list-group > a.list-group-item.member:hover,
+ul.list-group > a.list-group-item.member:focus {
   color: #fff;
   background-color: #51AFAE;
 }
@@ -347,6 +382,10 @@ ul.list-group > a.list-group-item.discuss:focus {
 }
 .list-group-item.idea:last-child {
   border: 0;
+}
+.list-group-item > i {
+  min-width: 25px;
+  text-align: center;
 }
 
 .list-group-item:first-child {
@@ -663,4 +702,21 @@ button.list-group-item-danger.active:hover {
   margin-bottom: 10px 0 0 0;
   font-size: 26px;
   display: inline;
+}
+
+/*text*/
+.text-primary {
+  color: #51AFAE !important;
+}
+
+/*card*/
+.card-header.profile {
+  font-size: 16px;
+  font-weight: bold;
+  color: #fff;
+  background-color: #51AFAE;
+}
+
+.bg-primary {
+  background-color: #51AFAE !important;
 }

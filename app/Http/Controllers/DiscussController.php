@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\View;
 
 class DiscussController extends Controller
 {
@@ -35,7 +34,7 @@ class DiscussController extends Controller
      */
     public function show($id)
     {
-        View::share('pageTitle', 'Ruang Diskusi');
+        \View::share('pageTitle', 'Ruang Diskusi');
         return view('pages.discuss.show');
     }
 

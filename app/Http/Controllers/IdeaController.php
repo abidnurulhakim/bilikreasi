@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\View;
 
 class IdeaController extends Controller
 {
@@ -47,8 +46,8 @@ class IdeaController extends Controller
      */
     public function show($id)
     {
-        View::share('pageTitle', 'Detail Ide');
-        View::share('emptyShares', true);
+        \View::share('pageTitle', 'Detail Ide');
+        \View::share('useMediaShare', false);
         return view('pages.idea.show');
     }
 

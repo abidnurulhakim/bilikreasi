@@ -1,11 +1,11 @@
-<div class="col-md-8 right-sidebar">
-  <div class="panel panel-warning">
-    <div class="panel-heading"><i class="fa fa-podcast fa-lg"> My Ideas</i></div>
-    <div class="panel-body">
+<div class="col-md-8">
+  <div class="card">
+    <div class="card-header profile text-center">My Ideas</div>
+    <div class="card-block">
       <ul class="timeline">
         <!-- timeline time label -->
         <li class="time-label">
-          <span class="bg-red">
+          <span class="bg-primary">
               10 Feb. 2014
           </span>
         </li>
