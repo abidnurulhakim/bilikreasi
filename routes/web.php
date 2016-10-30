@@ -11,6 +11,10 @@
 |
 */
 
-Route::get('/', function () {
-    return view('home.index');
-});
+Route::get('/', 'HomeController@index')->name('home');
+
+Route::resource('user', 'UserController', ['only' => [
+    'show', 'edit', 'update'
+]]);
+
+Route::get('/search', 'SearchController@index')->name('search');

@@ -16,14 +16,51 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li>
-            <a href="#">About</a>
+        <li class='menubar active'>
+          <a href="#">Cari Ide</a>
         </li>
-        <li>
-            <a href="#">Services</a>
+        <li class='menubar'>
+          <a href="#">Blog</a>
         </li>
-        <li>
-            <a href="#">Contact</a>
+        <li class='menubar'>
+            <a href="#">Trending</a>
+        </li>
+      </ul>
+      <ul class="nav navbar-nav pull-right">
+        <!-- User Account: style can be found in dropdown.less -->
+        <li class="dropdown user user-menu pull-right">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            <img src="http://lorempixel.com/100/100" class="user-image" alt="User Image">
+            <span class="hidden-xs">Alexander Pierce</span>
+          </a>
+          <ul class="dropdown-menu">
+            <!-- User image -->
+            <li class="user-header">
+              <img src="http://lorempixel.com/100/100" class="img-circle" alt="User Image">
+              <p>
+                Alexander Pierce - Web Developer
+                <small>Member since Nov. 2012</small>
+              </p>
+            </li>
+            <!-- Menu Body -->
+            <li class="user-body">
+              <div class="row">
+                <div class="col-xs-12 text-center">
+                  <a href="#">My Ideas</a>
+                </div>
+              </div>
+              <!-- /.row -->
+            </li>
+            <!-- Menu Footer-->
+            <li class="user-footer">
+              <div class="pull-left">
+                <a href="#" class="btn btn-default btn-flat">Profile</a>
+              </div>
+              <div class="pull-right">
+                <a href="#" class="btn btn-default btn-flat">Sign out</a>
+              </div>
+            </li>
+          </ul>
         </li>
       </ul>
     </div>
@@ -31,3 +68,4 @@
   </div>
   <!-- /.container -->
 </nav>
+
