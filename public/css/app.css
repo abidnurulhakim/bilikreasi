@@ -50,6 +50,7 @@ footer {
 .col-padding {
   padding: 0 6px;
 }
+
 a.fb {
   color: #4867aa;
 }
@@ -64,18 +65,68 @@ a.email {
 }
 .idea > .title > .subject {
   font-size : 18px;
+  font-weight: bold;
+}
+.idea > .action {
+  margin: 10px 0;
 }
 
-.img-idea-search {
+/*message*/
+.message {
+  padding: 6px;
+  display: inline-block;
+  overflow: hidden;
+}
+.message > .rightbar > .user > a {
+  color: #51AFAE;
+}
+.message.other{
+  float: left;
+}
+.message.owner{
+  float: right;
+}
+/*discuss*/
+.card-block.discusses {
+  max-height: 440px;
+  overflow-y: auto;
+  padding-bottom: 0;
+}
+hr.discuss {
+  margin: 10px 12px;
+  border-top: 0.5px solid #51AFAE;
+}
+
+/*img*/
+img.img-idea-search {
   max-height: 160px;
 }
 
-.img-user-search {
+img.img-creator-search {
   max-height: 100px;
 }
+
+img.img-idea {
+  max-width: 270px
+  max-height: 150px;
+}
+
+img.img-creator {
+  max-width: 150px
+  max-height: 150px;
+}
+
+img.img-user-xs {
+  max-width: 50px
+  max-height: 50px;
+}
+
 /*panel*/
 .left-sidebar .right-sidebar > .panel > .panel-body {
   padding: 5px 5px 15px 5px;
+}
+.panel.reason-join {
+  margin: 20px 0;
 }
 
 a.navbar-brand {
@@ -100,20 +151,20 @@ span > i {
 
 .btn-primary:hover {
   color: #51AFAE;
-  background-color: #eee;
+  background-color: #fff;
   border-color: #51AFAE;
 }
 
 .btn-primary:focus, .btn-primary.focus {
   color: #51AFAE;
-  background-color: #eee;
+  background-color: #fff;
   border-color: #51AFAE;
 }
 
 .btn-primary:active, .btn-primary.active,
 .open > .btn-primary.dropdown-toggle {
   color: #51AFAE;
-  background-color: #eee;
+  background-color: #fff;
   border-color: #51AFAE;
   background-image: none;
 }
@@ -123,7 +174,7 @@ span > i {
 .open > .btn-primary.dropdown-toggle:focus,
 .open > .btn-primary.dropdown-toggle.focus {
   color: #51AFAE;
-  background-color: #eee;
+  background-color: #fff;
   border-color: #51AFAE;
 }
 
@@ -263,6 +314,22 @@ ul.nav.navbar-nav > li.menubar.active > a{
 .list-group {
   padding-left: 0;
   margin-bottom: 0;
+}
+
+ul.list-group > a.list-group-item.discuss {
+  color: #51AFAE;
+  background-color: #fff;
+}
+
+ul.list-group > a.list-group-item.discuss.active {
+  color: #fff;
+  background-color: #51AFAE;
+}
+
+ul.list-group > a.list-group-item.discuss:hover,
+ul.list-group > a.list-group-item.discuss:focus {
+  color: #fff;
+  background-color: #51AFAE;
 }
 
 .list-group-item {

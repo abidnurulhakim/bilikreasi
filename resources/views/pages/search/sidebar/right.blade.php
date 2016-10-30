@@ -30,7 +30,7 @@
             </div>
           </div>
           <div class="col-md-2 col-padding">
-            <img class="img-responsive img-circle img-user-search" src="http://lorempixel.com/100/100">
+            <img class="img-responsive img-circle img-creator-search" src="http://lorempixel.com/100/100">
             <br>
             <div class="col-md-12 text-center">
               <a href="#" class="btn btn-primary">Baca</a>
@@ -65,7 +65,7 @@
             </div>
           </div>
           <div class="col-md-2 col-padding">
-            <img class="img-responsive img-circle img-user-search" src="http://lorempixel.com/100/100">
+            <img class="img-responsive img-circle img-creator-search" src="http://lorempixel.com/100/100">
             <br>
             <div class="col-md-12 text-center">
               <a href="#" class="btn btn-primary">Baca</a>
@@ -100,7 +100,7 @@
             </div>
           </div>
           <div class="col-md-2 col-padding">
-            <img class="img-responsive img-circle img-user-search" src="http://lorempixel.com/100/100">
+            <img class="img-responsive img-circle img-creator-search" src="http://lorempixel.com/100/100">
             <br>
             <div class="col-md-12 text-center">
               <a href="#" class="btn btn-primary">Baca</a>
@@ -135,7 +135,7 @@
             </div>
           </div>
           <div class="col-md-2 col-padding text-center">
-            <img class="img-responsive img-circle img-user-search" src="http://lorempixel.com/100/100">
+            <img class="img-responsive img-circle img-creator-search" src="http://lorempixel.com/100/100">
             <br>
             <div class="col-md-12 text-center">
               <a href="#" class="btn btn-primary">Baca</a>

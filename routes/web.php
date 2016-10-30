@@ -17,4 +17,10 @@ Route::resource('user', 'UserController', ['only' => [
     'show', 'edit', 'update'
 ]]);
 
-Route::get('/search', 'SearchController@index')->name('search');
+Route::get('search', 'SearchController@index')->name('search');
+
+Route::resource('idea', 'IdeaController');
+
+Route::resource('discuss', 'DiscussController', ['only' => [
+    'index', 'create', 'show', 'destroy'
+]]);
