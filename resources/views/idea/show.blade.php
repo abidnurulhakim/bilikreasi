@@ -1,4 +1,4 @@
-@extends('pages.idea.layout')
+@extends('idea.layout')
 @section('idea-content')
   <div class="col-md-12">
     <div class="card">

@@ -13,6 +13,7 @@ class Controller extends BaseController
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
     function __construct()
     {
+    	\View::share('pageHeader', true);
         \View::share('isLogin', false);
         \View::share('useMediaShare', true);
     }

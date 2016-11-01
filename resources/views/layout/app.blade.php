@@ -33,6 +33,7 @@
 
     <!-- Page Content -->
     <div class="container">
+      @include('layout.page-header')
       @yield('content')
       @include('layout.footer')
     </div>

@@ -21,9 +21,10 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function signup()
     {
-        //
+        \View::share('pageHeader', false);
+        return view('home.signup');
     }
 
     /**

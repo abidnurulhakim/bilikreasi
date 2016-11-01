@@ -1,4 +1,4 @@
-@extends('pages.discuss.layout')
+@extends('discuss.layout')
 @section('discuss-content')
   <div class="col-md-12">
         <!-- left -->

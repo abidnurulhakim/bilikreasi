@@ -14,6 +14,6 @@ class SearchController extends Controller
     public function index()
     {
     	\View::share('pageTitle', 'Cari Ide');
-        return view('pages.search.index');
+        return view('search.index');
     }
 }

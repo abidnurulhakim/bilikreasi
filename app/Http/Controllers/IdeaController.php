@@ -24,7 +24,9 @@ class IdeaController extends Controller
      */
     public function create()
     {
-        //
+        \View::share('pageTitle', 'Buat Ide Baru');
+        \View::share('useMediaShare', false);
+        return view('idea.create');
     }
 
     /**
@@ -48,7 +50,7 @@ class IdeaController extends Controller
     {
         \View::share('pageTitle', 'Detail Ide');
         \View::share('useMediaShare', false);
-        return view('pages.idea.show');
+        return view('idea.show');
     }
 
     /**
@@ -59,7 +61,9 @@ class IdeaController extends Controller
      */
     public function edit($id)
     {
-        //
+        \View::share('pageTitle', 'Edit Ide');
+        \View::share('useMediaShare', false);
+        return view('idea.edit');
     }
 
     /**

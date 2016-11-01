@@ -35,7 +35,7 @@ class DiscussController extends Controller
     public function show($id)
     {
         \View::share('pageTitle', 'Ruang Diskusi');
-        return view('pages.discuss.show');
+        return view('discuss.show');
     }
 
 

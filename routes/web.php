@@ -12,6 +12,7 @@
 */
 
 Route::get('/', 'HomeController@index')->name('home');
+Route::get('/signup', 'HomeController@signup')->name('signup');
 
 Route::resource('user', 'UserController', ['only' => [
     'show', 'edit', 'update'
