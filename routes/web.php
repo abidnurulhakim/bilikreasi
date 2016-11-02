@@ -13,6 +13,10 @@
 
 Route::get('/', 'HomeController@index')->name('home');
 Route::get('/signup', 'HomeController@signup')->name('signup');
+Route::post('/signup', 'SessionController@signup')->name('session.signup');
+Route::post('/signin', 'SessionController@signup')->name('session.signin');
+Route::get('/signout', 'SessionController@signout')->name('session.signout');
+
 
 Route::resource('user', 'UserController', ['only' => [
     'show', 'edit', 'update'

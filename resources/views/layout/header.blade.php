@@ -58,25 +58,25 @@
                   <a href="#" class="btn btn-default btn-flat">Profile</a>
                 </div>
                 <div class="pull-right">
-                  <a href="#" class="btn btn-default btn-flat">Sign out</a>
+                  <a href="#" class="btn btn-default btn-flat">Keluar</a>
                 </div>
               </li>
             </ul>
           </li>
         @else
           <li class='dropdown user-menu menubar-xs pull-right'>
-            <a href="#" class="login" data-toggle="dropdown">Sing In</a>
+            <a href="#" class="login" data-toggle="dropdown">Masuk</a>
             <ul class="dropdown-menu dropdown-login">
-              <form>
+              {!! Form::open(['route' => 'session.signin', 'method' => 'post']) !!}
                 <div class="form-group">
-                  <input class="form-control" type="text" name="" placeholder="Username/Email">
+                  {!! Form::text('email_username', old('email_username'), ['class' => 'form-control', 'placeholder' => 'Email/Username']) !!}
                 </div>
                 <div class="form-group">
-                  <input class="form-control" type="password" name="" placeholder="Password">
+                  {!! Form::password('password', ['class' => 'form-control', 'placeholder' => 'Password']) !!}
                 </div>
-                <a href="#" class="btn btn-primary">Sign Up</a>
-                <button type="submit" class="btn btn-primary pull-right">Sign In</button>
-              </form>
+                <a href="{{ route('session.signup') }}" class="btn btn-primary">Daftar</a>
+                {!! Form::submit('Masuk', ['class' => 'btn btn-primary pull-right']); !!}
+              {!! Form::close() !!}
             </ul>
           </li>
         @endif

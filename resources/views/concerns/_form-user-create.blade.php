@@ -1,42 +1,55 @@
-<form>
+{!! Form::model($user, ['route' => ['session.signup', $user->id], 'method' => 'post']) !!}
+  @if (count($errors) > 0)
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+  @endif
   <div class="form-group">
-    <label for="exampleInputEmail1">Email</label>
-    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="Nama Kamu" placeholder="Masukkan Email Kamu">
+    {!! Form::label('username', 'Username') !!}
+    {!! Form::text('username', null, ['class' => 'form-control', 'placeholder' => 'Masukkan Username Anda']) !!}
   </div>
   <div class="form-group">
-    <label for="exampleInputEmail1">Nama</label>
-    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="Nama Kamu" placeholder="Masukkan Nama Kamu">
+    {!! Form::label('email', 'Alamat Email') !!}
+    {!! Form::email('email', null, ['class' => 'form-control', 'placeholder' => 'Masukkan Alamat Email Anda']) !!}
   </div>
   <div class="form-group">
-    <label for="lgFormGroupInput" class="col-sm-12 form-label" style="padding-left: 0">Jenis Kelamin</label>
+    {!! Form::label('name', 'Nama') !!}
+    {!! Form::text('name', null, ['class' => 'form-control', 'placeholder' => 'Masukkan Nama Anda']) !!}
+  </div>
+  <div class="form-group">
+    {!! Form::label('gender', 'Jenis Kelamin', ['class' =>'col-sm-12 form-label', 'style' => 'padding-left: 0']) !!}
     <div class="form-check">
       <label class="form-check-inline">
-        <input class="form-check-input" type="radio" id="inlineCheckbox1" value="male"> Laki-laki
+        {!! Form::radio('gender', 'male', $user->isMale()) !!} Laki-laki
       </label>
       <label class="form-check-inline">
-        <input class="form-check-input" type="radio" id="inlineCheckbox2" value="female"> Perempuan
-      </label>    
-    </div>
-  </div>
-  <div class="form-group">
-    <label for="example-date-input">Tanggal Lahir</label>
-    <input class="form-control" type="date" value="2011-08-19" id="example-date-input">
-  </div>  
-  <div class="form-group">
-    <label for="exampleInputPassword1">Password</label>
-    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-  </div>
-  <div class="form-group">
-    <label for="exampleInputPassword1">Konfirmasi Password</label>
-    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Konfirmasi Password">
-  </div>
-  <div class="form-group">
-    <label for="lgFormGroupInput" class="col-sm-12 form-label" style="padding-left: 0">Term and Aggrement</label>
-    <div class="checkbox">
-      <label>
-        <input type="checkbox" value="1"> You can see term and agreement in this <a href="#">term and agreement</a>
+        {!! Form::radio('gender', 'female', $user->isFemale()) !!} Perempuan
       </label>
     </div>
   </div>
-  <button type="submit" class="btn btn-primary btn-lg">Sign Up</button>
-</form>
+  <div class="form-group">
+    {!! Form::label('birthday', 'Tanggal Lahir') !!}
+    {!! Form::date('birthday', null, ['class' => 'form-control']) !!}
+  </div>
+  <div class="form-group">
+    {!! Form::label('password', 'Password') !!}
+    {!! Form::password('password', ['class' => 'form-control']) !!}
+  </div>
+  <div class="form-group">
+    {!! Form::label('password_confirmation', 'Konfirmasi Password') !!}
+    {!! Form::password('password_confirmation', ['class' => 'form-control']) !!}
+  </div>
+  <div class="form-group">
+    {!! Form::label('term_agreement', 'Syarat & Ketentuan', ['class' =>'col-sm-12 form-label', 'style' => 'padding-left: 0']) !!}
+    <div class="checkbox">
+      <label class="form-check-inline">
+        {!! Form::checkbox('term_agreement', '1') !!} You can see term and agreement in this <a href="#">term and agreement</a>
+      </label>
+    </div>
+  </div>
+  {!! Form::submit('Daftar', ['class' => 'btn btn-primary btn-lg']); !!}
+{!! Form::close() !!}

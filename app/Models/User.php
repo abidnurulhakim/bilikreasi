@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use App\Models\Traits\AttachmentAble;
+use App\Models\Traits\Attachmentable;
 
 class User extends Authenticatable
 {
@@ -16,7 +16,8 @@ class User extends Authenticatable
         'photo_profile'
     ];
     protected $fillable = [
-        'name', 'email', 'password', 'confirmed', 'role', 'last_login_at', 'last_login_ip_address', 'birthday'
+        'name', 'email', 'password', 'confirmed', 'role', 'last_login_at',
+        'last_login_ip_address', 'birthday', 'username', 'gender'
     ];
     protected $hidden = [
         'password', 'reset_password',
@@ -66,6 +67,22 @@ class User extends Authenticatable
 
     public function isAdmin()
     {
-        $this->role == 'admin';
+        return $this->role == 'admin';
+    }
+
+    public function isMale()
+    {
+        return empty($this->gender) || $this->gender == 'male';
+    }
+
+    public function isFemale()
+    {
+        return $this->gender == 'female';
+    }
+
+    public function getBirthdayAttribute($value)
+    {
+        if (is_null($value)) return \Carbon\Carbon::now();
+        return $value;
     }
 }
