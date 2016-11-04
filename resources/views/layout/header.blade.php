@@ -9,7 +9,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="#">
+      <a class="navbar-brand" href="{{ route('home.index') }}">
         <img src="http://lorempixel.com/150/50" alt="">
       </a>
     </div>
@@ -28,16 +28,16 @@
       </ul>
       <ul class="nav navbar-nav pull-right">
         <!-- User Account: style can be found in dropdown.less -->
-        @if($isLogin)
+        @if(\Auth::check())
           <li class="dropdown user user-menu pull-right">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <img src="http://lorempixel.com/100/100" class="user-image" alt="User Image">
+              <img src="{{ \Auth::user()->getPhoto(100,100) }}" class="user-image" alt="User Image">
               <span class="hidden-xs">Alexander Pierce</span>
             </a>
             <ul class="dropdown-menu">
               <!-- User image -->
               <li class="user-header">
-                <img src="http://lorempixel.com/100/100" class="img-circle" alt="User Image">
+                <img src="{{ \Auth::user()->getPhoto(100,100) }}" class="img-circle" alt="User Image">
                 <p>
                   Alexander Pierce - Web Developer
                   <small>Member since Nov. 2012</small>
@@ -58,7 +58,7 @@
                   <a href="#" class="btn btn-default btn-flat">Profile</a>
                 </div>
                 <div class="pull-right">
-                  <a href="#" class="btn btn-default btn-flat">Keluar</a>
+                  <a href="{{ route('session.logout') }}" class="btn btn-default btn-flat">Keluar</a>
                 </div>
               </li>
             </ul>
@@ -67,14 +67,14 @@
           <li class='dropdown user-menu menubar-xs pull-right'>
             <a href="#" class="login" data-toggle="dropdown">Masuk</a>
             <ul class="dropdown-menu dropdown-login">
-              {!! Form::open(['route' => 'session.signin', 'method' => 'post']) !!}
+              {!! Form::open(['route' => 'session.login', 'method' => 'post']) !!}
                 <div class="form-group">
-                  {!! Form::text('email_username', old('email_username'), ['class' => 'form-control', 'placeholder' => 'Email/Username']) !!}
+                  {!! Form::text('username', old('username'), ['class' => 'form-control', 'placeholder' => 'Email/Username']) !!}
                 </div>
                 <div class="form-group">
                   {!! Form::password('password', ['class' => 'form-control', 'placeholder' => 'Password']) !!}
                 </div>
-                <a href="{{ route('session.signup') }}" class="btn btn-primary">Daftar</a>
+                <a href="{{ route('session.register') }}" class="btn btn-primary">Daftar</a>
                 {!! Form::submit('Masuk', ['class' => 'btn btn-primary pull-right']); !!}
               {!! Form::close() !!}
             </ul>

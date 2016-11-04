@@ -12,16 +12,21 @@ class User extends Authenticatable
     use AttachmentAble;
 
     protected $table = 'users';
-    protected $attachmentable = [
-        'photo_profile'
+    protected $attachment = [
+        'photo'
     ];
     protected $fillable = [
         'name', 'email', 'password', 'confirmed', 'role', 'last_login_at',
-        'last_login_ip_address', 'birthday', 'username', 'gender'
+        'last_login_ip_address', 'birthday', 'username', 'gender', 'photo',
+        'password'
     ];
-    protected $hidden = [
-        'password', 'reset_password',
-    ];
+
+    public static function boot()
+    {        
+        static::creating(function ($user) {
+            $user->password = \Hash::make($user->password);
+        });
+    }
 
     public function photo_profile()
     {

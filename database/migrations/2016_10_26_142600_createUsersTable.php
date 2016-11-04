@@ -22,8 +22,9 @@ class CreateUsersTable extends Migration
             $table->dateTime('birthday')->nullable();
             $table->string('password');
             $table->string('reset_password')->nullable();
+            $table->string('remember_token')->nullable();
             $table->boolean('confirmed')->default(false);
-            $table->bigInteger('photo_profile')->unsigned()->nullable();
+            $table->string('photo')->nullable();
             $table->string('role')->default('user');
             $table->timestamp('last_login_at')->nullable();
             $table->ipAddress('last_login_ip_address')->nullable();

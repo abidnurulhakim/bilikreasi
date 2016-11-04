@@ -19,7 +19,6 @@ class CreateIdeasTable extends Migration
             $table->string('name');
             $table->text('description')->nullable();
             $table->string('type');
-            $table->string('cover')->nullable();
             $table->integer('member_count')->unsigned()->default(0);
             $table->integer('like_count')->unsigned()->default(0);
             $table->integer('comment_count')->unsigned()->default(0);

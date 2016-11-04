@@ -11,11 +11,12 @@
 |
 */
 
-Route::get('/', 'HomeController@index')->name('home');
-Route::get('/signup', 'HomeController@signup')->name('signup');
-Route::post('/signup', 'SessionController@signup')->name('session.signup');
-Route::post('/signin', 'SessionController@signup')->name('session.signin');
-Route::get('/signout', 'SessionController@signout')->name('session.signout');
+Route::get('/', 'HomeController@index')->name('home.index');
+Route::get('/login', 'HomeController@login')->name('home.login');
+Route::post('/login', 'SessionController@login')->name('session.login');
+Route::get('/register', 'HomeController@register')->name('home.register');
+Route::post('/register', 'SessionController@register')->name('session.register');
+Route::get('/logout', 'SessionController@logout')->name('session.logout');
 
 
 Route::resource('user', 'UserController', ['only' => [

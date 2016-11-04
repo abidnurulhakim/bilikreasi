@@ -3,28 +3,36 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Http\Requests\UserRequest as UserRequest;
-use App\Models\User as User;
+use App\Http\Requests\User\LoginRequest;
+use App\Http\Requests\User\RegisterRequest;
+use App\Models\User;
 
 
 class SessionController extends Controller
 {
-    public function signin(Request $request)
+    public function login(LoginRequest $request)
     {
-        # code...
+        $user = User::where('email', $request->input('username'))->orWhere('username', $request->input('username'))->first();
+        if ($user && \Hash::check($request->input('password'), $user->getOriginal('password'))) {
+            \Auth::login($user);
+            return redirect()->route('home.index');
+        }
+        return redirect()->route('home.login');
     }
 
-    public function signup(UserRequest $request)
+    public function register(RegisterRequest $request)
     {
         $request->merge(['last_login_at' => \Carbon::now(), 'last_login_ip_address' => $request->ip()]);
         $user = User::create($request->all());
         if ($user->id) {
-            return 'berhasil';
+            \Auth::login($user);
+            return redirect()->route('home.index');
         }
     }
 
-    public function signout()
+    public function logout()
     {
-        return redirect()->route('home');
+        \Auth::logout();
+        return redirect()->route('home.index');
     }
 }

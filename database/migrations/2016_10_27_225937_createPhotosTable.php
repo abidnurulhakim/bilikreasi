@@ -16,11 +16,11 @@ class CreatePhotosTable extends Migration
         Schema::create('photos', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('idea_id')->unsigned();
-            $table->bigInteger('attachment_id')->unsigned();
+            $table->string('url');
             $table->timestamps();
             $table->softDeletes();
 
-            $table->index(['idea_id', 'attachment_id']);
+            $table->index(['idea_id']);
         });
     }
 

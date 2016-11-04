@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\User;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UserRequest extends FormRequest
+class RegisterRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -30,7 +30,7 @@ class UserRequest extends FormRequest
             'gender' => 'required|in:male,female',
             'birthday' => 'date|before:now',
             'password' => 'confirmed|min:8',
-            'term_agreement' => 'accepted'
+            'term_agreement' => 'accepted',
         ];
     }
 }
