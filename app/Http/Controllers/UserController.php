@@ -36,6 +36,7 @@ class UserController extends Controller
      */
     public function show($id)
     {
+        \View::share('pageTitle', 'Buat Ide Baru');
         return view('user.show');
     }
 

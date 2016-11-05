@@ -1,38 +1,70 @@
 <!-- Navigation -->
-<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse">
         <span class="sr-only">Toggle navigation</span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
       <a class="navbar-brand" href="{{ route('home.index') }}">
-        <img src="http://lorempixel.com/150/50" alt="">
+        <img src="http://lorempixel.com/150/50" alt="Bilikreasi">
       </a>
     </div>
     <!-- Collect the nav links, forms, and other content for toggling -->
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+    <div class="collapse navbar-collapse" id="navbar-collapse">
       <ul class="nav navbar-nav">
-        <li class='menubar active'>
-          <a href="#">Cari Ide</a>
+        <li class='dropdown category-idea'>
+          <a href="#" class="text-center" data-toggle="dropdown">Kategori</a>
+          <ul class="dropdown-menu">
+            <div class="list-group">
+              <a href="#" class="list-group-item"><i class="fa fa-money"></i> Usaha</a>
+              <a href="#" class="list-group-item"><i class="fa fa-users"></i> Komunitas</a>
+              <a href="#" class="list-group-item"><i class="fa fa-bullhorn"></i> Kampanye</a>
+              <a href="#" class="list-group-item"><i class="fa fa-suitcase"></i> Proyek</a>
+              <a href="#" class="list-group-item"><i class="fa fa-calendar"></i> Kegiatan</a>
+              <a href="#" class="list-group-item"><i class="fa fa-bars"></i> Lain</a>
+            </div>
+          </ul>
         </li>
-        <li class='menubar'>
-          <a href="#">Blog</a>
-        </li>
-        <li class='menubar'>
-          <a href="#">Trending</a>
+        <li class="search-input">
+          {!! Form::open(['url' => '/', 'method' => 'get']) !!}
+          <div class="input-group col-md-12">
+            {!! Form::text('q', old('q'), ['class' => 'form-control input-lg', 'placeholder' => 'Cari Ide']) !!}
+            <span class="input-group-btn">
+              <button type='submit' class="btn btn-lg" type="button">
+                <i class="fa fa-search"></i>
+              </button>
+            </span>
+          </div>
+          {!! Form::close() !!}
         </li>
       </ul>
-      <ul class="nav navbar-nav pull-right">
+      @if(\Auth::check())
+      <ul class="nav navbar-nav user-menu-mobile hidden-sm hidden-md hidden-lg">
+        <li class="list-group">
+          <a href="#" class="list-group-item"><i class="fa fa-money"></i> Usaha</a>
+          <a href="#" class="list-group-item"><i class="fa fa-users"></i> Komunitas</a>
+          <a href="#" class="list-group-item"><i class="fa fa-bullhorn"></i> Kampanye</a>
+          <a href="#" class="list-group-item"><i class="fa fa-suitcase"></i> Proyek</a>
+          <a href="#" class="list-group-item"><i class="fa fa-calendar"></i> Kegiatan</a>
+          <a href="#" class="list-group-item"><i class="fa fa-bars"></i> Lain</a>
+        </li>
+        <center>
+          <a href="{{ route('session.logout') }}" class="btn btn-primary btn-lg">Keluar</a>  
+        </center>
+      </ul>
+      @endif
+      <ul class="nav navbar-nav pull-right hidden-xs">
         <!-- User Account: style can be found in dropdown.less -->
         @if(\Auth::check())
-          <li class="dropdown user user-menu pull-right">
+          <li class="dropdown user-menu pull-right hidden-xs">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <img src="{{ \Auth::user()->getPhoto(100,100) }}" class="user-image" alt="User Image">
-              <span class="hidden-xs">Alexander Pierce</span>
+              <img src="{{ \Auth::user()->getPhoto(50) }}" class="img-circle" alt="User Image">
+              <span>Alexander Pierce</span>
+              <span class="fa fa-caret-down fa-inverse"></span>
             </a>
             <ul class="dropdown-menu">
               <!-- User image -->
@@ -45,27 +77,27 @@
               </li>
               <!-- Menu Body -->
               <li class="user-body">
-                <div class="row">
-                  <div class="col-xs-12 text-center">
-                    <a href="#">My Ideas</a>
-                  </div>
+                <div class="list-group">
+                  <a href="#" class="list-group-item"><i class="fa fa-money"></i> Usaha</a>
+                  <a href="#" class="list-group-item"><i class="fa fa-users"></i> Komunitas</a>
+                  <a href="#" class="list-group-item"><i class="fa fa-bullhorn"></i> Kampanye</a>
+                  <a href="#" class="list-group-item"><i class="fa fa-suitcase"></i> Proyek</a>
+                  <a href="#" class="list-group-item"><i class="fa fa-calendar"></i> Kegiatan</a>
+                  <a href="#" class="list-group-item"><i class="fa fa-bars"></i> Lain</a>
                 </div>
-                <!-- /.row -->
               </li>
               <!-- Menu Footer-->
-              <li class="user-footer">
-                <div class="pull-left">
-                  <a href="#" class="btn btn-default btn-flat">Profile</a>
-                </div>
-                <div class="pull-right">
-                  <a href="{{ route('session.logout') }}" class="btn btn-default btn-flat">Keluar</a>
-                </div>
+              <li class="user-footer text-center">
+                <a href="{{ route('session.logout') }}" class="btn btn-primary btn-lg">Keluar</a>
               </li>
             </ul>
           </li>
         @else
-          <li class='dropdown user-menu menubar-xs pull-right'>
-            <a href="#" class="login" data-toggle="dropdown">Masuk</a>
+          <li class="pull-right">
+            <a href="{{ route('home.register') }}" class="btn btn-primary">Daftar</a>  
+          </li>
+          <li class='dropdown pull-right'>
+            <a href="#" data-toggle="dropdown">Masuk</a>
             <ul class="dropdown-menu dropdown-login">
               {!! Form::open(['route' => 'session.login', 'method' => 'post']) !!}
                 <div class="form-group">
@@ -74,13 +106,13 @@
                 <div class="form-group">
                   {!! Form::password('password', ['class' => 'form-control', 'placeholder' => 'Password']) !!}
                 </div>
-                <a href="{{ route('session.register') }}" class="btn btn-primary">Daftar</a>
-                {!! Form::submit('Masuk', ['class' => 'btn btn-primary pull-right']); !!}
+                <center>
+                  {!! Form::submit('Masuk', ['class' => 'btn btn-primary btn-lg']); !!}
+                </center>
               {!! Form::close() !!}
             </ul>
           </li>
         @endif
-        
       </ul>
     </div>
     <!-- /.navbar-collapse -->

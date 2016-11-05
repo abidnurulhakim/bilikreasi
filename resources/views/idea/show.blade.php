@@ -4,7 +4,7 @@
     <div class="card">
       <div class="card-block">
         <!-- left -->
-        <div class="col-md-9 col-padding">
+        <div class="col-md-12 col-padding">
           <div class="col-md-12 no-padding page-header idea">
             <div class="col-md-4 col-padding">
               <center><img class="img-responsive img-rounded img-idea" src="http://lorempixel.com/270/160"></center>
@@ -27,7 +27,7 @@
                 @include('layout.media-shares')
               </div>
             </div>
-            <div class="col-md-2 col-padding">
+            <div class="col-md-1 col-padding">
               <a href="#"><img class="img-responsive img-circle img-creator" src="http://lorempixel.com/150/150"></a>
             </div>
           </div>
@@ -46,7 +46,7 @@
           </div>
         </div>
         <!-- right -->
-        <div class="col-md-3 col-padding">
+        <!-- <div class="col-md-3 col-padding">
           <div class="panel panel-danger reason-join">
             <div class="panel-heading">Kenapa Kamu Ingin Bergabung?</div>
             <div class="panel-body">
@@ -60,7 +60,7 @@
               </form>
             </div>
           </div>
-        </div>
+        </div> -->
       </div>
     </div>
   </div>

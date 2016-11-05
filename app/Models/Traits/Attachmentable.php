@@ -25,7 +25,7 @@ trait Attachmentable
             if (!empty($this->getOriginal($nameAttr)) && getimagesize($this->getOriginal($nameAttr))) {
                 
                 switch (sizeof($arguments)) {
-                    case 1:
+                    case 0:
                         $width = 300;
                         $height = 300;
                         break;
