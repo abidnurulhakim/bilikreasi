@@ -4,25 +4,24 @@ namespace App\Models;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use App\Models\Traits\Attachmentable;
+use App\Models\Traits\AttachableTrait;
 
 class User extends Authenticatable
 {
-    use SoftDeletes;
-    use AttachmentAble;
+    use AttachableTrait, SoftDeletes;
 
     protected $table = 'users';
-    protected $attachment = [
+    public $attachmentable = [
         'photo'
     ];
     protected $fillable = [
         'name', 'email', 'password', 'confirmed', 'role', 'last_login_at',
         'last_login_ip_address', 'birthday', 'username', 'gender', 'photo',
-        'password'
+        'password', 'phone_number'
     ];
 
     public static function boot()
-    {        
+    {
         static::creating(function ($user) {
             $user->password = \Hash::make($user->password);
         });
@@ -87,7 +86,17 @@ class User extends Authenticatable
 
     public function getBirthdayAttribute($value)
     {
-        if (is_null($value)) return \Carbon\Carbon::now();
+        if (is_null($value)) return \Carbon\Carbon::now()->toDateString();
         return $value;
+    }
+
+    public function skills()
+    {
+        return $this->hasMany('App\Models\UserSkill', 'user_id');
+    }
+
+    public function interests()
+    {
+        return $this->hasMany('App\Models\UserInterest', 'user_id');
     }
 }

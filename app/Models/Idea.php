@@ -11,7 +11,7 @@ class Idea extends Model
 	
     protected $table = 'ideas';
     protected $fillable = [
-        'user_id', 'name', 'description', 'type', 'cover'
+        'user_id', 'title', 'slug', 'description', 'type', 'cover'
     ];
 
     public function user()
@@ -52,5 +52,10 @@ class Idea extends Model
     public function photos()
     {
         return $this->hasMany('App\Models\Photo', 'idea_id');
+    }
+
+    public function tags()
+    {
+        return $this->hasMany('App\Models\IdeaTag', 'idea_id');
     }
 }

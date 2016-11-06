@@ -4,9 +4,6 @@
       <div class="title">
         {{ $pageTitle }}
       </div>
-      @if($useMediaShare)
-        @include('layout.media-shares')
-      @endif
     </div>
   </div>
 @endif

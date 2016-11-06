@@ -9,14 +9,14 @@ use App\Models\Traits\AttachmentAble;
 class Photo extends Model
 {
     use SoftDeletes;
-    use AttachmentAble;
+    use Attachmentable;
 
     protected $table = 'photos';
-    protected $attachmentable = [
-        'attachment_id'
+    public $attachmentable = [
+        'url'
     ];
     protected $fillable = [
-        'idea_id', 'attchment_id'
+        'idea_id', 'url'
     ];
 
     public function idea()

@@ -63,7 +63,7 @@
           <li class="dropdown user-menu pull-right hidden-xs">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <img src="{{ \Auth::user()->getPhoto(50) }}" class="img-circle" alt="User Image">
-              <span>Alexander Pierce</span>
+              <span>{{ \Auth::user()->name }}</span>
               <span class="fa fa-caret-down fa-inverse"></span>
             </a>
             <ul class="dropdown-menu">
@@ -71,19 +71,16 @@
               <li class="user-header">
                 <img src="{{ \Auth::user()->getPhoto(100,100) }}" class="img-circle" alt="User Image">
                 <p>
-                  Alexander Pierce - Web Developer
+                  {{ \Auth::user()->name }}
                   <small>Member since Nov. 2012</small>
                 </p>
               </li>
               <!-- Menu Body -->
               <li class="user-body">
                 <div class="list-group">
-                  <a href="#" class="list-group-item"><i class="fa fa-money"></i> Usaha</a>
-                  <a href="#" class="list-group-item"><i class="fa fa-users"></i> Komunitas</a>
-                  <a href="#" class="list-group-item"><i class="fa fa-bullhorn"></i> Kampanye</a>
-                  <a href="#" class="list-group-item"><i class="fa fa-suitcase"></i> Proyek</a>
-                  <a href="#" class="list-group-item"><i class="fa fa-calendar"></i> Kegiatan</a>
-                  <a href="#" class="list-group-item"><i class="fa fa-bars"></i> Lain</a>
+                  <a href="#" class="list-group-item"><i class="fa fa-home"></i> Beranda</a>
+                  <a href="#" class="list-group-item"><i class="fa fa-bell"></i> Notifikasi</a>
+                  <a href="{{ route('user.edit', \Auth::user()->username) }}" class="list-group-item"><i class="fa fa-pencil"></i> Edit Profil</a>
                 </div>
               </li>
               <!-- Menu Footer-->

@@ -16,9 +16,12 @@ class CreateIdeasTable extends Migration
         Schema::create('ideas', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id')->unsigned();
-            $table->string('name');
+            $table->string('title');
+            $table->string('slug')->unique();
             $table->text('description')->nullable();
             $table->string('type');
+            $table->string('status');
+            $table->text('cover')->nullable();
             $table->integer('member_count')->unsigned()->default(0);
             $table->integer('like_count')->unsigned()->default(0);
             $table->integer('comment_count')->unsigned()->default(0);
