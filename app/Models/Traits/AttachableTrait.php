@@ -6,21 +6,24 @@ trait AttachableTrait
 {
     public static function bootAttachableTrait()
     {
-        static::saving(function ($model) {            
-            foreach ($model->attachmentable as $field) {
-                if (get_class($model->$field) == 'Illuminate\Http\UploadedFile') {
-                    $fileName = uniqid().'.'.$model->$field->extension();
-                    if ($model->$field->move("attachments", $fileName)) {
-                        $oldFile = $model->getOriginal($field);
-                        $model->$field = "attachments/".$fileName;
-                        if (!empty($oldFile)) {
-                            $part = preg_split('~\.(?=[^\.]*$)~', $oldFile);
-                            array_map('unlink', glob($part[0].'-*'));
-                            unlink($oldFile);
+        static::saving(function ($model) {
+            if ($model->isDirty()) {
+                foreach ($model->attachmentable as $field) {
+                    if (get_class($model->$field) == 'Illuminate\Http\UploadedFile') {
+                        $fileName = uniqid().'.'.$model->$field->extension();
+                        if ($model->$field->move("attachments", $fileName)) {
+                            $oldFile = $model->getOriginal($field);
+                            $model->$field = "attachments/".$fileName;
+                            if (!empty($oldFile)) {
+                                $part = preg_split('~\.(?=[^\.]*$)~', $oldFile);
+                                array_map('unlink', glob($part[0].'-*'));
+                                unlink($oldFile);
+                            }
                         }
                     }
                 }
-            }
+            }            
+            
         });
     }
 

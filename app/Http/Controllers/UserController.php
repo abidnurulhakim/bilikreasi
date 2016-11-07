@@ -92,7 +92,6 @@ class UserController extends Controller
         }
         // dump($user->photo->move('attachments', 'asal.jpg'));
         if ($user->save()) {
-            // dd($request->all());
             $userSkills = $user->skills;
             $userInterests = $user->interests;
             $user->skills()->delete();

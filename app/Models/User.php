@@ -25,6 +25,7 @@ class User extends Authenticatable
         static::creating(function ($user) {
             $user->password = \Hash::make($user->password);
         });
+        static::bootAttachableTrait();
     }
 
     public function photo_profile()
