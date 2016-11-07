@@ -18,15 +18,21 @@ Route::get('/register', 'HomeController@register')->name('home.register');
 Route::post('/register', 'SessionController@register')->name('session.register');
 Route::get('/logout', 'SessionController@logout')->name('session.logout');
 
-
+/*route for user*/
+Route::get('user/{username}/change-password', 'UserController@editPassword')->name('user.edit-password');
+Route::post('user/{username}/change-password', 'UserController@updatePassword')->name('user.update-password');
 Route::resource('user', 'UserController', ['only' => [
     'show', 'edit', 'update'
 ]]);
 
-Route::get('search', 'SearchController@index')->name('search');
-
+/*route for idea*/
 Route::resource('idea', 'IdeaController');
 
+/*route for search*/
+Route::get('search', 'SearchController@index')->name('search');
+
+
+/*route for discuss*/
 Route::resource('discuss', 'DiscussController', ['only' => [
     'index', 'create', 'show', 'destroy'
 ]]);

@@ -80,7 +80,8 @@
                 <div class="list-group">
                   <a href="#" class="list-group-item"><i class="fa fa-home"></i> Beranda</a>
                   <a href="#" class="list-group-item"><i class="fa fa-bell"></i> Notifikasi</a>
-                  <a href="{{ route('user.edit', \Auth::user()->username) }}" class="list-group-item"><i class="fa fa-pencil"></i> Edit Profil</a>
+                  <a href="{{ route('user.edit', \Auth::user()->username) }}" class="list-group-item"><i class="fa fa-pencil"></i> Perbaharui Profil</a>
+                  <a href="{{ route('user.edit-password', \Auth::user()->username) }}" class="list-group-item"><i class="fa fa-key"></i> Ganti Password</a>
                 </div>
               </li>
               <!-- Menu Footer-->

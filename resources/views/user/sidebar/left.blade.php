@@ -1,19 +1,21 @@
 <div class="col-md-4">
   <div class="card">
-    <div class="card-header profile text-center">Profiles</div>
+    <div class="card-header profile text-center">Profil Saya</div>
     <div class="card-block">
       <ul class="list-group">
-        <li class="list-group-item"><i class="fa fa-home fa-lg"></i> Live at Bandung</li>
-        <li class="list-group-item"><i class="fa fa-heart fa-lg"></i> Single</li>
-        <li class="list-group-item"><i class="fa fa-map-marker fa-lg"></i> From Bandung</li>
-        <li class="list-group-item"><i class="fa fa-podcast fa-lg"></i> 200 Ideas</li>
-      </ul>
-      <h4 class='text-center text-primary'><b>Members of</b></h4>
-      <ul class="list-group">
-        <a href="#" class="list-group-item member">Ayo Jalan Sehat</a>
-        <a href="#" class="list-group-item member">Gerakan Sumpah Pemuda</a>
-        <a href="#" class="list-group-item member">Gerakan 1000 StartUp</a>
-        <a href="#" class="list-group-item member">Komunitas Anak Bandung</a>
+        <li class="list-group-item"><i class="fa fa-user fa-lg"></i> {{ $user->name }}</li>
+        <li class="list-group-item"><i class="fa fa-heart fa-lg"></i>
+        @foreach($user->interests as $interest)
+          <span class="label label-primary">{{ $interest->name }}</span>
+        @endforeach
+        </li>
+        <li class="list-group-item"><i class="fa fa-gears fa-lg"></i>
+        @foreach($user->skills as $skill)
+          <span class="label label-primary">{{ $skill->name }}</span>
+        @endforeach
+        </li>
+        <li class="list-group-item"><i class="fa fa-suitcase fa-lg"></i> {{ $user->profession }}</li>
+        <li class="list-group-item"><i class="fa fa-map-marker fa-lg"></i> {{ $user->live_at }}</li>
       </ul>
     </div>
   </div>

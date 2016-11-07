@@ -9,11 +9,11 @@ trait AttachableTrait
         static::saving(function ($model) {
             if ($model->isDirty()) {
                 foreach ($model->attachmentable as $field) {
-                    if (get_class($model->$field) == 'Illuminate\Http\UploadedFile') {
+                    if (gettype($model->$field) == 'object' && get_class($model->$field) == 'Illuminate\Http\UploadedFile') {
                         $fileName = uniqid().'.'.$model->$field->extension();
-                        if ($model->$field->move("attachments", $fileName)) {
+                        if ($model->$field->move(public_path('attachments'), $fileName)) {
                             $oldFile = $model->getOriginal($field);
-                            $model->$field = "attachments/".$fileName;
+                            $model->$field = 'attachments/'.$fileName;
                             if (!empty($oldFile)) {
                                 $part = preg_split('~\.(?=[^\.]*$)~', $oldFile);
                                 array_map('unlink', glob($part[0].'-*'));
@@ -49,10 +49,12 @@ trait AttachableTrait
                         return parent::__call($method, $arguments);
                         break;
                 }
-                $img = \Image::make($this->getOriginal($nameAttr))->resize($width, $height);
                 $part = preg_split('~\.(?=[^\.]*$)~', $this->getOriginal($nameAttr));
-                $img->save($part[0].'-'.$width.'x'.$height.'.'.$part[1], 100);
-                return $part[0].'-'.$width.'x'.$height.'.'.$part[1];
+                if (!file_exists($part[0].'-'.$width.'x'.$height.'.'.$part[1])) {
+                    $img = \Image::make($this->getOriginal($nameAttr))->resize($width, $height);
+                    $img->save($part[0].'-'.$width.'x'.$height.'.'.$part[1], 100);
+                }
+                return asset($part[0].'-'.$width.'x'.$height.'.'.$part[1]);
             }
             else {
                 switch (sizeof($arguments)) {

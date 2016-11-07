@@ -17,16 +17,8 @@ class User extends Authenticatable
     protected $fillable = [
         'name', 'email', 'password', 'confirmed', 'role', 'last_login_at',
         'last_login_ip_address', 'birthday', 'username', 'gender', 'photo',
-        'password', 'phone_number'
+        'password', 'phone_number', 'profession', 'live_at'
     ];
-
-    public static function boot()
-    {
-        static::creating(function ($user) {
-            $user->password = \Hash::make($user->password);
-        });
-        static::bootAttachableTrait();
-    }
 
     public function photo_profile()
     {
@@ -99,5 +91,10 @@ class User extends Authenticatable
     public function interests()
     {
         return $this->hasMany('App\Models\UserInterest', 'user_id');
+    }
+
+    public function setPasswordAttribute($value)
+    {
+        $this->attributes['password'] = \Hash::make($value);
     }
 }

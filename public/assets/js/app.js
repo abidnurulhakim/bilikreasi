@@ -22,8 +22,8 @@
                         js : path.plugins + 'moment/js/moment.min.js'
                       },
     _fileinput      : { 
-                        css : path.plugins + 'krajee-file-input/css/fileinput.min.css',
-                        js : path.plugins + 'krajee-file-input/js/fileinput.min.js'
+                        css : path.plugins + 'kartik/file-input/css/fileinput.min.css',
+                        js : path.plugins + 'kartik/file-input/js/fileinput.min.js'
                       },
     _typeahead      : { 
                         js : path.plugins + 'typeahead/js/typeahead.jquery.min.js',
@@ -36,6 +36,10 @@
                         css : path.plugins + 'bootstrap/css/bootstrap-tagsinput.css',
                         js : path.plugins + 'bootstrap/js/bootstrap-tagsinput.js'
                       },
+    _navtab         : { 
+                        css : path.plugins + 'kartik/tabs-x/css/bootstrap-tabs-x.min.css',
+                        js : path.plugins + 'kartik/tabs-x/js/bootstrap-tabs-x.min.js'
+                      },
   };
 
   var Site = {
@@ -43,6 +47,7 @@
       Site.moment();
       Site.fileInput();
       Site.typeahead();
+      Site.navtab();
     },
     moment : function() {
       if ($('input[type="date"].date-time-picker').length > 0) {
@@ -94,8 +99,7 @@
                   assets._fileinput.css,
                   assets._fileinput.js
           ],
-          complete : function() {
-            console.log('ac');
+          complete : function() { 
             $('input[type="file"]').each(function(index){
               var arr = [];
               if ($(this).data('initial-preview-url')) {
@@ -104,9 +108,10 @@
                   arr.push({showCaption: false, width: "120px", key: i, showDelete: false, showZoom:false});
                 }
               }
+              console.log($(this).data('initial-preview-url'))
               $(this).fileinput({
                 initialPreview: $(this).data('initial-preview-url'),
-                initialPreviewAsData: $(this).data('initial-preview-as-data'),
+                initialPreviewAsData: true,
                 initialPreviewConfig: arr,
                 maxFileCount: $(this).data('max-file-count'),
                 maxFileSize: $(this).data('max-file-size'),
@@ -161,6 +166,16 @@
           
         }
       });
+    },
+    navtab : function() {
+      if ($('.tabs-x').length > 0) {
+        Modernizr.load({
+          load  : [
+                  assets._navtab.css,
+                  assets._navtab.js,
+          ],
+        });
+      }
     },
   };
 
