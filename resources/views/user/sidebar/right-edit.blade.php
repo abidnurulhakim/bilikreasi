@@ -1,4 +1,4 @@
-<div class="col-md-8">
+<div class="col-md-9">
   <div class="card">
     <div class="card-header profile text-center">Perbaharui Profil</div>
     <div class="card-block">

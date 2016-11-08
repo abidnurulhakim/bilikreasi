@@ -6,12 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Models\Traits\AttachmentAble;
 
-class Photo extends Model
+class IdeaPhoto extends Model
 {
     use SoftDeletes;
     use Attachmentable;
 
-    protected $table = 'photos';
+    protected $table = 'idea_photos';
     public $attachmentable = [
         'url'
     ];

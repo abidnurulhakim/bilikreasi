@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Tag;
 
 class IdeaController extends Controller
 {
@@ -25,8 +26,10 @@ class IdeaController extends Controller
     public function create()
     {
         \View::share('pageTitle', 'Buat Ide Baru');
-        \View::share('useMediaShare', false);
-        return view('idea.create');
+        $tags = Tag::publish()->get()->map(function($tag) {
+            return $tag->name; })->toArray();
+
+        return view('idea.create', compact('tags'));
     }
 
     /**
@@ -49,7 +52,6 @@ class IdeaController extends Controller
     public function show($id)
     {
         \View::share('pageTitle', 'Detail Ide');
-        \View::share('useMediaShare', false);
         return view('idea.show');
     }
 
@@ -62,7 +64,6 @@ class IdeaController extends Controller
     public function edit($id)
     {
         \View::share('pageTitle', 'Edit Ide');
-        \View::share('useMediaShare', false);
         return view('idea.edit');
     }
 

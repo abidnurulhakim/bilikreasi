@@ -1,29 +1,20 @@
-<form class="form-horizontal">
-    <label for="inputEmail3" class="col-sm-2 col-form-label">Nama Ide</label>
-    <div class="col-sm-10">
-      <input type="text" class="form-control" id="inputEmail3" placeholder="Nama Ide Anda">
+{!! Form::open(['route' => ['idea.store'], 'method' => 'POST', 'files' => true]) !!}
+  @if (count($errors) > 0)
+    <div class="alert alert-danger">
+      <ul>
+        @foreach ($errors->all() as $error)
+          <li>{{ $error }}</li>
+        @endforeach
+      </ul>
     </div>
-  </div>
-  <div class="form-group row">
-    <label for="inputEmail3" class="col-sm-2 col-form-label">Deskripsi</label>
-    <div class="col-sm-10">
-      <textarea class="form-control" rows="6" placeholder="Deskripsi Ide Anda"></textarea>
-    </div>
-  </div>
-  <div class="form-group">
-    <label for="inputEmail3" class="col-sm-2 col-form-label">Tipe</label>
-    <div class="col-sm-10">
-      <select class="form-control form-control-lg">
-        <option disabled selected>Tipe Idea Kamu</option>
-        <option>Komunitas</option>
-        <option>Organisasi</option>
-      </select>
-    </div>
-  </div>
-  <div class="form-group">
-    <label for="inputEmail3" class="col-sm-2 col-form-label">Attachment</label>
-    <div class="col-sm-10">
-      <input type="file" name="" multiple>
-    </div>
-  </div>
-</form>
+  @endif
+  {!! Form::formText('title', null, ['label' => 'Judul Ide', 'placeholder' => 'Judul Ide'] ) !!}
+  {!! Form::formTextArea('description', null, ['label' => 'Deskripsi Ide', 'placeholder' => 'Deskripsi Idea'] ) !!}
+  {!! Form::formFile('cover', null, ['label' => 'Gambar Cover Ide', 'placeholder' => 'Gambar Ide', 'data-max-file-count' => '1', 'data-max-file-size' => '2048', 'data-allowed-file-types' => '["image", "video"]'] ) !!}
+  {!! Form::formSelect('category', \App\Models\Idea::CATEGORY, ['label' => 'Kategori Ide','placeholder' => 'Kategori Ide'] ) !!}
+  {!! Form::formTags('tags', null, ['label' => 'Tag Ide', 'collection' => $tags]) !!}
+  {!! Form::formText('location', null, ['label' => 'Lokasi', 'placeholder' => 'Lokasi Ide Diadakan'] ) !!}
+  {!! Form::formSelect('status', \App\Models\Idea::STATUS, ['label' => 'Status Ide','placeholder' => 'Status Ide'] ) !!}
+  {!! Form::formFile('media', null, ['label' => 'Gambar/Video', 'placeholder' => 'Gambar/Video', 'data-max-file-count' => '5', 'data-max-file-size' => '10120', 'data-allowed-file-types' => '["image", "video"]'] ) !!}
+  {!! Form::submit('Buat Ide', ['class' => 'btn btn-primary btn-lg']); !!}
+{!! Form::close() !!}

@@ -46,7 +46,8 @@ class UserController extends Controller
     {
         \View::share('pageTitle', 'Buat Ide Baru');
         $user = User::where('username', $username)->first();
-        return view('user.show', compact('user'));
+        $ideas = $user->memberOf;
+        return view('user.show', compact('user', 'ideas'));
     }
 
     /**

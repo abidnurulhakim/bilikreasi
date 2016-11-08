@@ -1179,6 +1179,20 @@ a.user-menu-mobile {
   padding: 0;
 }
 
+.dropdown-menu.inner li a {
+  color: #51afae;
+}
+
+.dropdown-menu.inner li.active a {
+  color: #fff;
+  background: #51afae;
+}
+
+.dropdown-menu.inner li:hover a {
+  color: #fff;
+  background: #51afae;
+}
+
 /*
  * Component: Typography
  * -------------------
@@ -1273,4 +1287,11 @@ h6.header-index {
   background-color: #428bca;
 }
 
-
+/*
+ * Component: Tab
+ * -------------------
+ */
+.tab-height-lg .tab-content {
+  height: 100% !important;
+  overflow: auto;
+}

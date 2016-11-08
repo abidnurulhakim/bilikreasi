@@ -1,4 +1,4 @@
-<div class="col-md-4">
+<div class="col-md-3">
   <div class="card">
     <div class="card-header profile text-center">Profil Saya</div>
     <div class="card-block">

@@ -8,7 +8,22 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Idea extends Model
 {
     use SoftDeletes;
-	
+
+    const CATEGORY = [
+        'business' => 'Usaha Profitable (Bisnis Mikro, Startup, dll)',
+        'campaign' => 'Aksi/Gerakan/Campaign',
+        'community' => 'Komunitas/Kelompok Sosial/Organisasi',
+        'project' => 'Proyek/Riset',
+        'event' => 'Acara',
+        'other' => 'Lainnya'
+    ];
+
+    const STATUS = [
+        'ready' => 'Mulai',
+        'ongoing' => 'Berlangsung',
+        'finish' => 'Selesai',
+    ];
+
     protected $table = 'ideas';
     protected $fillable = [
         'user_id', 'title', 'slug', 'description', 'type', 'cover'
@@ -39,11 +54,6 @@ class Idea extends Model
         return $this->belongsToMany('App\Models\User', 'members', 'idea_id', 'user_id');
     }
 
-    public function cover()
-    {
-        return $this->hasOne('App\Models\Attachment', 'id', 'cover')->first()->url;
-    }
-
     public function isMember(App\Models\User $user)
     {
     	is_empty($this->members()->where('user_id', $user->id)->first());
@@ -57,5 +67,10 @@ class Idea extends Model
     public function tags()
     {
         return $this->hasMany('App\Models\IdeaTag', 'idea_id');
+    }
+
+    public function getRouteKeyName()
+    {
+        return 'slug';
     }
 }

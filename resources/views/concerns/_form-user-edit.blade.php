@@ -8,7 +8,7 @@
       </ul>
     </div>
   @endif
-  {!! Form::formFile('photo', null, ['placeholder' => 'Foto Anda', 'data-initial-preview-url' => '["'.$user->getPhoto().'"]', 'data-file-count' => '1'] ) !!}
+  {!! Form::formFile('photo', null, ['placeholder' => 'Foto Anda', 'data-initial-preview-url' => '["'.$user->getPhoto().'"]', 'data-max-file-count' => '1', 'data-max-file-size' => '2048', 'data-allowed-file-types' => '["image", "video"]'] ) !!}
   {!! Form::formText('name', null, ['label' => 'Nama', 'placeholder' => 'Nama Anda'] ) !!}
   {!! Form::formRadio('gender', ['male' => 'Laki-laki', 'female' => 'Perempuan'], ['label' => 'Jenis Kelamin', 'checked' => 'male']) !!}
   {!! Form::formBirthDate('birthday', null, ['label' => 'Tanggal Lahir']) !!}

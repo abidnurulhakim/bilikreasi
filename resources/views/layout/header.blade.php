@@ -78,10 +78,10 @@
               <!-- Menu Body -->
               <li class="user-body">
                 <div class="list-group">
-                  <a href="#" class="list-group-item"><i class="fa fa-home"></i> Beranda</a>
-                  <a href="#" class="list-group-item"><i class="fa fa-bell"></i> Notifikasi</a>
-                  <a href="{{ route('user.edit', \Auth::user()->username) }}" class="list-group-item"><i class="fa fa-pencil"></i> Perbaharui Profil</a>
-                  <a href="{{ route('user.edit-password', \Auth::user()->username) }}" class="list-group-item"><i class="fa fa-key"></i> Ganti Password</a>
+                  <a href="{{ route('user.show', auth()->user()->username) }}" class="list-group-item"><i class="fa fa-home"></i> Beranda</a>
+                  <a href="{{ route('idea.create') }}" class="list-group-item"><i class="fa fa-lightbulb-o"></i> Buat Ide Baru</a>
+                  <a href="{{ route('user.edit', auth()->user()->username) }}" class="list-group-item"><i class="fa fa-pencil"></i> Perbaharui Profil</a>
+                  <a href="{{ route('user.edit-password', auth()->user()->username) }}" class="list-group-item"><i class="fa fa-key"></i> Ganti Password</a>
                 </div>
               </li>
               <!-- Menu Footer-->

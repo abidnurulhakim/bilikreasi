@@ -40,6 +40,10 @@
                         css : path.plugins + 'kartik/tabs-x/css/bootstrap-tabs-x.min.css',
                         js : path.plugins + 'kartik/tabs-x/js/bootstrap-tabs-x.min.js'
                       },
+    _selectpicker   : { 
+                        css : path.plugins + 'select-picker/css/bootstrap-select.min.css',
+                        js : path.plugins + 'select-picker/js/bootstrap-select.min.js'
+                      },
   };
 
   var Site = {
@@ -48,6 +52,7 @@
       Site.fileInput();
       Site.typeahead();
       Site.navtab();
+      Site.selectPicker();
     },
     moment : function() {
       if ($('input[type="date"].date-time-picker').length > 0) {
@@ -105,12 +110,13 @@
               if ($(this).data('initial-preview-url')) {
                 var initPreview = $(this).data('initial-preview-url');
                 for (var i = 0; i < initPreview.length; i++) {
-                  arr.push({showCaption: false, width: "120px", key: i, showDelete: false, showZoom:false});
+                  arr.push({showCaption: false, width: "120px", key: i, showZoom:false});
                 }
               }
-              console.log($(this).data('initial-preview-url'))
               $(this).fileinput({
                 initialPreview: $(this).data('initial-preview-url'),
+                showUpload: false,
+                showDrag: true,
                 initialPreviewAsData: true,
                 initialPreviewConfig: arr,
                 maxFileCount: $(this).data('max-file-count'),
@@ -173,6 +179,16 @@
           load  : [
                   assets._navtab.css,
                   assets._navtab.js,
+          ],
+        });
+      }
+    },
+    selectPicker : function() {
+      if ($('.selectpicker').length > 0) {
+        Modernizr.load({
+          load  : [
+                  assets._selectpicker.css,
+                  assets._selectpicker.js,
           ],
         });
       }

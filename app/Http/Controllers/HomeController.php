@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\User as User;
 
 class HomeController extends Controller
 {
@@ -37,8 +36,7 @@ class HomeController extends Controller
     public function register()
     {
         \View::share('pageHeader', false);
-        $user = new User();
-        return view('home.register', compact('user'));
+        return view('home.register');
     }
 
 }

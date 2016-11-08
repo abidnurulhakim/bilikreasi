@@ -11,5 +11,5 @@
     }
   ?>
   {{ Form::label($name, $labelName) }}
-  {{ Form::file($name, array_merge(['class' => 'form-control'], $attributes)) }}
+  {{ Form::file($name, array_merge(['class' => 'form-control', 'multiple' => 'true'], $attributes)) }}
 </div>

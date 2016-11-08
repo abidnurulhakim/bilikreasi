@@ -1,4 +1,4 @@
-{!! Form::model($user, ['route' => ['session.register', $user->id], 'method' => 'post']) !!}
+{!! Form::open(['route' => ['session.register'], 'method' => 'POST']) !!}
   @if (count($errors) > 0)
     <div class="alert alert-danger">
       <ul>

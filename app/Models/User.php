@@ -5,6 +5,8 @@ namespace App\Models;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Models\Traits\AttachableTrait;
+use App\Models\Discuss;
+use App\Models\Idea;
 
 class User extends Authenticatable
 {
@@ -30,7 +32,7 @@ class User extends Authenticatable
         return $this->hasMany('App\Models\Idea', 'user_id');
     }
 
-    public function comments(App\Model\Idea $idea = null)
+    public function comments(Idea $idea = null)
     {
         $query = $this->hasMany('App\Models\Comment', 'user_id');
         if (is_empty($idea)) {
@@ -39,7 +41,7 @@ class User extends Authenticatable
         return $query->where('idea_id', $idea->id);
     }
 
-    public function likes(App\Model\Idea $idea = null)
+    public function likes(Idea $idea = null)
     {
         $query = $this->hasMany('App\Models\Like', 'user_id');
         if (is_empty($idea)) {
@@ -53,7 +55,7 @@ class User extends Authenticatable
         return $this->belongsToMany('App\Models\Idea', 'members', 'user_id', 'idea_id');
     }
 
-    public function messages(App\Model\Discuss $discuss = null)
+    public function messages(Discuss $discuss = null)
     {
         $query = $this->hasMany('App\Models\Message', 'user_id');
         if (is_empty($discuss)) {
@@ -96,5 +98,10 @@ class User extends Authenticatable
     public function setPasswordAttribute($value)
     {
         $this->attributes['password'] = \Hash::make($value);
+    }
+
+    public function getRouteKeyName()
+    {
+        return 'username';
     }
 }
