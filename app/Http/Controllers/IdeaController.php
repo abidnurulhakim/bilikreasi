@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Idea;
 use App\Models\IdeaPhoto;
+use App\Models\IdeaTag;
 use App\Models\Tag;
 use App\Http\Requests\Idea\CreateRequest;
 use Illuminate\Http\Request;
@@ -51,8 +52,12 @@ class IdeaController extends Controller
             foreach ($photos as $photo) {
                 IdeaPhoto::create(['idea_id' => $idea->id, 'url' => $photo]);
             }
+            $tags = explode(',', $request->get('tag'));
+            foreach ($tags as $tag) {
+                IdeaTag::create(['idea_id' => $idea->id, 'name' => $tag]);
+            }
         }
-        dd($idea);
+        return redirect()->route('idea.show', $idea);
     }
 
     /**
@@ -73,10 +78,19 @@ class IdeaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($slug)
     {
         \View::share('pageTitle', 'Edit Ide');
-        return view('idea.edit');
+        $idea = Idea::where('slug', $slug)->first();
+        if (empty($idea)) {
+            return redirect(404);
+        }
+        $tags = Tag::publish()->get()->map(function($tag) {
+            return $tag->name; })->toArray();
+        $ideaTags = join(',', $idea->tags->map(function($tag) {
+            return $tag->name; })->toArray()
+            );
+        return view('idea.edit', compact('idea', 'tags', 'ideaTags'));
     }
 
     /**

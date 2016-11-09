@@ -8,7 +8,6 @@ use App\Models\Traits\AttachableTrait;
 
 class IdeaPhoto extends Model
 {
-    use SoftDeletes;
     use AttachableTrait, SoftDeletes;
 
     protected $table = 'idea_photos';

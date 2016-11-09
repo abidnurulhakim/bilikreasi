@@ -1,4 +1,4 @@
-{!! Form::model($user, ['route' => ['user.update', $user->username], 'method' => 'PUT', 'files' => true]) !!}
+{!! Form::model($user, ['route' => ['user.update', $user], 'method' => 'PUT', 'files' => true]) !!}
   @if (count($errors) > 0)
     <div class="alert alert-danger">
       <ul>

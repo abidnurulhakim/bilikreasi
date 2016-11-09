@@ -2,15 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\MessageBag;
-use App\Http\Requests\User\UpdateRequest;
-use App\Http\Requests\User\ChangePasswordRequest;
 use App\Models\User;
 use App\Models\Skill;
 use App\Models\UserSkill;
 use App\Models\Interest;
 use App\Models\UserInterest;
+use App\Http\Requests\User\UpdateRequest;
+use App\Http\Requests\User\ChangePasswordRequest;
+use Illuminate\Http\Request;
+use Illuminate\Support\MessageBag;
 
 class UserController extends Controller
 {
@@ -46,7 +46,10 @@ class UserController extends Controller
     {
         \View::share('pageTitle', 'Buat Ide Baru');
         $user = User::where('username', $username)->first();
-        $ideas = $user->memberOf;
+        if (empty($user)) {
+            return redirect(404);
+        }
+        $ideas = $user->memberOf()->paginate(9);
         return view('user.show', compact('user', 'ideas'));
     }
 
@@ -92,14 +95,14 @@ class UserController extends Controller
             $userSkills = explode(',', $request->get('skill'));
             foreach ($userSkills as $skill) {
                 if (strlen($skill) > 0) {
-                    UserSkill::create(['user_id' => $user->id, 'name' => ucfirst($skill)]);
+                    UserSkill::create(['user_id' => $user->id, 'name' => $skill]);
                 }
             }
             $user->interests()->delete();
             $userInterests = explode(',', $request->get('interest'));
             foreach ($userInterests as $interest) {
                 if (strlen($interest) > 0) {
-                    UserInterest::create(['user_id' => $user->id, 'name' => ucfirst($interest)]);
+                    UserInterest::create(['user_id' => $user->id, 'name' => $interest]);
                 }
             }
         }

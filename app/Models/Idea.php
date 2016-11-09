@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Models\Traits\AttachableTrait;
 use App\Models\Traits\SluggableTrait;
+use App\Models\Member;
 
 class Idea extends Model
 {
@@ -28,13 +29,13 @@ class Idea extends Model
 
     protected $table = 'ideas';
     public $attachmentable = [
-        'photo'
+        'cover'
     ];
     public $sluggable = [
         'slug' => 'title'
     ];
     protected $fillable = [
-        'user_id', 'title', 'slug', 'description', 'type', 'cover', 'category', 'status'
+        'user_id', 'title', 'slug', 'description', 'type', 'cover', 'category', 'status', 'location'
     ];
 
 
@@ -42,6 +43,9 @@ class Idea extends Model
     {
         static::bootAttachableTrait();
         static::bootSluggableTrait();
+        static::created(function($idea){
+            Member::create(['user_id' => $idea->user_id, 'idea_id' => $idea->id, 'role' => 'admin']);
+        });
     }
     public function user()
     {
@@ -65,7 +69,7 @@ class Idea extends Model
 
     public function members()
     {
-        return $this->belongsToMany('App\Models\User', 'members', 'idea_id', 'user_id');
+        return $this->belongsToMany('App\Models\User', 'members', 'idea_id', 'user_id')->withPivot('join_at', 'role');
     }
 
     public function isMember(App\Models\User $user)

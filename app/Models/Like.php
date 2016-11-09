@@ -14,7 +14,7 @@ class Like extends Model
         'user_id', 'idea_id'
     ];
 
-    public function boot()
+    public static function boot()
     {
         static::created(function ($like) {
             $idea = $like->idea();

@@ -11,13 +11,13 @@ class Member extends Model
 
     protected $table = 'members';
     protected $fillable = [
-        'user_id', 'idea_id', 'join_at'
+        'user_id', 'idea_id', 'join_at', 'role'
     ];
 
-    public function boot()
+    public static function boot()
     {
         static::creating(function ($member) {
-            $member->join_at = Carbon\Carbon::now();
+            $member->join_at = \Carbon\Carbon::now();
         });
         static::created(function ($member) {
             $idea = $member->idea();
@@ -28,7 +28,7 @@ class Member extends Model
             $idea->decrement('member_count');
         });
         static::restoring(function ($member) {
-            $member->join_at = Carbon\Carbon::now();
+            $member->join_at = \Carbon\Carbon::now();
         });
         static::restored(function ($member) {
             $idea = $member->idea();

@@ -14,7 +14,7 @@ class Comment extends Model
         'user_id', 'idea_id', 'content'
     ];
 
-    public function boot()
+    public static function boot()
     {
         static::created(function ($comment) {
             $idea = $comment->idea();

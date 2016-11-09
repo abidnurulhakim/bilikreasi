@@ -19,10 +19,10 @@ class IdeaTag extends Model
 
     public static function boot()
     {        
-        static::saved(function ($user) {
-            if (Tag::where('name', $this->name)->count() == 0) {
+        static::saved(function ($ideaTag) {
+            if (Tag::where('name', $ideaTag->name)->count() == 0) {
                 $tag = new Tag();
-                $tag->name = $this->name;
+                $tag->name = $ideaTag->name;
                 $tag->save();
             }
         });

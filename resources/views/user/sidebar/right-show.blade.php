@@ -11,28 +11,42 @@
         </ul>
         <div id="myTabContent-5" class="tab-content">
           <div class="tab-pane fade in active" id="home-5">
+            {{ Carbon::setLocale('id') }}
             @forelse ($ideas as $idea)
             <div class="col-md-4 col-padding">
               <div class="card">
                 <div class="card-block">
                   <h4 class="card-title">
-                    <a href="{{ route('idea.show', $idea) }}">{{str_limit($idea->title, 18)}}</a> — <i class="fa fa-calendar text-primary" alt="event"></i>
+                    <a href="{{ route('idea.show', $idea) }}">{{str_limit($idea->title, 18)}}</a> — 
+                    @if($idea->category == 'business')
+                      <i class="fa fa-money text-primary" alt="business"></i>
+                    @elseif($idea->category == 'campaign')
+                      <i class="fa fa-bullhorn text-primary" alt="campaign"></i>
+                    @elseif($idea->category == 'community')
+                      <i class="fa fa-users text-primary" alt="community"></i>
+                    @elseif($idea->category == 'project')
+                      <i class="fa fa-gears text-primary" alt="project"></i>
+                    @elseif($idea->category == 'event')
+                      <i class="fa fa-calendar text-primary" alt="event"></i>
+                    @else
+                      <i class="fa fa-bookmark-o text-primary" alt="other"></i>
+                    @endif
                   </h4>
                   <h6 class="card-subtitle text-muted">
                     <i class="fa fa-tags"></i> 
                     @foreach($idea->tags as $tag)
-                      {{ $labels = ['primary', 'danger', 'info', 'warning', 'success']}}
+                      <?php $labels = ['primary', 'danger', 'info', 'warning', 'success']?>
                     <span class="label label-{{ $labels[array_rand($labels)] }}">{{ $tag->name }}</span>
                     @endforeach
                   </h6>
                 </div>
-                <img src="{{ $idea->getCover(250) }}" class='img-responsive' alt="card image">
+                <img src="{{ $idea->getCover(250, 150) }}" class='img-responsive' alt="card image">
                 <div class="card-block">
                   <p class="card-text">{{ str_limit($idea->description, 150) }}</p>
                   <a href="{{ route('idea.show', $idea) }}" class="pull-right btn btn-primary">Baca</a>
                 </div>
                 <div class="card-footer text-muted">
-                  <i class="fa fa-clock-o" aria-hidden="true"></i> <span>bergabung sejak {{ $idea->members->find($user->id)->member_at->diffForHumans() }}</span>
+                  <i class="fa fa-clock-o" aria-hidden="true"></i> <span>Bergabung sejak {{ Carbon::parse($idea->members()->find($user->id)->pivot->join_at)->diffForHumans() }}</span>
                 </div>
               </div>
             </div>
