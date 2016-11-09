@@ -4,10 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Models\Traits\AttachableTrait;
+use App\Models\Traits\SluggableTrait;
 
 class Idea extends Model
 {
-    use SoftDeletes;
+    use AttachableTrait, SluggableTrait, SoftDeletes;
 
     const CATEGORY = [
         'business' => 'Usaha Profitable (Bisnis Mikro, Startup, dll)',
@@ -25,10 +27,22 @@ class Idea extends Model
     ];
 
     protected $table = 'ideas';
+    public $attachmentable = [
+        'photo'
+    ];
+    public $sluggable = [
+        'slug' => 'title'
+    ];
     protected $fillable = [
-        'user_id', 'title', 'slug', 'description', 'type', 'cover'
+        'user_id', 'title', 'slug', 'description', 'type', 'cover', 'category', 'status'
     ];
 
+
+    public static function boot()
+    {
+        static::bootAttachableTrait();
+        static::bootSluggableTrait();
+    }
     public function user()
     {
         return $this->belongsTo('App\Models\User', 'user_id');

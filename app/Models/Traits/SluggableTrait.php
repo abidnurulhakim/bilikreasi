@@ -9,7 +9,10 @@ trait SluggableTrait
         static::creating(function($model){
             foreach ($model->sluggable as $key => $value) {
                 if (empty($model->getOriginal($key))) {
-                    $codeUnique = self::where($key, str_slug($model->getOriginal($value), "-"))->count();
+                    $codeUnique = static::where($key, str_slug($model->$value, "-"))->count();
+                    while ($codeUnique > 0) {
+                        $codeUnique = static::where($key, str_slug($model->$value, '-')."-$codeUnique")->count();
+                    }
                     if ($codeUnique == 0) {
                         $model->$key = str_slug($model->$value, '-');
                     } else {

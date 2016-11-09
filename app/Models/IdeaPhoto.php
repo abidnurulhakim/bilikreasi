@@ -4,12 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use App\Models\Traits\AttachmentAble;
+use App\Models\Traits\AttachableTrait;
 
 class IdeaPhoto extends Model
 {
     use SoftDeletes;
-    use Attachmentable;
+    use AttachableTrait, SoftDeletes;
 
     protected $table = 'idea_photos';
     public $attachmentable = [

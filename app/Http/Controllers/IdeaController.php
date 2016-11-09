@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Models\Idea;
+use App\Models\IdeaPhoto;
 use App\Models\Tag;
+use App\Http\Requests\Idea\CreateRequest;
+use Illuminate\Http\Request;
 
 class IdeaController extends Controller
 {
@@ -25,6 +28,7 @@ class IdeaController extends Controller
      */
     public function create()
     {
+        $this->authorize('create', Idea::class);
         \View::share('pageTitle', 'Buat Ide Baru');
         $tags = Tag::publish()->get()->map(function($tag) {
             return $tag->name; })->toArray();
@@ -38,9 +42,17 @@ class IdeaController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreateRequest $request)
     {
-        //
+        $request->merge(['user_id' => auth()->user()->id]);
+        $idea = Idea::create($request->all());
+        if ($idea->id) {
+            $photos = $request->file('media');
+            foreach ($photos as $photo) {
+                IdeaPhoto::create(['idea_id' => $idea->id, 'url' => $photo]);
+            }
+        }
+        dd($idea);
     }
 
     /**

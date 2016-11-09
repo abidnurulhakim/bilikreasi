@@ -11,5 +11,9 @@
     }
   ?>
   {{ Form::label($name, $labelName) }}
-  {{ Form::file($name, array_merge(['class' => 'form-control', 'multiple' => 'true'], $attributes)) }}
+  @if (empty($attributes['multiple']))
+  {{ Form::file($name, array_merge(['class' => 'form-control'], $attributes)) }}
+  @else
+  {{ Form::file($name.'[]', array_merge(['class' => 'form-control', 'multiple' => 'true'], $attributes)) }}
+  @endif
 </div>

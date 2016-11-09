@@ -19,9 +19,12 @@ class CreateIdeasTable extends Migration
             $table->string('title');
             $table->string('slug')->unique();
             $table->text('description')->nullable();
-            $table->string('type');
+            $table->string('category');
             $table->string('status');
             $table->text('cover')->nullable();
+            $table->string('location')->nullable();
+            $table->timestamp('start_at')->nullable();
+            $table->timestamp('finish_at')->nullable();
             $table->integer('member_count')->unsigned()->default(0);
             $table->integer('like_count')->unsigned()->default(0);
             $table->integer('comment_count')->unsigned()->default(0);
