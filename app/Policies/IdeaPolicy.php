@@ -40,7 +40,7 @@ class IdeaPolicy
      * @param  \App\Idea  $idea
      * @return mixed
      */
-    public function store(User $user, Idea $idea)
+    public function store(User $user)
     {
         return $user->confirmed;
     }

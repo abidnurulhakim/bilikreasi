@@ -28,12 +28,14 @@ class AppServiceProvider extends ServiceProvider
         Form::component('formTags', 'components.form.form-tags', ['name', 'value', 'attributes']);
         Form::component('formTextArea', 'components.form.form-text-area', ['name', 'value', 'attributes']);
         Form::component('formSelect', 'components.form.form-select', ['name', 'value', 'attributes']);
+        Form::component('formTextEditor', 'components.form.form-text-editor', ['name', 'value', 'attributes']);
         Form::component('file', 'components.form.form-date', ['name', 'value', 'attributes']);
         Form::component('date', 'components.form.date', ['name', 'value', 'attributes']);
         Form::component('birthDate', 'components.form.birthdate', ['name', 'value', 'attributes']);
         Form::component('dateTime', 'components.form.datetime', ['name', 'value', 'attributes']);
         Form::component('textArea', 'components.form.text-area', ['name', 'value', 'attributes']);
         Form::component('selectPicker', 'components.form.select', ['name', 'value', 'attributes']);
+        Form::component('textEditor', 'components.form.text-editor', ['name', 'value', 'attributes']);
     }
 
     /**

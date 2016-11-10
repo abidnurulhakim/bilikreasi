@@ -48,6 +48,7 @@ class Idea extends Model
             Member::create(['user_id' => $idea->user_id, 'idea_id' => $idea->id, 'role' => 'admin']);
         });
     }
+    
     public function user()
     {
         return $this->belongsTo('App\Models\User', 'user_id');
@@ -60,7 +61,7 @@ class Idea extends Model
 
     public function likes()
     {
-        return $this->hasMany('App\Models\Likes', 'idea_id');
+        return $this->hasMany('App\Models\Like', 'idea_id');
     }
 
     public function comments()
@@ -90,11 +91,25 @@ class Idea extends Model
 
     public function isAdmin(User $user)
     {
-        return $this->members()->find($user->id)->pivot->role == 'admin';
+        $user = $this->members()->find($user->id);
+        if ($user) {
+            return $user->pivot->role == 'admin';
+        }
+        return false;
     }
 
     public function isMember(User $user)
     {
         return !empty($this->members()->find($user->id));
+    }
+
+    public function setDescriptionAttribute($value)
+    {
+        $this->attributes['description'] = htmlspecialchars($value);
+    }
+
+    public function getDescriptionAttribute($value)
+    {
+        return htmlspecialchars_decode($value);
     }
 }

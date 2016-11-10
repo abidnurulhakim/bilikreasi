@@ -9,7 +9,7 @@
     </div>
   @endif
   {!! Form::formText('title', null, ['label' => 'Judul Ide', 'placeholder' => 'Judul Ide'] ) !!}
-  {!! Form::formTextArea('description', null, ['label' => 'Deskripsi Ide', 'placeholder' => 'Deskripsi Idea'] ) !!}
+  {!! Form::formTextEditor('description', null, ['label' => 'Deskripsi Ide', 'placeholder' => 'Deskripsi Idea'] ) !!}
   {!! Form::formFile('cover', null, ['label' => 'Gambar Cover Ide', 'placeholder' => 'Gambar Ide', 'data-initial-preview-url' => '["'.$idea->getCover().'"]', 'data-max-file-count' => '1', 'data-max-file-size' => '2048', 'data-allowed-file-types' => '["image", "video"]'] ) !!}
   {!! Form::formSelect('category', \App\Models\Idea::CATEGORY, ['label' => 'Kategori Ide','placeholder' => 'Kategori Ide', 'selected' => $idea->category] ) !!}
   {!! Form::formTags('tag', $ideaTags, ['label' => 'Tag Ide', 'collection' => $tags]) !!}

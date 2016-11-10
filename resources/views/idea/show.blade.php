@@ -7,40 +7,71 @@
         <div class="col-md-12 col-padding">
           <div class="col-md-12 no-padding page-header idea">
             <div class="col-md-4 col-padding">
-              <center><img class="img-responsive img-rounded img-idea" src="{{ $idea->getCover(270,160) }}"></center>
+              <center><img class="img-responsive img-rounded img-idea" src="{{ $idea->getCover(340,185) }}"></center>
             </div>
+            <!-- idea -->
             <div class="col-md-6 col-padding idea">
-              <div class="col-md-12 no-padding title">
-                <span class="subject">{{ $idea->title }}</span> &mdash; 
-                @if($idea->category == 'business')
-                  <i class="fa fa-money text-primary" alt="business"></i> {{ ucfirst($idea::CATEGORY[$idea->category]) }}
-                @elseif($idea->category == 'campaign')
-                  <i class="fa fa-bullhorn text-primary" alt="campaign"></i> {{ ucfirst($idea::CATEGORY[$idea->category]) }}
-                @elseif($idea->category == 'community')
-                  <i class="fa fa-users text-primary" alt="community"></i> {{ ucfirst($idea::CATEGORY[$idea->category]) }}
-                @elseif($idea->category == 'project')
-                  <i class="fa fa-gears text-primary" alt="project"></i> {{ ucfirst($idea::CATEGORY[$idea->category]) }}
-                @elseif($idea->category == 'event')
-                  <i class="fa fa-calendar text-primary" alt="event"></i> {{ ucfirst($idea::CATEGORY[$idea->category]) }}
+              <div class="col-md-12 no-padding">
+                <div class="col-md-8 col-padding section-idea info-idea">
+                  <div class="col-md-12 no-padding title">
+                    <span class="subject">{{ $idea->title }}</span> 
+                  </div>
+                  <div class="col-md-12 no-padding tags">
+                    <i class="fa fa-tags"></i> 
+                    @foreach($idea->tags as $tag)
+                    <?php $labels = ['primary', 'danger', 'info', 'warning', 'success']?>
+                    <span class="label label-{{ $labels[array_rand($labels)] }}">{{ $tag->name }}</span>
+                    @endforeach
+                  </div>
+                </div>
+
+                <div class="col-md-4 col-padding pull-right">
+                  @include('layout.media-shares')
+                </div>
+              </div>
+
+              <div class="col-md-12 no-padding section-idea criteria-idea">
+                <div class="col-md-4 col-padding text-center">
+                  <i class="fa 
+                  @if($idea->category == 'business')
+                    fa-money
+                  @elseif($idea->category == 'campaign')
+                    fa-bullhorn
+                  @elseif($idea->category == 'community')
+                    fa-users
+                  @elseif($idea->category == 'project')
+                    fa-gears
+                  @elseif($idea->category == 'event')
+                    fa-calendar
+                  @else
+                    fa-bookmark-o
+                  @endif
+                   fa-2x text-primary" alt="{{ $idea->category }}"></i><br><br>
+                  <b>{{ ucfirst($idea::CATEGORY[$idea->category]) }}</b>
+                </div>
+                <div class="col-md-4 col-padding text-center">
+                  <i class="fa fa-map-marker fa-2x text-primary"></i><br><br>
+                  <b>{{ ucfirst($idea->location) }}</b>
+                </div>
+                <div class="col-md-4 col-padding">
+                </div>
+              </div>
+
+              <div class="col-md-12 no-padding section-idea action-idea">
+                @if($idea->likes()->find(auth()->user()->id))
+                <a href="#" class="btn btn-primary btn-lg">Tidak Menyukai</a>
                 @else
-                  <i class="fa fa-bookmark-o text-primary" alt="other"></i> {{ ucfirst($idea::CATEGORY[$idea->category]) }}
+                <a href="#" class="btn btn-primary btn-lg">Menyukai</a>
+                @endif
+                @unless($idea->members()->find(auth()->user()->id))
+                <a href="{{ route('idea.join', $idea) }}" class="btn btn-primary btn-lg">Bergabung</a>
+                @endif
+                @if($idea->isAdmin(auth()->user()))
+                <a href="{{ route('idea.edit', $idea) }}" class="btn btn-primary btn-lg pull-right">Perbaharui Ide</a>
                 @endif
               </div>
-              <div class="col-md-12 no-padding category">
-                @foreach($idea->tags as $tag)
-                <?php $labels = ['primary', 'danger', 'info', 'warning', 'success']?>
-                <span class="label label-{{ $labels[array_rand($labels)] }}">{{ $tag->name }}</span>
-                @endforeach
-              </div>
-              <div class="col-md-12 no-padding location">
-                <i class='fa fa-map-marker'></i> At {{ $idea->location }}
-              </div>
-              <div class="col-md-12 no-padding action">
-                <a href="#" class="btn btn-primary">Like</a>
-                <a href="#" class="btn btn-primary">Comment</a>
-                @include('layout.media-shares')
-              </div>
             </div>
+            <!-- user -->
             <div class="col-md-2 col-padding text-center">
               <a href="{{ route('user.show', $idea->user) }}">
                 <img class="img-circle img-creator" src="{{ $idea->user->getPhoto(100) }}">
@@ -52,9 +83,18 @@
             </div>
           </div>
           <div class="col-md-12 col-padding idea">
-            <p>
-              {{ $idea->description }}
-            </p>
+            {!! $idea->description !!}
+          </div>
+          <div class="col-md-12 page-header">
+            <h3><b>Anggota<b></h3>
+          </div>
+          <div class="col-md-12 text-center">
+            @foreach($idea->members()->paginate(11) as $user)
+            <div class="col-md-1 col-padding">
+              <img src="{{ $user->getPhoto(100) }}" class="img-responsive img-circle"><br>
+              <a href="{{ route('user.show', $user) }}" class="">{{ $user->name }}</a>
+            </div>
+            @endforeach
           </div>
           <div class="col-md-12 page-header">
             <h3><b>Galeri Foto dan Video<b></h3>

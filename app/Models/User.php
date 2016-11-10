@@ -22,9 +22,12 @@ class User extends Authenticatable
         'password', 'phone_number', 'profession', 'live_at'
     ];
 
-    public function photo_profile()
+    public static function boot()
     {
-        return $this->hasOne('App\Models\Attachment', 'id', 'photo_profile')->first()->url;
+        static::bootAttachableTrait();
+        static::creating(function($idea){
+            $idea->confirmed = true;
+        });
     }
 
     public function ideas()

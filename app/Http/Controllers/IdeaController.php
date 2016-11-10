@@ -13,6 +13,15 @@ use Illuminate\Http\Request;
 class IdeaController extends Controller
 {
 
+    private function findIdea($slug)
+    {
+        $idea = Idea::where('slug', $slug)->first();
+        if ($idea) {
+            return $idea;
+        }
+        throw new \Illuminate\Database\Eloquent\ModelNotFoundException();
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -50,13 +59,16 @@ class IdeaController extends Controller
         $request->merge(['user_id' => auth()->user()->id]);
         $idea = Idea::create($request->all());
         if ($idea->id) {
-            $photos = $request->file('media');
-            foreach ($photos as $photo) {
-                IdeaPhoto::create(['idea_id' => $idea->id, 'url' => $photo]);
+            if ($request->file('media')) {
+                foreach ($request->file('media') as $photo) {
+                    IdeaPhoto::create(['idea_id' => $idea->id, 'url' => $photo]);
+                }
             }
-            $tags = explode(',', $request->get('tag'));
-            foreach ($tags as $tag) {
-                IdeaTag::create(['idea_id' => $idea->id, 'name' => $tag]);
+            if ($request->get('tag')) {
+                $tags = explode(',', $request->get('tag'));
+                foreach ($tags as $tag) {
+                    IdeaTag::create(['idea_id' => $idea->id, 'name' => $tag]);
+                }
             }
         }
         return redirect()->route('idea.show', $idea);
@@ -70,7 +82,7 @@ class IdeaController extends Controller
      */
     public function show($slug)
     {
-        \View::share('pageTitle', 'Detail Ide');
+        \View::share('pageTitle', 'Detil Ide');
         $idea = $this->findIdea($slug);
         return view('idea.show', compact('idea'));
     }
@@ -85,7 +97,7 @@ class IdeaController extends Controller
     {
         $idea = $this->findIdea($slug);
         $this->authorize('edit', $idea);
-        \View::share('pageTitle', 'Edit Ide');
+        \View::share('pageTitle', 'Perbaharui Ide');
         $tags = Tag::publish()->get()->map(function($tag) {
             return $tag->name; })->toArray();
         $ideaTags = join(',', $idea->tags->map(function($tag) {
@@ -139,12 +151,14 @@ class IdeaController extends Controller
         return redirect()->route('user.show', $user);
     }
 
-    private function findIdea($slug)
+    public function join($slug)
     {
-        $idea = Idea::where('slug', $slug)->first();
-        if (empty($idea)) {
-            return redirect(404);
+        $idea = $this->findIdea($slug);
+        if ($idea->members()->find(auth()->user()->id)) {
+            return rediret()->back();
+        } else {
+            $idea->members()->save(auth()->user(), ['join_at' => \Carbon::now(), 'created_at' => \Carbon::now(), 'updated_at' => \Carbon::now()]);
+            return redirect()->back();
         }
-        return $idea;   
     }
 }

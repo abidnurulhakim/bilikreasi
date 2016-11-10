@@ -44,6 +44,11 @@
                         css : path.plugins + 'select-picker/css/bootstrap-select.min.css',
                         js : path.plugins + 'select-picker/js/bootstrap-select.min.js'
                       },
+    _summernote     : { 
+                        css : path.plugins + 'summernote/summernote.css',
+                        js : path.plugins + 'summernote/summernote.min.js',
+                        lang : path.plugins + 'summernote/lang/summernote-id-ID.js'
+                      },
   };
 
   var Site = {
@@ -53,6 +58,7 @@
       Site.typeahead();
       Site.navtab();
       Site.selectPicker();
+      Site.textEditor();
     },
     moment : function() {
       if ($('input[type="date"].date-time-picker').length > 0) {
@@ -169,7 +175,6 @@
               }
             });
           });
-          
         }
       });
     },
@@ -190,6 +195,28 @@
                   assets._selectpicker.css,
                   assets._selectpicker.js,
           ],
+        });
+      }
+    },
+    textEditor : function() {
+      if ($('[summernote]').length > 0) {
+        Modernizr.load({
+          load  : [
+                  assets._summernote.css,
+                  assets._summernote.js,
+                  assets._summernote.lang,
+          ],
+          complete : function(){
+            $('[summernote]').each(function(index){
+              $(this).summernote({
+                  lang : 'id-ID',
+                  placeholder : $(this).attr('placeholder'),
+                  height : 300,
+                  minHeight : 300,
+                  focus : true,
+                });
+            });
+          }
         });
       }
     },

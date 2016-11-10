@@ -45,7 +45,7 @@ class UserController extends Controller
     public function show($username)
     {
         \View::share('pageTitle', 'Buat Ide Baru');
-        $user = User::where('username', $username)->first();
+        $user = findUser($user);
         if (empty($user)) {
             return redirect(404);
         }
@@ -62,7 +62,7 @@ class UserController extends Controller
     public function edit($username)
     {
         \View::share('pageTitle', 'Perbaharui Profil');
-        $user = User::where('username', $username)->first();
+        $user = findUser($user);
         $skills = Skill::publish()->get()->map(function($skill) {
             return $skill->name; })->toArray();
         $interests = Interest::publish()->get()->map(function($interest) {
@@ -85,7 +85,7 @@ class UserController extends Controller
      */
     public function update(UpdateRequest $request, $username)
     {
-        $user = User::where('username', $username)->first();
+        $user = findUser($user);
         if (is_null($user)) {
             return redirect()->back();
         }
@@ -129,7 +129,7 @@ class UserController extends Controller
      */
     public function updatePassword(ChangePasswordRequest $request, $username)
     {
-        $user = User::where('username', $username)->first();
+        $user = findUser($user);
         if (is_null($user)) {
             return redirect()->back();
         }
@@ -141,5 +141,14 @@ class UserController extends Controller
             $user->save();
         }
         return redirect()->back()->withErrors($errors);
+    }
+
+    private function findUser($username)
+    {
+        $user = User::where('username', $username)->first();
+        if ($user) {
+            return $user;
+        }
+        throw new \Illuminate\Database\Eloquent\ModelNotFoundException();
     }
 }

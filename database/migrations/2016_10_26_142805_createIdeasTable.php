@@ -21,7 +21,7 @@ class CreateIdeasTable extends Migration
             $table->text('description')->nullable();
             $table->string('category');
             $table->string('status');
-            $table->text('cover')->nullable();
+            $table->mediumText('cover')->nullable();
             $table->string('location')->nullable();
             $table->timestamp('start_at')->nullable();
             $table->timestamp('finish_at')->nullable();
