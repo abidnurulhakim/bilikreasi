@@ -2,11 +2,12 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Models\Member;
+use App\Models\User;
 use App\Models\Traits\AttachableTrait;
 use App\Models\Traits\SluggableTrait;
-use App\Models\Member;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Idea extends Model
 {
@@ -72,14 +73,9 @@ class Idea extends Model
         return $this->belongsToMany('App\Models\User', 'members', 'idea_id', 'user_id')->withPivot('join_at', 'role');
     }
 
-    public function isMember(App\Models\User $user)
-    {
-    	is_empty($this->members()->where('user_id', $user->id)->first());
-    }
-
     public function photos()
     {
-        return $this->hasMany('App\Models\Photo', 'idea_id');
+        return $this->hasMany('App\Models\IdeaPhoto', 'idea_id');
     }
 
     public function tags()
@@ -90,5 +86,15 @@ class Idea extends Model
     public function getRouteKeyName()
     {
         return 'slug';
+    }
+
+    public function isAdmin(User $user)
+    {
+        return $this->members()->find($user->id)->pivot->role == 'admin';
+    }
+
+    public function isMember(User $user)
+    {
+        return !empty($this->members()->find($user->id));
     }
 }

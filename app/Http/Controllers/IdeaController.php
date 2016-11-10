@@ -6,7 +6,8 @@ use App\Models\Idea;
 use App\Models\IdeaPhoto;
 use App\Models\IdeaTag;
 use App\Models\Tag;
-use App\Http\Requests\Idea\CreateRequest;
+use App\Http\Requests\Idea\StoreRequest;
+use App\Http\Requests\Idea\UpdateRequest;
 use Illuminate\Http\Request;
 
 class IdeaController extends Controller
@@ -43,8 +44,9 @@ class IdeaController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(CreateRequest $request)
+    public function store(StoreRequest $request)
     {
+        $this->authorize('store', Idea::class);
         $request->merge(['user_id' => auth()->user()->id]);
         $idea = Idea::create($request->all());
         if ($idea->id) {
@@ -66,10 +68,11 @@ class IdeaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($slug)
     {
         \View::share('pageTitle', 'Detail Ide');
-        return view('idea.show');
+        $idea = $this->findIdea($slug);
+        return view('idea.show', compact('idea'));
     }
 
     /**
@@ -80,11 +83,9 @@ class IdeaController extends Controller
      */
     public function edit($slug)
     {
+        $idea = $this->findIdea($slug);
+        $this->authorize('edit', $idea);
         \View::share('pageTitle', 'Edit Ide');
-        $idea = Idea::where('slug', $slug)->first();
-        if (empty($idea)) {
-            return redirect(404);
-        }
         $tags = Tag::publish()->get()->map(function($tag) {
             return $tag->name; })->toArray();
         $ideaTags = join(',', $idea->tags->map(function($tag) {
@@ -100,9 +101,28 @@ class IdeaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateRequest $request, $slug)
     {
-        //
+        $idea = $this->findIdea($slug);
+        $this->authorize('update', $idea);
+        $idea->fill($request->all());
+        if ($idea->save()) {
+            $photos = $request->file('media');
+            if ($photos) {
+                foreach ($photos as $photo) {
+                    IdeaPhoto::create(['idea_id' => $idea->id, 'url' => $photo]);
+                }
+            }
+            if ($request->get('tag')) {
+                $ideaTags = $idea->tags;
+                $idea->tags()->delete();
+                $tags = explode(',', $request->get('tag'));
+                foreach ($tags as $tag) {
+                    IdeaTag::create(['idea_id' => $idea->id, 'name' => $tag]);
+                }   
+            }
+        }
+        return redirect()->route('idea.show', $idea);
     }
 
     /**
@@ -111,8 +131,20 @@ class IdeaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($slug)
     {
-        //
+        $idea = $this->findIdea($slug);
+        $user = $idea->user;
+        $idea->delete();
+        return redirect()->route('user.show', $user);
+    }
+
+    private function findIdea($slug)
+    {
+        $idea = Idea::where('slug', $slug)->first();
+        if (empty($idea)) {
+            return redirect(404);
+        }
+        return $idea;   
     }
 }

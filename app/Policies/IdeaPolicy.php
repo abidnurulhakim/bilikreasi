@@ -40,9 +40,33 @@ class IdeaPolicy
      * @param  \App\Idea  $idea
      * @return mixed
      */
+    public function store(User $user, Idea $idea)
+    {
+        return $user->confirmed;
+    }
+
+    /**
+     * Determine whether the user can update the idea.
+     *
+     * @param  \App\User  $user
+     * @param  \App\Idea  $idea
+     * @return mixed
+     */
+    public function edit(User $user, Idea $idea)
+    {
+        return $idea->isAdmin($user);
+    }
+
+    /**
+     * Determine whether the user can update the idea.
+     *
+     * @param  \App\User  $user
+     * @param  \App\Idea  $idea
+     * @return mixed
+     */
     public function update(User $user, Idea $idea)
     {
-        return $user->id === $idea->user_id;
+        return $idea->isAdmin($user);
     }
 
     /**
