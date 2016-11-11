@@ -100,10 +100,23 @@
             <h3><b>Galeri Foto dan Video<b></h3>
           </div>
           <div class="col-md-12">
-            @foreach($idea->photos as $photo)
-            <div class="col-md-2">
-              <img src="{{ $photo->getUrl() }}" class="img-responsive">
-            </div>
+            @foreach($idea->media->paginate(12) as $media)
+              @if($media->type == 'image')
+              <div class="col-md-2">
+                <img src="{{ $media->getUrl() }}" class="img-responsive">
+              @elseif($media->type == 'video')
+              <div class="col-md-4">
+                <video width="320" height="240" controls>
+                  <source src="{{ $media->url }}" type="video/mp4">
+                  Your browser does not support the video tag.
+                </video>
+              @else
+              <div class="col-md-2">
+                <i class="fa fa-file fa-4x">
+                  <a href="{{ $media->url() }}"></a>
+                </i>
+              @endif
+              </div>            
             @endforeach
           </div>
         </div>

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Idea;
-use App\Models\IdeaPhoto;
+use App\Models\IdeaMedia;
 use App\Models\IdeaTag;
 use App\Models\Tag;
 use App\Http\Requests\Idea\StoreRequest;
@@ -61,7 +61,7 @@ class IdeaController extends Controller
         if ($idea->id) {
             if ($request->file('media')) {
                 foreach ($request->file('media') as $photo) {
-                    IdeaPhoto::create(['idea_id' => $idea->id, 'url' => $photo]);
+                    IdeaMedia::create(['idea_id' => $idea->id, 'url' => $photo]);
                 }
             }
             if ($request->get('tag')) {
@@ -122,7 +122,7 @@ class IdeaController extends Controller
             $photos = $request->file('media');
             if ($photos) {
                 foreach ($photos as $photo) {
-                    IdeaPhoto::create(['idea_id' => $idea->id, 'url' => $photo]);
+                    IdeaMedia::create(['idea_id' => $idea->id, 'url' => $photo]);
                 }
             }
             if ($request->get('tag')) {

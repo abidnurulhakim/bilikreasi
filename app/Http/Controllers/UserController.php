@@ -45,7 +45,7 @@ class UserController extends Controller
     public function show($username)
     {
         \View::share('pageTitle', 'Buat Ide Baru');
-        $user = findUser($user);
+        $user = $this->findUser($username);
         if (empty($user)) {
             return redirect(404);
         }
@@ -62,7 +62,7 @@ class UserController extends Controller
     public function edit($username)
     {
         \View::share('pageTitle', 'Perbaharui Profil');
-        $user = findUser($user);
+        $user = $this->findUser($username);
         $skills = Skill::publish()->get()->map(function($skill) {
             return $skill->name; })->toArray();
         $interests = Interest::publish()->get()->map(function($interest) {
@@ -85,7 +85,7 @@ class UserController extends Controller
      */
     public function update(UpdateRequest $request, $username)
     {
-        $user = findUser($user);
+        $user = $this->findUser($username);
         if (is_null($user)) {
             return redirect()->back();
         }
@@ -118,7 +118,8 @@ class UserController extends Controller
     public function editPassword($username)
     {
         \View::share('pageTitle', 'Ganti Password');
-        return view('user.change-password', compact('user'));
+        $user = $this->findUser($username);
+        return view('user.change-password');
     }
 
     /**
@@ -129,7 +130,7 @@ class UserController extends Controller
      */
     public function updatePassword(ChangePasswordRequest $request, $username)
     {
-        $user = findUser($user);
+        $user = $this->findUser($username);
         if (is_null($user)) {
             return redirect()->back();
         }

@@ -74,9 +74,9 @@ class Idea extends Model
         return $this->belongsToMany('App\Models\User', 'members', 'idea_id', 'user_id')->withPivot('join_at', 'role');
     }
 
-    public function photos()
+    public function media()
     {
-        return $this->hasMany('App\Models\IdeaPhoto', 'idea_id');
+        return $this->hasMany('App\Models\IdeaMedia', 'idea_id');
     }
 
     public function tags()
