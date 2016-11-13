@@ -31,7 +31,7 @@
                       },
     _bloodhound      : { 
                         js : path.plugins + 'typeahead/js/bloodhound.min.js'
-                      },                  
+                      },
     _tagsinput      : { 
                         css : path.plugins + 'bootstrap/css/bootstrap-tagsinput.css',
                         js : path.plugins + 'bootstrap/js/bootstrap-tagsinput.js'
@@ -49,6 +49,9 @@
                         js : path.plugins + 'summernote/summernote.min.js',
                         lang : path.plugins + 'summernote/lang/summernote-id-ID.js'
                       },
+    _timeago        : { 
+                        js : path.plugins + 'timeago/js/jquery.timeago.js'
+                      },                  
   };
 
   var Site = {
@@ -59,9 +62,10 @@
       Site.navtab();
       Site.selectPicker();
       Site.textEditor();
+      Site.timeAgo();
     },
     moment : function() {
-      if ($('input[type="date"].date-time-picker').length > 0) {
+      if ($('.date-time-picker').length > 0) {
         Modernizr.load({
           load  : assets._moment.js,
           complete: Site.dateTimePicker
@@ -71,6 +75,12 @@
         Modernizr.load({
           load  : assets._moment.js,
           complete: Site.datePicker
+        });
+      }
+      if ($('.date-time-picker-link').length > 0) {
+        Modernizr.load({
+          load  : assets._moment.js,
+          complete: Site.dateTimePickerLink
         });
       }
     },
@@ -97,8 +107,30 @@
                 assets._datetimepicker.js
         ],
         complete : function() {
-          $('.datetime-picker').each(function(index){
+          $('.date-time-picker').each(function(index){
             $(this).datetimepicker();
+          });
+        }
+      });
+    },
+    dateTimePickerLink : function() {
+      Modernizr.load({
+        load  : [
+                assets._datetimepicker.css,
+                assets._datetimepicker.js
+        ],
+        complete : function() {
+          $('.date-time-picker-link').each(function(index){            
+            $(this).datetimepicker();
+            $("#"+$(this).data('finish-selector')).datetimepicker({
+                useCurrent: false
+            });
+            $(this).on("dp.change", function (e) {
+                $("#"+$(this).data('finish-selector')).data("DateTimePicker").minDate(e.date);
+            });
+            $("#"+$(this).data('finish-selector')).on("dp.change", function (e) {
+                $(this).data("DateTimePicker").maxDate(e.date);
+            });
           });
         }
       });
@@ -215,6 +247,20 @@
                   minHeight : 300,
                   focus : true,
                 });
+            });
+          }
+        });
+      }
+    },
+    timeAgo : function() {
+      if ($('.time-humanize').length > 0) {
+        Modernizr.load({
+          load  : [
+                  assets._timeago.js,
+          ],
+          complete : function(){
+            $('.time-humanize').each(function(index){
+              $(this).timeago();
             });
           }
         });

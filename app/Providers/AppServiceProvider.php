@@ -36,6 +36,7 @@ class AppServiceProvider extends ServiceProvider
         Form::component('textArea', 'components.form.text-area', ['name', 'value', 'attributes']);
         Form::component('selectPicker', 'components.form.select', ['name', 'value', 'attributes']);
         Form::component('textEditor', 'components.form.text-editor', ['name', 'value', 'attributes']);
+        Form::component('formDateTimeLink', 'components.form.form-datetime-link', ['nameStart', 'nameFinish', 'valueStart', 'valueFinish', 'attributes']);
     }
 
     /**

@@ -61,7 +61,9 @@ class IdeaController extends Controller
         if ($idea->id) {
             if ($request->file('media')) {
                 foreach ($request->file('media') as $photo) {
-                    IdeaMedia::create(['idea_id' => $idea->id, 'url' => $photo]);
+                    if ($photo) {
+                        IdeaMedia::create(['idea_id' => $idea->id, 'url' => $photo]);
+                    }
                 }
             }
             if ($request->get('tag')) {
@@ -119,10 +121,11 @@ class IdeaController extends Controller
         $this->authorize('update', $idea);
         $idea->fill($request->all());
         if ($idea->save()) {
-            $photos = $request->file('media');
-            if ($photos) {
-                foreach ($photos as $photo) {
-                    IdeaMedia::create(['idea_id' => $idea->id, 'url' => $photo]);
+            if ($request->file('media')) {
+                foreach ($request->file('media') as $photo) {
+                    if ($photo) {
+                        IdeaMedia::create(['idea_id' => $idea->id, 'url' => $photo]);
+                    }
                 }
             }
             if ($request->get('tag')) {

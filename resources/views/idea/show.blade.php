@@ -48,6 +48,9 @@
                   @endif
                    fa-2x text-primary" alt="{{ $idea->category }}"></i><br><br>
                   <b>{{ ucfirst($idea::CATEGORY[$idea->category]) }}</b>
+                  @if($idea->category == 'event')
+                    {{ $idea->start_at }} — {{ $idea->finish_at }}
+                  @endif
                 </div>
                 <div class="col-md-4 col-padding text-center">
                   <i class="fa fa-map-marker fa-2x text-primary"></i><br><br>
@@ -96,11 +99,12 @@
             </div>
             @endforeach
           </div>
+          @if($idea->media()->count() > 0)
           <div class="col-md-12 page-header">
             <h3><b>Galeri Foto dan Video<b></h3>
           </div>
           <div class="col-md-12">
-            @foreach($idea->media->paginate(12) as $media)
+            @forelse($idea->media as $media)
               @if($media->type == 'image')
               <div class="col-md-2">
                 <img src="{{ $media->getUrl() }}" class="img-responsive">
@@ -119,6 +123,7 @@
               </div>            
             @endforeach
           </div>
+          @endif
         </div>
       </div>
     </div>

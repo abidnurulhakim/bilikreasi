@@ -17,7 +17,7 @@
               <div class="card">
                 <div class="card-block">
                   <h4 class="card-title">
-                    <a href="{{ route('idea.show', $idea) }}">{{str_limit($idea->title, 18)}}</a> — 
+                    <a href="{{ route('idea.show', $idea) }}">{{ str_limit($idea->title, 18)}} </a> —
                     @if($idea->category == 'business')
                       <i class="fa fa-money text-primary" alt="business"></i>
                     @elseif($idea->category == 'campaign')
@@ -34,19 +34,21 @@
                   </h4>
                   <h6 class="card-subtitle text-muted">
                     <i class="fa fa-tags"></i> 
-                    @foreach($idea->tags as $tag)
+                    @foreach($idea->tags->take(3) as $tag)
                       <?php $labels = ['primary', 'danger', 'info', 'warning', 'success']?>
                     <span class="label label-{{ $labels[array_rand($labels)] }}">{{ $tag->name }}</span>
                     @endforeach
                   </h6>
                 </div>
-                <img src="{{ $idea->getCover(250, 150) }}" class='img-responsive' alt="card image">
+                <a href="{{ route('idea.show', $idea) }}">
+                  <img src="{{ $idea->getCover(250, 150) }}" class='img-responsive' alt="{{ $idea->title }}">
+                </a> —
                 <div class="card-block">
-                  <p class="card-text">{{ str_limit($idea->description, 150) }}</p>
+                  <p class="card-text">{{ str_limit(strip_tags($idea->description), 150) }}</p>
                   <a href="{{ route('idea.show', $idea) }}" class="pull-right btn btn-primary">Baca</a>
                 </div>
                 <div class="card-footer text-muted">
-                  <i class="fa fa-clock-o" aria-hidden="true"></i> <span>Bergabung sejak {{ Carbon::parse($idea->members()->find($user->id)->pivot->join_at)->diffForHumans() }}</span>
+                  <i class="fa fa-clock-o" aria-hidden="true"></i> Bergabung sejak <span class="time-humanize " title="{{ Carbon::parse($idea->members()->find($user->id)->pivot->join_at)->toIso8601String() }}"></span>
                 </div>
               </div>
             </div>

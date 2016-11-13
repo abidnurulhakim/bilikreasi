@@ -10,7 +10,7 @@ class IdeaMedia extends Model
 {
     use AttachableTrait, SoftDeletes;
 
-    protected $table = 'idea_photos';
+    protected $table = 'idea_media';
     public $attachmentable = [
         'url'
     ];
