@@ -33,4 +33,9 @@ class UserSkill extends Model
     {
         $this->attributes['name'] = ucfirst($value);
     }
+
+    public function user()
+    {
+        return $this->belongsTo('App\Models\User', 'user_id');
+    }
 }

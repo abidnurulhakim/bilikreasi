@@ -227,6 +227,15 @@
                   assets._selectpicker.css,
                   assets._selectpicker.js,
           ],
+          complete : function(){
+            $('.selectpicker').on('changed.bs.select', function (e) {
+              if ($(this).val() == 'event') {
+                $('.show-cat-event').removeClass('hidden');
+              } else {
+                $('.show-cat-event').addClass('hidden');
+              }
+            });
+          }
         });
       }
     },

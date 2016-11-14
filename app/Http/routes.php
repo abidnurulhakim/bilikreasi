@@ -30,7 +30,7 @@ Route::resource('idea', 'IdeaController');
 Route::get('idea/{slug}/join', 'IdeaController@join')->name('idea.join');
 
 /*route for search*/
-Route::get('search', 'SearchController@index')->name('search');
+Route::get('search', 'SearchController@index')->name('search.index');
 
 
 /*route for discuss*/

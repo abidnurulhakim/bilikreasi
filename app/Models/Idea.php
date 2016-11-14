@@ -29,14 +29,18 @@ class Idea extends Model
     ];
 
     protected $table = 'ideas';
+    protected $fillable = [
+        'user_id', 'title', 'slug', 'description', 'type', 'cover', 'category', 'status', 'location', 'start_at', 'finish_at',
+        'tags_idea'
+    ];
+    protected $casts = [
+        'tags_idea' => 'array',
+    ];
     public $attachmentable = [
         'cover'
     ];
     public $sluggable = [
         'slug' => 'title'
-    ];
-    protected $fillable = [
-        'user_id', 'title', 'slug', 'description', 'type', 'cover', 'category', 'status', 'location'
     ];
 
 
@@ -46,6 +50,12 @@ class Idea extends Model
         static::bootSluggableTrait();
         static::created(function($idea){
             Member::create(['user_id' => $idea->user_id, 'idea_id' => $idea->id, 'role' => 'admin']);
+        });
+        static::saving(function($idea){
+            if ($idea->category != 'event') {
+                $idea->start_at = null;
+                $idea->finish_at = null;
+            }
         });
     }
     
@@ -111,5 +121,35 @@ class Idea extends Model
     public function getDescriptionAttribute($value)
     {
         return htmlspecialchars_decode($value);
+    }
+
+    public function setStartAtAttribute($value)
+    {
+        $value = trim($value);
+        if (!empty($value) && !is_null($value)) {
+            $this->attributes['start_at'] = \Carbon::createFromFormat('m/d/Y g:i A', $value);
+        }
+    }
+
+    public function setFinishAtAttribute($value)
+    {
+        $value = trim($value);
+        if (!empty($value) && !is_null($value)) {
+            $this->attributes['finish_at'] = \Carbon::createFromFormat('m/d/Y g:i A', $value);
+        }
+    }
+
+    public function getTagsIdeaAttribute($value)
+    {
+        if ($this->attributes['tags_idea']) {
+            return json_decode($this->attributes['tags_idea']);
+        } else {
+            return [];
+        }
+    }
+
+    public static function search($keyword = '', $filter)
+    {
+        $words = explode(" ", $keyword);
     }
 }

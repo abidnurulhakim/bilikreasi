@@ -29,7 +29,7 @@ class IdeaController extends Controller
      */
     public function index()
     {
-        return redirect()->route('search');
+        return redirect()->route('search.index');
     }
 
     /**

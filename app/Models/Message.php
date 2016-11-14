@@ -23,4 +23,8 @@ class Message extends Model
     {
         return $this->belongsTo('App\Models\Discuss', 'discuss_id');
     }
+    public function idea()
+    {
+        return $this->belongsTo('App\Models\Idea', 'idea_id');
+    }
 }

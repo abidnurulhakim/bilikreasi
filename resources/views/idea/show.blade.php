@@ -31,7 +31,7 @@
               </div>
 
               <div class="col-md-12 no-padding section-idea criteria-idea">
-                <div class="col-md-4 col-padding text-center">
+                <div class="col-md-6 col-padding text-center">
                   <i class="fa 
                   @if($idea->category == 'business')
                     fa-money
@@ -46,17 +46,17 @@
                   @else
                     fa-bookmark-o
                   @endif
-                   fa-2x text-primary" alt="{{ $idea->category }}"></i><br><br>
-                  <b>{{ ucfirst($idea::CATEGORY[$idea->category]) }}</b>
+                   fa-2x text-primary" alt="{{ $idea->category }}"></i><br>
+                  <b>{{ ucfirst($idea::CATEGORY[$idea->category]) }}</b><br>
                   @if($idea->category == 'event')
-                    {{ $idea->start_at }} — {{ $idea->finish_at }}
+                    <small>{{ $idea->start_at }} — {{ $idea->finish_at }}</small>
                   @endif
                 </div>
-                <div class="col-md-4 col-padding text-center">
+                <div class="col-md-3 col-padding text-center">
                   <i class="fa fa-map-marker fa-2x text-primary"></i><br><br>
                   <b>{{ ucfirst($idea->location) }}</b>
                 </div>
-                <div class="col-md-4 col-padding">
+                <div class="col-md-3 col-padding">
                 </div>
               </div>
 

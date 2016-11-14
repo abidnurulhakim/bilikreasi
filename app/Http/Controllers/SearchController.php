@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Tag;
 use Illuminate\Http\Request;
 
 class SearchController extends Controller
@@ -14,6 +15,8 @@ class SearchController extends Controller
     public function index()
     {
     	\View::share('pageTitle', 'Cari Ide');
-        return view('search.index');
+        $tags = Tag::publish()->get()->map(function($tag) {
+            return $tag->name; })->toArray();
+        return view('search.index', compact('tags'));
     }
 }

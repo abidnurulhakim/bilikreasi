@@ -33,4 +33,9 @@ class UserInterest extends Model
     {
         $this->attributes['name'] = ucfirst($value);
     }
+
+    public function user()
+    {
+        return $this->belongsTo('App\Models\User', 'user');
+    }
 }
