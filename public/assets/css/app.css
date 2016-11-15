@@ -1319,3 +1319,19 @@ h6.header-index {
 .action-idea > a {
   margin: 0 10px;
 }
+
+/*
+ * Search Idea
+ * -------------------
+ */
+.idea .description {
+  margin-top: 10px;
+}
+.idea i {
+  text-align: center;
+  width: 20px;
+}
+.idea .location {
+  border-bottom: 1px solid #51afae;
+  padding-bottom: 5px;
+}

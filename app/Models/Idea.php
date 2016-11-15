@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Models\Member;
 use App\Models\User;
+use App\Models\IdeaTag;
 use App\Models\Traits\AttachableTrait;
 use App\Models\Traits\SluggableTrait;
 use Illuminate\Database\Eloquent\Model;
@@ -32,9 +33,6 @@ class Idea extends Model
     protected $fillable = [
         'user_id', 'title', 'slug', 'description', 'type', 'cover', 'category', 'status', 'location', 'start_at', 'finish_at',
         'tags_idea'
-    ];
-    protected $casts = [
-        'tags_idea' => 'array',
     ];
     public $attachmentable = [
         'cover'
@@ -148,8 +146,34 @@ class Idea extends Model
         }
     }
 
-    public static function search($keyword = '', $filter)
+    public static function search($keyword = '', $filter = [])
     {
         $words = explode(" ", $keyword);
+        $query = self::query();
+        foreach ($words as $word) {
+            $query = $query->orWhere('title', 'like', '%'.$word.'%');
+        }
+        foreach ($filter as $key => $value) {
+            if ($key == 'tag') {
+                $tags = IdeaTag::whereIn('name', $value)
+                            ->distinct()
+                            ->select('idea_id')
+                            ->get()
+                            ->sortBy('idea_id')
+                            ->map(function($tag) {
+                                return $tag->idea_id; })
+                            ->toArray();
+                $query = $query->whereIn('id', $tags);
+            } else {
+                if (is_array($value)) {
+                    $query = $query->whereIn($key, $value);
+                } else {
+                    $query = $query->where($key, $value);
+                }
+            }
+        }
+        return $query;
     }
+
+    
 }

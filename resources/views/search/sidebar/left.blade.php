@@ -8,10 +8,13 @@
           <small id="search-help" class="form-text text-muted">Contoh: "Photograph, Web Developer, ..."</small>
         </div>
         <div class="form-group">
-          {!! Form::formSelect('tag', $tags, ['label' => 'Tag Ide', 'placeholder' => 'Tag Ide', 'selected' => app('request')->input('tag')] ) !!}
+          {!! Form::formSelect('tag[]', $tags, ['label' => 'Tag Ide', 'placeholder' => 'Tag Ide', 'multiple' => 'true', 'selected' => $tagSelected]) !!}
         </div>
         <div class="form-group">
           {!! Form::formSelect('category', \App\Models\Idea::CATEGORY, ['label' => 'Kategori Ide', 'placeholder' => 'Kategori Ide', 'selected' => app('request')->input('category')] ) !!}
+        </div>
+        <div class="form-group">
+          {!! Form::formSelect('status', \App\Models\Idea::STATUS, ['label' => 'Status Ide', 'placeholder' => 'Status Ide', 'selected' => app('request')->input('status')] ) !!}
         </div>
         <!-- <div class="form-group">
           <label for="exampleSelect1">Lokasi</label>

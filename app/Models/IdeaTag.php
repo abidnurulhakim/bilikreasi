@@ -25,17 +25,6 @@ class IdeaTag extends Model
                 $tag->name = $ideaTag->name;
                 $tag->save();
             }
-            $idea = $ideaTag->idea;
-            if (!in_array($ideaTag->name, $idea->tags_idea)) {
-                $tags = $idea->tags_idea;
-                array_push($tags, $ideaTag->name);
-                $idea->tags_idea = $tags;
-                $idea->save();
-            }
-        });
-        static::deleted(function ($ideaTag) {
-            $idea = $ideaTag->idea;
-            $idea->tags_idea = array_diff($idea->tags_idea, array($ideaTag->name));
         });
     }
 
