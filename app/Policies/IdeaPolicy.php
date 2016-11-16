@@ -80,4 +80,28 @@ class IdeaPolicy
     {
         return $user->id === $idea->user_id;
     }
+
+    /**
+     * Determine whether the user can join the idea.
+     *
+     * @param  \App\User  $user
+     * @param  \App\Idea  $idea
+     * @return mixed
+     */
+    public function join(User $user, Idea $idea)
+    {
+        return $idea->members()->find($user->id)->pivot->role != 'banned';
+    }
+
+    /**
+     * Determine whether the user can see member of idea.
+     *
+     * @param  \App\User  $user
+     * @param  \App\Idea  $idea
+     * @return mixed
+     */
+    public function members(User $user, Idea $idea)
+    {
+        return $idea->isMember($user);
+    }
 }

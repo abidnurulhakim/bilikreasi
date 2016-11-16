@@ -21,6 +21,11 @@ class User extends Authenticatable
         'last_login_ip_address', 'birthday', 'username', 'gender', 'photo',
         'password', 'phone_number', 'profession', 'live_at'
     ];
+    protected $dates = [
+        'created_at',
+        'updated_at',
+        'deleted_at'
+    ];
 
     public static function boot()
     {

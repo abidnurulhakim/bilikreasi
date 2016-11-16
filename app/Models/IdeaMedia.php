@@ -2,13 +2,12 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Models\BaseModel;
 use App\Models\Traits\AttachableTrait;
 
-class IdeaMedia extends Model
+class IdeaMedia extends BaseModel
 {
-    use AttachableTrait, SoftDeletes;
+    use AttachableTrait;
 
     protected $table = 'idea_media';
     public $attachmentable = [

@@ -32,7 +32,6 @@
               @else
                 <i class="fa fa-bookmark-o text-primary" alt="other"></i>
               @endif
-              <!-- <a href="#" class="creator">Joshua</a> -->
             </div>
             <div class="col-md-12 no-padding category">
               <i class="fa fa-tags text-primary"></i> 
@@ -40,6 +39,9 @@
                 <?php $labels = ['primary', 'danger', 'info', 'warning', 'success']?>
               <span class="label label-{{ $labels[array_rand($labels)] }}">{{ $tag->name }}</span>
               @endforeach
+            </div>
+            <div class="col-md-12 no-padding status">
+              <i class='fa fa-flag text-primary'></i> {{ ucfirst($idea::STATUS[$idea->status]) }}
             </div>
             <div class="col-md-12 no-padding location">
               <i class='fa fa-map-marker text-primary'></i> {{ $idea->location }}

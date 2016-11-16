@@ -2,17 +2,12 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Models\BaseModel;
 use App\Models\Skill;
 
-class UserSkill extends Model
+class UserSkill extends BaseModel
 {
-    
-    use SoftDeletes;
-
     protected $table = 'user_skills';
-
     protected $fillable = [
         'user_id', 'name'
     ];

@@ -2,13 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Models\BaseModel;
 
-class Discuss extends Model
+class Discuss extends BaseModel
 {
-	use SoftDeletes;
-
     protected $table = 'discusses';
     protected $fillable = [
         'idea_id', 'name'

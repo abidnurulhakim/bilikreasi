@@ -2,17 +2,12 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Models\BaseModel;
 use App\Models\Tag;
 
-class IdeaTag extends Model
+class IdeaTag extends BaseModel
 {
-    
-    use SoftDeletes;
-
     protected $table = 'idea_tags';
-
     protected $fillable = [
         'idea_id', 'name'
     ];

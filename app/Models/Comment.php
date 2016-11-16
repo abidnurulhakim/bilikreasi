@@ -2,13 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Models\BaseModel;
 
-class Comment extends Model
+class Comment extends BaseModel
 {
-    use SoftDeletes;
-
     protected $table = 'comments';
     protected $fillable = [
         'user_id', 'idea_id', 'content'

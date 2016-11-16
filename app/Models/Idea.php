@@ -2,17 +2,16 @@
 
 namespace App\Models;
 
+use App\Models\BaseModel;
 use App\Models\Member;
 use App\Models\User;
 use App\Models\IdeaTag;
 use App\Models\Traits\AttachableTrait;
 use App\Models\Traits\SluggableTrait;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Idea extends Model
+class Idea extends BaseModel
 {
-    use AttachableTrait, SluggableTrait, SoftDeletes;
+    use AttachableTrait, SluggableTrait;
 
     const CATEGORY = [
         'business' => 'Usaha Profitable (Bisnis Mikro, Startup, dll)',
@@ -27,6 +26,14 @@ class Idea extends Model
         'ready' => 'Mulai',
         'ongoing' => 'Berlangsung',
         'finish' => 'Selesai',
+    ];
+
+    protected $dates = [
+        'created_at',
+        'updated_at',
+        'deleted_at',
+        'start_at',
+        'finish_at'
     ];
 
     protected $table = 'ideas';
@@ -97,8 +104,11 @@ class Idea extends Model
         return 'slug';
     }
 
-    public function isAdmin(User $user)
+    public function isAdmin(User $user = null)
     {
+        if (is_null($user)) {
+            return false;
+        }
         $user = $this->members()->find($user->id);
         if ($user) {
             return $user->pivot->role == 'admin';
@@ -106,8 +116,19 @@ class Idea extends Model
         return false;
     }
 
-    public function isMember(User $user)
+    public function isMember(User $user = null)
     {
+        if (is_null($user)) {
+            return false;
+        }
+        return !empty($this->members()->find($user->id));
+    }
+
+    public function hasLike(User $user = null)
+    {
+        if (is_null($user)) {
+            return false;
+        }
         return !empty($this->members()->find($user->id));
     }
 
@@ -134,15 +155,6 @@ class Idea extends Model
         $value = trim($value);
         if (!empty($value) && !is_null($value)) {
             $this->attributes['finish_at'] = \Carbon::createFromFormat('m/d/Y g:i A', $value);
-        }
-    }
-
-    public function getTagsIdeaAttribute($value)
-    {
-        if ($this->attributes['tags_idea']) {
-            return json_decode($this->attributes['tags_idea']);
-        } else {
-            return [];
         }
     }
 
@@ -174,6 +186,4 @@ class Idea extends Model
         }
         return $query;
     }
-
-    
 }

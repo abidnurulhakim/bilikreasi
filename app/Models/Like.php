@@ -2,13 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Models\BaseModel;
 
-class Like extends Model
+class Like extends BaseModel
 {
-    use SoftDeletes;
-
     protected $table = 'likes';
     protected $fillable = [
         'user_id', 'idea_id'

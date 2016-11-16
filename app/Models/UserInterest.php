@@ -2,17 +2,12 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Models\BaseModel;
 use App\Models\Interest;
 
-class UserInterest extends Model
+class UserInterest extends BaseModel
 {
-    
-    use SoftDeletes;
-
     protected $table = 'user_interests';
-
     protected $fillable = [
         'user_id', 'name'
     ];

@@ -2,18 +2,14 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Models\BaseModel;
 use App\Models\Traits\SluggableTrait;
 
-class Skill extends Model
+class Skill extends BaseModel
 {
-    
-    use SoftDeletes;
     use SluggableTrait;
 
     protected $table = 'skills';
-
     public $sluggable = [
         'slug' => 'name'
     ];

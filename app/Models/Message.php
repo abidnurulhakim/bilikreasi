@@ -2,13 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Models\BaseModel;
 
-class Message extends Model
+class Message extends BaseModel
 {
-    use SoftDeletes;
-
     protected $table = 'messages';
     protected $fillable = [
         'user_id', 'discuss_id', 'content'

@@ -48,25 +48,27 @@
                   @endif
                    fa-2x text-primary" alt="{{ $idea->category }}"></i><br>
                   <b>{{ ucfirst($idea::CATEGORY[$idea->category]) }}</b><br>
-                  @if($idea->category == 'event')
-                    <small>{{ $idea->start_at }} — {{ $idea->finish_at }}</small>
+                  @if($idea->category == 'event' && $idea->start_at && $idea->finish_at)
+                    <small>{{ $idea->start_at->format('Y/m/d H:m') }} &mdash; {{ $idea->finish_at->format('Y/m/d H:m') }}</small>
                   @endif
                 </div>
                 <div class="col-md-3 col-padding text-center">
-                  <i class="fa fa-map-marker fa-2x text-primary"></i><br><br>
+                  <i class="fa fa-map-marker fa-2x text-primary"></i><br>
                   <b>{{ ucfirst($idea->location) }}</b>
                 </div>
-                <div class="col-md-3 col-padding">
+                <div class="col-md-3 col-padding text-center">
+                  <i class="fa fa-flag fa-2x text-primary"></i><br>
+                  <b>{{ ucfirst($idea->status) }}</b>
                 </div>
               </div>
 
               <div class="col-md-12 no-padding section-idea action-idea">
-                @if($idea->likes()->find(auth()->user()->id))
+                @if($idea->hasLike(auth()->user()))
                 <a href="#" class="btn btn-primary btn-lg">Tidak Menyukai</a>
                 @else
                 <a href="#" class="btn btn-primary btn-lg">Menyukai</a>
                 @endif
-                @unless($idea->members()->find(auth()->user()->id))
+                @unless($idea->isMember(auth()->user()))
                 <a href="{{ route('idea.join', $idea) }}" class="btn btn-primary btn-lg">Bergabung</a>
                 @endif
                 @if($idea->isAdmin(auth()->user()))
@@ -92,12 +94,13 @@
             <h3><b>Anggota<b></h3>
           </div>
           <div class="col-md-12 text-center">
-            @foreach($idea->members()->paginate(11) as $user)
+            @foreach($idea->members()->paginate(10) as $user)
             <div class="col-md-1 col-padding">
               <img src="{{ $user->getPhoto(100) }}" class="img-responsive img-circle"><br>
               <a href="{{ route('user.show', $user) }}" class="">{{ $user->name }}</a>
             </div>
             @endforeach
+            <a href="{{ route('idea.members', $idea) }}" class="btn btn-primary" style="bottom: 50%;position: absolute;">Semua anggota</a>
           </div>
           @if($idea->media()->count() > 0)
           <div class="col-md-12 page-header">

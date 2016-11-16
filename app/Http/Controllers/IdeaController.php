@@ -6,6 +6,7 @@ use App\Models\Idea;
 use App\Models\IdeaMedia;
 use App\Models\IdeaTag;
 use App\Models\Tag;
+use App\Services\IdeaService;
 use App\Http\Requests\Idea\StoreRequest;
 use App\Http\Requests\Idea\UpdateRequest;
 use Illuminate\Http\Request;
@@ -149,6 +150,7 @@ class IdeaController extends Controller
     public function destroy($slug)
     {
         $idea = $this->findIdea($slug);
+        $this->authorize('delete', $idea);
         $user = $idea->user;
         $idea->delete();
         return redirect()->route('user.show', $user);
@@ -157,11 +159,19 @@ class IdeaController extends Controller
     public function join($slug)
     {
         $idea = $this->findIdea($slug);
-        if ($idea->members()->find(auth()->user()->id)) {
-            return rediret()->back();
+        $member = IdeaService::join($idea, auth()->user());
+        if ($member) {
+            return redirect()->route('idea.members');
         } else {
-            $idea->members()->save(auth()->user(), ['join_at' => \Carbon::now(), 'created_at' => \Carbon::now(), 'updated_at' => \Carbon::now()]);
             return redirect()->back();
         }
+    }
+
+    public function members($slug)
+    {
+        $idea = $this->findIdea($slug);
+        \View::share('pageTitle', 'Anggota '.$idea->title);
+        $users = $idea->members;
+        return view('idea.members', compact('users'));
     }
 }
