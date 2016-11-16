@@ -4,11 +4,9 @@ namespace App\Models;
 
 use App\Models\BaseModel;
 use Illuminate\Database\Eloquent\Relations\Pivot;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Member extends BaseModel
 {
-    use SoftDeletes;
     protected $table = 'members';
     protected $fillable = [
         'user_id', 'idea_id', 'join_at', 'role'

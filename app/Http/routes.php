@@ -26,9 +26,9 @@ Route::resource('user', 'UserController', ['only' => [
 ]]);
 
 /*route for idea*/
-Route::resource('idea', 'IdeaController');
 Route::get('idea/{slug}/join', 'IdeaController@join')->name('idea.join');
 Route::get('idea/{slug}/members', 'IdeaController@members')->name('idea.members');
+Route::resource('idea', 'IdeaController');
 
 /*route for search*/
 Route::get('search', 'SearchController@index')->name('search.index');
