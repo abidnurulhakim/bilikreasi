@@ -10,38 +10,38 @@
 | to using a Closure or controller method. Build something great!
 |
 */
-Route::group(['prefix' => 'admin'], function () {
+Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
     Route::get('users', function ()    {
         // Matches The "/admin/users" URL
     });
 });
 Route::group(['prefix' => '/'], function () {
     Route::get('', 'HomeController@index')->name('home.index');
-	Route::get('login', 'HomeController@login')->name('home.login');
-	Route::post('login', 'SessionController@login')->name('session.login');
-	Route::get('register', 'HomeController@register')->name('home.register');
-	Route::post('register', 'SessionController@register')->name('session.register');
-	Route::get('logout', 'SessionController@logout')->name('session.logout');
+    Route::get('login', 'HomeController@login')->name('home.login');
+    Route::post('login', 'SessionController@login')->name('session.login');
+    Route::get('register', 'HomeController@register')->name('home.register');
+    Route::post('register', 'SessionController@register')->name('session.register');
+    Route::get('logout', 'SessionController@logout')->name('session.logout');
 
-	/*route for user*/
-	Route::get('user/{username}/change-password', 'UserController@editPassword')->name('user.edit-password');
-	Route::post('user/{username}/change-password', 'UserController@updatePassword')->name('user.update-password');
-	Route::resource('user', 'UserController', ['only' => [
-	    'show', 'edit', 'update'
-	]]);
+    /*route for discuss*/
+    Route::resource('discuss', 'DiscussController', ['only' => [
+        'index', 'show'
+    ]]);
+    Route::post('discuss/{id}/message', 'DiscussController@sendMessage')->name('discuss.send.message');
 
-	/*route for idea*/
-	Route::get('idea/{slug}/join', 'IdeaController@join')->name('idea.join');
-	Route::get('idea/{slug}/members', 'IdeaController@members')->name('idea.members');
-	Route::resource('idea', 'IdeaController');
+    /*route for idea*/
+    Route::get('idea/{slug}/join', 'IdeaController@join')->name('idea.join');
+    Route::get('idea/{slug}/members', 'IdeaController@members')->name('idea.members');
+    Route::resource('idea', 'IdeaController');
 
-	/*route for search*/
-	Route::get('search', 'SearchController@index')->name('search.index');
+    /*route for search*/
+    Route::get('search', 'SearchController@index')->name('search.index');
 
-
-	/*route for discuss*/
-	Route::resource('discuss', 'DiscussController', ['only' => [
-	    'index', 'show', 'destroy'
-	]]);
+    /*route for user*/
+    Route::get('user/{username}/change-password', 'UserController@editPassword')->name('user.edit-password');
+    Route::post('user/{username}/change-password', 'UserController@updatePassword')->name('user.update-password');
+    Route::resource('user', 'UserController', ['only' => [
+        'show', 'edit', 'update'
+    ]]);
 });
 

@@ -18,11 +18,16 @@ class Discuss extends BaseModel
         foreach ($messages as $message) {
         	array_push($user_ids, $message->user_id);
         }
-        return App\Models\User::whereIn('id', $user_ids)->get()
+        return App\Models\User::whereIn('id', $user_ids)->get();
     }
 
     public function messages()
     {
         return $this->hasMany('App\Models\Message', 'discuss_id');
+    }
+
+    public function idea()
+    {
+        return $this->belongsTo('App\Models\Idea', 'idea_id');
     }
 }

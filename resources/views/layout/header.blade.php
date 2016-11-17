@@ -20,12 +20,12 @@
           <a href="#" class="text-center" data-toggle="dropdown">Kategori</a>
           <ul class="dropdown-menu">
             <div class="list-group">
-              <a href="#" class="list-group-item"><i class="fa fa-money"></i> Usaha</a>
-              <a href="#" class="list-group-item"><i class="fa fa-users"></i> Komunitas</a>
-              <a href="#" class="list-group-item"><i class="fa fa-bullhorn"></i> Kampanye</a>
-              <a href="#" class="list-group-item"><i class="fa fa-suitcase"></i> Proyek</a>
-              <a href="#" class="list-group-item"><i class="fa fa-calendar"></i> Kegiatan</a>
-              <a href="#" class="list-group-item"><i class="fa fa-bars"></i> Lain</a>
+              <a href="{{ route('search.index').'?category=business' }}" class="list-group-item"><i class="fa fa-money"></i> Usaha</a>
+              <a href="{{ route('search.index').'?category=community' }}"" class="list-group-item"><i class="fa fa-users"></i> Komunitas</a>
+              <a href="{{ route('search.index').'?category=campaign' }}"" class="list-group-item"><i class="fa fa-bullhorn"></i> Kampanye</a>
+              <a href="{{ route('search.index').'?category=project' }}"" class="list-group-item"><i class="fa fa-suitcase"></i> Proyek</a>
+              <a href="{{ route('search.index').'?category=event' }}"" class="list-group-item"><i class="fa fa-calendar"></i> Kegiatan</a>
+              <a href="{{ route('search.index').'?category=other' }}"" class="list-group-item"><i class="fa fa-bars"></i> Lain</a>
             </div>
           </ul>
         </li>
@@ -72,7 +72,7 @@
                 <img src="{{ \Auth::user()->getPhoto(100,100) }}" class="img-circle" alt="User Image">
                 <p>
                   {{ \Auth::user()->name }}
-                  <small>Member since Nov. 2012</small>
+                  <small>Bergabung sejakt {{ \Auth::user()->created_at->format('%B %Y') }}</small>
                 </p>
               </li>
               <!-- Menu Body -->
@@ -80,6 +80,9 @@
                 <div class="list-group">
                   <a href="{{ route('user.show', auth()->user()->username) }}" class="list-group-item"><i class="fa fa-home"></i> Beranda</a>
                   <a href="{{ route('idea.create') }}" class="list-group-item"><i class="fa fa-lightbulb-o"></i> Buat Ide Baru</a>
+                  @if(\App\Models\Member::where('user_id', auth()->user()->id)->count() > 0)
+                  <a href="{{ route('discuss.index') }}" class="list-group-item"><i class="fa fa-users"></i> Ruang Diskusi</a>
+                  @endif
                   <a href="{{ route('user.edit', auth()->user()->username) }}" class="list-group-item"><i class="fa fa-pencil"></i> Perbaharui Profil</a>
                   <a href="{{ route('user.edit-password', auth()->user()->username) }}" class="list-group-item"><i class="fa fa-key"></i> Ganti Password</a>
                 </div>

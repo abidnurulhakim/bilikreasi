@@ -50,7 +50,8 @@
                         lang : path.plugins + 'summernote/lang/summernote-id-ID.js'
                       },
     _timeago        : { 
-                        js : path.plugins + 'timeago/js/jquery.timeago.js'
+                        js : path.plugins + 'timeago/js/jquery.timeago.js',
+                        js_id : path.plugins + 'timeago/js/jquery.timeago.id.js'
                       },                  
   };
 
@@ -266,6 +267,7 @@
         Modernizr.load({
           load  : [
                   assets._timeago.js,
+                  assets._timeago.js_id
           ],
           complete : function(){
             $('.time-humanize').each(function(index){

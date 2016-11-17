@@ -18,8 +18,8 @@
               <div class="col-md-4 col-padding">
                 <div class="card">
                   <div class="card-block">
-                    <h4 class="card-title">
-                      <a href="{{ route('idea.show', $idea) }}">{{ str_limit($idea->title, 17)}} </a> &mdash;
+                    <h5 class="card-title">
+                      <a href="{{ route('idea.show', $idea) }}">{{ str_limit($idea->title, 25)}} </a> &mdash;
                       @if($idea->category == 'business')
                         <i class="fa fa-money text-primary" alt="business"></i>
                       @elseif($idea->category == 'campaign')
@@ -33,7 +33,7 @@
                       @else
                         <i class="fa fa-bookmark-o text-primary" alt="other"></i>
                       @endif
-                    </h4>
+                    </h5>
                     <h6 class="card-subtitle text-muted">
                       <i class="fa fa-tags"></i> 
                       @foreach($idea->tags->take(3) as $tag)
@@ -50,7 +50,7 @@
                     <a href="{{ route('idea.show', $idea) }}" class="pull-right btn btn-primary">Baca</a>
                   </div>
                   <div class="card-footer text-muted">
-                    <i class="fa fa-clock-o" aria-hidden="true"></i> Bergabung sejak <span class="time-humanize " title="{{ Carbon::parse($idea->members()->find($user->id)->pivot->join_at)->toIso8601String() }}"></span>
+                    <i class="fa fa-clock-o" aria-hidden="true"></i> <small>Bergabung sejak <span class="time-humanize " title="{{ Carbon::parse($idea->members()->find($user->id)->pivot->join_at)->toIso8601String() }}"></span></small>
                   </div>
                 </div>
               </div>
@@ -59,6 +59,9 @@
             @empty
               <h4 class="text-center text-muted">-- Belum bergabung dengan ide manapun. --</h4>
             @endforelse
+            <div class="col-md-12 text-center">
+              {!! $ideas->links() !!}
+            </div>
           </div>
         </div>
     </div>

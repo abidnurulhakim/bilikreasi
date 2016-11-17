@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\BaseModel;
+use App\Models\User;
 
 class Message extends BaseModel
 {
@@ -10,6 +11,9 @@ class Message extends BaseModel
     protected $fillable = [
         'user_id', 'discuss_id', 'content'
     ];
+
+    protected $touches = ['discuss'];
+
 
     public function user()
     {
@@ -20,8 +24,19 @@ class Message extends BaseModel
     {
         return $this->belongsTo('App\Models\Discuss', 'discuss_id');
     }
-    public function idea()
+
+    public function scopeLast($query)
     {
-        return $this->belongsTo('App\Models\Idea', 'idea_id');
+        return $query->orderBy('created_at', 'desc');
+    }
+
+    public function isOwner(User $user)
+    {
+        return $user->id == $this->user_id;
+    }
+
+    public function getContentAttribute($value)
+    {
+        return nl2br(htmlspecialchars($value));
     }
 }

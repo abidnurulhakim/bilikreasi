@@ -75,6 +75,12 @@ a.email {
 .message.owner{
   float: right;
 }
+.message .content hr {
+  margin: 3px 0;
+}
+.card-block.discuss {
+  background: #fafafa;
+}
 
 /*discuss*/
 .card-block.discusses {
@@ -306,12 +312,12 @@ a.btn-primary.active,
   color: #818a91;
 }
 
-.list-group-item.active, .list-group-item.active:focus, .list-group-item.active:hover {
+.list-group-item.active{
   z-index: 2;
-  color: #fff;
+  color: #fff !important;
   text-decoration: none;
-  /*background-color: #0275d8;
-  border-color: #0275d8;*/
+  background-color: #51afae !important;
+  /*border-color: #0275d8;*/
 }
 
 .list-group-item.active .list-group-item-heading,

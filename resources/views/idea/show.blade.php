@@ -120,7 +120,7 @@
               @else
               <div class="col-md-2">
                 <i class="fa fa-file fa-4x">
-                  <a href="{{ $media->url() }}"></a>
+                  <a href="{{ $media->url }}"></a>
                 </i>
               @endif
               </div>            

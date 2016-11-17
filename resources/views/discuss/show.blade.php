@@ -13,75 +13,72 @@
             </form>
           </div>
           <ul class="list-group">
-            <a class="list-group-item discuss" href="#">Gerak Jalan Bandung</a>
-            <a class="list-group-item discuss" href="#">Movie Club Bandung</a>
-            <a class="list-group-item discuss" href="#">Festival Jepang Bandung</a>
+            @forelse($discusses as $dis)
+              @if($dis->id == $discuss->id)
+              <a class="list-group-item discuss active" href="{{ route('discuss.show', $dis) }}">{{ str_limit($dis->name, 50) }}</a>
+              @else
+              <a class="list-group-item discuss" href="{{ route('discuss.show', $dis) }}">{{ str_limit($dis->name, 50) }}</a>
+              @endif
+            @empty
+              <a class="list-group-item discuss" href="#">Anda tidak memiliki diskusi</a>
+            @endforelse
           </ul>
         </div>
       </div>
     </div>
     <div class="col-md-8 col-padding">
       <div class="card">
-        <div class="card-block discusses">
-          <div class="alert alert-info message other" role="alert">
-            <div class="col-md-1 no-padding leftbar">
-              <center>
-                <img class="img-responsive img-circle img-user-xs" src="http://lorempixel.com/50/50">
-              </center>
-            </div>
-            <div class="col-md-11 col-padding rightbar">
-              <div class="col-md-12 no-padding user">
-                <a href="#">Abid Nurul Hakim</a>
+        <div class="card-block discuss">
+          @forelse($messages as $message)
+            <div class="col-md-12 col-padding">
+              @if($message->isOwner(auth()->user()))
+              <div class="alert alert-success message owner" role="alert">
+                <div class="col-md-12 no-padding content text-right">
+                  <p>
+                    {!! $message->content !!}
+                  </p>
+                  <hr>
+                  <span class="time-humanize " title="{{ $message->created_at->toIso8601String() }}"></span>
+                </div>
               </div>
-              <div class="col-md-12 no-padding content">
-                <p>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean quis diam quis lectus blandit mattis.
-                </p>
+              @else
+              <div class="alert alert-info message other" role="alert">
+                <div class="col-md-2 col-padding">
+                  <center>
+                    <img class="img-responsive img-circle img-user-xs" src="{{ $message->user->getPhoto(100) }}">
+                  </center>
+                </div>
+                <div class="col-md-10 col-padding">
+                  <div class="col-md-12 no-padding user">
+                    <a href="{{ route('user.show', $message->user) }}">{{ $message->user->name }}</a>
+                  </div>
+                  <div class="col-md-12 no-padding content">
+                    <p>
+                      {!! $message->content !!}
+                    </p>
+                    <hr>
+                    <span class="time-humanize " title="{{ $message->created_at->toIso8601String() }}"></span>
+                  </div>
+                </div>
               </div>
+              @endif
             </div>
-          </div>
-          <div class="alert alert-success message owner" role="alert">
-            <div class="col-md-12 no-padding content text-right">
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean quis diam quis lectus blandit mattis.
-              </p>
+          @empty
+            <div class="alert alert-warning message other col-md-12 text-center" role="alert">
+              <p>Diskusi ini belum memiliki di mulai</p>
             </div>
-          </div>
-          <div class="alert alert-success message owner" role="alert">
-            <div class="col-md-12 no-padding content text-right">
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean quis diam quis lectus blandit mattis.
-              </p>
-            </div>
-          </div>
-          <div class="alert alert-info message other" role="alert">
-            <div class="col-md-1 no-padding leftbar">
-              <center>
-                <img class="img-responsive img-circle img-user-xs" src="http://lorempixel.com/50/50">
-              </center>
-            </div>
-            <div class="col-md-11 col-padding rightbar">
-              <div class="col-md-12 no-padding user">
-                <a href="#">Joshua</a>
-              </div>
-              <div class="col-md-12 no-padding content">
-                <p>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean quis diam quis lectus blandit mattis.
-                </p>
-              </div>
-            </div>
-          </div>
+          @endforelse
           <!-- hr -->
         </div>
         <hr class="discuss">
         <!-- input discuss -->
         <div class="card-block">
-          <form>
+          {!! Form::open(['route' => ['discuss.send.message', $discuss], 'method' => 'POST']) !!}
             <div class="form-group">
-              <textarea class="form-control" rows="6"></textarea>
+              {!! Form::textArea('content', null, ['class' => 'form-control', 'rows' => 5]) !!}
             </div>
-            <button type="submit" class="btn btn-primary pull-right">Send</button>
-          </form>
+            <button type="submit" class="btn btn-primary pull-right">Kirim</button>
+          {!! Form::close() !!}
         </div>
       </div>
     </div>

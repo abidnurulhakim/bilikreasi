@@ -12,6 +12,13 @@ class Member extends BaseModel
         'user_id', 'idea_id', 'join_at', 'role'
     ];
 
+    protected $dates = [
+        'created_at',
+        'updated_at',
+        'deleted_at',
+        'join_at',
+    ];
+
     public static function boot()
     {
         parent::boot();
