@@ -14,6 +14,8 @@ class UserInterest extends BaseModel
 
     public static function boot()
     {        
+        parent::boot();
+        
         static::saved(function ($userInterest) {
             if (Interest::where('name', $userInterest->name)->count() == 0) {
                 $interest = new Interest();

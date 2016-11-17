@@ -12,7 +12,7 @@ use Carbon\Carbon as Carbon;
 class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
-    function __construct()
+    public function __construct()
     {
     	\View::share('pageHeader', true);
         \View::share('isLogin', false);

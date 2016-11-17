@@ -29,6 +29,8 @@ class User extends Authenticatable
 
     public static function boot()
     {
+        parent::boot();
+        
         static::bootAttachableTrait();
         static::creating(function($idea){
             $idea->confirmed = true;

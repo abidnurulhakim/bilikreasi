@@ -13,6 +13,8 @@ class Like extends BaseModel
 
     public static function boot()
     {
+        parent::boot();
+        
         static::created(function ($like) {
             $idea = $like->idea();
             $idea->increment('like_count');

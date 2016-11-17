@@ -6,6 +6,8 @@ use App\Models\BaseModel;
 use App\Models\Member;
 use App\Models\User;
 use App\Models\IdeaTag;
+use App\Services\IdeaService;
+use App\Services\DiscussService;
 use App\Models\Traits\AttachableTrait;
 use App\Models\Traits\SluggableTrait;
 
@@ -51,10 +53,13 @@ class Idea extends BaseModel
 
     public static function boot()
     {
+        parent::boot();
+        
         static::bootAttachableTrait();
         static::bootSluggableTrait();
         static::created(function($idea){
-            Member::create(['user_id' => $idea->user_id, 'idea_id' => $idea->id, 'role' => 'admin']);
+            IdeaService::join($idea, $idea->user);
+            DiscussService::create($idea);
         });
         static::saving(function($idea){
             if ($idea->category != 'event') {

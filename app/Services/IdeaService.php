@@ -22,11 +22,13 @@ class IdeaService
                         ->first();
         if ($member) {
             if ($member->restore()) {
+                $member->role = $role;
+                $member->save()
                 return $member;
             } else {
                 return null;
             }
         }
-        return Member::create(['user_id' => $user->id, 'idea_id' => $idea->id, 'role' => 'member']);
+        return Member::create(['user_id' => $user->id, 'idea_id' => $idea->id, 'role' => $role]);
     }
 }

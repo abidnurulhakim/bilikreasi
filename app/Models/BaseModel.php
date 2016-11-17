@@ -4,7 +4,6 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class BaseModel extends Model
 {
@@ -14,9 +13,4 @@ class BaseModel extends Model
         'updated_at',
         'deleted_at'
     ];
-
-    public function scopeOnlyTrashed($query)
-    {
-        return $query->whereNotNull($this->getQualifiedDeletedAtColumn());
-    }
 }

@@ -14,6 +14,8 @@ class UserSkill extends BaseModel
 
     public static function boot()
     {        
+        parent::boot();
+        
         static::saved(function ($userSkill) {
             if (Skill::where('name', $userSkill->name)->count() == 0) {
                 $skill = new Skill();

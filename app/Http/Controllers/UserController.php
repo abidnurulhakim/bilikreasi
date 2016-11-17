@@ -16,6 +16,19 @@ class UserController extends Controller
 {
 
     /**
+     * Instantiate a new UserController instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        parent::__construct();
+        $this->middleware('auth', ['except' => [
+            'show',
+        ]]);
+    }
+
+    /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response

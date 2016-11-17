@@ -19,6 +19,8 @@ class IdeaMedia extends BaseModel
 
     public static function boot()
     {
+        parent::boot();
+        
         static::bootAttachableTrait();
         static::creating(function($ideaMedia){
             $mime = mime_content_type($ideaMedia->url);

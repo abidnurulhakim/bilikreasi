@@ -13,6 +13,8 @@ class Comment extends BaseModel
 
     public static function boot()
     {
+        parent::boot();
+        
         static::created(function ($comment) {
             $idea = $comment->idea();
             $idea->increment('comment_count');

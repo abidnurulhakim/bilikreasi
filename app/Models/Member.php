@@ -14,6 +14,8 @@ class Member extends BaseModel
 
     public static function boot()
     {
+        parent::boot();
+        
         static::creating(function ($member) {
             $member->join_at = \Carbon\Carbon::now();
         });

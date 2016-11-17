@@ -14,6 +14,8 @@ class IdeaTag extends BaseModel
 
     public static function boot()
     {        
+        parent::boot();
+        
         static::saved(function ($ideaTag) {
             if (Tag::where('name', $ideaTag->name)->count() == 0) {
                 $tag = new Tag();

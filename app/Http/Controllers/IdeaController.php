@@ -13,14 +13,16 @@ use Illuminate\Http\Request;
 
 class IdeaController extends Controller
 {
-
-    private function findIdea($slug)
+    /**
+     * Instantiate a new UserController instance.
+     *
+     * @return void
+     */
+    public function __construct()
     {
-        $idea = Idea::where('slug', $slug)->first();
-        if ($idea) {
-            return $idea;
-        }
-        throw new \Illuminate\Database\Eloquent\ModelNotFoundException();
+        $this->middleware('auth', ['except' => [
+            'index',
+        ]]);
     }
 
     /**
@@ -173,5 +175,14 @@ class IdeaController extends Controller
         \View::share('pageTitle', 'Anggota '.$idea->title);
         $users = $idea->members;
         return view('idea.members', compact('users'));
+    }
+
+    private function findIdea($slug)
+    {
+        $idea = Idea::where('slug', $slug)->first();
+        if ($idea) {
+            return $idea;
+        }
+        throw new \Illuminate\Database\Eloquent\ModelNotFoundException();
     }
 }
