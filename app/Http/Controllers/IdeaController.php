@@ -6,6 +6,7 @@ use App\Models\Idea;
 use App\Models\IdeaMedia;
 use App\Models\IdeaTag;
 use App\Models\Tag;
+use App\Models\User;
 use App\Services\IdeaService;
 use App\Http\Requests\Idea\StoreRequest;
 use App\Http\Requests\Idea\UpdateRequest;
@@ -178,12 +179,25 @@ class IdeaController extends Controller
         return view('idea.members', compact('users'));
     }
 
+    public function invitation($slug, $username)
+    {
+        $idea = $this->findIdea($slug);
+        $user = User::where('username', $username)->firstOrFail();
+        $invitation = IdeaService::createInvitation($idea, $user);
+        return redirect()->back();
+    }
+
+    public function removeInvitation($slug, $username)
+    {
+        $idea = $this->findIdea($slug);
+        $user = User::where('username', $username)->firstOrFail();
+        $invitation = IdeaService::removeInvitation($idea, $user);
+        return redirect()->back();
+    }
+
     private function findIdea($slug)
     {
-        $idea = Idea::where('slug', $slug)->first();
-        if ($idea) {
-            return $idea;
-        }
-        throw new \Illuminate\Database\Eloquent\ModelNotFoundException();
+        $idea = Idea::where('slug', $slug)->firstOrFail();
+        return $idea;
     }
 }

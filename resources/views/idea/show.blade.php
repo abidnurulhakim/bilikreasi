@@ -64,15 +64,18 @@
 
               <div class="col-md-12 no-padding section-idea action-idea">
                 @if($idea->hasLike(auth()->user()))
-                <a href="#" class="btn btn-primary btn-lg">Tidak Menyukai</a>
+                <a href="#" class="btn btn-primary btn">Tidak Menyukai</a>
                 @else
-                <a href="#" class="btn btn-primary btn-lg">Menyukai</a>
+                <a href="#" class="btn btn-primary btn">Menyukai</a>
                 @endif
                 @unless($idea->isMember(auth()->user()))
-                <a href="{{ route('idea.join', $idea) }}" class="btn btn-primary btn-lg">Bergabung</a>
+                <a href="{{ route('idea.join', $idea) }}" class="btn btn-primary btn">Bergabung</a>
                 @endif
                 @if($idea->isAdmin(auth()->user()))
-                <a href="{{ route('idea.edit', $idea) }}" class="btn btn-primary btn-lg pull-right">Perbaharui Ide</a>
+                <a href="{{ route('idea.edit', $idea) }}" class="btn btn-primary btn pull-right">Perbaharui Ide</a>
+                @endif
+                @if($idea->isAdmin(auth()->user()))
+                <a href="{{ route('idea.search.partner', $idea) }}" class="btn btn-primary btn pull-right">Cari Partner</a>
                 @endif
               </div>
             </div>

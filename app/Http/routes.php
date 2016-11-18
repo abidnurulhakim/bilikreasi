@@ -10,36 +10,38 @@
 | to using a Closure or controller method. Build something great!
 |
 */
-Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
-    Route::get('users', function ()    {
-        // Matches The "/admin/users" URL
-    });
+Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 'auth.admin'], function () {
+    Route::get('', ['uses'=>'HomeController@index', 'as' => 'admin.index']);
 });
 Route::group(['prefix' => '/'], function () {
-    Route::get('', 'HomeController@index')->name('home.index');
-    Route::get('login', 'HomeController@login')->name('home.login');
-    Route::post('login', 'SessionController@login')->name('session.login');
-    Route::get('register', 'HomeController@register')->name('home.register');
-    Route::post('register', 'SessionController@register')->name('session.register');
-    Route::get('logout', 'SessionController@logout')->name('session.logout');
+    Route::get('', ['uses'=>'HomeController@index', 'as' => 'home.index']);
+    Route::get('login', ['uses'=>'HomeController@login', 'as' => 'home.login', 'middleware' => 'guest']);
+    Route::post('login', ['uses'=>'SessionController@login', 'as' => 'session.login', 'middleware' => 'guest']);
+    Route::get('register', ['uses'=>'HomeController@register', 'as' => 'home.register', 'middleware' => 'guest']);
+    Route::post('register', ['uses'=>'SessionController@register', 'as' => 'session.register', 'middleware' => 'guest']);
+    Route::get('logout', ['uses'=>'SessionController@logout', 'as' => 'session.logout', 'middleware' => 'auth']);
 
     /*route for discuss*/
     Route::resource('discuss', 'DiscussController', ['only' => [
         'index', 'show'
     ]]);
-    Route::post('discuss/{id}/message', 'DiscussController@sendMessage')->name('discuss.send.message');
+    Route::post('discuss/{id}/message', ['uses'=>'DiscussController@sendMessage', 'as' => 'discuss.send.message']);
 
     /*route for idea*/
-    Route::get('idea/{slug}/join', 'IdeaController@join')->name('idea.join');
-    Route::get('idea/{slug}/members', 'IdeaController@members')->name('idea.members');
+    Route::get('idea/{slug}/invitation/{user}', ['uses'=>'IdeaController@invitation', 'as' => 'idea.invitation']);
+    Route::get('idea/{slug}/invitation/{user}/remove', ['uses'=>'IdeaController@removeInvitation', 'as' => 'idea.invitation.remove']);
+    Route::get('idea/{slug}/join', ['uses'=>'IdeaController@join', 'as' => 'idea.join']);
+    Route::get('idea/{slug}/members', ['uses'=>'IdeaController@members', 'as' => 'idea.members']);
+    Route::get('idea/{slug}/search', ['uses'=>'SearchController@partner', 'as' => 'idea.search.partner']);
     Route::resource('idea', 'IdeaController');
 
     /*route for search*/
-    Route::get('search', 'SearchController@index')->name('search.index');
+    Route::get('search', ['uses'=>'SearchController@index', 'as' => 'search.index']);
 
     /*route for user*/
-    Route::get('user/{username}/change-password', 'UserController@editPassword')->name('user.edit-password');
-    Route::post('user/{username}/change-password', 'UserController@updatePassword')->name('user.update-password');
+    Route::get('user/{username}/change-password', ['uses'=>'UserController@editPassword', 'as' => 'user.edit-password']);
+    Route::post('user/{username}/change-password', ['uses'=>'UserController@updatePassword', 'as' => 'user.update-password']);
+    Route::get('user/{username}/invitations', ['uses'=>'UserController@invitation', 'as' => 'user.invitation']);
     Route::resource('user', 'UserController', ['only' => [
         'show', 'edit', 'update'
     ]]);

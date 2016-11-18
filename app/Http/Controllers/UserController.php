@@ -136,6 +136,14 @@ class UserController extends Controller
         return redirect()->back()->withErrors($errors);
     }
 
+    public function invitation($username)
+    {
+        \View::share('pageTitle', 'Undangan Bergabung');
+        $user = $this->findUser($username);
+        $invitations = $user->invitations()->paginate(9);
+        return view('user.invitation', compact('user', 'invitations'));
+    }
+
     private function findUser($username)
     {
         $user = User::where('username', $username)->first();

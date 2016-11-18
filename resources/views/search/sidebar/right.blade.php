@@ -69,6 +69,9 @@
         @empty
           <p>Tidak ada ide yang ditemukan.</p>
         @endforelse
+        <div class="col-md-12 text-center">
+          {!! $ideas->links() !!}
+        </div>
       </ul>
     </div>
   </div>

@@ -6,6 +6,7 @@ use App\Models\BaseModel;
 use App\Models\Member;
 use App\Models\User;
 use App\Models\IdeaTag;
+use App\Models\IdeaInvitation;
 use App\Services\IdeaService;
 use App\Services\DiscussService;
 use App\Models\Traits\AttachableTrait;
@@ -161,6 +162,16 @@ class Idea extends BaseModel
         if (!empty($value) && !is_null($value)) {
             $this->attributes['finish_at'] = \Carbon::createFromFormat('m/d/Y g:i A', $value);
         }
+    }
+
+    public function invitations()
+    {
+        return $this->hasMany('App\Models\IdeaInvitation', 'idea_id');
+    }
+
+    public function hasInvite(User $user)
+    {
+        return IdeaInvitation::where('idea_id', $this->id)->where('user_id', $user->id)->count() > 0;
     }
 
     public static function search($keyword = '', $filter = [])

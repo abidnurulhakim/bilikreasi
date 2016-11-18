@@ -2,11 +2,12 @@
 
 namespace App\Models;
 
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Database\Eloquent\SoftDeletes;
-use App\Models\Traits\AttachableTrait;
 use App\Models\Discuss;
 use App\Models\Idea;
+use App\Models\Member;
+use App\Models\Traits\AttachableTrait;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class User extends Authenticatable
 {
@@ -113,5 +114,37 @@ class User extends Authenticatable
     public function getRouteKeyName()
     {
         return 'username';
+    }
+
+    public function invitations()
+    {
+        return $this->hasMany('App\Models\IdeaInvitation', 'user_id');
+    }
+
+    public static function search($keyword = '', $filter = [])
+    {
+        $words = explode(" ", $keyword);
+        $query = self::query();
+        foreach ($words as $word) {
+            $query = $query->orWhere('name', 'like', '%'.$word.'%');
+        }
+        foreach ($filter as $key => $value) {
+            if ($key = 'not_member_idea') {
+                $user_ids = Member::where('idea_id', $value)
+                                    ->select('user_id')
+                                    ->get()
+                                    ->map(function($member) {
+                                        return $member->user_id; })
+                                    ->toArray();
+                $query = $query->whereNotIn('id', $user_ids);
+            } else {
+                if (is_array($value)) {
+                    $query = $query->whereIn($key, $value);
+                } else {
+                    $query = $query->where($key, $value);
+                }    
+            }
+        }
+        return $query;
     }
 }

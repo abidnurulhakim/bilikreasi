@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Models\Idea;
 use App\Models\Member;
 use App\Models\User;
+use App\Models\IdeaInvitation;
 
 class IdeaService
 {
@@ -23,12 +24,31 @@ class IdeaService
         if ($member) {
             if ($member->restore()) {
                 $member->role = $role;
-                $member->save()
+                $member->save();
                 return $member;
             } else {
                 return null;
             }
         }
         return Member::create(['user_id' => $user->id, 'idea_id' => $idea->id, 'role' => $role]);
+    }
+
+    public static function createInvitation(Idea $idea, User $user)
+    {
+        $invitation = IdeaInvitation::onlyTrashed()->where('user_id', $user->id)->where('idea_id', $idea->id)->first();
+        if ($invitation) {
+            $invitation->restore();
+            return $invitation;
+        }
+        return IdeaInvitation::create(['user_id' => $user->id, 'idea_id' => $idea->id]);
+    }
+
+    public static function removeInvitation(Idea $idea, User $user)
+    {
+        $invitation = IdeaInvitation::where('user_id', $user->id)->where('idea_id', $idea->id)->first();
+        if ($invitation) {
+            $invitation->delete();
+        }
+        return $invitation;
     }
 }
