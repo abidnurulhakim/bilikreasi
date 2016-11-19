@@ -233,6 +233,52 @@ a.btn-primary.active,
   background: #fff;
 }
 
+a.btn-social {
+  color: white;
+  opacity:0.9;
+}
+a.btn-social:hover {
+  color: white;
+  opacity:1;      
+}
+
+.btn-facebook {
+  background: #3b5998;
+  border-color: #172d5e;
+}
+.btn-twitter {
+  background: #00aced;
+  border-color:#043d52
+}
+.btn-google-plus {
+  background: #c32f10;
+  border-color: #6b1301;
+}
+.btn-soundcloud {
+  background: #ff8800;
+  border-color: #c73e04;
+}
+.btn-github {
+  background: #666666;
+  border-color: #333333;
+}
+.btn-pinterest {
+  background: #cc2127;
+  border-color:#780004;
+}
+.btn-spotify {
+  background: #7ab800;
+  border-color:#3a5700;
+}
+.btn-linkedin {
+  background: #0976b4;
+  border-color:#004269;
+}
+.btn-tumblr {
+  background: #35465c;
+  border-color:#142030;
+}
+
 /*
  * Component: List Group
  * -------------------
@@ -1357,4 +1403,32 @@ h6.header-index {
   max-width: 80%;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.hr-custom {
+  position: relative;
+  font-size: 1.5em;
+  color: #aaa;
+  margin-top: 1em;
+  margin-bottom: 1em;
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+}
+
+.hr-or {
+  background-color: #cdcdcd;
+  height: 1px;
+  margin-top: 0px !important;
+  margin-bottom: 0px !important;
+}
+
+.span-or {
+  display: block;
+  position: absolute;
+  left: 50%;
+  top: -0.3em;
+  margin-left: -1.5em;
+  background-color: white;
+  width: 3em;
+  text-align: center;
 }
