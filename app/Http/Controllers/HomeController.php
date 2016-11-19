@@ -14,7 +14,8 @@ class HomeController extends Controller
     public function index()
     {
         \View::share('pageHeader', false);
-        return view('home.index');
+        $ideas = \App\Models\Idea::orderBy('like_count', 'desc')->take(9)->get();
+        return view('home.index', compact('ideas'));
     }
 
     /**

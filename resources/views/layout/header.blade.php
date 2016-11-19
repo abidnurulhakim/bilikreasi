@@ -10,7 +10,7 @@
         <span class="icon-bar"></span>
       </button>
       <a class="navbar-brand" href="{{ route('home.index') }}">
-        <img src="http://lorempixel.com/150/50" alt="Bilikreasi">
+        <img src="{{ asset('assets/images/logo.png') }}" alt="Bilikreasi">
       </a>
     </div>
     <!-- Collect the nav links, forms, and other content for toggling -->

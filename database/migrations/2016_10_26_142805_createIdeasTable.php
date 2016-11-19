@@ -18,10 +18,10 @@ class CreateIdeasTable extends Migration
             $table->integer('user_id')->unsigned();
             $table->string('title');
             $table->string('slug')->unique();
-            $table->text('description')->nullable();
+            $table->mediumText('description')->nullable();
             $table->string('category');
             $table->string('status');
-            $table->mediumText('cover')->nullable();
+            $table->string('cover')->nullable();
             $table->string('location')->nullable();
             $table->timestamp('start_at')->nullable();
             $table->timestamp('finish_at')->nullable();
@@ -29,6 +29,7 @@ class CreateIdeasTable extends Migration
             $table->integer('like_count')->unsigned()->default(0);
             $table->integer('comment_count')->unsigned()->default(0);
             $table->integer('share_count')->unsigned()->default(0);
+            $table->boolean('publish')->default(true);
             $table->timestamps();
             $table->softDeletes();
         });

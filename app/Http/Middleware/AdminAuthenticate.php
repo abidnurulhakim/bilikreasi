@@ -23,7 +23,7 @@ class AdminAuthenticate
                 return redirect()->route('home.login');
             }
         }
-        if (!Auth::user()->isAdmin) {
+        if (!Auth::user()->isAdmin()) {
             if ($request->ajax() || $request->wantsJson()) {
                 return response('Unauthorized.', 401);
             } else {

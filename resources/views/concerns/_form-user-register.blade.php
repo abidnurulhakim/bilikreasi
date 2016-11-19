@@ -19,7 +19,7 @@
     {!! Form::label('term_agreement', 'Syarat & Ketentuan', ['class' =>'col-sm-12 form-label', 'style' => 'padding-left: 0']) !!}
     <div class="checkbox">
       <label class="form-check-inline">
-        {!! Form::checkbox('term_agreement', '1') !!} You can see term and agreement in this <a href="#">term and agreement</a>
+        {!! Form::checkbox('term_agreement', '1') !!} Saya setuju mengikuti syarat dan ketentuan yang berlaku. Syarat dan ketentuan dapat dilihat <a href="#">di sini</a>.
       </label>
     </div>
   </div>

@@ -1,4 +1,13 @@
 <!-- Content Row -->
+@forelse ($ideas->chunk(3) as $chunk)
+<div class="row">
+  @foreach($chunk as $idea)
+  <div class="col-md-4 col-sm-12">
+    @include('idea.card', $idea)
+  </div>
+  @endforeach
+</div>
+@empty
 <div class="row">
   <div class="col-md-4 col-sm-12">
     <div class="card">
@@ -53,3 +62,4 @@
   <!-- /.col-md-4 -->
 </div>
 <!-- /.row -->
+@endforelse
