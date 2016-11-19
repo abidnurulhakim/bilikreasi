@@ -8,17 +8,18 @@
             <div class="col-md-12 no-padding">
               <img class="img-responsive img-rounded img-idea-search" src="{{ $idea->getCover(160) }}">
               <br>
-              <div class="col-md-12">
-                <a href="#" class="btn btn-primary btn-xs">Like</a>
-                @if(\Auth::check() && !$idea->members()->find(auth()->user()->id))
-                <a href="{{ route('idea.join', $idea) }}" class="btn btn-primary btn-xs pull-right">Bergabung</a>
+              <div class="col-md-12 text-center">
+                @if(\Auth::check())
+                  @unless($idea->hasLike(auth()->user()))
+                    <a href="{{ route('idea.unlike', ['idea' => $idea, 'user' => auth()->user()]) }}" class="btn btn-primary"> <i class='fa fa-heart-o'></i> Suka </a>
+                  @endunless
                 @endif
               </div>
             </div>
           </div>
           <div class="col-md-7 col-padding idea">
             <div class="col-md-12 no-padding title">
-              <span class="subject"><a href="{{ route('idea.show', $idea) }}">{{ str_limit($idea->title, 30)}} </a></span> &mdash;
+              <span class="subject"><a href="{{ route('idea.show', $idea) }}">{{ $idea->title }} </a></span> &mdash;
               @if($idea->category == 'business')
                 <i class="fa fa-money text-primary" alt="business"></i>
               @elseif($idea->category == 'campaign')
@@ -36,13 +37,17 @@
             <div class="col-md-12 no-padding category">
               <i class="fa fa-tags text-primary"></i> 
               @foreach($idea->tags->take(5) as $tag)
-                <?php $labels = ['primary', 'danger', 'info', 'warning', 'success']?>
-              <span class="label label-{{ $labels[array_rand($labels)] }}">{{ $tag->name }}</span>
+              <span class="label label-info">{{ $tag->name }}</span>
               @endforeach
             </div>
             <div class="col-md-12 no-padding status">
               <i class='fa fa-flag text-primary'></i> {{ ucfirst($idea::STATUS[$idea->status]) }}
             </div>
+            @if($idea->like_count > 0)
+            <div class="col-md-12 no-padding like">
+              <i class='fa fa-heart text-primary'></i> {{ $idea->like_count }} orang
+            </div>
+            @endif
             <div class="col-md-12 no-padding location">
               <i class='fa fa-map-marker text-primary'></i> {{ $idea->location }}
             </div>

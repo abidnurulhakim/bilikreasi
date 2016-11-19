@@ -64,9 +64,9 @@
 
               <div class="col-md-12 no-padding section-idea action-idea">
                 @if($idea->hasLike(auth()->user()))
-                <a href="#" class="btn btn-primary btn">Tidak Menyukai</a>
+                <a href="{{ route('idea.unlike', ['idea' => $idea, 'user' => auth()->user()]) }}" class="btn btn-primary btn">Tidak Menyukai</a>
                 @else
-                <a href="#" class="btn btn-primary btn">Menyukai</a>
+                <a href="{{ route('idea.like', ['idea' => $idea, 'user' => auth()->user()]) }}" class="btn btn-primary btn"><i class='fa fa-heart-o'></i> Menyukai </a>
                 @endif
                 @unless($idea->isMember(auth()->user()))
                 <a href="{{ route('idea.join', $idea) }}" class="btn btn-primary btn">Bergabung</a>

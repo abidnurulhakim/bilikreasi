@@ -928,6 +928,15 @@ button.list-group-item-danger.active:hover {
   }
 }
 
+.card.idea a.title {
+  margin-bottom: -3px;
+  white-space: nowrap;
+  display: inline-block;
+  max-width: 80%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 /*
  * Component: Carousel
  * -------------------
@@ -1340,4 +1349,12 @@ h6.header-index {
 .idea .location {
   border-bottom: 1px solid #51afae;
   padding-bottom: 5px;
+}
+.idea .title span.subject > a {
+  margin-bottom: -8px;
+  white-space: nowrap;
+  display: inline-block;
+  max-width: 80%;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }

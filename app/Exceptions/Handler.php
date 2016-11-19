@@ -45,6 +45,13 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $e)
     {
+        \View::share('pageHeader', false);
+        if ($e instanceof HttpException || $e instanceof ModelNotFoundException) {
+            return response()->view('errors.404', [], 404);
+        }
+        if ($e instanceof AuthorizationException || $e instanceof ValidationException) {
+            return response()->view('errors.403', [], 403);
+        }
         return parent::render($request, $e);
     }
 }

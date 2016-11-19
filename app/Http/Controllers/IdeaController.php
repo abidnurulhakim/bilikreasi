@@ -23,7 +23,7 @@ class IdeaController extends Controller
     {
         parent::__construct();
         $this->middleware('auth', ['except' => [
-            'index',
+            'index', 'show'
         ]]);
     }
 
@@ -192,6 +192,22 @@ class IdeaController extends Controller
         $idea = $this->findIdea($slug);
         $user = User::where('username', $username)->firstOrFail();
         $invitation = IdeaService::removeInvitation($idea, $user);
+        return redirect()->back();
+    }
+
+    public function like($slug, $username)
+    {
+        $idea = $this->findIdea($slug);
+        $user = User::where('username', $username)->firstOrFail();
+        $like = IdeaService::like($idea, $user);
+        return redirect()->back();
+    }
+
+    public function unlike($slug, $username)
+    {
+        $idea = $this->findIdea($slug);
+        $user = User::where('username', $username)->firstOrFail();
+        $like = IdeaService::unlike($idea, $user);
         return redirect()->back();
     }
 

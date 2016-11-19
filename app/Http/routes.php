@@ -30,6 +30,8 @@ Route::group(['prefix' => '/'], function () {
     /*route for idea*/
     Route::get('idea/{slug}/invitation/{user}', ['uses'=>'IdeaController@invitation', 'as' => 'idea.invitation']);
     Route::get('idea/{slug}/invitation/{user}/remove', ['uses'=>'IdeaController@removeInvitation', 'as' => 'idea.invitation.remove']);
+    Route::get('idea/{slug}/like/{user}', ['uses'=>'IdeaController@like', 'as' => 'idea.like']);
+    Route::get('idea/{slug}/unlike/{user}', ['uses'=>'IdeaController@unlike', 'as' => 'idea.unlike']);
     Route::get('idea/{slug}/join', ['uses'=>'IdeaController@join', 'as' => 'idea.join']);
     Route::get('idea/{slug}/members', ['uses'=>'IdeaController@members', 'as' => 'idea.members']);
     Route::get('idea/{slug}/search', ['uses'=>'SearchController@partner', 'as' => 'idea.search.partner']);

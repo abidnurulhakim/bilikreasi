@@ -3,10 +3,11 @@
 namespace App\Models;
 
 use App\Models\BaseModel;
-use App\Models\Member;
-use App\Models\User;
 use App\Models\IdeaTag;
 use App\Models\IdeaInvitation;
+use App\Models\Like;
+use App\Models\Member;
+use App\Models\User;
 use App\Services\IdeaService;
 use App\Services\DiscussService;
 use App\Models\Traits\AttachableTrait;
@@ -130,14 +131,6 @@ class Idea extends BaseModel
         return !empty($this->members()->find($user->id));
     }
 
-    public function hasLike(User $user = null)
-    {
-        if (is_null($user)) {
-            return false;
-        }
-        return !empty($this->members()->find($user->id));
-    }
-
     public function setDescriptionAttribute($value)
     {
         $this->attributes['description'] = htmlspecialchars($value);
@@ -172,6 +165,11 @@ class Idea extends BaseModel
     public function hasInvite(User $user)
     {
         return IdeaInvitation::where('idea_id', $this->id)->where('user_id', $user->id)->count() > 0;
+    }
+
+    public function hasLike(User $user)
+    {
+        return Like::where('idea_id', $this->id)->where('user_id', $user->id)->count() > 0;
     }
 
     public static function search($keyword = '', $filter = [])

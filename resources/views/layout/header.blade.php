@@ -32,7 +32,7 @@
         <li class="search-input">
           {!! Form::open(['route' => ['search.index'], 'method' => 'GET']) !!}
           <div class="input-group col-md-12">
-            {!! Form::text('q', app('request')->input('q'), ['class' => 'form-control input-lg', 'placeholder' => 'Cari Ide']) !!}
+            {!! Form::text('q', app('request')->input('q', ''), ['class' => 'form-control input-lg', 'placeholder' => 'Cari Ide']) !!}
             <span class="input-group-btn">
               <button type='submit' class="btn btn-lg" type="button">
                 <i class="fa fa-search"></i>
