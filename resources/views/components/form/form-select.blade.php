@@ -11,5 +11,5 @@
     }
   ?>
   {{ Form::label($name, $labelName) }}
-  {{ Form::selectPicker($name, $value, array_merge(['class' => 'selectpicker form-control', 'title' => 'Belum ada kategory yang dipilih'], $attributes)) }}
+  {{ Form::select($name, $collection, $value, array_merge(['class' => 'form-control', 'style' => 'width: 100%'], $attributes)) }}
 </div>

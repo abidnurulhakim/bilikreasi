@@ -26,11 +26,13 @@ class IdeaService
             if ($member->restore()) {
                 $member->role = $role;
                 $member->save();
+                $this->removeInvitation($idea, $user);
                 return $member;
             } else {
                 return null;
             }
         }
+        self::removeInvitation($idea, $user);
         return Member::create(['user_id' => $user->id, 'idea_id' => $idea->id, 'role' => $role]);
     }
 

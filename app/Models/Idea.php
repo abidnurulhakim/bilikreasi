@@ -27,7 +27,7 @@ class Idea extends BaseModel
     ];
 
     const STATUS = [
-        'ready' => 'Mulai',
+        'ready' => 'Persiapan',
         'ongoing' => 'Berlangsung',
         'finish' => 'Selesai',
     ];
@@ -60,7 +60,7 @@ class Idea extends BaseModel
         static::bootAttachableTrait();
         static::bootSluggableTrait();
         static::created(function($idea){
-            IdeaService::join($idea, $idea->user);
+            IdeaService::join($idea, $idea->user, 'admin');
             DiscussService::create($idea);
         });
         static::saving(function($idea){

@@ -13,6 +13,16 @@
 Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 'auth.admin'], function () {
     Route::get('', ['uses'=>'AdminController@index', 'as' => 'admin.index']);
     Route::resource('user', 'UserController');
+    Route::resource('idea', 'IdeaController');
+    Route::get('tag/{id}/publish', ['uses'=>'TagController@publish', 'as' => 'admin.tag.publish']);
+    Route::get('tag/{id}/unpublish', ['uses'=>'TagController@unpublish', 'as' => 'admin.tag.unpublish']);
+    Route::resource('tag', 'TagController');
+    Route::get('skill/{id}/publish', ['uses'=>'SkillController@publish', 'as' => 'admin.skill.publish']);
+    Route::get('skill/{id}/unpublish', ['uses'=>'SkillController@unpublish', 'as' => 'admin.skill.unpublish']);
+    Route::resource('skill', 'SkillController');
+    Route::get('interest/{id}/publish', ['uses'=>'InterestController@publish', 'as' => 'admin.interest.publish']);
+    Route::get('interest/{id}/unpublish', ['uses'=>'InterestController@unpublish', 'as' => 'admin.interest.unpublish']);
+    Route::resource('interest', 'InterestController');
 });
 Route::group(['prefix' => '/'], function () {
     Route::get('', ['uses'=>'HomeController@index', 'as' => 'home.index']);

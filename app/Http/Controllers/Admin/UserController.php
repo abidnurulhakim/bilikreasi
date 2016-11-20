@@ -2,9 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
-use Illuminate\Http\Request;
-
-use App\Http\Requests;
+use App\Models\User;
+use App\Models\Skill;
+use App\Models\UserSkill;
+use App\Models\Interest;
+use App\Models\UserInterest;
+use App\Http\Requests\Admin\User\StoreRequest;
+use App\Http\Requests\Admin\User\UpdateRequest;
 use App\Http\Controllers\Admin\AdminController;
 
 class UserController extends AdminController
@@ -27,7 +31,8 @@ class UserController extends AdminController
      */
     public function index()
     {
-        return view('admin.user.index');
+        $users = User::all();
+        return view('admin.user.index', compact('users'));
     }
 
     /**
@@ -46,20 +51,10 @@ class UserController extends AdminController
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreRequest $request)
     {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        return view('admin.user.show');
+        $user = User::create($request->all());
+        return redirect()->route('admin.user.index');
     }
 
     /**
@@ -68,9 +63,22 @@ class UserController extends AdminController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($username)
     {
-        return view('admin.user.edit');
+        $user = User::where('username', $username)->firstOrFail();
+        $skills = [];
+        foreach (Skill::publish()->get() as $skill) {
+            $skills[$skill] = $skill;
+        }
+        $interests = [];
+        foreach (Interest::publish()->get() as $interest) {
+            $interests[$interest] = $interest;
+        }
+        $userSkills = $user->skills->map(function($skill) {
+            return $skill->name; })->toArray();
+        $userInterests = $user->interests->map(function($interest) {
+            return $interest->name; })->toArray();
+        return view('admin.user.edit', compact('user', 'skills', 'interests', 'userSkills', 'userInterests'));
     }
 
     /**
@@ -80,9 +88,12 @@ class UserController extends AdminController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateRequest $request, $username)
     {
-        //
+        $user = User::where('username', $username)->firstOrFail();
+        $user->fill($request->all());
+        $user->save();
+        return redirect()->route('admin.user.index');
     }
 
     /**
@@ -91,8 +102,10 @@ class UserController extends AdminController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($username)
     {
-        //
+        $user = User::where('username', $username)->firstOrFail();
+        $user->delete();
+        return redirect()->route('admin.user.index');
     }
 }

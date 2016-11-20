@@ -13,6 +13,11 @@ class User extends Authenticatable
 {
     use AttachableTrait, SoftDeletes;
 
+    const TYPE = [
+        'admin' => 'Admin',
+        'user' => 'User'
+    ];
+
     protected $table = 'users';
     public $attachmentable = [
         'photo'

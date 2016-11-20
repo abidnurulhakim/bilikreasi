@@ -25,24 +25,13 @@
                         css : path.plugins + 'kartik/file-input/css/fileinput.min.css',
                         js : path.plugins + 'kartik/file-input/js/fileinput.min.js'
                       },
-    _typeahead      : { 
-                        js : path.plugins + 'typeahead/js/typeahead.jquery.min.js',
-                        bundle : path.plugins + 'typeahead/js/typeahead.bundle.min.js'
-                      },
-    _bloodhound      : { 
-                        js : path.plugins + 'typeahead/js/bloodhound.min.js'
-                      },
-    _tagsinput      : { 
-                        css : path.plugins + 'bootstrap/css/bootstrap-tagsinput.css',
-                        js : path.plugins + 'bootstrap/js/bootstrap-tagsinput.js'
-                      },
     _navtab         : { 
                         css : path.plugins + 'kartik/tabs-x/css/bootstrap-tabs-x.min.css',
                         js : path.plugins + 'kartik/tabs-x/js/bootstrap-tabs-x.min.js'
                       },
-    _selectpicker   : { 
-                        css : path.plugins + 'select-picker/css/bootstrap-select.min.css',
-                        js : path.plugins + 'select-picker/js/bootstrap-select.min.js'
+    _select2        : { 
+                        css : path.plugins + 'select2/css/select2.min.css',
+                        js : path.plugins + 'select2/js/select2.full.min.js'
                       },
     _summernote     : { 
                         css : path.plugins + 'summernote/summernote.css',
@@ -52,18 +41,23 @@
     _timeago        : { 
                         js : path.plugins + 'timeago/js/jquery.timeago.js',
                         js_id : path.plugins + 'timeago/js/jquery.timeago.id.js'
-                      },                  
+                      },
+    _icheck         : { 
+                        css : path.plugins + 'iCheck/css/all.css',
+                        js : path.plugins + 'iCheck/js/icheck.min.js',
+                        square_color : path.plugins + 'iCheck/square/_all.css'
+                      },
   };
 
   var Site = {
     init : function() {
       Site.moment();
       Site.fileInput();
-      Site.typeahead();
       Site.navtab();
-      Site.selectPicker();
+      Site.select2();
       Site.textEditor();
       Site.timeAgo();
+      Site.icheck();
     },
     moment : function() {
       if ($('.date-time-picker').length > 0) {
@@ -167,50 +161,6 @@
         });
       }
     },
-    typeahead : function() {
-      if ($('input[data-role="tagsinput"]').length > 0) {
-        Modernizr.load({
-          load  : [
-                  assets._bloodhound.js,
-                  assets._typeahead.js,
-                  assets._typeahead.bundle,
-          ],
-          complete : Site.tagsInput
-        });
-      }
-    },
-    tagsInput : function() {
-      Modernizr.load({
-        load  : [
-                assets._tagsinput.css,
-                assets._tagsinput.js
-        ],
-        complete : function() {
-          $('input[data-role="tagsinput"]').each(function(index){
-            var values = $(this).data('value-typeahead');
-            var dataLocal = [];
-            for (var i = 0; i < values.length; i++) {
-              dataLocal.push({name: values[i]});
-            }
-            var data = new Bloodhound({
-              local: dataLocal,
-              queryTokenizer: Bloodhound.tokenizers.whitespace,
-              datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
-            });
-            data.initialize();
-
-            $(this).tagsinput({
-              typeaheadjs: {
-                name: 'data',
-                displayKey: 'name',
-                valueKey: 'name',
-                source: data.ttAdapter()
-              }
-            });
-          });
-        }
-      });
-    },
     navtab : function() {
       if ($('.tabs-x').length > 0) {
         Modernizr.load({
@@ -221,19 +171,34 @@
         });
       }
     },
-    selectPicker : function() {
-      if ($('.selectpicker').length > 0) {
+    select2 : function() {
+      if ($('select').length > 0) {
         Modernizr.load({
           load  : [
-                  assets._selectpicker.css,
-                  assets._selectpicker.js,
+                  assets._select2.css,
+                  assets._select2.js,
           ],
           complete : function(){
-            $('.selectpicker').on('changed.bs.select', function (e) {
-              if ($(this).val() == 'event') {
-                $('.show-cat-event').removeClass('hidden');
-              } else {
-                $('.show-cat-event').addClass('hidden');
+            $('select').each(function(e){
+              if ($(this).data('tag')) {
+                $(this).select2({
+                  language: "id",
+                  tags: true,
+                  tokenSeparators: [',']
+                })
+              }else {
+                $(this).select2({
+                  language: "id",
+                  placeholder: $(this).attr('placeholder')
+                });
+                $(this).on('change', function(evt){
+                  if ($(this).val() == 'event') {
+                    $('.show-cat-event').removeClass('hidden');
+                  } else {
+                    $('.show-cat-event').addClass('hidden');
+                  }  
+                });  
+                
               }
             });
           }
@@ -272,6 +237,24 @@
           complete : function(){
             $('.time-humanize').each(function(index){
               $(this).timeago();
+            });
+          }
+        });
+      }
+    },
+    icheck : function() {
+      if ($('input').length > 0) {
+        Modernizr.load({
+          load  : [
+                  assets._icheck.css,
+                  assets._icheck.js,
+                  assets._icheck.square_color,
+          ],
+          complete : function(){
+            $('input').iCheck({
+              checkboxClass: 'icheckbox_square-green',
+              radioClass: 'iradio_square-green',
+              increaseArea: '10%' // optional
             });
           }
         });

@@ -25,16 +25,16 @@ class UpdateRequest extends FormRequest
      */
     public function rules()
     {
-        $rules =  [
+        return [
             'photo' => 'image',
             'name' => 'required|max:255',
             'gender' => 'required|in:male,female',
             'birthday' => 'date|before:now',
             'phone_number' => 'max:255',
+            'interest' => '',
+            'skill' => '',
+            'live_at' => '',
+            'profession' => '',
         ];
-        if (!empty($this->request->get('password'))) {
-            $rules['password'] = 'confirmed|min:8';
-        }
-        return $rules;
     }
 }

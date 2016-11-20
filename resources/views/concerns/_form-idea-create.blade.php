@@ -11,13 +11,13 @@
   {!! Form::formText('title', null, ['label' => 'Judul Ide', 'placeholder' => 'Judul Ide'] ) !!}
   {!! Form::formTextEditor('description', null, ['label' => 'Deskripsi Ide', 'placeholder' => 'Deskripsi Idea'] ) !!}
   {!! Form::formFile('cover', null, ['label' => 'Gambar Cover Ide', 'placeholder' => 'Gambar Ide', 'data-max-file-count' => '1', 'data-max-file-size' => '2048', 'data-allowed-file-types' => '["image", "video"]'] ) !!}
-  {!! Form::formSelect('category', \App\Models\Idea::CATEGORY, ['label' => 'Kategori Ide', 'placeholder' => 'Kategori Ide'] ) !!}
+  {!! Form::formSelect('category', \App\Models\Idea::CATEGORY, null, ['label' => 'Kategori Ide', 'placeholder' => 'Kategori Ide'] ) !!}
   <div class="show-cat-event hidden">  
     {!! Form::formDateTimeLink('start_at', 'finish_at', null, null, ['label-start' => 'Waktu Mulai', 'label-finish' => 'Waktu Berakhir']) !!}
   </div>
-  {!! Form::formTags('tag', null, ['label' => 'Tag Ide', 'collection' => $tags]) !!}
+  {!! Form::formTags('tag', $tags, null, ['label' => 'Tag Ide']) !!}
   {!! Form::formText('location', null, ['label' => 'Lokasi', 'placeholder' => 'Lokasi Ide Diadakan'] ) !!}
-  {!! Form::formSelect('status', \App\Models\Idea::STATUS, ['label' => 'Status Ide','placeholder' => 'Status Ide'] ) !!}
+  {!! Form::formSelect('status', \App\Models\Idea::STATUS, null, ['label' => 'Status Ide','placeholder' => 'Status Ide'] ) !!}
   {!! Form::formFile('media', null, ['label' => 'Gambar/Video', 'placeholder' => 'Gambar/Video', 'data-max-file-count' => '5', 'data-max-file-size' => '10120', 'data-allowed-file-types' => '["image", "video"]', 'multiple' => 'true'] ) !!}
   {!! Form::submit('Buat Ide', ['class' => 'btn btn-primary btn-lg']); !!}
 {!! Form::close() !!}

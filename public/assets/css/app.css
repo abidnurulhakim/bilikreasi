@@ -1290,8 +1290,9 @@ h6.header-index {
 .radio > label {
   margin-left: 10px;
 }
-.bootstrap-tagsinput {
-  width: 100%;
+.radio label,
+.checkbox label {
+  padding-left: 0;
 }
 
 /*
@@ -1431,4 +1432,28 @@ h6.header-index {
   background-color: white;
   width: 3em;
   text-align: center;
+}
+
+/*
+ * Select
+ * -------------------
+ */
+.select2-container--default
+.select2-results__option--highlighted[aria-selected] {
+  background-color: #51afae;
+  color: #fff;
+}
+.select2-container--default
+.select2-selection--multiple
+.select2-selection__choice {
+  background-color: #51afae;
+  color: #fff; 
+}
+.select2-container--default
+.select2-selection--multiple
+.select2-selection__choice__remove,
+.select2-container--default
+.select2-selection--multiple
+.select2-selection__choice__remove:hover {
+  color: #fff; 
 }

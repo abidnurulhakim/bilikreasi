@@ -8,24 +8,14 @@
           <small id="search-help" class="form-text text-muted">Contoh: "Photograph, Web Developer, ..."</small>
         </div>
         <div class="form-group">
-          {!! Form::formSelect('tag[]', $tags, ['label' => 'Tag Ide', 'placeholder' => 'Tag Ide', 'multiple' => 'true', 'selected' => $tagSelected]) !!}
+          {!! Form::formSelect('tag[]', $tags, $tagSelected, ['label' => 'Tag Ide', 'placeholder' => 'Tag Ide', 'multiple' => 'true']) !!}
         </div>
         <div class="form-group">
-          {!! Form::formSelect('category', \App\Models\Idea::CATEGORY, ['label' => 'Kategori Ide', 'placeholder' => 'Kategori Ide', 'selected' => app('request')->input('category')] ) !!}
+          {!! Form::formSelect('category', \App\Models\Idea::CATEGORY, app('request')->input('category'), ['label' => 'Kategori Ide', 'placeholder' => 'Kategori Ide'] ) !!}
         </div>
         <div class="form-group">
-          {!! Form::formSelect('status', \App\Models\Idea::STATUS, ['label' => 'Status Ide', 'placeholder' => 'Status Ide', 'selected' => app('request')->input('status')] ) !!}
+          {!! Form::formSelect('status', \App\Models\Idea::STATUS, app('request')->input('status'), ['label' => 'Status Ide', 'placeholder' => 'Status Ide'] ) !!}
         </div>
-        <!-- <div class="form-group">
-          <label for="exampleSelect1">Lokasi</label>
-          <select class="form-control form-control-lg" id="exampleSelect1">
-            <option>Semua Lokasi</option>
-            <option>Bandung</option>
-            <option>Jakarta</option>
-            <option>Surabaya</option>
-            <option>Jawa Barat</option>
-          </select>
-        </div> -->
         <button type="submit" class="btn btn-primary">Cari</button>
       {!! Form::close() !!}
     </div>

@@ -219,11 +219,11 @@
           <ul class="dropdown-menu">
             <!-- User image -->
             <li class="user-header">
-              <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+              <img src="{{ auth()->user()->getPhoto(160) }}" class="img-circle" alt="User Image">
 
               <p>
                 {{ auth()->user()->name }} - Admin
-                <small>Member since Nov. 2012</small>
+                <small>Member since {{ auth()->user()->created_at->diffForHumans()}}</small>
               </p>
             </li>
             <!-- Menu Body -->

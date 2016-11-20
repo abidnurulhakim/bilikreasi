@@ -72,7 +72,7 @@
           </div>
         </li>
         @empty
-          <p>Tidak ada ide yang ditemukan.</p>
+          <h4 class="text-center text-muted">-- Tidak ada ide yang ditemukan --</h4>
         @endforelse
         <div class="col-md-12 text-center">
           {!! $ideas->links() !!}

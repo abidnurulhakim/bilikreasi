@@ -78,6 +78,9 @@
               <!-- Menu Body -->
               <li class="user-body">
                 <div class="list-group">
+                  @if(auth()->user()->isAdmin())
+                  <a href="{{ route('admin.index') }}" class="list-group-item"><i class="fa fa-dashboard"></i> Admin Dashboard</a>
+                  @endif
                   <a href="{{ route('user.show', auth()->user()->username) }}" class="list-group-item"><i class="fa fa-home"></i> Beranda</a>
                   <a href="{{ route('idea.create') }}" class="list-group-item"><i class="fa fa-lightbulb-o"></i> Buat Ide Baru</a>
                   @if(\App\Models\Member::where('user_id', auth()->user()->id)->count() > 0)

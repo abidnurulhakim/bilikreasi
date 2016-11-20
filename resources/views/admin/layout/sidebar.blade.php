@@ -33,17 +33,49 @@
           </span>
         </a>
       </li>
-      <li>
-        <a href="{{ route('admin.user.index') }}" @if(isset($ideaMenu)) class="active" @endif>
+      <li @if(isset($ideaMenu)) class="active" @endif>
+        <a href="{{ route('admin.idea.index') }}">
           <i class="fa fa-lightbulb-o"></i> <span>Idea</span>
           <span class="pull-right-container">
             <small class="label pull-right bg-green">new</small>
           </span>
         </a>
       </li>
-      <li>
-        <a href="{{ route('admin.user.index') }}" @if(isset($bannerMenu)) class="active" @endif>
+      <li @if(isset($bannerMenu)) class="active" @endif>
+        <a href="{{ route('admin.user.index') }}">
           <i class="fa fa-bullhorn"></i> <span>Banner</span>
+          <span class="pull-right-container">
+            <small class="label pull-right bg-green">new</small>
+          </span>
+        </a>
+      </li>
+      <li @if(isset($popularMenu)) class="active" @endif>
+        <a href="{{ route('admin.user.index') }}">
+          <i class="fa fa-bookmark"></i> <span>Popular</span>
+          <span class="pull-right-container">
+            <small class="label pull-right bg-green">new</small>
+          </span>
+        </a>
+      </li>
+      <li @if(isset($tagMenu)) class="active" @endif>
+        <a href="{{ route('admin.tag.index') }}">
+          <i class="fa fa-tags"></i> <span>Tag</span>
+          <span class="pull-right-container">
+            <small class="label pull-right bg-green">new</small>
+          </span>
+        </a>
+      </li>
+      <li @if(isset($interestMenu)) class="active" @endif>
+        <a href="{{ route('admin.interest.index') }}">
+          <i class="fa fa-heart"></i> <span>Interest</span>
+          <span class="pull-right-container">
+            <small class="label pull-right bg-green">new</small>
+          </span>
+        </a>
+      </li>
+      <li @if(isset($skillMenu)) class="active" @endif>
+        <a href="{{ route('admin.skill.index') }}">
+          <i class="fa fa-gears"></i> <span>Skill</span>
           <span class="pull-right-container">
             <small class="label pull-right bg-green">new</small>
           </span>

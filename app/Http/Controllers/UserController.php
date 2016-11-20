@@ -55,16 +55,18 @@ class UserController extends Controller
     {
         \View::share('pageTitle', 'Perbaharui Profil');
         $user = $this->findUser($username);
-        $skills = Skill::publish()->get()->map(function($skill) {
+        $skills = [];
+        foreach (Skill::publish()->get() as $skill) {
+            $skills[$skill] = $skill;
+        }
+        $interests = [];
+        foreach (Interest::publish()->get() as $interest) {
+            $interests[$interest] = $interest;
+        }
+        $userSkills = $user->skills->map(function($skill) {
             return $skill->name; })->toArray();
-        $interests = Interest::publish()->get()->map(function($interest) {
+        $userInterests = $user->interests->map(function($interest) {
             return $interest->name; })->toArray();
-        $userSkills = join(',', $user->skills->map(function($skill) {
-            return $skill->name; })->toArray()
-            );
-        $userInterests = join(',', $user->interests->map(function($interest) {
-            return $interest->name; })->toArray()
-            );
         return view('user.edit', compact('user', 'skills', 'interests', 'userSkills', 'userInterests'));
     }
 
@@ -84,15 +86,13 @@ class UserController extends Controller
         $user->fill($request->all());
         if ($user->save()) {
             $user->skills()->delete();
-            $userSkills = explode(',', $request->get('skill'));
-            foreach ($userSkills as $skill) {
+            foreach ($request->get('skill') as $skill) {
                 if (strlen($skill) > 0) {
                     UserSkill::create(['user_id' => $user->id, 'name' => $skill]);
                 }
             }
             $user->interests()->delete();
-            $userInterests = explode(',', $request->get('interest'));
-            foreach ($userInterests as $interest) {
+            foreach ($request->get('interest') as $interest) {
                 if (strlen($interest) > 0) {
                     UserInterest::create(['user_id' => $user->id, 'name' => $interest]);
                 }
@@ -111,7 +111,7 @@ class UserController extends Controller
     {
         \View::share('pageTitle', 'Ganti Password');
         $user = $this->findUser($username);
-        return view('user.change-password');
+        return view('user.change-password', compact('user'));
     }
 
     /**
