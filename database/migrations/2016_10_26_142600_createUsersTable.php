@@ -21,7 +21,8 @@ class CreateUsersTable extends Migration
             $table->string('gender');
             $table->date('birthday')->nullable();
             $table->string('phone_number')->nullable();
-            $table->string('password');
+            $table->string('hash_password');
+            $table->string('secret_password');
             $table->string('reset_password')->nullable();
             $table->string('remember_token')->nullable();
             $table->boolean('confirmed')->default(false);

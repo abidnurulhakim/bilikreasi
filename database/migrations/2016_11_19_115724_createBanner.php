@@ -18,8 +18,8 @@ class CreateBanner extends Migration
             $table->string('slug')->unique();
             $table->text('description')->nullable();
             $table->string('url')->unique();
-            $table->timestamp('start_at');
-            $table->timestamp('finish_at');
+            $table->timestamp('start_at')->nullable();
+            $table->timestamp('finish_at')->nullable();
             $table->boolean('publish')->default(false);
             $table->integer('order_number')->default(9);
             $table->timestamps();

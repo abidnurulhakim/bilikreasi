@@ -37,6 +37,7 @@ class Handler extends ExceptionHandler
      */
     public function report(Exception $exception)
     {
+        \Log::error($exception);
         parent::report($exception);
     }
 
@@ -50,10 +51,10 @@ class Handler extends ExceptionHandler
     public function render($request, Exception $exception)
     {
         \View::share('pageHeader', false);
-        if ($e instanceof HttpException || $e instanceof ModelNotFoundException) {
+        if ($exception instanceof HttpException || $exception instanceof ModelNotFoundException) {
             return response()->view('errors.404', [], 404);
         }
-        if ($e instanceof AuthorizationException || $e instanceof ValidationException || $e instanceof AuthenticationException || $e instanceof TokenMismatchException) {
+        if ($exception instanceof AuthorizationException || $exception instanceof ValidationException || $exception instanceof AuthenticationException || $exception instanceof TokenMismatchException) {
             return response()->view('errors.403', [], 403);
         }
         return parent::render($request, $exception);
@@ -72,6 +73,6 @@ class Handler extends ExceptionHandler
             return response()->json(['error' => 'Unauthenticated.'], 401);
         }
 
-        return redirect()->guest('login');
+        return redirect()->guest('home.login');
     }
 }

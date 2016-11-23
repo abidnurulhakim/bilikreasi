@@ -179,6 +179,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
+        Jenssegers\Rollbar\RollbarServiceProvider::class,
 
     ],
 
@@ -231,7 +232,6 @@ return [
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class,
         'Carbon' => Carbon\Carbon::class,
-
     ],
 
 ];

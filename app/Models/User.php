@@ -19,28 +19,31 @@ class User extends Authenticatable
     ];
 
     protected $table = 'users';
-    public $attachmentable = [
-        'photo'
-    ];
+
     protected $fillable = [
-        'name', 'email', 'password', 'confirmed', 'role', 'last_login_at',
-        'last_login_ip_address', 'birthday', 'username', 'gender', 'photo',
-        'password', 'phone_number', 'profession', 'live_at'
+        'name', 'email', 'secret_password', 'hash_password', 'confirmed', 'role', 'last_login_at', 'last_login_ip_address',
+        'birthday', 'username', 'gender', 'photo','phone_number', 'profession', 'live_at'
     ];
+
     protected $dates = [
         'created_at',
         'updated_at',
         'deleted_at'
     ];
 
+    public $attachmentable = [
+        'photo'
+    ];
+
     public static function boot()
     {
         parent::boot();
-        
         static::bootAttachableTrait();
-        static::creating(function($idea){
-            $idea->confirmed = true;
-        });
+    }
+
+    public function getRouteKeyName()
+    {
+        return 'username';
     }
 
     public function ideas()
@@ -80,27 +83,6 @@ class User extends Authenticatable
         return $query->where('discuss_id', $discuss->id);
     }
 
-    public function isAdmin()
-    {
-        return $this->role == 'admin';
-    }
-
-    public function isMale()
-    {
-        return empty($this->gender) || $this->gender == 'male';
-    }
-
-    public function isFemale()
-    {
-        return $this->gender == 'female';
-    }
-
-    public function getBirthdayAttribute($value)
-    {
-        if (is_null($value)) return \Carbon\Carbon::now()->toDateString();
-        return $value;
-    }
-
     public function skills()
     {
         return $this->hasMany('App\Models\UserSkill', 'user_id');
@@ -111,19 +93,35 @@ class User extends Authenticatable
         return $this->hasMany('App\Models\UserInterest', 'user_id');
     }
 
-    public function setPasswordAttribute($value)
-    {
-        $this->attributes['password'] = \Hash::make($value);
-    }
-
-    public function getRouteKeyName()
-    {
-        return 'username';
-    }
-
     public function invitations()
     {
         return $this->hasMany('App\Models\IdeaInvitation', 'user_id');
+    }
+
+    public function isAdmin()
+    {
+        return $this->role == 'admin';
+    }
+
+    public function isMale()
+    {
+        return $this->gender == 'male';
+    }
+
+    public function isFemale()
+    {
+        return $this->gender == 'female';
+    }
+
+    public function setPasswordAttribute($value)
+    {
+        $this->attributes['secret_password'] = encrypt($value);
+        $this->attributes['hash_password'] = \Hash::make($value);
+    }
+
+    public function getPasswordAttribute($value)
+    {
+        return $this->secret_password;
     }
 
     public static function search($keyword = '', $filter = [])

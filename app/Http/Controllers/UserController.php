@@ -7,6 +7,7 @@ use App\Models\Skill;
 use App\Models\UserSkill;
 use App\Models\Interest;
 use App\Models\UserInterest;
+use App\Services\UserService;
 use App\Http\Requests\User\UpdateRequest;
 use App\Http\Requests\User\ChangePasswordRequest;
 use Illuminate\Http\Request;
@@ -37,7 +38,7 @@ class UserController extends Controller
     public function show($username)
     {
         \View::share('pageTitle', 'Buat Ide Baru');
-        $user = $this->findUser($username);
+        $user = User::where('username', $username)->firstOrFail();
         if (empty($user)) {
             return redirect(404);
         }
@@ -54,7 +55,7 @@ class UserController extends Controller
     public function edit($username)
     {
         \View::share('pageTitle', 'Perbaharui Profil');
-        $user = $this->findUser($username);
+        $user = User::where('username', $username)->firstOrFail();
         $skills = [];
         foreach (Skill::publish()->get() as $skill) {
             $skills[$skill] = $skill;
@@ -79,24 +80,15 @@ class UserController extends Controller
      */
     public function update(UpdateRequest $request, $username)
     {
-        $user = $this->findUser($username);
+        $user = User::where('username', $username)->firstOrFail();
         if (is_null($user)) {
             return redirect()->back();
         }
         $user->fill($request->all());
         if ($user->save()) {
             $user->skills()->delete();
-            foreach ($request->get('skill') as $skill) {
-                if (strlen($skill) > 0) {
-                    UserSkill::create(['user_id' => $user->id, 'name' => $skill]);
-                }
-            }
-            $user->interests()->delete();
-            foreach ($request->get('interest') as $interest) {
-                if (strlen($interest) > 0) {
-                    UserInterest::create(['user_id' => $user->id, 'name' => $interest]);
-                }
-            }
+            UserService::updateSkill($user, $request->get('skill'));
+            UserService::updateInterest($user, $request->get('interest'));
         }
         return redirect()->back();
     }
@@ -110,7 +102,7 @@ class UserController extends Controller
     public function editPassword($username)
     {
         \View::share('pageTitle', 'Ganti Password');
-        $user = $this->findUser($username);
+        $user = User::where('username', $username)->firstOrFail();
         return view('user.change-password', compact('user'));
     }
 
@@ -127,11 +119,8 @@ class UserController extends Controller
             return redirect()->back();
         }
         $errors = new MessageBag();
-        if (!\Hash::check($request->get('old_password'), $user->getOriginal('password'))) {
-            $errors->add('old_password', 'Your password is wrong.');
-        } else {
-            $user->password = $request->get('password');
-            $user->save();
+        if (!UserService::changePassword($user, $request->get('old_password'), $request->get('password'))) {
+            $errors->add('old_password', 'Password lama kamu tidak benar.');
         }
         return redirect()->back()->withErrors($errors);
     }
@@ -139,17 +128,8 @@ class UserController extends Controller
     public function invitation($username)
     {
         \View::share('pageTitle', 'Undangan Bergabung');
-        $user = $this->findUser($username);
+        $user = User::where('username', $username)->firstOrFail();
         $invitations = $user->invitations()->paginate(9);
         return view('user.invitation', compact('user', 'invitations'));
-    }
-
-    private function findUser($username)
-    {
-        $user = User::where('username', $username)->first();
-        if ($user) {
-            return $user;
-        }
-        throw new \Illuminate\Database\Eloquent\ModelNotFoundException();
     }
 }
