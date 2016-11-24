@@ -14,10 +14,11 @@ class CreateBanner extends Migration
     {
         Schema::create('banners', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
+            $table->string('title');
             $table->string('slug')->unique();
             $table->text('description')->nullable();
-            $table->string('url')->unique();
+            $table->string('url')->nullable();
+            $table->string('image');
             $table->timestamp('start_at')->nullable();
             $table->timestamp('finish_at')->nullable();
             $table->boolean('publish')->default(false);

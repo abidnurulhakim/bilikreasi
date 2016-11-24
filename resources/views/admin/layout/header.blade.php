@@ -30,9 +30,6 @@
               <ul class="menu">
                 <li><!-- start message -->
                   <a href="#">
-                    <div class="pull-left">
-                      <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
-                    </div>
                     <h4>
                       Support Team
                       <small><i class="fa fa-clock-o"></i> 5 mins</small>
@@ -43,9 +40,6 @@
                 <!-- end message -->
                 <li>
                   <a href="#">
-                    <div class="pull-left">
-                      <img src="dist/img/user3-128x128.jpg" class="img-circle" alt="User Image">
-                    </div>
                     <h4>
                       AdminLTE Design Team
                       <small><i class="fa fa-clock-o"></i> 2 hours</small>
@@ -55,9 +49,6 @@
                 </li>
                 <li>
                   <a href="#">
-                    <div class="pull-left">
-                      <img src="dist/img/user4-128x128.jpg" class="img-circle" alt="User Image">
-                    </div>
                     <h4>
                       Developers
                       <small><i class="fa fa-clock-o"></i> Today</small>
@@ -67,9 +58,6 @@
                 </li>
                 <li>
                   <a href="#">
-                    <div class="pull-left">
-                      <img src="dist/img/user3-128x128.jpg" class="img-circle" alt="User Image">
-                    </div>
                     <h4>
                       Sales Department
                       <small><i class="fa fa-clock-o"></i> Yesterday</small>
@@ -79,9 +67,6 @@
                 </li>
                 <li>
                   <a href="#">
-                    <div class="pull-left">
-                      <img src="dist/img/user4-128x128.jpg" class="img-circle" alt="User Image">
-                    </div>
                     <h4>
                       Reviewers
                       <small><i class="fa fa-clock-o"></i> 2 days</small>

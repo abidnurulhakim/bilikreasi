@@ -32,13 +32,16 @@ class User extends Authenticatable
     ];
 
     public $attachmentable = [
-        'photo'
+        'photo' => 'assets/images/user.jpg'
     ];
 
     public static function boot()
     {
         parent::boot();
         static::bootAttachableTrait();
+        static::creating(function($user){
+            $user->confirmed = true;
+        });
     }
 
     public function getRouteKeyName()

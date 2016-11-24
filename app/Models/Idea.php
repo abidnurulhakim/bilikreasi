@@ -46,7 +46,7 @@ class Idea extends BaseModel
         'tags_idea'
     ];
     public $attachmentable = [
-        'cover'
+        'cover' => 'assets/images/idea.jpg'
     ];
     public $sluggable = [
         'slug' => 'title'

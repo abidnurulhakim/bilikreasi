@@ -14,7 +14,7 @@ class CreatePopular extends Migration
     {
         Schema::create('populars', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
+            $table->string('title');
             $table->string('slug')->unique();
             $table->boolean('publish')->default(false);
             $table->integer('order_number')->default(9);

@@ -10,18 +10,18 @@
 | to using a Closure or controller method. Build something great!
 |
 */
-Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 'auth.admin'], function () {
-    Route::get('', ['uses'=>'AdminController@index', 'as' => 'admin.index']);
+Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 'auth.admin', 'as' => 'admin.'], function () {
+    Route::get('', ['uses'=>'AdminController@index', 'as' => 'index']);
     Route::resource('user', 'UserController');
     Route::resource('idea', 'IdeaController');
-    Route::get('tag/{id}/publish', ['uses'=>'TagController@publish', 'as' => 'admin.tag.publish']);
-    Route::get('tag/{id}/unpublish', ['uses'=>'TagController@unpublish', 'as' => 'admin.tag.unpublish']);
+    Route::get('tag/{id}/publish', ['uses'=>'TagController@publish', 'as' => 'tag.publish']);
+    Route::get('tag/{id}/unpublish', ['uses'=>'TagController@unpublish', 'as' => 'tag.unpublish']);
     Route::resource('tag', 'TagController');
-    Route::get('skill/{id}/publish', ['uses'=>'SkillController@publish', 'as' => 'admin.skill.publish']);
-    Route::get('skill/{id}/unpublish', ['uses'=>'SkillController@unpublish', 'as' => 'admin.skill.unpublish']);
+    Route::get('skill/{id}/publish', ['uses'=>'SkillController@publish', 'as' => 'skill.publish']);
+    Route::get('skill/{id}/unpublish', ['uses'=>'SkillController@unpublish', 'as' => 'skill.unpublish']);
     Route::resource('skill', 'SkillController');
-    Route::get('interest/{id}/publish', ['uses'=>'InterestController@publish', 'as' => 'admin.interest.publish']);
-    Route::get('interest/{id}/unpublish', ['uses'=>'InterestController@unpublish', 'as' => 'admin.interest.unpublish']);
+    Route::get('interest/{id}/publish', ['uses'=>'InterestController@publish', 'as' => 'interest.publish']);
+    Route::get('interest/{id}/unpublish', ['uses'=>'InterestController@unpublish', 'as' => 'interest.unpublish']);
     Route::resource('interest', 'InterestController');
 });
 Route::group(['prefix' => '/'], function () {

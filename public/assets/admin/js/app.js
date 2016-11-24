@@ -30,7 +30,6 @@
     _icheck         : { 
                         css : path.plugins + 'iCheck/css/all.css',
                         js : path.plugins + 'iCheck/js/icheck.min.js',
-                        square_color : path.plugins + 'iCheck/square/_all.css'
                       },
     _select2        : { 
                         css : path.plugins + 'select2/css/select2.min.css',
@@ -119,7 +118,6 @@
           load  : [
                   assets._icheck.css,
                   assets._icheck.js,
-                  assets._icheck.square_color,
           ],
           complete : function(){
             $('input').iCheck({

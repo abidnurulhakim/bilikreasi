@@ -41,34 +41,32 @@ class UserService
 
     public static function updateSkill(User $user, $skills = [])
     {
-        DB::transaction(function () {
-            $user->skills()->delete();
-            foreach ($skills as $skill) {
-                if (!empty($skill)) {
-                    $user = UserSkill::create(['user_id' => $user->id, 'name' => $skill]);
-                    if (is_null($user->id)) {
-                        DB::rollback();
-                    }
+        \DB::beginTransaction();
+        $user->skills()->delete();
+        foreach ($skills as $skill) {
+            if (!empty($skill)) {
+                $userSkill = UserSkill::create(['user_id' => $user->id, 'name' => $skill]);
+                if (is_null($userSkill->id)) {
+                    DB::rollback();
                 }
             }
-        });
-        DB::commit();
+        }
+        \DB::commit();
     }
 
     public static function updateInterest(User $user, $interests = [])
     {
-        DB::transaction(function () {
-            $user->interests()->delete();
-            foreach ($interests as $interest) {
-                if (!empty($interest)) {
-                    $user = UserInterest::create(['user_id' => $user->id, 'name' => $interest]);
-                    if (is_null($user->id)) {
-                        DB::rollback();
-                    }
+        \DB::beginTransaction();
+        $user->interests()->delete();
+        foreach ($interests as $interest) {
+            if (!empty($interest)) {
+                $userInterest = UserInterest::create(['user_id' => $user->id, 'name' => $interest]);
+                if (is_null($userInterest->id)) {
+                    DB::rollback();
                 }
             }
-        });
-        DB::commit();
+        }
+        \DB::commit();
     }
 
     private static function authenticate(User $user, $remember = false)

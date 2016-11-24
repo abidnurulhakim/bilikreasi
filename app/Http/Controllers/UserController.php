@@ -58,11 +58,11 @@ class UserController extends Controller
         $user = User::where('username', $username)->firstOrFail();
         $skills = [];
         foreach (Skill::publish()->get() as $skill) {
-            $skills[$skill] = $skill;
+            $skills[$skill->name] = $skill->name;
         }
         $interests = [];
         foreach (Interest::publish()->get() as $interest) {
-            $interests[$interest] = $interest;
+            $interests[$interest->name] = $interest->name;
         }
         $userSkills = $user->skills->map(function($skill) {
             return $skill->name; })->toArray();
@@ -87,8 +87,8 @@ class UserController extends Controller
         $user->fill($request->all());
         if ($user->save()) {
             $user->skills()->delete();
-            UserService::updateSkill($user, $request->get('skill'));
-            UserService::updateInterest($user, $request->get('interest'));
+            UserService::updateSkill($user, $request->get('skill', []));
+            UserService::updateInterest($user, $request->get('interest', []));
         }
         return redirect()->back();
     }
