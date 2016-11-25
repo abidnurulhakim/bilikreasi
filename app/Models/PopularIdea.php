@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Models\BaseModel;
 use App\Models\Traits\SluggableTrait;
+use Illuminate\Database\Eloquent\Builder;
 
 class PopularIdea extends BaseModel
 {
@@ -16,25 +17,20 @@ class PopularIdea extends BaseModel
     {
         parent::boot();
         
-        static::creating(function($popular){
-            if (is_null($popular->order_number) || $popular->order_number < 0) {
-                $popular->order_number = \App\Models\Popular::publish()->count() + 1;
-            } elseif ($popular->order_number == 0) {
-                $popular->order_number = 1;
+        static::creating(function($popularIdea){
+            if (is_null($popularIdea->order_number) || $popularIdea->order_number < 0) {
+                $popularIdea->order_number = 
+                    \App\Models\PopularIdea::where('popular_id', $popularIdea->popular_id)
+                    ->groupBy(['popular_id',])->count() + 1;
+            } elseif ($popularIdea->order_number == 0) {
+                $popularIdea->order_number = 1;
             } 
         });
-        static::addGlobalScope('order_banner', function (Builder $builder) {
-            $builder->order('order_number', 'asc');
+        static::addGlobalScope('order_popular_idea', function (Builder $builder) {
+            $builder->orderBy('order_number', 'asc');
         });
-        static::bootAttachableTrait();
-        static::bootSluggableTrait();
     }
     
-    public function scopePublish($query)
-    {
-    	return $query->where('publish', true);
-    }
-
     public function idea()
     {
     	return $this->belongsTo('App\Models\Idea', 'idea_id');

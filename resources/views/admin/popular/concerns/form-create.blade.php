@@ -8,7 +8,8 @@
       </ul>
     </div>
   @endif
-  {!! Form::formText('name', null, ['label' => 'Nama Tag', 'placeholder' => 'Nama Tag', 'required' => true] ) !!}
+  {!! Form::formText('title', null, ['label' => 'Title Popular', 'placeholder' => 'Title Popular', 'required' => true] ) !!}
+  {!! Form::formNumber('order_number', null, ['label' => 'Order Number', 'placeholder' => 'Order Number'] ) !!}
   {!! Form::formSelect('publish', ['Not Publish', 'Publish'], null, ['label' => 'Publish'] ) !!}
   <a href="{{ route('admin.popular.index') }}" class="btn btn-warning btn-lg pull-left btn-flat">Back</a>
   {!! Form::submit('Create', ['class' => 'btn btn-primary btn-lg btn-flat pull-right']); !!}

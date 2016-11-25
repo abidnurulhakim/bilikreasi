@@ -26,6 +26,9 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 'auth
     Route::get('banner/{id}/publish', ['uses'=>'BannerController@publish', 'as' => 'banner.publish']);
     Route::get('banner/{id}/unpublish', ['uses'=>'BannerController@unpublish', 'as' => 'banner.unpublish']);
     Route::resource('banner', 'BannerController');
+    Route::get('popular/{id}/idea/create', ['uses'=>'PopularController@createIdea', 'as' => 'popular.idea.create']);
+    Route::post('popular/{id}/idea', ['uses'=>'PopularController@storeIdea', 'as' => 'popular.idea.store']);
+    Route::delete('popular/idea/{id}', ['uses'=>'PopularController@destroyIdea', 'as' => 'popular.idea.destroy']);
     Route::get('popular/{id}/publish', ['uses'=>'PopularController@publish', 'as' => 'popular.publish']);
     Route::get('popular/{id}/unpublish', ['uses'=>'PopularController@unpublish', 'as' => 'popular.unpublish']);
     Route::resource('popular', 'PopularController');

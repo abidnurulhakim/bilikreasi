@@ -72,8 +72,7 @@ class IdeaController extends Controller
                 }
             }
             if ($request->get('tag')) {
-                $tags = explode(',', $request->get('tag'));
-                foreach ($tags as $tag) {
+                foreach ($request->get('tag') as $tag) {
                     IdeaTag::create(['idea_id' => $idea->id, 'name' => $tag]);
                 }
             }

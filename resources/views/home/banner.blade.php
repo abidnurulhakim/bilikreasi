@@ -1,31 +1,21 @@
 <div id="banner" class="carousel slide" data-ride="carousel">
   <!-- Indicators -->
   <ol class="carousel-indicators">
-    <li data-target="#banner" data-slide-to="0" class="active"></li>
-    <li data-target="#banner" data-slide-to="1"></li>
-    <li data-target="#banner" data-slide-to="2"></li>
+    @for ($i = 0; $i < $banners->count(); $i++)
+      <li data-target="#banner" data-slide-to="{{ $i }}" @if($i == 0) class="active" @endif></li>
+    @endfor
   </ol>
 
   <!-- Wrapper for slides -->
   <div class="carousel-inner" role="listbox">
-    <div class="item active">
-      <img src="http://lorempixel.com/1200/400" class="img-responsive" alt="...">
+    @for ($i = 0; $i < $banners->count(); $i++)
+    <div class="item @if($i == 0) active @endif" id="banner-{{ $banners->get($i)->id }}">
+      <img src="{{ $banners->get($i)->getImage(1200, 400) }}" class="img-responsive" alt="{{ $banners->get($i)->title }}">
       <div class="carousel-caption">
-        ...
+        {{ $banners->get($i)->description }}
       </div>
     </div>
-    <div class="item">
-      <img src="http://lorempixel.com/1200/400" class="img-responsive" alt="...">
-      <div class="carousel-caption">
-        ...
-      </div>
-    </div>
-    <div class="item">
-      <img src="http://lorempixel.com/1200/400" class="img-responsive" alt="...">
-      <div class="carousel-caption">
-        ...
-      </div>
-    </div>
+    @endfor
   </div>
 
   <!-- Controls -->

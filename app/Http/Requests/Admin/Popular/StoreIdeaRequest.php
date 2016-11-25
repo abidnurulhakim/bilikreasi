@@ -4,7 +4,7 @@ namespace App\Http\Requests\Admin\Popular;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateRequest extends FormRequest
+class StoreIdeaRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,9 +24,8 @@ class UpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => 'required|max:255',
+            'idea' => 'required|integer',
             'order_number' => 'integer|min:0',
-            'publish' => 'required|in:0,1',
         ];
     }
 }

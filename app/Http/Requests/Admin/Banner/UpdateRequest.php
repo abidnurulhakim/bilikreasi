@@ -30,7 +30,7 @@ class UpdateRequest extends FormRequest
             'image' => '',
             'start_at' => 'date|after:now',
             'finish_at' => 'date|after:start_at',
-            'order_number' => '',
+            'order_number' => 'integer|min:0',
             'publish' => 'required|in:0,1',
         ];
     }

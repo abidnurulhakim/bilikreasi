@@ -18,7 +18,7 @@
     </h5>
     <h6 class="card-title text-muted">
       <i class="fa fa-tags text-primary"></i> 
-      @foreach($idea->tags->take(3) as $tag)
+      @foreach($idea->tags as $tag)
         <span class="label label-info">{{ $tag->name }}</span>
       @endforeach
     </h6>
@@ -30,7 +30,7 @@
     @endif
   </div>
   <a href="{{ route('idea.show', $idea) }}">
-    <img src="{{ $idea->getCover() }}" class='img-responsive' alt="{{ $idea->title }}">
+    <img src="{{ $idea->getCover(400) }}" class='img-responsive' alt="{{ $idea->title }}">
   </a>
   <div class="card-block">
     <p class="card-text">{{ str_limit(strip_tags($idea->description), 150) }}</p>

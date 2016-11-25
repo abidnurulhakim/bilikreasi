@@ -14,19 +14,21 @@
       <table class="table table-bordered table-striped">
         <thead>
         <tr>
+          <th data-visible="true" data-width="10%">Order Number</th>
           <th data-visible="false" data-width="10%">ID</th>
           <th data-visible="true" data-width="10%">Title</th>
           <th data-visible="true" data-width="10%">Slug</th>
           <th data-visible="true" data-width="10%">Publish</th>
-          <th data-visible="true" data-width="10%">Order Number</th>
+          <th data-visible="true" data-width="10%">Total Idea</th>
           <th data-visible="false" data-width="10%">Updated At</th>
           <th data-visible="false" data-width="10%">Created At</th>
-          <th data-visible="true" data-width="20%">Action</th>
+          <th data-visible="true" data-width="30%">Action</th>
         </tr>
         </thead>
         <tbody>
         @foreach($populars as $popular)
         <tr>
+          <td>{{ $popular->order_number }}</td>
           <td>{{ $popular->id }}</td>
           <td>{{ $popular->title }}</td>
           <td>{{ $popular->slug }}</td>
@@ -37,16 +39,17 @@
               <span class="label label-danger">Not published</span>
             @endif
           </td>
-          <td>{{ $popular->order_number }}</td>
+          <td>{{ $popular->ideas()->withoutGlobalScope('order_popular_idea')->count() }}</td>
           <td>{{ $popular->updated_at }}</td>
           <td>{{ $popular->created_at }}</td>
           <td>
             @if($popular->publish)
-              <a href="{{ route('admin.popular.unpublish', $tag) }}" class="btn btn-info btn-flat">Unpublish</a>
+              <a href="{{ route('admin.popular.unpublish', $popular) }}" class="btn btn-info btn-flat">Unpublish</a>
             @else
-              <a href="{{ route('admin.popular.publish', $tag) }}" class="btn btn-info btn-flat">Publish</a>
+              <a href="{{ route('admin.popular.publish', $popular) }}" class="btn btn-info btn-flat">Publish</a>
             @endif
-            <a href="{{ route('admin.popular.edit', $tag) }}" class="btn btn-success btn-flat">Edit</a>
+            <a href="{{ route('admin.popular.show', $popular) }}" class="btn btn-success btn-flat">Add Idea</a>
+            <a href="{{ route('admin.popular.edit', $popular) }}" class="btn btn-success btn-flat">Edit</a>
             @include('admin.popular.concerns.form-delete', compact('popular'))
           </td>
         </tr>

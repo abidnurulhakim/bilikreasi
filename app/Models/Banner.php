@@ -54,7 +54,7 @@ class Banner extends BaseModel
     
     public function scopePublish($query)
     {
-        return $query->where('publish', true)->where('start_at', '>=', \Carbon::now())->where('finish_at', '<=', \Carbon::now());
+        return $query->where('publish', true)->where('start_at', '<=', \Carbon::now())->where('finish_at', '>=', \Carbon::now());
     }
 
     public function setStartAtAttribute($value)

@@ -51,7 +51,6 @@ class Handler extends ExceptionHandler
     public function render($request, Exception $exception)
     {
         \View::share('pageHeader', false);
-        dd($exception);       
         if ($exception instanceof HttpException || $exception instanceof ModelNotFoundException) {
             return response()->view('errors.404', [], 404);
         }

@@ -1,13 +1,24 @@
 <!-- Content Row -->
-@forelse ($ideas->chunk(3) as $chunk)
-<div class="row">
-  @foreach($chunk as $idea)
-  <div class="col-md-4 col-sm-12">
-    @include('idea.card', $idea)
+@forelse($populars as $popular)
+  <h2 class="text-center text-primary header-index">
+    {{ $popular->title }}
+  </h2>
+  @foreach ($popular->ideas->chunk(3) as $chunk)
+  <div class="row">
+    @foreach($chunk as $popularIdea)
+    <div class="col-md-4 col-sm-12">
+      @php
+        $idea = $popularIdea->idea
+      @endphp
+      @include('idea.card', $idea)
+    </div>
+    @endforeach
   </div>
   @endforeach
-</div>
 @empty
+<h2 class="text-center text-primary header-index">
+  Trending Ide
+</h2>
 <div class="row">
   <div class="col-md-4 col-sm-12">
     <div class="card">

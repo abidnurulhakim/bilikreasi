@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Banner;
+use App\Models\Popular;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -14,8 +16,9 @@ class HomeController extends Controller
     public function index()
     {
         \View::share('pageHeader', false);
-        $ideas = \App\Models\Idea::orderBy('like_count', 'desc')->take(9)->get();
-        return view('home.index', compact('ideas'));
+        $banners = Banner::publish()->get();
+        $populars = Popular::publish()->get();
+        return view('home.index', compact('banners', 'populars'));
     }
 
     /**

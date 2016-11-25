@@ -30,7 +30,7 @@ class Popular extends BaseModel
                 $popular->order_number = 1;
             } 
         });
-        static::addGlobalScope('order_banner', function (Builder $builder) {
+        static::addGlobalScope('order_popular', function (Builder $builder) {
             $builder->orderBy('order_number', 'asc');
         });
         static::bootSluggableTrait();
