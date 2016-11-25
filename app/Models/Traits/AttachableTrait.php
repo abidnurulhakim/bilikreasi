@@ -8,7 +8,7 @@ trait AttachableTrait
     {
         static::saving(function ($model) {
             if ($model->isDirty()) {
-                foreach ($model->attachmentable as $field => $default) {
+                foreach ($model->attachmentable as $field => $options) {
                     if (gettype($model->$field) == 'object' && get_class($model->$field) == 'Illuminate\Http\UploadedFile') {
                         $fileName = uniqid().'.'.$model->$field->extension();
                         if ($model->$field->storeAs('attachments', $fileName, 'public')) {
@@ -16,12 +16,13 @@ trait AttachableTrait
                             $model->$field = 'attachments/'.$fileName;
                             if (!empty($oldFile)) {
                                 $part = preg_split('~\.(?=[^\.]*$)~', $oldFile);
-                                array_map('unlink', glob($part[0].'-*'));
+                                $name = $path.explode("/", $part[0]);
+                                array_map('unlink', glob($options['path_crop']."/".$name[sizeof($name)-1].'-*'));
                                 unlink($oldFile);
                             }
                         }
                     } elseif (empty($model->$field)) {
-                        $model->$field = $default;
+                        $model->$field = $options['path_default'];
                     }
                 }
             }            
@@ -52,10 +53,12 @@ trait AttachableTrait
                         break;
                 }
                 $part = preg_split('~\.(?=[^\.]*$)~', $this->getOriginal($nameAttr));
-                if (!file_exists($part[0].'-'.$width.'x'.$height.'.'.$part[1])) {
-                    $this->generateImage($this->getOriginal($nameAttr), $part[0].'-'.$width.'x'.$height.'.'.$part[1], $width, $height);
+                $name = explode("/", $part[0]);
+                $fileName = $this->attachmentable[$nameAttr]['path_crop'].'/'.$name[sizeof($name)-1].'-'.$width.'x'.$height.'.'.$part[1];
+                if (!file_exists($fileName)) {
+                    $this->generateImage($this->getOriginal($nameAttr), $fileName, $width, $height);
                 }
-                return asset($part[0].'-'.$width.'x'.$height.'.'.$part[1]);
+                return asset($fileName);
             }
             return parent::__call($method, $arguments);
         } else {

@@ -10,7 +10,7 @@
   @endif
   {!! Form::formText('title', null, ['label' => 'Judul Ide', 'placeholder' => 'Judul Ide', 'required' => true] ) !!}
   {!! Form::formTextEditor('description', $idea->description, ['label' => 'Deskripsi Ide', 'placeholder' => 'Deskripsi Idea', 'required' => true] ) !!}
-  {!! Form::formFile('cover', null, ['label' => 'Gambar Cover Ide', 'placeholder' => 'Gambar Ide', 'data-initial-preview-url' => '["'.$idea->getCover().'"]', 'data-max-file-count' => '1', 'data-max-file-size' => '2048', 'data-allowed-file-types' => '["image", "video"]'] ) !!}
+  {!! Form::formFile('cover', null, ['label' => 'Gambar Cover Ide', 'placeholder' => 'Gambar Ide', 'data-initial-preview-url' => '["'.$idea->getCover().'"]', 'data-max-file-count' => '1', 'data-max-file-size' => '2048', 'data-allowed-file-types' => '["image"]'] ) !!}
   {!! Form::formSelect('category', \App\Models\Idea::CATEGORY, $idea->category, ['label' => 'Kategori Ide','placeholder' => 'Kategori Ide', 'required' => true] ) !!}
   <div class="show-cat-event
   @if($idea->category != 'event')

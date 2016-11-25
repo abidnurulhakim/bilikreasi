@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\Interest;
-use App\Http\Requests\Admin\Interest\StoreRequest;
-use App\Http\Requests\Admin\Interest\UpdateRequest;
+use App\Models\Popular;
+use App\Http\Requests\Admin\Popular\StoreRequest;
+use App\Http\Requests\Admin\Popular\UpdateRequest;
 use App\Http\Controllers\Admin\AdminController;
 
-class InterestController extends AdminController
+class PopularController extends AdminController
 {
     /**
      * Instantiate a new UserController instance.
@@ -17,7 +17,7 @@ class InterestController extends AdminController
     public function __construct()
     {
         parent::__construct();
-        \View::share('interestMenu', true);
+        \View::share('popularMenu', true);
     }
 
     /**
@@ -27,8 +27,8 @@ class InterestController extends AdminController
      */
     public function index()
     {
-        $interests = Interest::all();
-        return view('admin.interest.index', compact('interests'));
+        $populars = Popular::orderBy('order_number')->get();
+        return view('admin.popular.index', compact('populars'));
     }
 
     /**
@@ -38,7 +38,7 @@ class InterestController extends AdminController
      */
     public function create()
     {
-        return view('admin.interest.create');
+        return view('admin.popular.create');
     }
 
     /**
@@ -49,8 +49,8 @@ class InterestController extends AdminController
      */
     public function store(StoreRequest $request)
     {
-        $interest = Interest::create($request->all());
-        return redirect()->route('admin.interest.index');
+        $popular = Popular::create($request->all());
+        return redirect()->route('admin.popular.index');
     }
 
     /**
@@ -61,8 +61,8 @@ class InterestController extends AdminController
      */
     public function edit($id)
     {
-        $interest = Interest::findOrFail($id);
-        return view('admin.interest.edit', compact('interest'));
+        $popular = Tag::findOrFail($id);
+        return view('admin.popular.edit', compact('popular'));
     }
 
     /**
@@ -74,10 +74,10 @@ class InterestController extends AdminController
      */
     public function update(UpdateRequest $request, $id)
     {
-        $interest = Interest::findOrFail($id);
-        $interest->fill($request->all());
-        $interest->save();
-        return redirect()->route('admin.interest.index');
+        $popular = Tag::findOrFail($id);
+        $popular->fill($request->all());
+        $popular->save();
+        return redirect()->route('admin.tag.index');
     }
 
     /**
@@ -88,9 +88,9 @@ class InterestController extends AdminController
      */
     public function destroy($id)
     {
-        $interest = Interest::findOrFail($id);
-        $interest->delete();
-        return redirect()->route('admin.interest.index');
+        $popular = Tag::findOrFail($id);
+        $popular->delete();
+        return redirect()->route('admin.popular.index');
     }
 
     /**
@@ -101,10 +101,10 @@ class InterestController extends AdminController
      */
     public function publish($id)
     {
-        $interest = Interest::findOrFail($id);
-        $interest->publish = true;
-        $interest->save();
-        return redirect()->route('admin.interest.index');
+        $popular = Tag::findOrFail($id);
+        $popular->publish = true;
+        $popular->save();
+        return redirect()->route('admin.popular.index');
     }
 
     /**
@@ -115,9 +115,9 @@ class InterestController extends AdminController
      */
     public function unpublish($id)
     {
-        $interest = Interest::findOrFail($id);
-        $interest->publish = false;
-        $interest->save();
-        return redirect()->route('admin.interest.index');
+        $popular = Tag::findOrFail($id);
+        $popular->publish = false;
+        $popular->save();
+        return redirect()->route('admin.popular.index');
     }
 }

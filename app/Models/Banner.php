@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Models\BaseModel;
 use App\Models\Traits\AttachableTrait;
 use App\Models\Traits\SluggableTrait;
+use Illuminate\Database\Eloquent\Builder;
 
 class Banner extends BaseModel
 {
@@ -24,7 +25,10 @@ class Banner extends BaseModel
         'publish', 'order_number'
     ];
     public $attachmentable = [
-        'image' => 'assets/images/idea.jpg'
+        'image' =>  [
+                    'path_crop' => 'attachments/crops',
+                    'path_default' => 'assets/images/idea.jpg'
+                    ]
     ];
     public $sluggable = [
         'slug' => 'title'
@@ -36,20 +40,36 @@ class Banner extends BaseModel
         
         static::creating(function($banner){
             if (is_null($banner->order_number) || $banner->order_number < 0) {
-                $banner->order_number = \App\Models\Banner::publish()->count() + 1;
+                $banner->order_number = \App\Models\Banner::publish()->groupBy('order_number')->count() + 1;
             } elseif ($banner->order_number == 0) {
                 $banner->order_number = 1;
             } 
         });
-        static::addGlobalScope('order_banner', function (Builder $builder) {
-            $builder->order('order_number', 'asc');
-        });
         static::bootAttachableTrait();
         static::bootSluggableTrait();
+        static::addGlobalScope('order_banner', function (Builder $builder) {
+            $builder->orderBy('order_number', 'asc');
+        });
     }
     
     public function scopePublish($query)
     {
         return $query->where('publish', true)->where('start_at', '>=', \Carbon::now())->where('finish_at', '<=', \Carbon::now());
+    }
+
+    public function setStartAtAttribute($value)
+    {
+        $value = trim($value);
+        if (!empty($value) && !is_null($value)) {
+            $this->attributes['start_at'] = \Carbon::createFromFormat('m/d/Y g:i A', $value);
+        }
+    }
+
+    public function setFinishAtAttribute($value)
+    {
+        $value = trim($value);
+        if (!empty($value) && !is_null($value)) {
+            $this->attributes['finish_at'] = \Carbon::createFromFormat('m/d/Y g:i A', $value);
+        }
     }
 }

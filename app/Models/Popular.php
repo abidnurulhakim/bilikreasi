@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Models\BaseModel;
 use App\Models\Traits\SluggableTrait;
+use Illuminate\Database\Eloquent\Builder;
 
 class Popular extends BaseModel
 {
@@ -30,9 +31,8 @@ class Popular extends BaseModel
             } 
         });
         static::addGlobalScope('order_banner', function (Builder $builder) {
-            $builder->order('order_number', 'asc');
+            $builder->orderBy('order_number', 'asc');
         });
-        static::bootAttachableTrait();
         static::bootSluggableTrait();
     }
     

@@ -89,7 +89,7 @@ class SkillController extends AdminController
     public function destroy($id)
     {
         $skill = Skill::findOrFail($id);
-        $idea->delete();
+        $skill->delete();
         return redirect()->route('admin.skill.index');
     }
 

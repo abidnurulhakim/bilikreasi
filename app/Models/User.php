@@ -32,7 +32,10 @@ class User extends Authenticatable
     ];
 
     public $attachmentable = [
-        'photo' => 'assets/images/user.jpg'
+        'photo' =>  [
+                    'path_crop' => 'attachments/crops',
+                    'path_default' => 'assets/images/user.jpg'
+                    ]
     ];
 
     public static function boot()

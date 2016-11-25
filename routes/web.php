@@ -23,6 +23,12 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 'auth
     Route::get('interest/{id}/publish', ['uses'=>'InterestController@publish', 'as' => 'interest.publish']);
     Route::get('interest/{id}/unpublish', ['uses'=>'InterestController@unpublish', 'as' => 'interest.unpublish']);
     Route::resource('interest', 'InterestController');
+    Route::get('banner/{id}/publish', ['uses'=>'BannerController@publish', 'as' => 'banner.publish']);
+    Route::get('banner/{id}/unpublish', ['uses'=>'BannerController@unpublish', 'as' => 'banner.unpublish']);
+    Route::resource('banner', 'BannerController');
+    Route::get('popular/{id}/publish', ['uses'=>'PopularController@publish', 'as' => 'popular.publish']);
+    Route::get('popular/{id}/unpublish', ['uses'=>'PopularController@unpublish', 'as' => 'popular.unpublish']);
+    Route::resource('popular', 'PopularController');
 });
 Route::group(['prefix' => '/'], function () {
     Route::get('', ['uses'=>'HomeController@index', 'as' => 'home.index']);

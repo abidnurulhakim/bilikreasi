@@ -42,7 +42,7 @@
         </a>
       </li>
       <li @if(isset($bannerMenu)) class="active" @endif>
-        <a href="{{ route('admin.user.index') }}">
+        <a href="{{ route('admin.banner.index') }}">
           <i class="fa fa-bullhorn"></i> <span>Banner</span>
           <span class="pull-right-container">
             <small class="label pull-right bg-green">new</small>
@@ -50,7 +50,7 @@
         </a>
       </li>
       <li @if(isset($popularMenu)) class="active" @endif>
-        <a href="{{ route('admin.user.index') }}">
+        <a href="{{ route('admin.popular.index') }}">
           <i class="fa fa-bookmark"></i> <span>Popular</span>
           <span class="pull-right-container">
             <small class="label pull-right bg-green">new</small>

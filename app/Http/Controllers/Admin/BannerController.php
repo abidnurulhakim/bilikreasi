@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\Interest;
-use App\Http\Requests\Admin\Interest\StoreRequest;
-use App\Http\Requests\Admin\Interest\UpdateRequest;
+use App\Models\Banner;
+use App\Http\Requests\Admin\Banner\StoreRequest;
+use App\Http\Requests\Admin\Banner\UpdateRequest;
 use App\Http\Controllers\Admin\AdminController;
 
-class InterestController extends AdminController
+class BannerController extends AdminController
 {
     /**
      * Instantiate a new UserController instance.
@@ -17,7 +17,7 @@ class InterestController extends AdminController
     public function __construct()
     {
         parent::__construct();
-        \View::share('interestMenu', true);
+        \View::share('bannerMenu', true);
     }
 
     /**
@@ -27,8 +27,8 @@ class InterestController extends AdminController
      */
     public function index()
     {
-        $interests = Interest::all();
-        return view('admin.interest.index', compact('interests'));
+        $banners = Banner::all();
+        return view('admin.banner.index', compact('banners'));
     }
 
     /**
@@ -38,7 +38,7 @@ class InterestController extends AdminController
      */
     public function create()
     {
-        return view('admin.interest.create');
+        return view('admin.banner.create');
     }
 
     /**
@@ -49,8 +49,8 @@ class InterestController extends AdminController
      */
     public function store(StoreRequest $request)
     {
-        $interest = Interest::create($request->all());
-        return redirect()->route('admin.interest.index');
+        $banner = Banner::create($request->all());
+        return redirect()->route('admin.banner.index');
     }
 
     /**
@@ -61,8 +61,8 @@ class InterestController extends AdminController
      */
     public function edit($id)
     {
-        $interest = Interest::findOrFail($id);
-        return view('admin.interest.edit', compact('interest'));
+        $banner = Banner::findOrFail($id);
+        return view('admin.banner.edit', compact('banner'));
     }
 
     /**
@@ -74,10 +74,10 @@ class InterestController extends AdminController
      */
     public function update(UpdateRequest $request, $id)
     {
-        $interest = Interest::findOrFail($id);
-        $interest->fill($request->all());
-        $interest->save();
-        return redirect()->route('admin.interest.index');
+        $banner = Banner::findOrFail($id);
+        $banner->fill($request->all());
+        $banner->save();
+        return redirect()->route('admin.banner.index');
     }
 
     /**
@@ -88,9 +88,9 @@ class InterestController extends AdminController
      */
     public function destroy($id)
     {
-        $interest = Interest::findOrFail($id);
-        $interest->delete();
-        return redirect()->route('admin.interest.index');
+        $banner = Banner::findOrFail($id);
+        $banner->delete();
+        return redirect()->route('admin.banner.index');
     }
 
     /**
@@ -101,10 +101,10 @@ class InterestController extends AdminController
      */
     public function publish($id)
     {
-        $interest = Interest::findOrFail($id);
-        $interest->publish = true;
-        $interest->save();
-        return redirect()->route('admin.interest.index');
+        $banner = Banner::findOrFail($id);
+        $banner->publish = true;
+        $banner->save();
+        return redirect()->route('admin.banner.index');
     }
 
     /**
@@ -115,9 +115,9 @@ class InterestController extends AdminController
      */
     public function unpublish($id)
     {
-        $interest = Interest::findOrFail($id);
-        $interest->publish = false;
-        $interest->save();
-        return redirect()->route('admin.interest.index');
+        $banner = Tag::findOrFail($id);
+        $banner->publish = false;
+        $banner->save();
+        return redirect()->route('admin.banner.index');
     }
 }

@@ -89,7 +89,7 @@ class TagController extends AdminController
     public function destroy($id)
     {
         $tag = Tag::findOrFail($id);
-        $idea->delete();
+        $tag->delete();
         return redirect()->route('admin.tag.index');
     }
 
