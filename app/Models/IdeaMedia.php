@@ -11,10 +11,13 @@ class IdeaMedia extends BaseModel
 
     protected $table = 'idea_media';
     public $attachmentable = [
-        'url' =>    [
-                    'path_crop' => 'attachments/crops',
-                    'path_default' => 'assets/images/idea.jpg'
-                    ]
+        'url' =>[
+                'path' => [
+                    'crop' => 'storage/attachments/crops',
+                    'storage' => 'attachments'
+                ],
+                'default' => 'assets/images/idea.jpg'
+        ]
     ];
     protected $fillable = [
         'idea_id', 'url', 'type'

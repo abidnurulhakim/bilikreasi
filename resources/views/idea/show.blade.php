@@ -19,8 +19,7 @@
                   <div class="col-md-12 no-padding tags">
                     <i class="fa fa-tags"></i> 
                     @foreach($idea->tags as $tag)
-                    <?php $labels = ['primary', 'danger', 'info', 'warning', 'success']?>
-                    <span class="label label-{{ $labels[array_rand($labels)] }}">{{ $tag->name }}</span>
+                    <span class="label label-info">{{ $tag }}</span>
                     @endforeach
                   </div>
                 </div>

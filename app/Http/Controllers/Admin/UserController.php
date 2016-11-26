@@ -74,11 +74,7 @@ class UserController extends AdminController
         foreach (Interest::publish()->get() as $interest) {
             $interests[$interest] = $interest;
         }
-        $userSkills = $user->skills->map(function($skill) {
-            return $skill->name; })->toArray();
-        $userInterests = $user->interests->map(function($interest) {
-            return $interest->name; })->toArray();
-        return view('admin.user.edit', compact('user', 'skills', 'interests', 'userSkills', 'userInterests'));
+        return view('admin.user.edit', compact('user', 'skills', 'interests'));
     }
 
     /**

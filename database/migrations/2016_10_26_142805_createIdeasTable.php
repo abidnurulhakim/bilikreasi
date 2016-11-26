@@ -30,6 +30,7 @@ class CreateIdeasTable extends Migration
             $table->integer('comment_count')->unsigned()->default(0);
             $table->integer('share_count')->unsigned()->default(0);
             $table->boolean('publish')->default(true);
+            $table->text('tags')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

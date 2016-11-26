@@ -64,11 +64,7 @@ class UserController extends Controller
         foreach (Interest::publish()->get() as $interest) {
             $interests[$interest->name] = $interest->name;
         }
-        $userSkills = $user->skills->map(function($skill) {
-            return $skill->name; })->toArray();
-        $userInterests = $user->interests->map(function($interest) {
-            return $interest->name; })->toArray();
-        return view('user.edit', compact('user', 'skills', 'interests', 'userSkills', 'userInterests'));
+        return view('user.edit', compact('user', 'skills', 'interests'));
     }
 
     /**
@@ -85,11 +81,7 @@ class UserController extends Controller
             return redirect()->back();
         }
         $user->fill($request->all());
-        if ($user->save()) {
-            $user->skills()->delete();
-            UserService::updateSkill($user, $request->get('skill', []));
-            UserService::updateInterest($user, $request->get('interest', []));
-        }
+        $user->save();
         return redirect()->back();
     }
 

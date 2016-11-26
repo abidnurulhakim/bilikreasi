@@ -5,6 +5,8 @@ namespace App\Models;
 use App\Models\Discuss;
 use App\Models\Idea;
 use App\Models\Member;
+use App\Models\Skill;
+use App\Models\Interest;
 use App\Models\Traits\AttachableTrait;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -22,7 +24,7 @@ class User extends Authenticatable
 
     protected $fillable = [
         'name', 'email', 'secret_password', 'hash_password', 'confirmed', 'role', 'last_login_at', 'last_login_ip_address',
-        'birthday', 'username', 'gender', 'photo','phone_number', 'profession', 'live_at'
+        'birthday', 'username', 'gender', 'photo','phone_number', 'profession', 'live_at', 'skills', 'interests'
     ];
 
     protected $dates = [
@@ -31,11 +33,24 @@ class User extends Authenticatable
         'deleted_at'
     ];
 
+    /**
+     * The attributes that should be casted to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'skills' => 'array',
+        'interests' => 'array',
+    ];
+
     public $attachmentable = [
         'photo' =>  [
-                    'path_crop' => 'attachments/crops',
-                    'path_default' => 'assets/images/user.jpg'
-                    ]
+                    'path' => [
+                        'crop' => 'storage/attachments/crops',
+                        'storage' => 'attachments'
+                        ],
+                    'default' => 'assets/images/user.jpg'
+        ]
     ];
 
     public static function boot()
@@ -44,6 +59,39 @@ class User extends Authenticatable
         static::bootAttachableTrait();
         static::creating(function($user){
             $user->confirmed = true;
+        });
+        static::saving(function($user){
+            if (!is_array($user->skills) ) {
+                $skills = explode(',', $user->skills);
+                $user->skills = [];
+                foreach ($skills as $skill) {
+                    if (!empty($skill)) {
+                        array_push($user->skills, $skill);
+                    }
+                }
+            }
+            if (!is_array($user->interests) ) {
+                $interests = explode(',', $user->interests);
+                $user->interests = [];
+                foreach ($interests as $interest) {
+                    if (!empty($interest)) {
+                        array_push($user->sinterests, $interest);
+                    }
+                }
+            }
+        });
+        static::saved(function($user){
+            foreach ($user->skills as $skill) {
+                if (Skill::where('name', $skill)->count() == 0) {
+                    Skill::create(['name' => $skill, 'publish' => true]);
+                }
+            }
+
+            foreach ($user->interests as $interest) {
+                if (Interest::where('name', $interest)->count() == 0) {
+                    Interest::create(['name' => $interest, 'publish' => true]);
+                }
+            } 
         });
     }
 
@@ -87,16 +135,6 @@ class User extends Authenticatable
             return $query;
         }
         return $query->where('discuss_id', $discuss->id);
-    }
-
-    public function skills()
-    {
-        return $this->hasMany('App\Models\UserSkill', 'user_id');
-    }
-
-    public function interests()
-    {
-        return $this->hasMany('App\Models\UserInterest', 'user_id');
     }
 
     public function invitations()

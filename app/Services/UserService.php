@@ -3,8 +3,6 @@
 namespace App\Services;
 
 use App\Models\User;
-use App\Models\UserSkill;
-use App\Models\UserInterest;
 
 class UserService
 {
@@ -37,36 +35,6 @@ class UserService
             return $user->save();
         }
         return false;
-    }
-
-    public static function updateSkill(User $user, $skills = [])
-    {
-        \DB::beginTransaction();
-        $user->skills()->delete();
-        foreach ($skills as $skill) {
-            if (!empty($skill)) {
-                $userSkill = UserSkill::create(['user_id' => $user->id, 'name' => $skill]);
-                if (is_null($userSkill->id)) {
-                    DB::rollback();
-                }
-            }
-        }
-        \DB::commit();
-    }
-
-    public static function updateInterest(User $user, $interests = [])
-    {
-        \DB::beginTransaction();
-        $user->interests()->delete();
-        foreach ($interests as $interest) {
-            if (!empty($interest)) {
-                $userInterest = UserInterest::create(['user_id' => $user->id, 'name' => $interest]);
-                if (is_null($userInterest->id)) {
-                    DB::rollback();
-                }
-            }
-        }
-        \DB::commit();
     }
 
     private static function authenticate(User $user, $remember = false)

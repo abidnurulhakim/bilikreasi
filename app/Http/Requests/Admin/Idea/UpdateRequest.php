@@ -28,7 +28,7 @@ class UpdateRequest extends FormRequest
             'description' => 'required',
             'cover' => 'max:2048',
             'category' => 'required|in:'.join(',', array_keys(\App\Models\Idea::CATEGORY)),
-            'tag' => '',
+            'tags' => '',
             'location' => '',
             'status' => 'required|in:'.join(',', array_keys(\App\Models\Idea::STATUS)),
             'media' => 'array|max:10120',

@@ -32,6 +32,8 @@ class CreateUsersTable extends Migration
             $table->ipAddress('last_login_ip_address')->nullable();
             $table->string('profession')->nullable();
             $table->string('live_at')->nullable();
+            $table->text('skills')->nullable();
+            $table->text('interests')->nullable();
             $table->timestamp('freeze')->nullable();
             $table->timestamps();
             $table->softDeletes();

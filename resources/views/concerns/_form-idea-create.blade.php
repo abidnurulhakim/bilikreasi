@@ -15,7 +15,7 @@
   <div class="show-cat-event hidden">  
     {!! Form::formDateTimeLink('start_at', 'finish_at', null, null, ['label-start' => 'Waktu Mulai', 'label-finish' => 'Waktu Berakhir']) !!}
   </div>
-  {!! Form::formTags('tag', $tags, null, ['label' => 'Tag Ide']) !!}
+  {!! Form::formTags('tags', $tags, null, ['label' => 'Tag Ide']) !!}
   {!! Form::formText('location', null, ['label' => 'Lokasi', 'placeholder' => 'Lokasi Ide Diadakan'] ) !!}
   {!! Form::formSelect('status', \App\Models\Idea::STATUS, null, ['label' => 'Status Ide','placeholder' => 'Status Ide'] ) !!}
   {!! Form::formFile('media', null, ['label' => 'Gambar/Video', 'placeholder' => 'Gambar/Video', 'data-max-file-count' => '5', 'data-max-file-size' => '10120', 'data-allowed-file-types' => '["image", "video"]', 'multiple' => 'true'] ) !!}

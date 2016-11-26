@@ -11,18 +11,17 @@ trait AttachableTrait
                 foreach ($model->attachmentable as $field => $options) {
                     if (gettype($model->$field) == 'object' && get_class($model->$field) == 'Illuminate\Http\UploadedFile') {
                         $fileName = uniqid().'.'.$model->$field->extension();
-                        if ($model->$field->storeAs('attachments', $fileName, 'public')) {
+                        if ($model->$field->storeAs($options['path']['storage'], $fileName, 'public')) {
                             $oldFile = $model->getOriginal($field);
-                            $model->$field = 'attachments/'.$fileName;
+                            $model->$field = 'storage/'.$options['path']['storage'].'/'.$fileName;
                             if (!empty($oldFile)) {
-                                $part = preg_split('~\.(?=[^\.]*$)~', $oldFile);
-                                $name = $path.explode("/", $part[0]);
-                                array_map('unlink', glob($options['path_crop']."/".$name[sizeof($name)-1].'-*'));
+                                $name = preg_split('~.(?=[^.]*$)~', basename($this->getOriginal($nameAttr)));
+                                array_map('unlink', glob($options['path']['crop']."/".$name[0].'-*'));
                                 unlink($oldFile);
                             }
                         }
                     } elseif (empty($model->$field)) {
-                        $model->$field = $options['path_default'];
+                        $model->$field = $options['default'];
                     }
                 }
             }            
@@ -52,9 +51,8 @@ trait AttachableTrait
                         return parent::__call($method, $arguments);
                         break;
                 }
-                $part = preg_split('~\.(?=[^\.]*$)~', $this->getOriginal($nameAttr));
-                $name = explode("/", $part[0]);
-                $fileName = $this->attachmentable[$nameAttr]['path_crop'].'/'.$name[sizeof($name)-1].'-'.$width.'x'.$height.'.'.$part[1];
+                $name = preg_split('~.(?=[^.]*$)~', basename($this->getOriginal($nameAttr)));
+                $fileName = $this->attachmentable[$nameAttr]['path']['crop'].'/'.$name[0].'-'.$width.'x'.$height.'.'.$name[1];
                 if (!file_exists($fileName)) {
                     $this->generateImage($this->getOriginal($nameAttr), $fileName, $width, $height);
                 }

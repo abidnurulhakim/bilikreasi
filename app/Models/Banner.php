@@ -26,9 +26,12 @@ class Banner extends BaseModel
     ];
     public $attachmentable = [
         'image' =>  [
-                    'path_crop' => 'attachments/crops',
-                    'path_default' => 'assets/images/idea.jpg'
-                    ]
+                    'path' => [
+                        'crop' => 'storage/attachments/crops',
+                        'storage' => 'attachments'
+                    ],
+                    'default' => 'assets/images/idea.jpg'
+        ]
     ];
     public $sluggable = [
         'slug' => 'title'

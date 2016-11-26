@@ -37,7 +37,7 @@ class Handler extends ExceptionHandler
      */
     public function report(Exception $exception)
     {
-        // \Log::error($exception);
+        \Log::error($exception);
         parent::report($exception);
     }
 
@@ -54,7 +54,7 @@ class Handler extends ExceptionHandler
         if ($exception instanceof HttpException || $exception instanceof ModelNotFoundException) {
             return response()->view('errors.404', [], 404);
         }
-        if ($exception instanceof AuthorizationException || $exception instanceof ValidationException || $exception instanceof AuthenticationException || $exception instanceof TokenMismatchException) {
+        if ($exception instanceof AuthorizationException || $exception instanceof AuthenticationException || $exception instanceof TokenMismatchException) {
             return response()->view('errors.403', [], 401);
         }
         return parent::render($request, $exception);

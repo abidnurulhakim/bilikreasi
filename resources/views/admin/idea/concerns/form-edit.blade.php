@@ -19,7 +19,7 @@
   ">
     {!! Form::formDateTimeLink('start_at', 'finish_at', $idea->start_at, $idea->finish_at, ['label-start' => 'Waktu Mulai', 'label-finish' => 'Waktu Berakhir']) !!}
   </div>
-  {!! Form::formTags('tag', $tags, $ideaTags, ['label' => 'Tag Tambahan', 'required' => true]) !!}
+  {!! Form::formTags('tags', $tags, $idea->tags, ['label' => 'Tag Tambahan', 'required' => true]) !!}
   {!! Form::formText('location', null, ['label' => 'Lokasi', 'placeholder' => 'Lokasi Ide Diadakan', 'required' => true] ) !!}
   {!! Form::formSelect('status', \App\Models\Idea::STATUS, $idea->status, ['label' => 'Status Ide','placeholder' => 'Status Ide'] ) !!}
   {!! Form::formFile('media', null, ['label' => 'Gambar/Video', 'placeholder' => 'Gambar/Video', 'data-max-file-count' => '5', 'data-max-file-size' => '10120', 'data-allowed-file-types' => '["image", "video"]', 'multiple' => 'true'] ) !!}

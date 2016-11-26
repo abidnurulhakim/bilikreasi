@@ -67,11 +67,6 @@ class IdeaController extends AdminController
                     }
                 }
             }
-            if ($request->get('tag')) {
-                foreach ($request->get('tag') as $tag) {
-                    IdeaTag::create(['idea_id' => $idea->id, 'name' => $tag]);
-                }
-            }
         }
         return redirect()->route('admin.idea.index');
     }
@@ -90,9 +85,7 @@ class IdeaController extends AdminController
         foreach (Tag::publish()->get() as $tag) {
             $tags[$tag->name] = $tag->name;
         }
-        $ideaTags = $idea->tags->map(function($tag) {
-            return $tag->name; })->toArray();
-        return view('admin.idea.edit', compact('idea', 'tags', 'ideaTags'));
+        return view('admin.idea.edit', compact('idea', 'tags'));
     }
 
     /**
@@ -114,13 +107,6 @@ class IdeaController extends AdminController
                         IdeaMedia::create(['idea_id' => $idea->id, 'url' => $photo]);
                     }
                 }
-            }
-            if ($request->get('tag')) {
-                $ideaTags = $idea->tags;
-                $idea->tags()->delete();
-                foreach ($request->get('tag') as $tag) {
-                    IdeaTag::create(['idea_id' => $idea->id, 'name' => $tag]);
-                }   
             }
         }
         return redirect()->route('admin.idea.index');

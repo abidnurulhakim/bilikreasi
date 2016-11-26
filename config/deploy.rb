@@ -27,7 +27,8 @@ set :repo_url, 'git@github.com:abidnurulhakim/bilikreasi.git'
 set :linked_files, fetch(:linked_files, []).push('.env')
 
 # Default value for linked_dirs is []
-set :linked_dirs, fetch(:linked_dirs, []).push('public/attachments')
+set :linked_dirs, fetch(:linked_dirs, []).push('storage/app/public/attachments')
+set :linked_dirs, fetch(:linked_dirs, []).push('storage/app/public/attachments/crops')
 
 # Default value for default_env is {}
 # set :default_env, { path: "/opt/ruby/bin:$PATH" }
@@ -44,6 +45,7 @@ namespace :deploy do
       execute "chmod o+w #{release_path.join('storage')} -R"
       execute "cd '#{release_path}'; composer install"
       execute "cd '#{release_path}'; php artisan migrate -n"
+      execute "cd '#{release_path}'; php artisan storage:link"
     end
   end
 

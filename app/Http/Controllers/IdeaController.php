@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Idea;
 use App\Models\IdeaMedia;
-use App\Models\IdeaTag;
 use App\Models\Tag;
 use App\Models\User;
 use App\Services\IdeaService;
@@ -69,11 +68,6 @@ class IdeaController extends Controller
                     if ($photo) {
                         IdeaMedia::create(['idea_id' => $idea->id, 'url' => $photo]);
                     }
-                }
-            }
-            if ($request->get('tag')) {
-                foreach ($request->get('tag') as $tag) {
-                    IdeaTag::create(['idea_id' => $idea->id, 'name' => $tag]);
                 }
             }
         }

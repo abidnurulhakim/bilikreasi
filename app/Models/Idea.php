@@ -8,6 +8,7 @@ use App\Models\IdeaInvitation;
 use App\Models\Like;
 use App\Models\Member;
 use App\Models\User;
+use App\Models\Tag;
 use App\Services\IdeaService;
 use App\Services\DiscussService;
 use App\Models\Traits\AttachableTrait;
@@ -32,6 +33,13 @@ class Idea extends BaseModel
         'finish' => 'Selesai',
     ];
 
+    protected $table = 'ideas';
+
+    protected $fillable = [
+        'user_id', 'title', 'slug', 'description', 'type', 'cover', 'category', 'status', 'location', 'start_at', 'finish_at',
+        'tags'
+    ];
+
     protected $dates = [
         'created_at',
         'updated_at',
@@ -40,16 +48,23 @@ class Idea extends BaseModel
         'finish_at'
     ];
 
-    protected $table = 'ideas';
-    protected $fillable = [
-        'user_id', 'title', 'slug', 'description', 'type', 'cover', 'category', 'status', 'location', 'start_at', 'finish_at',
-        'tags_idea'
+    /**
+     * The attributes that should be casted to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'tags' => 'array',
     ];
+
     public $attachmentable = [
         'cover' =>  [
-                    'path_crop' => 'attachments/crops',
-                    'path_default' => 'assets/images/idea.jpg'
-                    ]
+                    'path' => [
+                        'crop' => 'storage/attachments/crops',
+                        'storage' => 'attachments'
+                    ],
+                    'default' => 'assets/images/idea.jpg'
+        ]
     ];
     public $sluggable = [
         'slug' => 'title'
@@ -70,6 +85,22 @@ class Idea extends BaseModel
             if ($idea->category != 'event') {
                 $idea->start_at = null;
                 $idea->finish_at = null;
+            }
+            if (!is_array($idea->tags) ) {
+                $tags = explode(',', $idea->tags);
+                $idea->tags = [];
+                foreach ($tags as $tag) {
+                    if (!empty($tag)) {
+                        array_push($idea->tags, $tag);
+                    }
+                }
+            }
+        });
+        static::saved(function($idea){
+            foreach ($idea->tags as $tag) {
+                if (Tag::where('name', $tag)->count() == 0) {
+                    Tag::create(['name' => $tag, 'publish' => true]);
+                }
             }
         });
     }
@@ -102,11 +133,6 @@ class Idea extends BaseModel
     public function media()
     {
         return $this->hasMany('App\Models\IdeaMedia', 'idea_id');
-    }
-
-    public function tags()
-    {
-        return $this->hasMany('App\Models\IdeaTag', 'idea_id');
     }
 
     public function getRouteKeyName()

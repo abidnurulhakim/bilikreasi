@@ -12,8 +12,8 @@
   {!! Form::formText('name', null, ['label' => 'Nama', 'placeholder' => 'Nama Anda'] ) !!}
   {!! Form::formRadio('gender', ['male' => 'Laki-laki', 'female' => 'Perempuan'], ['label' => 'Jenis Kelamin', 'checked' => 'male']) !!}
   {!! Form::formBirthDate('birthday', null, ['label' => 'Tanggal Lahir']) !!}
-  {!! Form::formTags('interest', $interests, $userInterests, ['label' => 'Minat']) !!}
-  {!! Form::formTags('skill', $skills, $userSkills, ['label' => 'Kemampuan']) !!}
+  {!! Form::formTags('interests', $interests, $user->interests, ['label' => 'Minat']) !!}
+  {!! Form::formTags('skills', $skills, $user->skills, ['label' => 'Kemampuan']) !!}
   {!! Form::formText('profession', null, ['label' => 'Profesi', 'placeholder' => 'Profesi Anda'] ) !!}
   {!! Form::formText('live_at', null, ['label' => 'Tempat Tinggal', 'placeholder' => 'Kota Tempat Tinggal Anda'] ) !!}
   {!! Form::formText('phone_number', null, ['label' => 'Nomor Hp', 'placeholder' => 'Nomor Handphone Anda'] ) !!}

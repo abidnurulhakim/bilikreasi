@@ -6,12 +6,12 @@
         <li class="list-group-item"><i class="fa fa-user fa-lg"></i> {{ $user->name }}</li>
         <li class="list-group-item"><i class="fa fa-heart fa-lg"></i>
         @foreach($user->interests as $interest)
-          <span class="label label-primary">{{ $interest->name }}</span>
+          <span class="label label-primary">{{ $interest }}</span>
         @endforeach
         </li>
         <li class="list-group-item"><i class="fa fa-gears fa-lg"></i>
         @foreach($user->skills as $skill)
-          <span class="label label-primary">{{ $skill->name }}</span>
+          <span class="label label-primary">{{ $skill }}</span>
         @endforeach
         </li>
         <li class="list-group-item"><i class="fa fa-suitcase fa-lg"></i> {{ $user->profession }}</li>
