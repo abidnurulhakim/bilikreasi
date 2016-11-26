@@ -27,59 +27,59 @@
       </div>
     </div>
     <div class="col-md-8 col-padding">
-      <div class="card">
-        <div class="card-block discuss">
-          @forelse($messages as $message)
-            <div class="col-md-12 col-padding">
+      <div class="box box-primary direct-chat direct-chat-primary">
+        <!-- /.box-header -->
+        <div class="box-body" style="display: block;">
+          <!-- Conversations are loaded here -->
+          <div class="direct-chat-messages">
+            @forelse($messages as $message)
               @if($message->isOwner(auth()->user()))
-              <div class="alert alert-success message owner" role="alert">
-                <div class="col-md-12 no-padding content text-right">
-                  <p>
-                    {!! $message->content !!}
-                  </p>
-                  <hr>
-                  <span class="time-humanize " title="{{ $message->created_at->toIso8601String() }}"></span>
+              <!-- Message to the right -->
+              <div class="direct-chat-msg right">
+                <div class="direct-chat-info clearfix">
+                  <span class="direct-chat-name pull-right">{{ auth()->user()->name }}</span>
+                  <span class="direct-chat-timestamp pull-left time-humanize " title="{{ $message->created_at->toIso8601String() }}"></span>
                 </div>
-              </div>
+                <!-- /.direct-chat-info -->
+                <img class="direct-chat-img" src="{{ auth()->user()->getPhoto(128) }}" alt="Message User Image"><!-- /.direct-chat-img -->
+                <div class="direct-chat-text">
+                  {{ $message->content }}
+                </div>
+                <!-- /.direct-chat-text -->
+              </div>  
               @else
-              <div class="alert alert-info message other" role="alert">
-                <div class="col-md-2 col-padding">
-                  <center>
-                    <img class="img-responsive img-circle img-user-xs" src="{{ $message->user->getPhoto(100) }}">
-                  </center>
+              <!-- Message. Default to the left -->
+              <div class="direct-chat-msg">
+                <div class="direct-chat-info clearfix">
+                  <span class="direct-chat-name pull-left">{{ $message->user->name }}</span>
+                  <span class="direct-chat-timestamp pull-right time-humanize " title="{{ $message->created_at->toIso8601String() }}"></span>
                 </div>
-                <div class="col-md-10 col-padding">
-                  <div class="col-md-12 no-padding user">
-                    <a href="{{ route('user.show', $message->user) }}">{{ $message->user->name }}</a>
-                  </div>
-                  <div class="col-md-12 no-padding content">
-                    <p>
-                      {!! $message->content !!}
-                    </p>
-                    <hr>
-                    <span class="time-humanize " title="{{ $message->created_at->toIso8601String() }}"></span>
-                  </div>
+                <!-- /.direct-chat-info -->
+                <img class="direct-chat-img" src="{{ $message->user->getPhoto(128) }}" alt="Message User Image"><!-- /.direct-chat-img -->
+                <div class="direct-chat-text">
+                  {{ $message->content }}
                 </div>
+                <!-- /.direct-chat-text -->
               </div>
+              <!-- /.direct-chat-msg -->
               @endif
-            </div>
-          @empty
-            <div class="alert alert-warning message other col-md-12 text-center" role="alert">
-              <p>Diskusi ini belum memiliki di mulai</p>
-            </div>
-          @endforelse
-          <!-- hr -->
+            @empty
+            @endforelse
+            <!-- /.direct-chat-msg -->
+          </div>
+          <!--/.direct-chat-messages-->
         </div>
-        <hr class="discuss">
-        <!-- input discuss -->
-        <div class="card-block">
+        <!-- /.box-body -->
+        <div class="box-footer" style="display: block;">
           {!! Form::open(['route' => ['discuss.send.message', $discuss], 'method' => 'POST']) !!}
-            <div class="form-group">
-              {!! Form::textArea('content', null, ['class' => 'form-control', 'rows' => 5]) !!}
+            <div class="form-group col-sm-11 col-padding">
+              {!! Form::textArea('content', null, ['class' => 'form-control', 'rows' => 1]) !!}
             </div>
             <button type="submit" class="btn btn-primary pull-right">Kirim</button>
           {!! Form::close() !!}
         </div>
+
+        <!-- /.box-footer-->
       </div>
     </div>
   </div>

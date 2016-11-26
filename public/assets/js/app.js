@@ -46,6 +46,9 @@
                         css : path.plugins + 'iCheck/css/all.css',
                         js : path.plugins + 'iCheck/js/icheck.min.js',
                       },
+    _autosize       : { 
+                        js : path.plugins + 'autosize/js/autosize.min.js'
+                      },
   };
 
   var Site = {
@@ -57,6 +60,7 @@
       Site.textEditor();
       Site.timeAgo();
       Site.icheck();
+      Site.autosize();
     },
     moment : function() {
       if ($('.date-time-picker').length > 0) {
@@ -254,6 +258,18 @@
               radioClass: 'iradio_square-green',
               increaseArea: '10%' // optional
             });
+          }
+        });
+      }
+    },
+    autosize : function() {
+      if ($('textarea').length > 0) {
+        Modernizr.load({
+          load  : [
+                  assets._autosize.js,
+          ],
+          complete : function(){
+            autosize($('textarea'));
           }
         });
       }
