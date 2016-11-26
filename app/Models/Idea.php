@@ -96,13 +96,6 @@ class Idea extends BaseModel
                 }
             }
         });
-        static::saved(function($idea){
-            foreach ($idea->tags as $tag) {
-                if (Tag::where('name', $tag)->count() == 0) {
-                    Tag::create(['name' => $tag, 'publish' => true]);
-                }
-            }
-        });
     }
     
     public function user()

@@ -40,8 +40,6 @@ namespace :deploy do
   desc 'Restart application'
   task :restart do
     on roles(:app), in: :sequence, wait: 5 do
-
-      execute "chmod o+w #{release_path.join('storage')} -R"
       execute "cd '#{release_path}'; composer install"
       execute "cd '#{release_path}'; php artisan migrate -n"
       execute "cd '#{release_path}'; php artisan storage:link"

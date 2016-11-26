@@ -80,19 +80,6 @@ class User extends Authenticatable
                 }
             }
         });
-        static::saved(function($user){
-            foreach ($user->skills as $skill) {
-                if (Skill::where('name', $skill)->count() == 0) {
-                    Skill::create(['name' => $skill, 'publish' => true]);
-                }
-            }
-
-            foreach ($user->interests as $interest) {
-                if (Interest::where('name', $interest)->count() == 0) {
-                    Interest::create(['name' => $interest, 'publish' => true]);
-                }
-            } 
-        });
     }
 
     public function getRouteKeyName()
