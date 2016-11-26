@@ -27,7 +27,7 @@ set :repo_url, 'git@github.com:abidnurulhakim/bilikreasi.git'
 set :linked_files, fetch(:linked_files, []).push('.env')
 
 # Default value for linked_dirs is []
-set :linked_dirs, fetch(:linked_dirs, []).push('storage/app/public/attachments/crops')
+set :linked_dirs, %w{storage}
 
 # Default value for default_env is {}
 # set :default_env, { path: "/opt/ruby/bin:$PATH" }
