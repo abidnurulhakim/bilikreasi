@@ -17,7 +17,9 @@ trait AttachableTrait
                             if (!empty($oldFile)) {
                                 $name = preg_split('~.(?=[^.]*$)~', basename($model->getOriginal($field)));
                                 array_map('unlink', glob($options['path']['crop']."/".$name[0].'-*'));
-                                unlink($oldFile);
+                                if ($oldFile != $options['default']) {
+                                    unlink($oldFile);
+                                }
                             }
                         }
                     } elseif (empty($model->$field)) {
