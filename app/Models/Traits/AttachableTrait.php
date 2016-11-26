@@ -15,7 +15,7 @@ trait AttachableTrait
                             $oldFile = $model->getOriginal($field);
                             $model->$field = 'storage/'.$options['path']['storage'].'/'.$fileName;
                             if (!empty($oldFile)) {
-                                $name = preg_split('~.(?=[^.]*$)~', basename($this->getOriginal($nameAttr)));
+                                $name = preg_split('~.(?=[^.]*$)~', basename($model->getOriginal($field)));
                                 array_map('unlink', glob($options['path']['crop']."/".$name[0].'-*'));
                                 unlink($oldFile);
                             }

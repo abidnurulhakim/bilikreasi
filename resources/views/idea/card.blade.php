@@ -19,7 +19,7 @@
     <h6 class="card-title text-muted">
       <i class="fa fa-tags text-primary"></i> 
       @foreach($idea->tags as $tag)
-        <span class="label label-info">{{ $tag->name }}</span>
+        <span class="label label-info">{{ $tag }}</span>
       @endforeach
     </h6>
     @if($idea->like_count > 0)
