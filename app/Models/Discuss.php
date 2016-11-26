@@ -30,4 +30,21 @@ class Discuss extends BaseModel
     {
         return $this->belongsTo('App\Models\Idea', 'idea_id');
     }
+
+    public static function search($keyword = '', $filter = [])
+    {
+        $words = explode(" ", trim($keyword));
+        $query = self::query();
+        foreach ($words as $word) {
+            $query = $query->orWhere('name', 'like', '%'.$word.'%');
+        }
+        foreach ($filter as $key => $value) {
+            if (is_array($value)) {
+                $query = $query->whereIn($key, $value);
+            } else {
+                $query = $query->where($key, $value);
+            }    
+        }
+        return $query;
+    }
 }

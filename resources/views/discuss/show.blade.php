@@ -1,35 +1,33 @@
 @extends('discuss.layout')
 @section('discuss-content')
   <div class="col-md-12">
-        <!-- left -->
+    <!-- left -->
     <div class="col-md-4 col-padding">
-      <div class="card">
-        <div class="card-block">
-          <div class="col-md-12 no-padding">
-            <form>
-              <div class="form-group">
-                <input type="search" class="form-control" id="search-discuss" aria-describedby="search-discuss" placeholder="Cari">
-              </div>
-            </form>
-          </div>
+      <div class="box box-primary">
+        <div class="box-body">
+          {!! Form::open(['route' => ['discuss.index'], 'method' => 'GET']) !!}
+            <div class="form-group">
+              {!! Form::text('name', app('request')->input('name', ''), ['placeholder' => 'Cari diskusi', 'type' => 'search', 'class' => 'form-control']) !!}
+            </div>
+            <button type="submit" class='hidden'></button>
+          {!! Form::close() !!}
           <ul class="list-group">
-            @forelse($discusses as $dis)
+            @foreach($discusses as $dis)
               @if($dis->id == $discuss->id)
               <a class="list-group-item discuss active" href="{{ route('discuss.show', $dis) }}">{{ str_limit($dis->name, 50) }}</a>
               @else
               <a class="list-group-item discuss" href="{{ route('discuss.show', $dis) }}">{{ str_limit($dis->name, 50) }}</a>
               @endif
-            @empty
-              <a class="list-group-item discuss" href="#">Anda tidak memiliki diskusi</a>
-            @endforelse
+            @endforeach
           </ul>
         </div>
       </div>
     </div>
+    <!-- right -->
     <div class="col-md-8 col-padding">
       <div class="box box-primary direct-chat direct-chat-primary">
         <!-- /.box-header -->
-        <div class="box-body" style="display: block;">
+        <div class="box-body">
           <!-- Conversations are loaded here -->
           <div class="direct-chat-messages">
             @forelse($messages as $message)
@@ -43,7 +41,7 @@
                 <!-- /.direct-chat-info -->
                 <img class="direct-chat-img" src="{{ auth()->user()->getPhoto(128) }}" alt="Message User Image"><!-- /.direct-chat-img -->
                 <div class="direct-chat-text">
-                  {{ $message->content }}
+                  {!! $message->content !!}
                 </div>
                 <!-- /.direct-chat-text -->
               </div>  
@@ -57,7 +55,7 @@
                 <!-- /.direct-chat-info -->
                 <img class="direct-chat-img" src="{{ $message->user->getPhoto(128) }}" alt="Message User Image"><!-- /.direct-chat-img -->
                 <div class="direct-chat-text">
-                  {{ $message->content }}
+                  {!! $message->content !!}
                 </div>
                 <!-- /.direct-chat-text -->
               </div>

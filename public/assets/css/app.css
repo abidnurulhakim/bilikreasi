@@ -1,5 +1,5 @@
 body {
-  background: #f5f5f5;
+  background: #ecf0f5;
   padding-top: 60px; /* Required padding for .navbar-fixed-top. Change if height of navigation changes. */
 }
 
@@ -2169,4 +2169,8 @@ h6.header-index {
 .direct-chat-success .right > .direct-chat-text:after,
 .direct-chat-success .right > .direct-chat-text:before {
   border-left-color: #00a65a;
+}
+.direct-chat textarea {
+  max-height: 74px;
+  overflow-x: scroll;
 }

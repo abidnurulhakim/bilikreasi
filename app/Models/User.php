@@ -157,7 +157,7 @@ class User extends Authenticatable
 
     public static function search($keyword = '', $filter = [])
     {
-        $words = explode(" ", $keyword);
+        $words = explode(" ", trim($keyword));
         $query = self::query();
         foreach ($words as $word) {
             $query = $query->orWhere('name', 'like', '%'.$word.'%');

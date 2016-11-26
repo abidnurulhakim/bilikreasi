@@ -27,12 +27,19 @@ class DiscussController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $discusses = $this->getDiscusses();
-        $discuss = $discusses->first();
-        \View::share('pageTitle', 'Ruang Diskusi dari '.str_limit($discuss->idea->title,30));
-        $messages = $discuss->messages;
+        $discusses = $this->getDiscusses($request->get('name', ''));
+        if ($discusses->count() > 0) {
+            $discuss = $discusses->first();
+            \View::share('pageTitle', 'Ruang diskusi dari '.str_limit($discuss->idea->title, 30));
+            $messages = $discuss->messages;
+        } else {
+            \View::share('pageTitle', 'Tidak ruang diskusi yang tersedia');
+            $discuss = $discusses->first();
+            $messages = collect();
+        }
+        
         return view('discuss.show', compact('discuss', 'discusses', 'messages'));
     }
 
@@ -67,11 +74,11 @@ class DiscussController extends Controller
         return redirect()->back();
     }
 
-    private function getDiscusses()
+    private function getDiscusses($keyword = '')
     {
         $idea_ids = auth()->user()->ideas->map(function($idea) {
             return $idea->id; })->toArray();
-        $discusses = Discuss::whereIn('idea_id', $idea_ids)
+        $discusses = Discuss::search($keyword)->whereIn('idea_id', $idea_ids)
                                 ->orderBy('updated_at', 'desc')
                                 ->get();
         return $discusses;

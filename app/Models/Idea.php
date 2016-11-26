@@ -196,7 +196,7 @@ class Idea extends BaseModel
 
     public static function search($keyword = '', $filter = [])
     {
-        $words = explode(" ", $keyword);
+        $words = explode(" ", trim($keyword));
         $query = self::query();
         foreach ($words as $word) {
             $query = $query->orWhere('title', 'like', '%'.$word.'%');
