@@ -165,7 +165,7 @@ class User extends Authenticatable
 
     public function getPasswordAttribute($value)
     {
-        return $this->secret_password;
+        return $this->hash_password;
     }
 
     public static function search($keyword = '', $filter = [])

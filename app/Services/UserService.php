@@ -21,7 +21,7 @@ class UserService
     public static function login($usernameOrEmail, $password, $remember = false)
     {
         $user = User::where('email', $usernameOrEmail)->orWhere('username', $usernameOrEmail)->first();
-        if ($user && decrypt($user->password) == $password) {
+        if ($user && Hash::check($password, $user->password)) {
             self::authenticate($user, $remember);
             return $user;
         }
@@ -30,7 +30,7 @@ class UserService
 
     public static function changePassword(User $user, $oldPassword, $password)
     {
-        if (decrypt($user->password) == $oldPassword) {
+        if ($user && Hash::check($oldPassword, $user->password)) {
             $user->password = $password;
             return $user->save();
         }
