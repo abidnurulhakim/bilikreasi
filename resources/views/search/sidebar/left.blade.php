@@ -8,7 +8,7 @@
           <small id="search-help" class="form-text text-muted">Contoh: "Photograph, Web Developer, ..."</small>
         </div>
         <div class="form-group">
-          {!! Form::formSelect('tag[]', $tags, $tagSelected, ['label' => 'Tag Ide', 'placeholder' => 'Tag Ide', 'multiple' => 'true']) !!}
+          {!! Form::formTags('tags', $tags, $tagSelected, ['label' => 'Tag Ide', 'placeholder' => 'Tag Ide']) !!}
         </div>
         <div class="form-group">
           {!! Form::formSelect('category', \App\Models\Idea::CATEGORY, app('request')->input('category'), ['label' => 'Kategori Ide', 'placeholder' => 'Kategori Ide'] ) !!}

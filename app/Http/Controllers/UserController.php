@@ -106,7 +106,7 @@ class UserController extends Controller
      */
     public function updatePassword(ChangePasswordRequest $request, $username)
     {
-        $user = $this->findUser($username);
+        $user = User::where('username', $username)->firstOrFail();
         if (is_null($user)) {
             return redirect()->back();
         }

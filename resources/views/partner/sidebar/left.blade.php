@@ -8,10 +8,10 @@
           <small id="search-help" class="form-text text-muted">Contoh: "Joshua, Abid, Nurul, ..."</small>
         </div>
         <div class="form-group">
-          {!! Form::formSelect('skill[]', $skills, ['label' => 'Kemampuan', 'placeholder' => 'Kemampuan', 'multiple' => 'true', 'selected' => $skillSelected]) !!}
+          {!! Form::formTags('skills', $skills, $skillSelected, ['label' => 'Kemampuan', 'placeholder' => 'Kemampuan']) !!}
         </div>
         <div class="form-group">
-          {!! Form::formSelect('interest[]', $interests, ['label' => 'Minat', 'placeholder' => 'Minat', 'multiple' => 'true', 'selected' => $interestSelected] ) !!}
+          {!! Form::formTags('interests', $interests, $interestSelected, ['label' => 'Minat', 'placeholder' => 'Minat']) !!}
         </div>
         <button type="submit" class="btn btn-primary">Cari</button>
       {!! Form::close() !!}

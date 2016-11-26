@@ -1457,3 +1457,161 @@ h6.header-index {
 .select2-selection__choice__remove:hover {
   color: #fff; 
 }
+
+/*
+ * Component: Info Box
+ * -------------------
+ */
+.info-box {
+  display: block;
+  min-height: 150px;
+  background: #fff;
+  width: 100%;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+  border-radius: 2px;
+  margin-bottom: 15px;
+}
+.info-box small {
+  font-size: 14px;
+}
+.info-box .progress {
+  background: rgba(0, 0, 0, 0.2);
+  margin: 5px -10px 5px -10px;
+  height: 2px;
+}
+.info-box .progress,
+.info-box .progress .progress-bar {
+  border-radius: 0;
+}
+.info-box .progress .progress-bar {
+  background: #fff;
+}
+.info-box-icon {
+  border-top-left-radius: 2px;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 2px;
+  display: block;
+  float: left;
+  height: 150px;
+  width: 150px;
+  text-align: center;
+  font-size: 45px;
+  line-height: 150px;
+  background: rgba(0, 0, 0, 0.2);
+}
+.info-box-icon > img {
+  max-width: 100%;
+}
+.info-box-content {
+  padding: 5px 10px;
+  margin-left: 150px;
+}
+.info-box-number {
+  display: block;
+  font-weight: bold;
+  font-size: 18px;
+}
+.progress-description,
+.info-box-title {
+  display: block;
+  font-size: 14px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.info-box-title {
+  font-size: 16px;
+  text-transform: uppercase;
+}
+.info-box-text {
+  display: block;
+  font-size: 14px;
+}
+.info-box-more {
+  display: block;
+}
+.progress-description {
+  margin: 0;
+}
+.info-box.idea {
+  overflow: hidden;
+  padding: 10px;
+}
+
+/*
+ * Component: Progress Bar
+ * -----------------------
+ */
+.progress,
+.progress > .progress-bar {
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+.progress,
+.progress > .progress-bar,
+.progress .progress-bar,
+.progress > .progress-bar .progress-bar {
+  border-radius: 1px;
+}
+/* size variation */
+.progress.sm,
+.progress-sm {
+  height: 10px;
+}
+.progress.sm,
+.progress-sm,
+.progress.sm .progress-bar,
+.progress-sm .progress-bar {
+  border-radius: 1px;
+}
+.progress.xs,
+.progress-xs {
+  height: 7px;
+}
+.progress.xs,
+.progress-xs,
+.progress.xs .progress-bar,
+.progress-xs .progress-bar {
+  border-radius: 1px;
+}
+.progress.xxs,
+.progress-xxs {
+  height: 3px;
+}
+.progress.xxs,
+.progress-xxs,
+.progress.xxs .progress-bar,
+.progress-xxs .progress-bar {
+  border-radius: 1px;
+}
+/* Vertical bars */
+.progress.vertical {
+  position: relative;
+  width: 30px;
+  height: 200px;
+  display: inline-block;
+  margin-right: 10px;
+}
+.progress.vertical > .progress-bar {
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+}
+.progress.vertical.sm,
+.progress.vertical.progress-sm {
+  width: 20px;
+}
+.progress.vertical.xs,
+.progress.vertical.progress-xs {
+  width: 10px;
+}
+.progress.vertical.xxs,
+.progress.vertical.progress-xxs {
+  width: 3px;
+}
+.progress-group .progress-text {
+  font-weight: 600;
+}
+.progress-group .progress-number {
+  float: right;

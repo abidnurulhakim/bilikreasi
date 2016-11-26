@@ -209,22 +209,10 @@ class Idea extends BaseModel
             $query = $query->orWhere('title', 'like', '%'.$word.'%');
         }
         foreach ($filter as $key => $value) {
-            if ($key == 'tag') {
-                $tags = IdeaTag::whereIn('name', $value)
-                            ->distinct()
-                            ->select('idea_id')
-                            ->get()
-                            ->sortBy('idea_id')
-                            ->map(function($tag) {
-                                return $tag->idea_id; })
-                            ->toArray();
-                $query = $query->whereIn('id', $tags);
+            if (is_array($value)) {
+                $query = $query->whereIn($key, $value);
             } else {
-                if (is_array($value)) {
-                    $query = $query->whereIn($key, $value);
-                } else {
-                    $query = $query->where($key, $value);
-                }
+                $query = $query->where($key, $value);
             }
         }
         return $query;

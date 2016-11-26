@@ -25,8 +25,8 @@ class PartnerRequest extends FormRequest
     {
         return [
             'name' => '',
-            'skill' => '',
-            'interest' => '',
+            'skills' => '',
+            'interests' => '',
             'sort_by' => '',
         ];
     }

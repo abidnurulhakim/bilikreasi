@@ -98,12 +98,11 @@ class IdeaController extends Controller
         $idea = $this->findIdea($slug);
         $this->authorize('edit', $idea);
         \View::share('pageTitle', 'Perbaharui Ide');
-        $tags = Tag::publish()->get()->map(function($tag) {
-            return $tag->name; })->toArray();
-        $ideaTags = join(',', $idea->tags->map(function($tag) {
-            return $tag->name; })->toArray()
-            );
-        return view('idea.edit', compact('idea', 'tags', 'ideaTags'));
+        $tags = [];
+        foreach (Tag::publish()->get() as $tag){
+            $tags[$tag->name] = $tag->name;
+        }
+        return view('idea.edit', compact('idea', 'tags'));
     }
 
     /**
@@ -125,14 +124,6 @@ class IdeaController extends Controller
                         IdeaMedia::create(['idea_id' => $idea->id, 'url' => $photo]);
                     }
                 }
-            }
-            if ($request->get('tag')) {
-                $ideaTags = $idea->tags;
-                $idea->tags()->delete();
-                $tags = explode(',', $request->get('tag'));
-                foreach ($tags as $tag) {
-                    IdeaTag::create(['idea_id' => $idea->id, 'name' => $tag]);
-                }   
             }
         }
         return redirect()->route('idea.show', $idea);

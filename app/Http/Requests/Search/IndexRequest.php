@@ -25,7 +25,7 @@ class IndexRequest extends FormRequest
     {
         return [
             'q' => '',
-            'tag' => '',
+            'tags' => '',
             'status' => '',
             'category' => '',
             'sort_by' => '',

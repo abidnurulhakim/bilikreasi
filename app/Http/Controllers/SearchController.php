@@ -21,13 +21,15 @@ class SearchController extends Controller
     public function index(IndexRequest $request)
     {
     	\View::share('pageTitle', 'Cari Ide');
-        $tags = Tag::publish()->get()->map(function($tag) {
-            return $tag->name; })->toArray();
+        $tags = [];
+        foreach (Tag::publish()->get() as $tag){
+            $tags[$tag->name] = $tag->name;
+        }
         $keyword = $request->get('q', '');
         $filter = [];
-        $tagSelected = $request->get('tag', []);
+        $tagSelected = $request->get('tags', []);
         if (!empty($tagSelected)) {
-            $filter['tag'] = $tagSelected;
+            $filter['tags'] = $tagSelected;
         }
         if (!empty($request->get('category', ''))) {
             $filter['category'] = $request->get('category');
@@ -44,12 +46,16 @@ class SearchController extends Controller
         $idea = Idea::where('slug', $slug)->firstOrFail();
         \View::share('pageTitle', 'Cari Partner Untuk Ide '.$idea->title);
         $keyword = $request->get('name', '');
-        $skills = Skill::publish()->get()->map(function($skill) {
-            return $skill->name; })->toArray();
-        $skillSelected = $request->get('skill', []);
-        $interests = Interest::publish()->get()->map(function($interest) {
-            return $interest->name; })->toArray();
-        $interestSelected = $request->get('interest', []);
+        $skills = [];
+        foreach (Skill::publish()->get() as $skill) {
+            $skills[$skill->name] = $skill->name;
+        }
+        $interests = [];
+        foreach (Interest::publish()->get() as $interest) {
+            $interests[$interest->name] = $interest->name;
+        }
+        $skillSelected = $request->get('skills', []);
+        $interestSelected = $request->get('interests', []);
         $filter = ['not_member_idea' => $idea->id];
         if (!empty($skillSelected)) {
             $filter['skill'] = $skillSelected;
