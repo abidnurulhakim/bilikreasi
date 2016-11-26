@@ -15,8 +15,8 @@ trait AttachableTrait
                             $oldFile = $model->getOriginal($field);
                             $model->$field = 'storage/'.$options['path']['storage'].'/'.$fileName;
                             if (!empty($oldFile)) {
-                                $name = preg_split('~.(?=[^.]*$)~', basename($model->getOriginal($field)));
-                                array_map('unlink', glob($options['path']['crop']."/".$name[0].'-*'));
+                                $name = basename($model->getOriginal($field));
+                                array_map('unlink', glob($options['path']['crop']."/".$name.'-*'));
                                 if ($oldFile != $options['default']) {
                                     unlink($oldFile);
                                 }
@@ -57,8 +57,9 @@ trait AttachableTrait
                             return parent::__call($method, $arguments);
                             break;
                     }
-                    $name = preg_split('~.(?=[^.]*$)~', basename($this->getOriginal($nameAttr)));
-                    $fileName = $this->attachmentable[$nameAttr]['path']['crop'].'/'.$name[0].'-'.$width.'x'.$height.'.'.$name[1];
+                    $name = basename($this->getOriginal($nameAttr));
+                    $ext = pathinfo($this->getOriginal($nameAttr), PATHINFO_EXTENSION);
+                    $fileName = $this->attachmentable[$nameAttr]['path']['crop'].'/'.$name.'-'.$width.'x'.$height.'.'.$ext;
                     if (!file_exists($fileName)) {
                         $this->generateImage($this->getOriginal($nameAttr), $fileName, $width, $height);
                     }
