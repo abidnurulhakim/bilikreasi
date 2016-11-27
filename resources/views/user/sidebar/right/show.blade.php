@@ -12,7 +12,7 @@
         @forelse ($ideas->chunk(3) as $chunk)
         <div class="row">
           @foreach ($chunk as $idea)
-          <div class="col-md-4 col-padding">
+          <div class="col-sm-4 col-padding">
             @include('idea.card', compact('idea'))
           </div>
           @endforeach
@@ -20,7 +20,7 @@
         @empty
           <h4 class="text-center text-muted">-- Belum bergabung dengan ide manapun. --</h4>
         @endforelse
-        <div class="col-md-12 text-center">
+        <div class="col-sm-12 text-center">
           {!! $ideas->links() !!}
         </div>
       </div>

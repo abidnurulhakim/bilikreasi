@@ -149,7 +149,7 @@ class IdeaController extends Controller
         $idea = $this->findIdea($slug);
         $member = IdeaService::join($idea, auth()->user());
         if ($member) {
-            return redirect()->route('idea.members', $idea);
+            return redirect()->route('idea.show', $idea);
         } else {
             return redirect()->back();
         }

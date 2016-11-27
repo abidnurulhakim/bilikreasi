@@ -44,7 +44,7 @@ class SearchController extends Controller
     public function partner(PartnerRequest $request, $slug)
     {
         $idea = Idea::where('slug', $slug)->firstOrFail();
-        \View::share('pageTitle', 'Cari Partner Untuk Ide '.$idea->title);
+        \View::share('pageTitle', 'Cari Partner Untuk Ide \''.$idea->title.'\'');
         $keyword = $request->get('name', '');
         $skills = [];
         foreach (Skill::publish()->get() as $skill) {

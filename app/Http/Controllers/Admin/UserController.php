@@ -68,11 +68,11 @@ class UserController extends AdminController
         $user = User::where('username', $username)->firstOrFail();
         $skills = [];
         foreach (Skill::publish()->get() as $skill) {
-            $skills[$skill] = $skill;
+            $skills[$skill->name] = $skill->name;
         }
         $interests = [];
         foreach (Interest::publish()->get() as $interest) {
-            $interests[$interest] = $interest;
+            $interests[$interest->name] = $interest->name;
         }
         return view('admin.user.edit', compact('user', 'skills', 'interests'));
     }
