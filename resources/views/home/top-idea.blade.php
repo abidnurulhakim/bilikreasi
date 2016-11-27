@@ -3,10 +3,10 @@
   <h2 class="text-center text-primary header-index">
     {{ $popular->title }}
   </h2>
-  @foreach ($popular->ideas->chunk(3) as $chunk)
+  @foreach ($popular->ideas->chunk(4) as $chunk)
   <div class="row">
     @foreach($chunk as $popularIdea)
-    <div class="col-md-4 col-sm-12">
+    <div class="col-md-3 col-sm-12">
       @php
         $idea = $popularIdea->idea
       @endphp

@@ -116,13 +116,13 @@
               @elseif($media->type == 'video')
               <div class="col-md-4">
                 <video width="320" height="240" controls>
-                  <source src="{{ $media->url }}" type="video/mp4">
+                  <source src="{{ $media->getUrl() }}" type="video/mp4">
                   Your browser does not support the video tag.
                 </video>
               @else
               <div class="col-md-2">
                 <i class="fa fa-file fa-4x">
-                  <a href="{{ $media->url }}"></a>
+                  <a href="{{ $media->getUrl() }}"></a>
                 </i>
               @endif
               </div>            
