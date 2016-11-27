@@ -36,7 +36,7 @@ class DiscussController extends Controller
             $messages = $discuss->messages;
         } else {
             \View::share('pageTitle', 'Tidak ruang diskusi yang tersedia');
-            $discuss = $discusses->first();
+            $discuss = null;
             $messages = collect();
         }
         
@@ -76,7 +76,7 @@ class DiscussController extends Controller
 
     private function getDiscusses($keyword = '')
     {
-        $idea_ids = auth()->user()->ideas->map(function($idea) {
+        $idea_ids = auth()->user()->memberOf->map(function($idea) {
             return $idea->id; })->toArray();
         $discusses = Discuss::search($keyword)->whereIn('idea_id', $idea_ids)
                                 ->orderBy('updated_at', 'desc')

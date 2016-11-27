@@ -25,6 +25,7 @@
     </div>
     <!-- right -->
     <div class="col-md-8 col-padding">
+      @if($discuss)
       <div class="box box-primary direct-chat direct-chat-primary">
         <!-- /.box-header -->
         <div class="box-body">
@@ -76,9 +77,9 @@
             <button type="submit" class="btn btn-primary pull-right">Kirim</button>
           {!! Form::close() !!}
         </div>
-
         <!-- /.box-footer-->
       </div>
     </div>
+    @endif
   </div>
 @endsection
