@@ -21,7 +21,7 @@
               @endforeach
               </li>
               <li class="list-group-item"><i class="fa fa-gears fa-lg"></i>
-              @foreach($user->skills) as $skill)
+              @foreach($user->skills as $skill)
                 <span class="label label-primary">{{ $skill }}</span>
               @endforeach
               </li>

@@ -32,7 +32,7 @@ class DiscussController extends Controller
         $discusses = $this->getDiscusses($request->get('name', ''));
         if ($discusses->count() > 0) {
             $discuss = $discusses->first();
-            \View::share('pageTitle', 'Ruang diskusi dari '.str_limit($discuss->idea->title, 30));
+            \View::share('pageTitle', 'Ruang diskusi dari \''.str_limit($discuss->idea->title, 30).'\'');
             $messages = $discuss->messages;
         } else {
             \View::share('pageTitle', 'Tidak ruang diskusi yang tersedia');
@@ -52,7 +52,7 @@ class DiscussController extends Controller
     public function show($id)
     {
         $discuss = Discuss::findOrFail($id);
-        \View::share('pageTitle', 'Ruang Diskusi dari '.str_limit($discuss->idea->title,30));
+        \View::share('pageTitle', 'Ruang diskusi dari \''.str_limit($discuss->idea->title, 30).'\'');
         $discusses = $this->getDiscusses();
         $messages = $discuss->messages;
         return view('discuss.show', compact('discuss', 'discusses', 'messages'));

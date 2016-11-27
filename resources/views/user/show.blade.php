@@ -3,5 +3,5 @@
   @include('user.sidebar.left')
 @endsection
 @section('user-sidebar-right')
-  @include('user.sidebar.right-show')
+  @include('user.sidebar.right.show')
 @endsection
