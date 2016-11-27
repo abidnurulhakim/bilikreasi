@@ -34,6 +34,7 @@ set :linked_dirs, %w{storage}
 
 # Default value for keep_releases is 5
 # set :keep_releases, 5
+set :keep_releases, 3
 
 namespace :deploy do
 

@@ -1,6 +1,6 @@
 <div class="col-md-4">
-  <div class="card">
-    <div class="card-block">
+  <div class="box box-primary">
+    <div class="box-body">
       {!! Form::open(['route' => ['idea.search.partner', $idea], 'class' => 'card-text', 'method' => 'GET']) !!}
       <form class="card-text">
         <div class="form-group">
@@ -13,7 +13,7 @@
         <div class="form-group">
           {!! Form::formTags('interests', $interests, $interestSelected, ['label' => 'Minat', 'placeholder' => 'Minat']) !!}
         </div>
-        <button type="submit" class="btn btn-primary">Cari</button>
+        <button type="submit" class="btn btn-primary btn-block">Cari</button>
       {!! Form::close() !!}
     </div>
   </div>

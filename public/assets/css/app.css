@@ -1464,7 +1464,7 @@ h6.header-index {
  */
 .info-box {
   display: block;
-  min-height: 150px;
+  min-height: 135px;
   background: #fff;
   width: 100%;
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
@@ -1493,19 +1493,22 @@ h6.header-index {
   border-bottom-left-radius: 2px;
   display: block;
   float: left;
-  height: 150px;
-  width: 150px;
+  min-height: 110px;
+  width: 110px;
   text-align: center;
   font-size: 45px;
-  line-height: 150px;
+  line-height: 110px;
   background: rgba(0, 0, 0, 0.2);
 }
 .info-box-icon > img {
   max-width: 100%;
 }
+.info-box-icon > a {
+  margin-top: 5px;
+}
 .info-box-content {
   padding: 5px 10px;
-  margin-left: 150px;
+  margin-left: 110px;
 }
 .info-box-number {
   display: block;
@@ -1513,30 +1516,20 @@ h6.header-index {
   font-size: 18px;
 }
 .progress-description,
-.info-box-title {
-  display: block;
-  font-size: 14px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-.info-box-title {
-  font-size: 16px;
-  text-transform: uppercase;
-}
 .info-box-text {
   display: block;
   font-size: 14px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.info-box-text {
+  text-transform: uppercase;
 }
 .info-box-more {
   display: block;
 }
 .progress-description {
   margin: 0;
-}
-.info-box.idea {
-  overflow: hidden;
-  padding: 10px;
 }
 
 /*

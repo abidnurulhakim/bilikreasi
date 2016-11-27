@@ -12,7 +12,7 @@
           <b>Jumlah ide</b> <a class="pull-right">{{ $user->ideas()->count() }}</a>
         </li>
         <li class="list-group-item">
-          <b>Partisipasi</b> <a class="pull-right">{{ $user->memberOf()->count() }}</a>
+          <b>Jumlah Partisipasi</b> <a class="pull-right">{{ $user->memberOf()->count() }}</a>
         </li>
       </ul>
     </div>
@@ -32,7 +32,7 @@
       <strong><i class="fa fa-map-marker margin-r-5"></i> Location</strong>
       <p class="text-muted">{{ $user->live_at }}</p>
       <hr>
-      <strong><i class="fa fa-pencil margin-r-5"></i> Minat</strong>
+      <strong><i class="fa fa-heart margin-r-5"></i> Minat</strong>
       <p>
         @foreach($user->interests as $interest)
           <span class="label label-primary">{{ $interest }}</span>
