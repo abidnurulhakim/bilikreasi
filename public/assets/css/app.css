@@ -12,7 +12,13 @@ body {
 }
 
 footer {
-  padding: 30px 0;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 60px;
+  line-height: 60px; /* Vertically center the text there */
+  background-color: #51AFAE;
+  color: #fff;
 }
 
 @media(min-width:768px) {
@@ -1391,7 +1397,6 @@ h6.header-index {
 }
 .idea i {
   text-align: center;
-  width: 20px;
 }
 .idea .location {
   border-bottom: 1px solid #51afae;

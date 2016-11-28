@@ -184,13 +184,19 @@ class Idea extends BaseModel
         return $this->hasMany('App\Models\IdeaInvitation', 'idea_id');
     }
 
-    public function hasInvite(User $user)
+    public function hasInvite(User $user = null)
     {
+        if (is_null($user)) {
+            return false;
+        }
         return IdeaInvitation::where('idea_id', $this->id)->where('user_id', $user->id)->count() > 0;
     }
 
-    public function hasLike(User $user)
+    public function hasLike(User $user = null)
     {
+        if (is_null($user)) {
+            return false;
+        }
         return Like::where('idea_id', $this->id)->where('user_id', $user->id)->count() > 0;
     }
 

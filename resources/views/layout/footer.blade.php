@@ -1,7 +1,5 @@
 <footer>
-  <div class="row">
-    <div class="col-lg-12">
-      <p>Copyright &copy; BiliKreasi 2016</p>
-    </div>
+  <div class="container">
+    <p>Copyright &copy; BiliKreasi 2016</p>
   </div>
 </footer>
