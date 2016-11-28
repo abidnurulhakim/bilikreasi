@@ -17,7 +17,7 @@
     <meta name="twitter:image" content="{{ $idea->getCover() }}">
     <meta name="twitter:image:alt" content="{{ $idea->title }}">
     <!-- facebook meta -->
-    <meta property="fb:app_id" content="{{ ENV('FACEBOOK_APP_ID') }}" />
+    <meta property="og:type" content="website" />
     <meta property="og:url" content="{{ route('idea.show', $idea) }}" />
     <meta property="og:title" content="{{ $idea->title }}"/>
     <meta property="og:image" content="{{ $idea->getCover() }}"/>

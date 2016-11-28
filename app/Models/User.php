@@ -10,10 +10,11 @@ use App\Models\Interest;
 use App\Models\Traits\AttachableTrait;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Models\Traits\SluggableTrait;
 
 class User extends Authenticatable
 {
-    use AttachableTrait, SoftDeletes;
+    use AttachableTrait, SoftDeletes, SluggableTrait;
 
     const TYPE = [
         'admin' => 'Admin',
@@ -51,6 +52,9 @@ class User extends Authenticatable
                         ],
                     'default' => 'assets/images/user.jpg'
         ]
+    ];
+    public $sluggable = [
+        'username' => 'name'
     ];
 
     public static function boot()

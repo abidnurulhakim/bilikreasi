@@ -35,6 +35,8 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 'auth
 });
 Route::group(['prefix' => '/'], function () {
     Route::get('', ['uses'=>'HomeController@index', 'as' => 'home.index']);
+    Route::get('auth/facebook', ['uses' => 'SocialAuthController@facebookRedirect', 'as' => 'auth.social.facebook']);
+    Route::get('auth/facebook/callback', ['uses' => 'SocialAuthController@facebookCallback', 'as' => 'auth.social.facebook.callback']);
     Route::get('login', ['uses'=>'HomeController@login', 'as' => 'home.login', 'middleware' => 'guest']);
     Route::post('login', ['uses'=>'SessionController@login', 'as' => 'session.login', 'middleware' => 'guest']);
     Route::get('register', ['uses'=>'HomeController@register', 'as' => 'home.register', 'middleware' => 'guest']);
