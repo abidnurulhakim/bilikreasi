@@ -61,6 +61,7 @@
                 </div>
               </div>
 
+              @if(auth()->user())
               <div class="col-md-12 no-padding section-idea action-idea">
                 @if($idea->hasLike(auth()->user()))
                 <a href="{{ route('idea.unlike', ['idea' => $idea, 'user' => auth()->user()]) }}" class="btn btn-primary btn">Tidak Menyukai</a>
@@ -77,6 +78,7 @@
                 <a href="{{ route('idea.search.partner', $idea) }}" class="btn btn-primary btn pull-right">Cari Partner</a>
                 @endif
               </div>
+              @endif
             </div>
             <!-- user -->
             <div class="col-md-2 col-padding text-center">

@@ -105,7 +105,7 @@
             <ul class="dropdown-menu dropdown-login">
               {!! Form::open(['route' => 'session.login', 'method' => 'post']) !!}
                 <div class="form-group">
-                  {!! Form::text('username', old('username'), ['class' => 'form-control', 'placeholder' => 'Email/Username']) !!}
+                  {!! Form::text('username', null, ['class' => 'form-control', 'placeholder' => 'Email/Username']) !!}
                 </div>
                 <div class="form-group">
                   {!! Form::password('password', ['class' => 'form-control', 'placeholder' => 'Password']) !!}

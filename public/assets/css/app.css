@@ -1397,6 +1397,7 @@ h6.header-index {
 }
 .idea i {
   text-align: center;
+  width: 20px;
 }
 .idea .location {
   border-bottom: 1px solid #51afae;
@@ -2314,4 +2315,8 @@ h6.header-index {
 }
 .nav-tabs-custom.tab-default > .nav-tabs > li.active {
   border-top-color: #d2d6de;
+}
+
+.media-social i {
+  width: 50px;
 }
