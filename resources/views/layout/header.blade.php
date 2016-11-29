@@ -45,12 +45,12 @@
       @if(\Auth::check())
       <ul class="nav navbar-nav user-menu-mobile hidden-sm hidden-md hidden-lg">
         <li class="list-group">
-          <a href="#" class="list-group-item"><i class="fa fa-money"></i> Usaha</a>
-          <a href="#" class="list-group-item"><i class="fa fa-users"></i> Komunitas</a>
-          <a href="#" class="list-group-item"><i class="fa fa-bullhorn"></i> Kampanye</a>
-          <a href="#" class="list-group-item"><i class="fa fa-suitcase"></i> Proyek</a>
-          <a href="#" class="list-group-item"><i class="fa fa-calendar"></i> Kegiatan</a>
-          <a href="#" class="list-group-item"><i class="fa fa-bars"></i> Lain</a>
+          <a href="{{ route('search.index').'?category=business' }}" class="list-group-item"><i class="fa fa-money"></i> Usaha</a>
+          <a href="{{ route('search.index').'?category=community' }}"" class="list-group-item"><i class="fa fa-users"></i> Komunitas</a>
+          <a href="{{ route('search.index').'?category=campaign' }}"" class="list-group-item"><i class="fa fa-bullhorn"></i> Kampanye</a>
+          <a href="{{ route('search.index').'?category=project' }}"" class="list-group-item"><i class="fa fa-suitcase"></i> Proyek</a>
+          <a href="{{ route('search.index').'?category=event' }}"" class="list-group-item"><i class="fa fa-calendar"></i> Kegiatan</a>
+          <a href="{{ route('search.index').'?category=other' }}"" class="list-group-item"><i class="fa fa-bars"></i> Lain</a>
         </li>
         <center>
           <a href="{{ route('session.logout') }}" class="btn btn-primary btn-lg">Keluar</a>  
