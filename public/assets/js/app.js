@@ -49,6 +49,9 @@
     _autosize       : { 
                         js : path.plugins + 'autosize/js/autosize.min.js'
                       },
+    _slimscroll       : { 
+                        js : path.plugins + 'slimScroll/jquery.slimscroll.min.js'
+                      },
   };
 
   var Site = {
@@ -61,6 +64,8 @@
       Site.timeAgo();
       Site.icheck();
       Site.autosize();
+      Site.slimscroll();
+      Site.discuss();
     },
     moment : function() {
       if ($('.date-time-picker').length > 0) {
@@ -270,6 +275,77 @@
           ],
           complete : function(){
             autosize($('textarea'));
+          }
+        });
+      }
+    },
+    slimscroll : function() {
+      if ($('.slimscroll').length > 0) {
+        Modernizr.load({
+          load  : [
+                  assets._slimscroll.js,
+          ],
+          complete : function(){
+            $('.slimscroll').slimscroll();
+          }
+        });
+      }
+    },
+    discuss : function() {
+      if ($('#discuss_idea').length > 0) {
+        Modernizr.load({
+          load  : [
+                  assets._slimscroll.js,
+          ],
+          complete : function(){
+            $('#discuss_idea').slimscroll({
+              height: 410,
+              scrollTo: 10000
+            });
+            $('#discuss_idea').slimScroll().bind('slimscroll', function(e, pos){
+              if ($(this).data('has-more-page')) {
+                discussHead = $(this);
+                $("#alert_loading").removeClass('hidden');
+                loading = $("#alert_loading").clone().addClass('hidden');
+                $("#alert_loading").remove();
+                $.get(
+                  $(this).data('href'),
+                  { last_message_id: $('.direct-chat-msg').first().data('message-id') },
+                  function(response) {
+                    if (response.status == 'ok') {
+                      discussHead.data('has-more-page', response.has_more_page);
+                      for (var i = 0; i < response.data.length; i++) {
+                        message = response.data[i];
+                        element = '';
+                        if (message.user_id == discussHead.data('user-id')) {
+                          element += "<div class='direct-chat-msg right' data-message-id='"+message.id+"'>";
+                          element += "<div class='direct-chat-info clearfix'>";
+                          element += "<span class='direct-chat-name pull-right'>"+message.user_name+"</span>";
+                          element += "<span class='direct-chat-timestamp pull-left time-humanize' title='"+message.created_at+"'></span>";
+                          element += "</div>";
+                          element += "<img class='direct-chat-img' src='"+message.user_photo+"' alt='"+message.user_name+"'>";
+                          element += "<div class='direct-chat-text'>"+message.content+"</div>";
+                          element += "</div>";
+                        } else {
+                          element += "<div class='direct-chat-msg left' data-message-id='"+message.id+"'>";
+                          element += "<div class='direct-chat-info clearfix'>";
+                          element += "<span class='direct-chat-name pull-left'>"+message.user_name+"</span>";
+                          element += "<span class='direct-chat-timestamp pull-right time-humanize' title='"+message.created_at+"'></span>";
+                          element += "</div>";
+                          element += "<img class='direct-chat-img' src='"+message.user_photo+"' alt='"+message.user_name+"'>";
+                          element += "<div class='direct-chat-text'>"+message.content+"</div>";
+                          element += "</div>";
+                        }
+                        discussHead.prepend(element);
+                      }
+                      $('.time-humanize').each(function(index){
+                        $(this).timeago();
+                      });
+                    }
+                    discussHead.prepend(loading);
+                  }, "json" );
+              }
+            });
           }
         });
       }

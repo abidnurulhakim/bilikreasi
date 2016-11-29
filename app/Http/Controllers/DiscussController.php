@@ -33,7 +33,7 @@ class DiscussController extends Controller
         if ($discusses->count() > 0) {
             $discuss = $discusses->first();
             \View::share('pageTitle', 'Ruang diskusi dari \''.str_limit($discuss->idea->title, 30).'\'');
-            $messages = $discuss->messages;
+            $messages = $discuss->messages()->last()->paginate(20);
         } else {
             \View::share('pageTitle', 'Tidak ruang diskusi yang tersedia');
             $discuss = null;
@@ -54,8 +54,41 @@ class DiscussController extends Controller
         $discuss = Discuss::findOrFail($id);
         \View::share('pageTitle', 'Ruang diskusi dari \''.str_limit($discuss->idea->title, 30).'\'');
         $discusses = $this->getDiscusses();
-        $messages = $discuss->messages;
+        $messages = $discuss->messages()->last()->paginate(20);
         return view('discuss.show', compact('discuss', 'discusses', 'messages'));
+    }
+
+    
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function messages(Request $request, $id)
+    {
+        $discuss = Discuss::findOrFail($id);
+        $messages = $discuss->messages()->where('id', '<', $request->get('last_message_id', $discuss->messages()->last()->first()->id))->last()->paginate(20);
+        $result = [];
+        $result['status'] = 'ok';
+        $result['has_more_page'] = false;
+        $result['data'] = [];
+        foreach ($messages as $message) {
+            $user = $message->user;
+            $msg = [
+                'id' => $message->id,
+                'content' => $message->content,
+                'user_id' => $user->id,
+                'user_name' => $user->name,
+                'user_photo' => $user->getPhoto(128),
+                'created_at' => $message->created_at->toIso8601String()
+            ];
+            array_push($result['data'], $msg);
+        }
+        if ($messages->hasMorePages()) {
+            $result['has_next_page'] = true;
+        }
+        return response()->json($result);
     }
 
     /**

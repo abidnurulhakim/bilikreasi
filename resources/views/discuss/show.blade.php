@@ -30,17 +30,22 @@
         <!-- /.box-header -->
         <div class="box-body">
           <!-- Conversations are loaded here -->
-          <div class="direct-chat-messages">
-            @forelse($messages as $message)
+          <div class="direct-chat-messages slimscroll" id="discuss_idea" data-user-id="{{ auth()->user()->id }}" data-href="{{ route('discuss.messages', $discuss) }}" data-has-more-page="{{ $messages->hasMorePages() }}">
+            @if($messages->hasMorePages())
+            <div class='col-md-12 text-center hidden' id="alert_loading">
+              <i class="fa fa-spinner fa-pulse fa-lg fa-fw"></i><span class="sr-only">Loading...</span>
+            </div>
+            @endif
+            @forelse($messages->reverse() as $message)
               @if($message->isOwner(auth()->user()))
               <!-- Message to the right -->
-              <div class="direct-chat-msg right">
+              <div class="direct-chat-msg right" data-message-id="{{ $message->id }}">
                 <div class="direct-chat-info clearfix">
                   <span class="direct-chat-name pull-right">{{ auth()->user()->name }}</span>
                   <span class="direct-chat-timestamp pull-left time-humanize " title="{{ $message->created_at->toIso8601String() }}"></span>
                 </div>
                 <!-- /.direct-chat-info -->
-                <img class="direct-chat-img" src="{{ auth()->user()->getPhoto(128) }}" alt="Message User Image"><!-- /.direct-chat-img -->
+                <img class="direct-chat-img" src="{{ auth()->user()->getPhoto(128) }}" alt="{{ auth()->user()->name }}"><!-- /.direct-chat-img -->
                 <div class="direct-chat-text">
                   {!! $message->content !!}
                 </div>
@@ -48,13 +53,13 @@
               </div>  
               @else
               <!-- Message. Default to the left -->
-              <div class="direct-chat-msg">
+              <div class="direct-chat-msg" data-message-id="{{ $message->id }}">
                 <div class="direct-chat-info clearfix">
                   <span class="direct-chat-name pull-left">{{ $message->user->name }}</span>
                   <span class="direct-chat-timestamp pull-right time-humanize " title="{{ $message->created_at->toIso8601String() }}"></span>
                 </div>
                 <!-- /.direct-chat-info -->
-                <img class="direct-chat-img" src="{{ $message->user->getPhoto(128) }}" alt="Message User Image"><!-- /.direct-chat-img -->
+                <img class="direct-chat-img" src="{{ $message->user->getPhoto(128) }}" alt="{{ $message->user->name }}"><!-- /.direct-chat-img -->
                 <div class="direct-chat-text">
                   {!! $message->content !!}
                 </div>

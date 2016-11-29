@@ -47,7 +47,8 @@ Route::group(['prefix' => '/'], function () {
     Route::resource('discuss', 'DiscussController', ['only' => [
         'index', 'show'
     ]]);
-    Route::post('discuss/{id}/message', ['uses'=>'DiscussController@sendMessage', 'as' => 'discuss.send.message']);
+    Route::get('discuss/{id}/messages', ['uses'=>'DiscussController@messages', 'as' => 'discuss.messages', 'middleware' => 'auth']);
+    Route::post('discuss/{id}/message', ['uses'=>'DiscussController@sendMessage', 'as' => 'discuss.send.message', 'middleware' => 'auth']);
 
     /*route for idea*/
     Route::get('idea/{slug}/invitation/{user}', ['uses'=>'IdeaController@invitation', 'as' => 'idea.invitation']);

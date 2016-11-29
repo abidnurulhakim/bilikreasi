@@ -23,6 +23,19 @@ class DiscussPolicy
         return $idea->isMember($user) || $user->isAdmin();
     }
 
+    /**
+     * Determine whether the user can get messages the discuss.
+     *
+     * @param  \App\User  $user
+     * @param  \App\Idea  $idea
+     * @return mixed
+     */
+    public function messages(User $user, Discuss $discuss)
+    {
+        $idea = $discuss->$idea;
+        return $idea->isMember($user) || $user->isAdmin();
+    }
+
 
     /**
      * Determine whether the user can delete the idea.
