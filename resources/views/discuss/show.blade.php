@@ -75,9 +75,9 @@
         </div>
         <!-- /.box-body -->
         <div class="box-footer" style="display: block;">
-          {!! Form::open(['route' => ['discuss.send.message', $discuss], 'method' => 'POST']) !!}
+          {!! Form::open(['route' => ['discuss.send.message', $discuss], 'method' => 'POST', 'id' => 'discuss-form']) !!}
             <div class="form-group col-sm-11 col-padding">
-              {!! Form::textArea('content', null, ['class' => 'form-control', 'rows' => 1]) !!}
+              {!! Form::textArea('content', null, ['class' => 'form-control', 'rows' => 1, 'id' => 'discuss-msg']) !!}
             </div>
             <button type="submit" class="btn btn-primary pull-right">Kirim</button>
           {!! Form::close() !!}

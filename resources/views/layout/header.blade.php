@@ -110,9 +110,22 @@
                 <div class="form-group">
                   {!! Form::password('password', ['class' => 'form-control', 'placeholder' => 'Password']) !!}
                 </div>
+                <div class="form-group">
+                  <div class="checkbox">
+                    <label class="text-primary">
+                      {!! Form::checkbox('remember_me', '1') !!} Ingatkan saya
+                    </label>
+                  </div>
+                </div>
                 <center>
-                  {!! Form::submit('Masuk', ['class' => 'btn btn-primary btn-lg']); !!}
+                  {!! Form::submit('Masuk', ['class' => 'btn btn-primary btn-block']); !!}
                 </center>
+                <div class="form-group text-center text-muted">
+                  <h5>atau</h5>
+                </div>
+                <a class="btn btn-block btn-social btn-facebook">
+                  <i class="fa fa-facebook"></i> Masuk dengan Facebook
+                </a>
               {!! Form::close() !!}
             </ul>
           </li>

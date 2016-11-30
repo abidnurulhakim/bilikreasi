@@ -75,7 +75,7 @@ trait AttachableTrait
 
     private function generateImage($path, $fileName, $width = 300, $height = 300)
     {
-        $img = \Image::make($path)->resize($width, $height);
+        $img = \Image::make($path)->fit($width, $height);
         $img->save($fileName);
     }
 }

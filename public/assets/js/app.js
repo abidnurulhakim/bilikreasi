@@ -49,8 +49,14 @@
     _autosize       : { 
                         js : path.plugins + 'autosize/js/autosize.min.js'
                       },
-    _slimscroll       : { 
+    _slimscroll     : { 
                         js : path.plugins + 'slimScroll/jquery.slimscroll.min.js'
+                      },
+    _inlineattachment : { 
+                        js : path.plugins + 'inlineAttachment/jquery.inline-attachment.min.js'
+                      },
+    _jqueryForm     : { 
+                        js : path.plugins + 'jquery-form/jquery.form.min.js'
                       },
   };
 
@@ -162,7 +168,8 @@
                 initialPreviewConfig: arr,
                 maxFileCount: $(this).data('max-file-count'),
                 maxFileSize: $(this).data('max-file-size'),
-                allowedFileTypes: $(this).data('allowed-file-types')
+                allowedFileTypes: $(this).data('allowed-file-types'),
+                overwriteInitial: $(this).data('over-write-initial')
               });
             });
           }
@@ -296,6 +303,8 @@
         Modernizr.load({
           load  : [
                   assets._slimscroll.js,
+                  assets._inlineattachment.js,
+                  assets._jqueryForm.js
           ],
           complete : function(){
             $('#discuss_idea').slimscroll({
@@ -345,6 +354,19 @@
                     discussHead.prepend(loading);
                   }, "json" );
               }
+            });
+            $('#discuss-form').submit(function(){
+              $(this).ajaxSubmit({ 
+                success:  showResponse,
+                url:      $(this).attr('action'),
+                dataType: json,
+                timeout:  3000
+              });
+            });
+            $('#discuss-msg').inlineattachment({
+              uploadUrl: $('#discuss-form').attr('action'),
+              uploadFieldName: 'file',
+              progressText: 'Upload attachment'
             });
           }
         });

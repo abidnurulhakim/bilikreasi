@@ -22,6 +22,6 @@
   {!! Form::formTags('tags', $tags, $idea->tags, ['label' => 'Tag Ide', 'required' => true]) !!}
   {!! Form::formText('location', null, ['label' => 'Lokasi', 'placeholder' => 'Lokasi Ide Diadakan', 'required' => true] ) !!}
   {!! Form::formSelect('status', \App\Models\Idea::STATUS, $idea->status, ['label' => 'Status Ide','placeholder' => 'Status Ide'] ) !!}
-  {!! Form::formFile('media', null, ['label' => 'Gambar/Video', 'placeholder' => 'Gambar/Video', 'data-max-file-count' => '5', 'data-max-file-size' => '130048', 'data-allowed-file-types' => '["image", "video"]', 'multiple' => 'true'] ) !!}
+  {!! Form::formFile('media', null, ['label' => 'Gambar/Video', 'placeholder' => 'Gambar/Video', 'data-max-file-count' => '5', 'data-max-file-size' => '130048', 'data-allowed-file-types' => '["image", "video"]', 'multiple' => 'true', 'data-over-write-initial' => 'true'] ) !!}
   {!! Form::submit('Perbaharui Ide', ['class' => 'btn btn-primary btn-lg']); !!}
 {!! Form::close() !!}

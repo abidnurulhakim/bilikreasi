@@ -22,9 +22,9 @@ class SessionController extends Controller
 
     public function login(LoginRequest $request)
     {
-        $user = UserService::login($request->input('username'), $request->input('password'));
+        $user = UserService::login($request->get('username'), $request->get('password'), $request->get('remember_me'));
         if ($user) {
-            return redirect()->route('home.index');
+            return redirect()->route('user.show', $user);
         }
         return redirect()->route('home.login');
     }
@@ -34,7 +34,7 @@ class SessionController extends Controller
         $request->merge(['last_login_at' => \Carbon::now(), 'last_login_ip_address' => $request->ip()]);
         $user = UserService::register($request->all());
         if ($user) {
-            return redirect()->route('home.index');
+            return redirect()->route('user.show', $user);
         }
         return redirect()->route('home.register');
     }

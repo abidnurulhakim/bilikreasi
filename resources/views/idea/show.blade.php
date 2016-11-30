@@ -6,11 +6,11 @@
         <!-- left -->
         <div class="col-md-12 col-padding">
           <div class="col-md-12 no-padding page-header idea">
-            <div class="col-md-4 col-padding">
-              <center><img class="img-responsive img-rounded img-idea" src="{{ $idea->getCover(340,185) }}"></center>
+            <div class="col-md-3 col-padding">
+              <center><img class="img-responsive img-rounded img-idea" src="{{ $idea->getCover(200) }}"></center>
             </div>
             <!-- idea -->
-            <div class="col-md-6 col-padding idea">
+            <div class="col-md-7 col-padding idea">
               <div class="col-md-12 no-padding">
                 <div class="col-md-8 col-padding section-idea info-idea">
                   <div class="col-md-12 no-padding title">
