@@ -123,8 +123,11 @@
                 <div class="form-group text-center text-muted">
                   <h5>atau</h5>
                 </div>
-                <a class="btn btn-block btn-social btn-facebook">
+                <a class="btn btn-block btn-social btn-facebook" href="{{ route('auth.social.facebook') }}">
                   <i class="fa fa-facebook"></i> Masuk dengan Facebook
+                </a>
+                <a class="btn btn-block btn-social btn-google" href="{{ route('auth.social.google') }}">
+                  <i class="fa fa-google-plus"></i> Masuk dengan Google
                 </a>
               {!! Form::close() !!}
             </ul>

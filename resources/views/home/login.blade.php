@@ -10,14 +10,14 @@
           </h3>
           <div class="col-sm-12 text-center">
             <div class="col-xs-offset-3 col-sm-offset-3 col-xs-3 col-sm-3">
-              <a href="{{ route('auth.social.facebook') }}" class="btn btn-lg btn-block btn-social btn-facebook" data-toggle="tooltip" data-placement="top" title="Facebook">
+              <a href="{{ route('auth.social.facebook') }}" class="btn btn-lg btn-block btn-facebook" data-toggle="tooltip" data-placement="top" title="Facebook">
                 <i class="fa fa-facebook fa-2x"></i>
                 <span class="hidden-xs"></span>
               </a>
             </div>
             <div class="col-xs-3 col-sm-3">
-              <a href="#" class="btn btn-lg btn-block btn-social btn-linkedin" data-toggle="tooltip" data-placement="top" title="LinkedIn">
-                <i class="fa fa-linkedin fa-2x"></i>
+              <a href="{{ route('auth.social.google') }}" class="btn btn-lg btn-block btn-google" data-toggle="tooltip" data-placement="top" title="Google+">
+                <i class="fa fa-google-plus fa-2x"></i>
                 <span class="hidden-xs"></span>
               </a>
             </div>
