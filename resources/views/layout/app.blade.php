@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width:1260">
+    <meta name="viewport" content="width=1260, initial-scale=1.0">
     <meta name="description" content="Idea-sharing platform pertama di Indonesia yang juga menjadi wadah kolaborasi bagi para user untuk menciptakan perubahan melalui ide yang tersalurkan baik dalam bentuk usaha profitable, komunitas, aksi/gerakan, riset/proyek, ataupun bentuk kegiatan lainnya">
     <meta name="author" content="Bilikreasi">
     <meta name="title" content="Bilikreasi - Connecting People Through Ideas">
@@ -30,6 +30,19 @@
 </head>
 
 <body>
+    @if(Session::get('success'))
+      <div id="notification-success" data-text="{{ Session::get('success') }}" class="hidden"></div> 
+    @endif
+    @if(Session::get('info'))
+      <div id="notification-info" data-text="{{ Session::get('info') }}" class="hidden"></div> 
+    @endif
+    @if(Session::get('alert'))
+      <div id="notification-alert" data-text="{{ Session::get('alert') }}" class="hidden"></div> 
+    @endif
+    @if(Session::get('error'))
+      <div id="notification-error" data-text="{{ Session::get('error') }}" class="hidden"></div> 
+    @endif
+
     @include('layout.header')
     <!-- Page Content -->
     <div class="container">

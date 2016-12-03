@@ -81,8 +81,13 @@ class UserController extends Controller
             return redirect()->back();
         }
         $user->fill($request->all());
-        $user->save();
-        return redirect()->back();
+        if ($user->save()) {
+            \Session::flash('success', 'Profil berhasil diperbaharui');
+            return redirect()->back();
+        } else {
+            \Session::flash('alert', 'Profil gagal diperbaharui');
+            return redirect()->back()->withInput();
+        }
     }
 
     /**
@@ -113,6 +118,9 @@ class UserController extends Controller
         $errors = new MessageBag();
         if (!UserService::changePassword($user, $request->get('old_password'), $request->get('password'))) {
             $errors->add('old_password', 'Password lama kamu tidak benar.');
+            \Session::flash('alert', 'Perubahan password gagal');
+        } else {
+            \Session::flash('success', 'Perubahan password berhasil');
         }
         return redirect()->back()->withErrors($errors);
     }

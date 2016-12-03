@@ -16,9 +16,8 @@ class SocialAuthController extends Controller
     public function facebookCallback(SocialAccountService $service)
     {
         $user = $service->createOrGetUser(Socialite::driver('facebook')->user(), 'facebook');
-
         auth()->login($user, true);
-
+        \Session::flash('success', "Anda masuk sebagai $user->name");
         return redirect()->route('user.show', $user);
     }
 
@@ -30,9 +29,8 @@ class SocialAuthController extends Controller
     public function googleCallback(SocialAccountService $service)
     {
         $user = $service->createOrGetUser(Socialite::driver('google')->user(), 'google');
-
         auth()->login($user, true);
-
+        \Session::flash('success', "Anda masuk sebagai $user->name");
         return redirect()->route('user.show', $user);
     }
 }

@@ -7,6 +7,7 @@ use App\Models\Message;
 use App\Services\DiscussService;
 use App\Http\Requests\Discuss\MessageRequest;
 use Illuminate\Http\Request;
+use Request as RequestNonFacade;
 
 class DiscussController extends Controller
 {
@@ -77,6 +78,7 @@ class DiscussController extends Controller
             $user = $message->user;
             $msg = [
                 'id' => $message->id,
+                'type' => $message->type,
                 'content' => $message->content,
                 'user_id' => $user->id,
                 'user_name' => $user->name,
@@ -102,6 +104,9 @@ class DiscussController extends Controller
         $discuss = Discuss::findOrFail($id);
         $message = DiscussService::sendMessage($discuss, auth()->user(), $request->get('content'));
         if ($message) {
+            if (RequestNonFacade::ajax()) {
+                return response()->json(['status' => 'ok', 'message' => '']);
+            }
             return redirect()->route('discuss.show', $discuss);
         }
         return redirect()->back();

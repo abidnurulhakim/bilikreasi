@@ -47,7 +47,6 @@ class IdeaController extends Controller
         \View::share('pageTitle', 'Buat Ide Baru');
         $tags = Tag::publish()->get()->map(function($tag) {
             return $tag->name; })->toArray();
-
         return view('idea.create', compact('tags'));
     }
 
@@ -70,8 +69,11 @@ class IdeaController extends Controller
                     }
                 }
             }
+            \Session::flash('success', 'Ide berhasil dibuat');
+            return redirect()->route('idea.show', $idea);
         }
-        return redirect()->route('idea.show', $idea);
+        \Session::flash('alert', 'Ide gagal dibuat');
+        return redirect()->back()->withInput();
     }
 
     /**
@@ -82,8 +84,8 @@ class IdeaController extends Controller
      */
     public function show($slug)
     {
+        $idea = Idea::where('slug', $slug)->firstOrFail();
         \View::share('pageTitle', 'Detil Ide');
-        $idea = $this->findIdea($slug);
         return view('idea.show', compact('idea'));
     }
 
@@ -95,7 +97,7 @@ class IdeaController extends Controller
      */
     public function edit($slug)
     {
-        $idea = $this->findIdea($slug);
+        $idea = Idea::where('slug', $slug)->firstOrFail();
         $this->authorize('edit', $idea);
         \View::share('pageTitle', 'Perbaharui Ide');
         $tags = [];
@@ -114,7 +116,7 @@ class IdeaController extends Controller
      */
     public function update(UpdateRequest $request, $slug)
     {
-        $idea = $this->findIdea($slug);
+        $idea = Idea::where('slug', $slug)->firstOrFail();
         $this->authorize('update', $idea);
         $idea->fill($request->all());
         if ($idea->save()) {
@@ -125,8 +127,11 @@ class IdeaController extends Controller
                     }
                 }
             }
+            \Session::flash('success', 'Ide berhasil diperbaharui');
+            return redirect()->route('idea.show', $idea);
         }
-        return redirect()->route('idea.show', $idea);
+        \Session::flash('alert', 'Ide gagal diperbaharui');
+        return redirect()->back()->withInput();
     }
 
     /**
@@ -137,18 +142,20 @@ class IdeaController extends Controller
      */
     public function destroy($slug)
     {
-        $idea = $this->findIdea($slug);
+        $idea = Idea::where('slug', $slug)->firstOrFail();
         $this->authorize('delete', $idea);
         $user = $idea->user;
         $idea->delete();
+        \Session::flash('alert', 'Ide telah dihapus');
         return redirect()->route('user.show', $user);
     }
 
     public function join($slug)
     {
-        $idea = $this->findIdea($slug);
+        $idea = Idea::where('slug', $slug)->firstOrFail();
         $member = IdeaService::join($idea, auth()->user());
         if ($member) {
+            \Session::flash('success', 'Anda berhasil bergabung dengan ide ' + $idea->title);
             return redirect()->route('idea.show', $idea);
         } else {
             return redirect()->back();
@@ -157,7 +164,7 @@ class IdeaController extends Controller
 
     public function members($slug)
     {
-        $idea = $this->findIdea($slug);
+        $idea = Idea::where('slug', $slug)->firstOrFail();
         \View::share('pageTitle', 'Anggota '.$idea->title);
         $users = $idea->members;
         return view('idea.members', compact('users'));
@@ -165,39 +172,45 @@ class IdeaController extends Controller
 
     public function invitation($slug, $username)
     {
-        $idea = $this->findIdea($slug);
+        $idea = Idea::where('slug', $slug)->firstOrFail();
         $user = User::where('username', $username)->firstOrFail();
         $invitation = IdeaService::createInvitation($idea, $user);
+        if ($invitation) {
+            \Session::flash('success', 'Undangan berhasil dikirim');
+        } else {
+            \Session::flash('alert', 'Undangan gagal dikirim');
+        }
         return redirect()->back();
     }
 
     public function removeInvitation($slug, $username)
     {
-        $idea = $this->findIdea($slug);
+        $idea = Idea::where('slug', $slug)->firstOrFail();
         $user = User::where('username', $username)->firstOrFail();
         $invitation = IdeaService::removeInvitation($idea, $user);
+        \Session::flash('alert', 'Undangan telah ditarik kembali');
         return redirect()->back();
     }
 
     public function like($slug, $username)
     {
-        $idea = $this->findIdea($slug);
+        $idea = Idea::where('slug', $slug)->firstOrFail();
         $user = User::where('username', $username)->firstOrFail();
         $like = IdeaService::like($idea, $user);
+        if ($like) {
+            \Session::flash('success', 'Terima kasih Anda menyukai ide ini');
+        } else {
+            \Session::flash('alert', 'Menyukai ide gagal dilakukan');
+        }
         return redirect()->back();
     }
 
     public function unlike($slug, $username)
     {
-        $idea = $this->findIdea($slug);
+        $idea = Idea::where('slug', $slug)->firstOrFail();
         $user = User::where('username', $username)->firstOrFail();
         $like = IdeaService::unlike($idea, $user);
+        \Session::flash('alert', 'Anda tidak jadi menyukai ide ini');
         return redirect()->back();
-    }
-
-    private function findIdea($slug)
-    {
-        $idea = Idea::where('slug', $slug)->firstOrFail();
-        return $idea;
     }
 }

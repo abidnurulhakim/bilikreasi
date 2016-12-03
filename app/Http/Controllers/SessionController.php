@@ -24,8 +24,10 @@ class SessionController extends Controller
     {
         $user = UserService::login($request->get('username'), $request->get('password'), $request->get('remember_me'));
         if ($user) {
+            \Session::flash('success', "Anda masuk sebagai $user->name");
             return redirect()->route('user.show', $user);
         }
+        \Session::flash('error', "Username dan password tidak sesuai");
         return redirect()->route('home.login');
     }
 
@@ -34,6 +36,7 @@ class SessionController extends Controller
         $request->merge(['last_login_at' => \Carbon::now(), 'last_login_ip_address' => $request->ip()]);
         $user = UserService::register($request->all());
         if ($user) {
+            \Session::flash('success', "Anda masuk sebagai $user->name");
             return redirect()->route('user.show', $user);
         }
         return redirect()->route('home.register');
@@ -42,6 +45,7 @@ class SessionController extends Controller
     public function logout()
     {
         \Auth::logout();
+        \Session::flash('info', 'Terima kasih');
         return redirect()->route('home.index');
     }
 }
