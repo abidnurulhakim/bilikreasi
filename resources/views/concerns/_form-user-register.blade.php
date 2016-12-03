@@ -23,5 +23,5 @@
       </label>
     </div>
   </div>
-  {!! Form::submit('Daftar', ['class' => 'btn btn-primary btn-lg']); !!}
+  {!! Form::submit('Daftar', ['class' => 'btn btn-primary btn-lg btn-block']) !!}
 {!! Form::close() !!}

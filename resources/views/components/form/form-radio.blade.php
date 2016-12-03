@@ -35,4 +35,5 @@
         <input type="radio" name='{{ $name }}' value='{{ $value }}'  @if($attributes['checked'] == $value) checked @endif> {{ $value }}
       </label>
     @endif
+  </div>
 </div>

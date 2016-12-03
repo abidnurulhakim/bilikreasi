@@ -9,7 +9,7 @@ class Message extends BaseModel
 {
     protected $table = 'messages';
     protected $fillable = [
-        'user_id', 'discuss_id', 'content'
+        'user_id', 'discuss_id', 'content', 'type'
     ];
 
     protected $touches = ['discuss'];

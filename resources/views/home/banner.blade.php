@@ -10,7 +10,7 @@
   <div class="carousel-inner" role="listbox">
     @for ($i = 0; $i < $banners->count(); $i++)
     <div class="item @if($i == 0) active @endif" id="banner-{{ $banners->get($i)->id }}">
-      <img src="{{ $banners->get($i)->getImage(1200, 400) }}" class="img-responsive" alt="{{ $banners->get($i)->title }}">
+      <img src="{{ $banners->get($i)->getImage(1240, 310) }}" class="img-responsive" alt="{{ $banners->get($i)->title }}">
       <div class="carousel-caption">
         {{ $banners->get($i)->description }}
       </div>

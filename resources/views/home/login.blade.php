@@ -17,7 +17,7 @@
             </div>
             <div class="col-xs-3 col-sm-3">
               <a href="{{ route('auth.social.google') }}" class="btn btn-lg btn-block btn-google" data-toggle="tooltip" data-placement="top" title="Google+">
-                <i class="fa fa-google-plus fa-2x"></i>
+                <i class="fa fa-google fa-2x"></i>
                 <span class="hidden-xs"></span>
               </a>
             </div>

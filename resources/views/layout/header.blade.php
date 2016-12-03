@@ -63,7 +63,7 @@
           <li class="dropdown user-menu pull-right hidden-xs">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <img src="{{ \Auth::user()->getPhoto(50) }}" class="img-circle" alt="User Image">
-              <span>{{ \Auth::user()->name }}</span>
+              <span>{{ str_limit(\Auth::user()->name, 30) }}</span>
               <span class="fa fa-caret-down fa-inverse"></span>
             </a>
             <ul class="dropdown-menu">
@@ -127,7 +127,7 @@
                   <i class="fa fa-facebook"></i> Masuk dengan Facebook
                 </a>
                 <a class="btn btn-block btn-social btn-google" href="{{ route('auth.social.google') }}">
-                  <i class="fa fa-google-plus"></i> Masuk dengan Google
+                  <i class="fa fa-google"></i> Masuk dengan Google
                 </a>
               {!! Form::close() !!}
             </ul>

@@ -16,25 +16,29 @@
         <i class="fa fa-bookmark-o text-primary" alt="other"></i>
       @endif
     </h5>
-    <h6 class="card-title text-muted">
-      <i class="fa fa-tags text-primary"></i> 
-      @foreach($idea->tags as $tag)
-        <span class="label label-info">{{ $tag }}</span>
-      @endforeach
+    <h6 class="card-subtitle">
+      <div class="col-md-1 col-sm-1 no-padding">
+        <i class="fa fa-tags text-primary"></i>   
+      </div>
+      <div class="col-md-11 col-sm-11 col-padding">
+        @foreach($idea->tags as $tag)
+          <span class="label label-info">{{ $tag }}</span>
+        @endforeach
+      </div>
     </h6>
     @if($idea->like_count > 0)
-    <h5 class="card-title text-muted">
+    <h5 class="card-subtitle">
       <i class="fa fa-heart text-primary"></i> 
       {{ $idea->like_count }} Orang menyukai
     </h5>
     @endif
   </div>
   <a href="{{ route('idea.show', $idea) }}">
-    <img src="{{ $idea->getCover(400) }}" class='img-responsive' alt="{{ $idea->title }}">
+    <img src="{{ $idea->getCover(400, 200) }}" class='img-responsive' alt="{{ $idea->title }}">
   </a>
   <div class="card-block">
     <p class="card-text">{{ str_limit(strip_tags($idea->description), 150) }}</p>
-    <a href="{{ route('idea.show', $idea) }}" class="pull-right btn btn-primary">Baca</a>
+    <a href="{{ route('idea.show', $idea) }}" class="btn btn-primary btn-block">Baca</a>
   </div>
   @unless(empty($user))
   <div class="card-footer text-muted">

@@ -72,6 +72,7 @@
       Site.autosize();
       Site.slimscroll();
       Site.discuss();
+      Site.carousel();
     },
     moment : function() {
       if ($('.date-time-picker').length > 0) {
@@ -372,6 +373,13 @@
         });
       }
     },
+    carousel : function() {
+      if ($('.carousel').length > 0) {
+        $('.carousel').carousel({
+          interval: 3000
+        });  
+      }
+    }
   };
 
   var checkJquery = function () {
