@@ -48,7 +48,7 @@
             @else
               <a href="{{ route('admin.popular.publish', $popular) }}" class="btn btn-info btn-flat">Publish</a>
             @endif
-            <a href="{{ route('admin.popular.show', $popular) }}" class="btn btn-success btn-flat">Add Idea</a>
+            <a href="{{ route('admin.popular.show', $popular) }}" class="btn btn-success btn-flat"><i class="fa fa-plus"></i> Add Idea</a>
             <a href="{{ route('admin.popular.edit', $popular) }}" class="btn btn-success btn-flat">Edit</a>
             @include('admin.popular.concerns.form-delete', compact('popular'))
           </td>

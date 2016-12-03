@@ -143,11 +143,15 @@ class PopularController extends AdminController
      */
     public function createIdea($id)
     {
+        $popular = Popular::findOrFail($id);
+        $popularIdea = $popular->ideas->map(function($idea) {
+            return $idea->idea_id; })->toArray();
         $ideas = [];
         foreach (Idea::all() as $idea) {
-            $ideas["$idea->id"] = $idea->title;
+            if (!in_array($idea->id, $popularIdea)) {
+                $ideas["$idea->id"] = $idea->title;
+            }
         }
-        $popular = $id;
         return view('admin.popular.idea-create', compact('popular', 'ideas'));
     }
 

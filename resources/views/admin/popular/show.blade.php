@@ -12,10 +12,10 @@
 @section('popular-content')
   <div class="box">
     <div class="box-header">
-      <h2 class="box-title">Data Idea</h2>
+      <h2 class="box-title">Data Popular Ideas</h2>
       <div class="col-md-1 pull-right">
         <a href="{{ route('admin.popular.idea.create', $popular) }}" class="btn btn-success btn-flat btn-block">
-        <i class="fa fa-plus"></i> Add </a>  
+        <i class="fa fa-plus"></i> Add </a>
       </div>
       
     </div>

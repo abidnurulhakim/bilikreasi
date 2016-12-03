@@ -6,7 +6,7 @@
   @foreach ($popular->ideas->chunk(4) as $chunk)
   <div class="row">
     @foreach($chunk as $popularIdea)
-    <div class="col-md-3 col-sm-12">
+    <div class="col-sm-3 col-padding">
       @php
         $idea = $popularIdea->idea
       @endphp
@@ -20,7 +20,7 @@
   Trending Ide
 </h2>
 <div class="row">
-  <div class="col-md-4 col-sm-12">
+  <div class="col-sm-3">
     <div class="card">
       <div class="card-block">
         <h4 class="card-title">Card title 1</h4>
@@ -37,7 +37,7 @@
     </div>
   </div>
   <!-- /.col-md-4 -->
-  <div class="col-md-4 col-sm-12">
+  <div class="col-sm-3">
     <div class="card">
       <div class="card-block">
         <h4 class="card-title">Card title 2</h4>
@@ -54,7 +54,7 @@
     </div>
   </div>
   <!-- /.col-md-4 -->
-  <div class="col-md-4 col-sm-12">
+  <div class="col-sm-3">
     <div class="card">
       <div class="card-block">
         <h4 class="card-title">Card title 3</h4>
