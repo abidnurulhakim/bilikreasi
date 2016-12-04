@@ -39,7 +39,7 @@
             @forelse($messages->reverse() as $message)
               @if($message->isOwner(auth()->user()))
               <!-- Message to the right -->
-              <div class="direct-chat-msg right" data-message-id="{{ $message->id }}">
+              <div class="direct-chat-msg right" data-message-id="{{ $message->id }}" data-dump="false">
                 <div class="direct-chat-info clearfix">
                   <span class="direct-chat-name pull-right">{{ auth()->user()->name }}</span>
                   <span class="direct-chat-timestamp pull-left time-humanize " title="{{ $message->created_at->toIso8601String() }}"></span>
@@ -53,7 +53,7 @@
               </div>  
               @else
               <!-- Message. Default to the left -->
-              <div class="direct-chat-msg" data-message-id="{{ $message->id }}">
+              <div class="direct-chat-msg" data-message-id="{{ $message->id }}" data-dump="false">
                 <div class="direct-chat-info clearfix">
                   <span class="direct-chat-name pull-left">{{ $message->user->name }}</span>
                   <span class="direct-chat-timestamp pull-right time-humanize " title="{{ $message->created_at->toIso8601String() }}"></span>

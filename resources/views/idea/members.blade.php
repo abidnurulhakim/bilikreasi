@@ -1,15 +1,17 @@
 @extends('idea.layout')
 @section('idea-content')
-  <div class="col-md-12">
-    <div class="card">
-      <div class="card-block">
-        @foreach($users as $user)
-        <div class="text-center col-md-2 col-sm-6">
-          <img src="{{ $user->getPhoto(160) }}" class="img-responsive img-circle"><br>
-          <a href="{{ route('user.show', $user) }}" class="">{{ $user->name }}</a>
-        </div>
-        @endforeach
+  <div class="col-sm-12">
+    @foreach ($users->chunk(2) as $chunk)
+    <div class="row">
+      @foreach ($chunk as $user)
+      <div class="col-sm-4">
+        @include('user.card', ['idea' => $idea, 'user' => $user])
       </div>
+      @endforeach
+    </div>
+    @endforeach
+    <div class="col-sm-12 text-center">
+      {!! $users->links() !!}
     </div>
   </div>
 @endsection

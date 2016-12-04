@@ -1,4 +1,5 @@
-var lock = false;
+var lockMorePage = false;
+var idDumpMessage = 0;
 var Discussion = {
   load : function() {
     if ($('#discuss_idea').length > 0) {
@@ -28,8 +29,8 @@ var Discussion = {
   },
   morePage : function() {
     $discussHead = $('#discuss_idea');
-    if ($discussHead.data('has-more-page') && !lock) {
-      lock = true;
+    if ($discussHead.data('has-more-page') && !lockMorePage) {
+      lockMorePage = true;
       $("#alert_loading").removeClass('hidden');
       $loading = $("#alert_loading").clone().addClass('hidden');
       $("#alert_loading").remove();
@@ -62,6 +63,7 @@ var Discussion = {
             });
           }
           $discussHead.prepend($loading);
+          lockMorePage = true;
         },
         "json" );
     }
@@ -79,7 +81,7 @@ var Discussion = {
     if ($valid) {
       $discussHead = $('#discuss_idea');
       $data = {
-        id: -1,
+        id: idDumpMessage,
         user_id: $discussHead.data('user-id'),
         user_name: $discussHead.data('user-name'),
         user_photo: $discussHead.data('user-photo'),
@@ -101,10 +103,10 @@ var Discussion = {
     if ($response.status == 'ok') {
     }
   },
-  templateMessageText : function(data, userId){
+  templateMessageText : function(data, userId, dump = true){
     $element = '';
     if (data.user_id == userId) {
-      $element += "<div class='direct-chat-msg right' data-message-id='" + data.id + "'>";
+      $element += "<div class='direct-chat-msg right' data-message-id='" + data.id + "' data-dump='"+ dump +"'>";
       $element += "<div class='direct-chat-info clearfix'>";
       $element += "<span class='direct-chat-name pull-right'>" + data.user_name + "</span>";
       $element += "<span class='direct-chat-timestamp pull-left time-humanize' title='" + data.created_at + "'></span>";
@@ -113,7 +115,7 @@ var Discussion = {
       $element += "<div class='direct-chat-text'>" + data.content + "</div>";
       $element += "</div>";
     } else {
-      $element += "<div class='direct-chat-msg left' data-message-id='" + data.id + "'>";
+      $element += "<div class='direct-chat-msg' data-message-id='" + data.id + "' data-dump='"+ dump +"'>";
       $element += "<div class='direct-chat-info clearfix'>";
       $element += "<span class='direct-chat-name pull-left'>" + data.user_name + "</span>";
       $element += "<span class='direct-chat-timestamp pull-right time-humanize' title='" + data.created_at + "'></span>";

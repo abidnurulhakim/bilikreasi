@@ -165,9 +165,9 @@ class IdeaController extends Controller
     public function members($slug)
     {
         $idea = Idea::where('slug', $slug)->firstOrFail();
-        \View::share('pageTitle', 'Anggota '.$idea->title);
-        $users = $idea->members;
-        return view('idea.members', compact('users'));
+        \View::share('pageTitle', "Anggota '$idea->title'");
+        $users = $idea->members()->paginate(24);
+        return view('idea.members', compact('idea', 'users'));
     }
 
     public function invitation($slug, $username)

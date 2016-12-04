@@ -35,4 +35,5 @@
         <input type="checkbox" name='{{ $name }}' value='{{ $value }}' @if(in_array($key, $attributes['checked'])) checked @endif> {{ $value }}
       </label>
     @endif
+  </div>
 </div>

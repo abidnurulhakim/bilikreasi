@@ -29,7 +29,7 @@
     @if($idea->like_count > 0)
     <h5 class="card-subtitle">
       <i class="fa fa-heart text-primary"></i> 
-      {{ $idea->like_count }} Orang menyukai
+      <span class="label label-info">{{ $idea->like_count }} orang</span>
     </h5>
     @endif
   </div>

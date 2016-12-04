@@ -29,7 +29,7 @@
                 </div>
               </div>
 
-              <div class="col-md-sm no-padding section-idea criteria-idea">
+              <div class="col-sm-12 no-padding section-idea criteria-idea">
                 <div class="col-md-6 col-padding text-center">
                   <i class="fa 
                   @if($idea->category == 'business')
