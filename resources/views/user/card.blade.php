@@ -33,6 +33,8 @@
     <a href="{{ route('idea.invitation.remove', [$idea, $user]) }}" class="btn btn-primary btn-block">Hapus Undangan</a>
   @elseif(!$idea->hasInvite($user) && !$idea->isMember($user))
     <a href="{{ route('idea.invitation', [$idea, $user]) }}" class="btn btn-primary btn-block">Undang</a>
+  @else
+    <a href="{{ route('user.show', $user) }}" class="btn btn-primary btn-block">Profil</a>
   @endif
   <!-- /.info-box-content -->
 </div>

@@ -33,6 +33,12 @@ class CreateIdeasTable extends Migration
             $table->text('tags')->nullable();
             $table->timestamps();
             $table->softDeletes();
+
+            $table->index(['user_id', 'deleted_at']);
+            $table->index(['category', 'deleted_at']);
+            $table->index(['status', 'deleted_at']);
+            $table->index(['id', 'deleted_at']);
+            $table->index(['slug', 'deleted_at']);
         });
     }
 
@@ -43,6 +49,6 @@ class CreateIdeasTable extends Migration
      */
     public function down()
     {
-        Schema::drop('ideas');
+        Schema::dropIfExists('ideas');
     }
 }

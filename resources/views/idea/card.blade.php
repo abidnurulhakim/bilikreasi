@@ -17,10 +17,10 @@
       @endif
     </h5>
     <h6 class="card-subtitle">
-      <div class="col-md-1 col-sm-1 no-padding">
+      <div class="col-sm-1 no-padding">
         <i class="fa fa-tags text-primary"></i>   
       </div>
-      <div class="col-md-11 col-sm-11 col-padding">
+      <div class="col-sm-11 col-padding">
         @foreach($idea->tags as $tag)
           <span class="label label-info">{{ $tag }}</span>
         @endforeach

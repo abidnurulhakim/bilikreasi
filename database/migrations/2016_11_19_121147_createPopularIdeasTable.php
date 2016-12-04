@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePopular extends Migration
+class CreatePopularIdeasTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,14 +12,15 @@ class CreatePopular extends Migration
      */
     public function up()
     {
-        Schema::create('populars', function (Blueprint $table) {
+        Schema::create('popular_ideas', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('title');
-            $table->string('slug')->unique();
-            $table->boolean('publish')->default(false);
+            $table->integer('popular_id')->unsigned();
+            $table->integer('idea_id')->unsigned();
             $table->integer('order_number')->default(9);
             $table->timestamps();
             $table->softDeletes();
+
+            $table->index(['popular_id', 'idea_id', 'deleted_at']);
         }); 
     }
 
@@ -30,6 +31,6 @@ class CreatePopular extends Migration
      */
     public function down()
     {
-        Schema::drop('populars');
+        Schema::drop('popular_ideas');
     }
 }

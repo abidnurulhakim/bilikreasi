@@ -21,7 +21,7 @@ class CreateIdeaMediaTable extends Migration
             $table->timestamps();
             $table->softDeletes();
 
-            $table->index(['idea_id']);
+            $table->index(['idea_id', 'deleted_at']);
         });
     }
 

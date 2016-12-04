@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Discuss;
+namespace App\Http\Requests\Discussion;
 
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -25,6 +25,7 @@ class MessageRequest extends FormRequest
     {
         return [
             'content' => 'required',
+            'message_id_dump' => ''
         ];
     }
 }

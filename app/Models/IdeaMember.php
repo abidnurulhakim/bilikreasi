@@ -5,9 +5,9 @@ namespace App\Models;
 use App\Models\BaseModel;
 use Illuminate\Database\Eloquent\Relations\Pivot;
 
-class Member extends BaseModel
+class IdeaMember extends BaseModel
 {
-    protected $table = 'members';
+    protected $table = 'idea_members';
     protected $fillable = [
         'user_id', 'idea_id', 'join_at', 'role'
     ];

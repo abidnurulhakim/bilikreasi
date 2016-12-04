@@ -31,7 +31,7 @@
         </li>
         <li class="search-input">
           {!! Form::open(['route' => ['search.index'], 'method' => 'GET']) !!}
-          <div class="input-group col-md-12">
+          <div class="input-group col-sm-12">
             {!! Form::text('q', app('request')->input('q', ''), ['class' => 'form-control input-lg', 'placeholder' => 'Cari Ide']) !!}
             <span class="input-group-btn">
               <button type='submit' class="btn btn-lg" type="button">
@@ -83,8 +83,8 @@
                   @endif
                   <a href="{{ route('user.show', auth()->user()->username) }}" class="list-group-item"><i class="fa fa-home"></i> Beranda</a>
                   <a href="{{ route('idea.create') }}" class="list-group-item"><i class="fa fa-lightbulb-o"></i> Buat Ide Baru</a>
-                  @if(\App\Models\Member::where('user_id', auth()->user()->id)->count() > 0)
-                  <a href="{{ route('discuss.index') }}" class="list-group-item"><i class="fa fa-users"></i> Ruang Diskusi</a>
+                  @if(\App\Models\IdeaMember::where('user_id', auth()->user()->id)->count() > 0)
+                  <a href="{{ route('discussion.index') }}" class="list-group-item"><i class="fa fa-users"></i> Ruang Diskusi</a>
                   @endif
                   <a href="{{ route('user.edit', auth()->user()->username) }}" class="list-group-item"><i class="fa fa-pencil"></i> Perbaharui Profil</a>
                   <a href="{{ route('user.edit-password', auth()->user()->username) }}" class="list-group-item"><i class="fa fa-key"></i> Ganti Password</a>

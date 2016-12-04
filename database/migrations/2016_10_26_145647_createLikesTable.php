@@ -20,7 +20,7 @@ class CreateLikesTable extends Migration
             $table->timestamps();
             $table->softDeletes();
 
-            $table->index(['idea_id', 'user_id']);
+            $table->index(['idea_id', 'user_id', 'deleted_at']);
         });
     }
 
@@ -31,6 +31,6 @@ class CreateLikesTable extends Migration
      */
     public function down()
     {
-        Schema::drop('likes');
+        Schema::dropIfExists('likes');
     }
 }

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateDiscussesTable extends Migration
+class CreateSocialAccountsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,16 @@ class CreateDiscussesTable extends Migration
      */
     public function up()
     {
-        Schema::create('discusses', function (Blueprint $table) {
+        Schema::create('social_accounts', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('idea_id')->unsigned();
-            $table->string('name');
+            $table->integer('user_id')->unsigned();
+            $table->string('provider_user_id');
+            $table->string('provider_token')->nullable();
+            $table->string('provider');
             $table->timestamps();
             $table->softDeletes();
 
-            $table->index(['idea_id']);
+            $table->index(['user_id', 'provider', 'deleted_at']);
         });
     }
 
@@ -31,6 +33,6 @@ class CreateDiscussesTable extends Migration
      */
     public function down()
     {
-        Schema::drop('discusses');
+        Schema::dropIfExists('social_accounts');
     }
 }

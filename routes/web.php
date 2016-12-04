@@ -46,11 +46,12 @@ Route::group(['prefix' => '/'], function () {
     Route::get('logout', ['uses'=>'SessionController@logout', 'as' => 'session.logout', 'middleware' => 'auth']);
 
     /*route for discuss*/
-    Route::resource('discuss', 'DiscussController', ['only' => [
+    Route::resource('discussion', 'DiscussionController', ['only' => [
         'index', 'show'
     ]]);
-    Route::get('discuss/{id}/messages', ['uses'=>'DiscussController@messages', 'as' => 'discuss.messages', 'middleware' => 'auth']);
-    Route::post('discuss/{id}/message', ['uses'=>'DiscussController@sendMessage', 'as' => 'discuss.send.message', 'middleware' => 'auth']);
+    Route::get('discussion/{id}/message/unread', ['uses'=>'DiscussionController@unreadMessages', 'as' => 'discussion.message.unread', 'middleware' => 'auth']);
+    Route::get('discussion/{id}/message/read', ['uses'=>'DiscussionController@readMessages', 'as' => 'discussion.message.read', 'middleware' => 'auth']);
+    Route::post('discussion/{id}/message', ['uses'=>'DiscussionController@sendMessage', 'as' => 'discussion.send.message', 'middleware' => 'auth']);
 
     /*route for idea*/
     Route::get('idea/{slug}/invitation/{user}', ['uses'=>'IdeaController@invitation', 'as' => 'idea.invitation']);

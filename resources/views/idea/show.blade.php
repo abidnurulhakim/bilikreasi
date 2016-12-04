@@ -30,7 +30,7 @@
               </div>
 
               <div class="col-sm-12 no-padding section-idea criteria-idea">
-                <div class="col-md-6 col-padding text-center">
+                <div class="col-sm-6 col-padding text-center">
                   <i class="fa 
                   @if($idea->category == 'business')
                     fa-money

@@ -15,13 +15,15 @@ class CreateMessagesTable extends Migration
     {
         Schema::create('messages', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('discuss_id')->unsigned();
+            $table->integer('discussion_id')->unsigned();
             $table->integer('user_id')->unsigned();
             $table->text('content');
+            $table->string('type', 50)->default('text');
             $table->timestamps();
             $table->softDeletes();
 
-            $table->index(['discuss_id', 'user_id']);
+            $table->index(['discussion_id', 'user_id', 'deleted_at']);
+            $table->index(['discussion_id', 'created_at', 'deleted_at']);
         });
     }
 
@@ -32,6 +34,6 @@ class CreateMessagesTable extends Migration
      */
     public function down()
     {
-        Schema::drop('messages');
+        Schema::dropIfExists('messages');
     }
 }

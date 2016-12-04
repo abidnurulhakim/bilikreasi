@@ -2,9 +2,9 @@
 
 namespace App\Models;
 
-use App\Models\Discuss;
+use App\Models\Discussion;
 use App\Models\Idea;
-use App\Models\Member;
+use App\Models\IdeaMember;
 use App\Models\Skill;
 use App\Models\Interest;
 use App\Models\Traits\AttachableTrait;
@@ -96,6 +96,12 @@ class User extends Authenticatable
         return $this->hasMany('App\Models\Idea', 'user_id');
     }
 
+    public function discussions()
+    {
+        return $this->belongsToMany('App\Models\Discussion', 'discussion_participants', 'user_id', 'discussion_id')
+                    ->withPivot('join_at', 'last_read', 'unread_count');
+    }
+
     public function comments(Idea $idea = null)
     {
         $query = $this->hasMany('App\Models\Comment', 'user_id');
@@ -116,16 +122,16 @@ class User extends Authenticatable
 
     public function memberOf()
     {
-        return $this->belongsToMany('App\Models\Idea', 'members', 'user_id', 'idea_id');
+        return $this->belongsToMany('App\Models\Idea', 'idea_members', 'user_id', 'idea_id');
     }
 
-    public function messages(Discuss $discuss = null)
+    public function messages(Discussion $discuss = null)
     {
         $query = $this->hasMany('App\Models\Message', 'user_id');
         if (is_empty($discuss)) {
             return $query;
         }
-        return $query->where('discuss_id', $discuss->id);
+        return $query->where('discussion_id', $discuss->id);
     }
 
     public function invitations()
@@ -168,7 +174,7 @@ class User extends Authenticatable
         }
         foreach ($filter as $key => $value) {
             if ($key = 'not_member_idea') {
-                $user_ids = Member::where('idea_id', $value)
+                $user_ids = IdeaMember::where('idea_id', $value)
                                     ->select('user_id')
                                     ->get()
                                     ->map(function($member) {

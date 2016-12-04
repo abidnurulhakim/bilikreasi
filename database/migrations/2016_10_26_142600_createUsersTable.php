@@ -37,6 +37,10 @@ class CreateUsersTable extends Migration
             $table->timestamp('freeze')->nullable();
             $table->timestamps();
             $table->softDeletes();
+
+            $table->index(['deleted_at', 'id']);
+            $table->index(['deleted_at', 'email']);
+            $table->index(['deleted_at', 'username']);
         }); 
     }
 
@@ -47,6 +51,6 @@ class CreateUsersTable extends Migration
      */
     public function down()
     {
-        Schema::drop('users');
+        Schema::dropIfExists('users');
     }
 }

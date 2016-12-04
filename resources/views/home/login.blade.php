@@ -23,7 +23,7 @@
             </div>
           </div>
           <div class="col-sm-12">
-            <div class="col-xs-12 col-sm-offset-3 col-md-offset-3 col-sm-6 col-md-6 hr-custom">
+            <div class="col-xs-12 col-sm-offset-3 col-sm-6 hr-custom">
               <hr class="hr-or">
               <span class="span-or">or</span>
             </div>

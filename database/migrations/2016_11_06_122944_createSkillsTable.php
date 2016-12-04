@@ -20,6 +20,8 @@ class CreateSkillsTable extends Migration
             $table->boolean('publish')->default(true);
             $table->timestamps();
             $table->softDeletes();
+
+            $table->index(['id', 'deleted_at']);
         }); 
     }
 

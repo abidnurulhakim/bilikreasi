@@ -22,7 +22,7 @@
         </div>
       </div>
       <div class="col-sm-12">
-        <div class="col-xs-12 col-sm-12 col-md-12 hr-custom">
+        <div class="col-xs-12 col-sm-12 hr-custom">
           <hr class="hr-or">
           <span class="span-or">or</span>
         </div>

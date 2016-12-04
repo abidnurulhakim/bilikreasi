@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateBanner extends Migration
+class CreateBannersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -25,6 +25,8 @@ class CreateBanner extends Migration
             $table->integer('order_number')->default(9);
             $table->timestamps();
             $table->softDeletes();
+
+            $table->index(['id', 'deleted_at']);
         }); 
     }
 

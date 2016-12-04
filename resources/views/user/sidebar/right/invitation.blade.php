@@ -12,8 +12,10 @@
         @forelse ($invitations->chunk(3) as $chunk)
         <div class="row">
           @foreach ($chunk as $invitation)
-          <?php $idea = $invitation->idea ?>
-          <div class="col-md-4 col-padding">
+          @php
+            $idea = $invitation->idea 
+          @endphp
+          <div class="col-sm-4 col-padding">
             <div class="card">
               <div class="card-block">
                 <h5 class="card-title">
@@ -32,16 +34,19 @@
                     <i class="fa fa-bookmark-o text-primary" alt="other"></i>
                   @endif
                 </h5>
-                <h6 class="card-subtitle text-muted">
-                  <i class="fa fa-tags"></i> 
-                  @foreach($idea->tags->take(3) as $tag)
-                    <?php $labels = ['primary', 'danger', 'info', 'warning', 'success']?>
-                  <span class="label label-{{ $labels[array_rand($labels)] }}">{{ $tag->name }}</span>
-                  @endforeach
+                <h6 class="card-subtitle">
+                  <div class="col-sm-1 col-sm-1 no-padding">
+                    <i class="fa fa-tags text-primary"></i>   
+                  </div>
+                  <div class="col-sm-11 col-sm-11 col-padding">
+                    @foreach($idea->tags as $tag)
+                      <span class="label label-info">{{ $tag }}</span>
+                    @endforeach
+                  </div>
                 </h6>
               </div>
               <a href="{{ route('idea.show', $idea) }}">
-                <img src="{{ $idea->getCover(250, 150) }}" class='img-responsive' alt="{{ $idea->title }}">
+                <img src="{{ $idea->getCover(400, 200) }}" class='img-responsive' alt="{{ $idea->title }}">
               </a>
               <div class="card-block">
                 <p class="card-text">{{ str_limit(strip_tags($idea->description), 150) }}</p>
@@ -55,9 +60,10 @@
         @empty
           <h4 class="text-center text-muted">-- Belum ada undangan bergabung dari ide manapun. --</h4>
         @endforelse
-        <div class="col-md-12 text-center">
+        <div class="col-sm-12 text-center">
           {!! $invitations->links() !!}
         </div>
       </div>
     </div>
+  </div>
 @endsection

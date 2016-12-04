@@ -3,14 +3,11 @@
 namespace App\Models;
 
 use App\Models\BaseModel;
-use App\Models\IdeaTag;
 use App\Models\IdeaInvitation;
 use App\Models\Like;
-use App\Models\Member;
 use App\Models\User;
-use App\Models\Tag;
 use App\Services\IdeaService;
-use App\Services\DiscussService;
+use App\Services\DiscussionService;
 use App\Models\Traits\AttachableTrait;
 use App\Models\Traits\SluggableTrait;
 
@@ -79,7 +76,8 @@ class Idea extends BaseModel
         static::bootSluggableTrait();
         static::created(function($idea){
             IdeaService::join($idea, $idea->user, 'admin');
-            DiscussService::create($idea);
+            $discussion = DiscussionService::create($idea);
+            DiscussionService::addParticipant($discussion, $idea->user);
         });
         static::saving(function($idea){
             if ($idea->category != 'event') {
@@ -103,9 +101,9 @@ class Idea extends BaseModel
         return $this->belongsTo('App\Models\User', 'user_id');
     }
 
-    public function discusses()
+    public function discussions()
     {
-        return $this->hasMany('App\Models\Discuss', 'idea_id');
+        return $this->hasMany('App\Models\Discussion', 'idea_id');
     }
 
     public function likes()
@@ -120,7 +118,7 @@ class Idea extends BaseModel
 
     public function members()
     {
-        return $this->belongsToMany('App\Models\User', 'members', 'idea_id', 'user_id')->withPivot('join_at', 'role');
+        return $this->belongsToMany('App\Models\User', 'idea_members', 'idea_id', 'user_id')->withPivot('join_at', 'role');
     }
 
     public function media()

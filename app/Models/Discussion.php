@@ -4,26 +4,21 @@ namespace App\Models;
 
 use App\Models\BaseModel;
 
-class Discuss extends BaseModel
+class Discussion extends BaseModel
 {
-    protected $table = 'discusses';
+    protected $table = 'discussions';
     protected $fillable = [
         'idea_id', 'name'
     ];
 
-    public function users()
-    {
-        $messages = App\Models\Message::where('discuss_id', $this->id)->groupBy('user_id')->get();
-        $user_ids = [];
-        foreach ($messages as $message) {
-        	array_push($user_ids, $message->user_id);
-        }
-        return App\Models\User::whereIn('id', $user_ids)->get();
+    public function participants(){
+        return $this->belongsToMany('App\Models\User', 'discussion_participants', 'discussion_id', 'user_id')
+                    ->withPivot('last_read', 'join_at', 'unread_count');
     }
 
     public function messages()
     {
-        return $this->hasMany('App\Models\Message', 'discuss_id');
+        return $this->hasMany('App\Models\Message', 'discussion_id');
     }
 
     public function idea()

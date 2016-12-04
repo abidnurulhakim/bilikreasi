@@ -1,9 +1,10 @@
 <?php
 
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePopularIdea extends Migration
+class CreateDiscussionsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,14 +13,16 @@ class CreatePopularIdea extends Migration
      */
     public function up()
     {
-        Schema::create('popular_ideas', function (Blueprint $table) {
+        Schema::create('discussions', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('popular_id')->unsigned();
             $table->integer('idea_id')->unsigned();
-            $table->integer('order_number')->default(9);
+            $table->string('name');
             $table->timestamps();
             $table->softDeletes();
-        }); 
+
+            $table->index(['id', 'deleted_at']);
+            $table->index(['idea_id', 'deleted_at']);
+        });
     }
 
     /**
@@ -29,6 +32,6 @@ class CreatePopularIdea extends Migration
      */
     public function down()
     {
-        Schema::drop('popular_ideas');
+        Schema::dropIfExists('discussions');
     }
 }

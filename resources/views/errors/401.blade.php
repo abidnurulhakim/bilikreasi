@@ -22,7 +22,7 @@
       @forelse (App\Models\Idea::take(8)->orderBy('like_count', 'desc')->orderBy('member_count', 'desc')->get()->chunk(4) as $chunk)
         <div class="row">
           @foreach ($chunk as $idea)
-          <div class="col-md-3 col-padding">
+          <div class="col-sm-3 col-padding">
             @include('idea.card', $idea)
           </div>
           @endforeach

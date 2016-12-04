@@ -18,6 +18,8 @@ class CreateIdeaInvitations extends Migration
             $table->integer('idea_id')->unsigned();
             $table->timestamps();
             $table->softDeletes();
+
+            $table->index(['user_id', 'idea_id', 'deleted_at']);
         }); 
     }
 

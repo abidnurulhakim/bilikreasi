@@ -1,5 +1,5 @@
 @extends('layout.app')
 
 @section('content')
-  @yield('discuss-content')
+  @yield('discussion-content')
 @endsection

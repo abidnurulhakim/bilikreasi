@@ -1,4 +1,4 @@
-<div class="col-md-4">
+<div class="col-sm-4">
   <div class="box box-primary">
     <div class="box-body">
       {!! Form::open(['route' => ['search.index'], 'class' => 'card-text', 'method' => 'GET']) !!}

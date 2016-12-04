@@ -21,7 +21,7 @@ class CreateCommentsTable extends Migration
             $table->timestamps();
             $table->softDeletes();
 
-            $table->index(['idea_id', 'user_id']);
+            $table->index(['idea_id', 'user_id', 'deleted_at']);
         });
     }
 
@@ -32,6 +32,6 @@ class CreateCommentsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('comments');
+        Schema::dropIfExists('comments');
     }
 }

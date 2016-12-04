@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateMembersTable extends Migration
+class CreateDiscussionParticipantsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,16 +13,17 @@ class CreateMembersTable extends Migration
      */
     public function up()
     {
-        Schema::create('members', function (Blueprint $table) {
+        Schema::create('discussion_participants', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('idea_id')->unsigned();
+            $table->integer('discussion_id')->unsigned();
             $table->integer('user_id')->unsigned();
-            $table->string('role')->default('member');
+            $table->integer('unread_count')->unsigned()->default(0);
             $table->timestamp('join_at')->nullable();
+            $table->timestamp('last_read')->nullable();
             $table->timestamps();
             $table->softDeletes();
 
-            $table->index(['idea_id', 'user_id']);
+            $table->index(['discussion_id', 'user_id', 'deleted_at']);
         });
     }
 
@@ -33,6 +34,6 @@ class CreateMembersTable extends Migration
      */
     public function down()
     {
-        Schema::drop('members');
+        Schema::dropIfExists('discussion_participants');
     }
 }

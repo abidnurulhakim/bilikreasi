@@ -77,7 +77,7 @@ var Site = {
     Site.icheck();
     Site.autosize();
     Site.slimscroll();
-    Site.discuss();
+    Site.discussion();
     Site.carousel();
     Site.notify();
   },
@@ -251,19 +251,17 @@ var Site = {
     }
   },
   timeAgo : function() {
-    if ($('.time-humanize').length > 0) {
-      Modernizr.load({
-        load  : [
-                assets._timeago.js,
-                assets._timeago.js_id
-        ],
-        complete : function(){
-          $('.time-humanize').each(function(index){
-            $(this).timeago();
-          });
-        }
-      });
-    }
+    Modernizr.load({
+      load  : [
+              assets._timeago.js,
+              assets._timeago.js_id
+      ],
+      complete : function(){
+        $('.time-humanize').each(function(index){
+          $(this).timeago();
+        });
+      }
+    });
   },
   icheck : function() {
     if ($('input').length > 0) {
@@ -306,7 +304,7 @@ var Site = {
       });
     }
   },
-  discuss : function() {
+  discussion : function() {
     Modernizr.load({
       load  : [
               assets._discussion.js,
