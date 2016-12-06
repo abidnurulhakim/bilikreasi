@@ -13,10 +13,10 @@ class SessionController extends Controller
     {
         parent::__construct();
         $this->middleware('auth', ['except' => [
-            'login', 'register'
+            'login', 'register', 'pusherAuth'
         ]]);
         $this->middleware('guest', ['except' => [
-            'logout'
+            'logout', 'pusherAuth'
         ]]);
     }
 
@@ -47,5 +47,20 @@ class SessionController extends Controller
         \Auth::logout();
         \Session::flash('info', 'Terima kasih');
         return redirect()->route('home.index');
+    }
+
+    public function pusherAuth()
+    {
+        $user = auth()->user();
+
+        if ($user) {
+            $pusher = new \Pusher(config('broadcasting.connections.pusher.key'), config('broadcasting.connections.pusher.secret'), config('broadcasting.connections.pusher.app_id'));
+            echo $pusher->socket_auth(request()->input('channel_name'), request()->input('socket_id'));
+            return;
+        }else {
+            header('', true, 403);
+            echo "Forbidden";
+            return;
+        }
     }
 }

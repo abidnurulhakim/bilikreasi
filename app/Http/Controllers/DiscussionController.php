@@ -48,7 +48,7 @@ class DiscussionController extends Controller
     public function readMessages(Request $request, $id)
     {
         $discussion = Discussion::findOrFail($id);
-        $messages = $discussion->messages()->where('id', '<', $request->get('last_message_id', $discuss->messages()->last()->first()->id))->last()->paginate(20);
+        $messages = $discussion->messages()->where('id', '<', $request->get('last_message_id', $discussion->messages()->last()->first()->id))->last()->paginate(20);
         $result = [];
         $result['status'] = 'ok';
         $result['has_more_page'] = false;
@@ -110,6 +110,15 @@ class DiscussionController extends Controller
             return redirect()->route('discussion.show', $discussion);
         }
         return redirect()->back();
+    }
+
+    public function markAsRead($id)
+    {
+        $discussion = Discussion::findOrFail($id);
+        DiscussionService::sendMessage($discussion, auth()->user());
+        return response()->json([
+                    'status' => 'ok',
+                ]);
     }
 
     private function getDiscussions($keyword = '')

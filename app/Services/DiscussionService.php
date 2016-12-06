@@ -7,6 +7,7 @@ use App\Models\Discussion;
 use App\Models\DiscussionParticipant;
 use App\Models\Message;
 use App\Models\User;
+use App\Events\NewMessageEvent;
 
 class DiscussionService
 {
@@ -31,6 +32,7 @@ class DiscussionService
         $message->user_id = $user->id;
         $message->content = $content;
         if ($message->save()) {
+            event(new NewMessageEvent($message));
             return $message;
         }
         return null;

@@ -64,6 +64,9 @@ var assets = {
                       js : path.plugins + 'notify/bootstrap-notify.min.js',
                       animate : path.plugins + 'animate/animate.css'
                     },
+  _pusher         : {
+                      js : 'https://js.pusher.com/3.1/pusher.min.js',
+                    },
 };
 
 var Site = {

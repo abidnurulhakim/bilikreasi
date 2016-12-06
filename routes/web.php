@@ -39,6 +39,7 @@ Route::group(['prefix' => '/'], function () {
     Route::get('auth/facebook/callback', ['uses' => 'SocialAuthController@facebookCallback', 'as' => 'auth.social.facebook.callback']);
     Route::get('auth/google', ['uses' => 'SocialAuthController@googleRedirect', 'as' => 'auth.social.google']);
     Route::get('auth/google/callback', ['uses' => 'SocialAuthController@googleCallback', 'as' => 'auth.social.google.callback']);
+    Route::post('pusher/auth', ['uses'=>'SessionController@pusherAuth', 'as' => 'pusher', 'middleware' => 'auth']);
     Route::get('login', ['uses'=>'HomeController@login', 'as' => 'home.login', 'middleware' => 'guest']);
     Route::post('login', ['uses'=>'SessionController@login', 'as' => 'session.login', 'middleware' => 'guest']);
     Route::get('register', ['uses'=>'HomeController@register', 'as' => 'home.register', 'middleware' => 'guest']);

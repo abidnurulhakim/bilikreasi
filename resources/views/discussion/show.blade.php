@@ -30,7 +30,7 @@
         <!-- /.box-header -->
         <div class="box-body">
           <!-- Conversations are loaded here -->
-          <div class="direct-chat-messages slimscroll" id="discussion-idea" data-user-name="{{ auth()->user()->name }}" data-user-photo="{{ auth()->user()->getPhoto(128) }}" data-user-id="{{ auth()->user()->id }}" data-url-read-message="{{ route('discussion.message.read', $discussion) }}" data-url-unread-message="{{ route('discussion.message.unread', $discussion) }}" data-has-more-page="{{ $messages->hasMorePages() }}">
+          <div class="direct-chat-messages slimscroll" id="discussion-idea" data-id="{{ $discussion->id }}" data-user-name="{{ auth()->user()->name }}" data-user-photo="{{ auth()->user()->getPhoto(128) }}" data-user-id="{{ auth()->user()->id }}" data-url-read-message="{{ route('discussion.message.read', $discussion) }}" data-url-unread-message="{{ route('discussion.message.unread', $discussion) }}" data-has-more-page="{{ $messages->hasMorePages() }}">
             @if($messages->hasMorePages())
             <div class='col-sm-12 text-center hidden' id="alert_loading">
               <i class="fa fa-spinner fa-pulse fa-lg fa-fw"></i><span class="sr-only">Loading...</span>

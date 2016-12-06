@@ -75,8 +75,8 @@ class Idea extends BaseModel
         static::bootAttachableTrait();
         static::bootSluggableTrait();
         static::created(function($idea){
-            IdeaService::join($idea, $idea->user, 'admin');
             $discussion = DiscussionService::create($idea);
+            IdeaService::join($idea, $idea->user, 'admin');
             DiscussionService::addParticipant($discussion, $idea->user);
         });
         static::saving(function($idea){
