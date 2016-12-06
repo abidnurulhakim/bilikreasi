@@ -53,7 +53,7 @@
     @include('layout.footer')
     <script src="{{ asset('assets/js/modernizr.min.js') }}"></script>
     <script type="text/javascript"> var myPrefix = '{{ asset('') }}';</script>
-    <script type="text/javascript"> var pusherKey = '{{ '29b5382d0127c14bb0d3' }}';</script>
+    <script type="text/javascript"> var pusherKey = '{{ config('broadcasting.connections.pusher.key') }}';</script>
     <script src="{{ asset('assets/js/app.js') }}"></script>
     <link href="{{ asset('assets/css/app.css') }}" rel="stylesheet">
 </body>
