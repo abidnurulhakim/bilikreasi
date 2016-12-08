@@ -43,6 +43,7 @@ Route::group(['prefix' => '/'], function () {
     Route::get('login', ['uses'=>'HomeController@login', 'as' => 'home.login', 'middleware' => 'guest']);
     Route::post('login', ['uses'=>'SessionController@login', 'as' => 'session.login', 'middleware' => 'guest']);
     Route::get('register', ['uses'=>'HomeController@register', 'as' => 'home.register', 'middleware' => 'guest']);
+    Route::get('register/confirmation/{id}', ['uses'=>'HomeController@accountConfirmation', 'as' => 'home.register.confirmation']);
     Route::post('register', ['uses'=>'SessionController@register', 'as' => 'session.register', 'middleware' => 'guest']);
     Route::get('logout', ['uses'=>'SessionController@logout', 'as' => 'session.logout', 'middleware' => 'auth']);
 

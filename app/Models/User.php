@@ -25,7 +25,7 @@ class User extends Authenticatable
 
     protected $fillable = [
         'name', 'email', 'secret_password', 'hash_password', 'confirmed', 'role', 'last_login_at', 'last_login_ip_address',
-        'birthday', 'username', 'gender', 'photo','phone_number', 'profession', 'live_at', 'skills', 'interests'
+        'birthday', 'username', 'gender', 'photo','phone_number', 'profession', 'live_at', 'skills', 'interests', 'token_confirmation'
     ];
 
     protected $dates = [
@@ -62,7 +62,7 @@ class User extends Authenticatable
         parent::boot();
         static::bootAttachableTrait();
         static::creating(function($user){
-            $user->confirmed = true;
+            $user->token_confirmation = str_random(66);
         });
         static::saving(function($user){
             if (!is_array($user->skills) ) {

@@ -32,6 +32,7 @@ class SocialAccountService
                 $user->name = $providerUser->getName();
                 $user->password = 'bilikreasiok';
                 $user->gender = 'male';
+                $user->confirmed = true;
                 if (!empty($providerUser->getAvatar())) {
                     $img = \Image::make($providerUser->getAvatar());
                     $filename = 'storage/'.$user->attachmentable['photo']['path']['storage']."/".uniqid().'.jpg';

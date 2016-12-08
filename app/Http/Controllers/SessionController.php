@@ -36,7 +36,7 @@ class SessionController extends Controller
         $request->merge(['last_login_at' => \Carbon::now(), 'last_login_ip_address' => $request->ip()]);
         $user = UserService::register($request->all());
         if ($user) {
-            \Session::flash('success', "Anda masuk sebagai $user->name");
+            \Session::flash('success', "Selamat datang $user->name, tolong cek inbox/spam email Anda untuk konfirmasi akun Anda");
             return redirect()->route('user.show', $user);
         }
         return redirect()->route('home.register');

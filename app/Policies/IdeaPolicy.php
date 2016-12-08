@@ -30,7 +30,7 @@ class IdeaPolicy
      */
     public function create(User $user)
     {
-        return $user->confirmed;
+        return true;
     }
 
     /**

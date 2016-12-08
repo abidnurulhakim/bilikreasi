@@ -44,6 +44,10 @@ class IdeaController extends Controller
     public function create()
     {
         $this->authorize('create', Idea::class);
+        if (!auth()->user()->confirmed) {
+            \Session::flash('success', "Tolong cek inbox/spam email Anda untuk konfirmasi akun Anda, agar Anda dapat membuat ide");
+            return redirect()->back();
+        }
         \View::share('pageTitle', 'Buat Ide Baru');
         $tags = Tag::publish()->get()->map(function($tag) {
             return $tag->name; })->toArray();

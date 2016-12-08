@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Banner;
 use App\Models\Popular;
+use App\Services\UserService;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -43,4 +44,13 @@ class HomeController extends Controller
         return view('home.register');
     }
 
+    public function accountConfirmation(Request $request, $id)
+    {
+        if ($request->get('token') && UserService::confirmation($id, $request->get('token'))) {
+            \Session::flash('success', "Terima kasih konfirmasi akun Anda");
+        } else {
+            \Session::flash('error', "Token Anda tidak sesuai");
+        }
+        return redirect('home.index');
+    }
 }
