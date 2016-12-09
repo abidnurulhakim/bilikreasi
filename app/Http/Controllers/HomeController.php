@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Banner;
 use App\Models\Popular;
+use App\Models\User;
 use App\Services\UserService;
 use Illuminate\Http\Request;
 
@@ -51,6 +52,10 @@ class HomeController extends Controller
         } else {
             \Session::flash('error', "Token Anda tidak sesuai");
         }
-        return redirect('home.index');
+        $user = User::find($id);
+        if ($user) {
+            return redirect()->route('user.show', $user);
+        }
+        return redirect()->route('home.login');
     }
 }
