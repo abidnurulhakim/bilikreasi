@@ -8,11 +8,12 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class AccountConfirmation extends Mailable
+class AccountConfirmation extends Mailable implements ShouldQueue
 {
     use Queueable, SerializesModels;
 
     public $user;
+    public $mailQueue = 'email-register-confirmation';
     /**
      * Create a new message instance.
      *
@@ -30,6 +31,8 @@ class AccountConfirmation extends Mailable
      */
     public function build()
     {
-        return $this->to($this->user->email, $this->user->name)->subject('Konfirmasi Akun')->view('emails.user.account-confirmation');
+        return $this->to($this->user->email, $this->user->name)
+            ->subject('Konfirmasi Akun')
+            ->view('emails.user.account-confirmation');
     }
 }

@@ -52,4 +52,9 @@ return [
         'redirect' => env('GOOGLE_APP_REDIRECT'),
     ],
 
+    'sendgrid' => [
+        'api_key' => env('SENDGRID_API_KEY'),
+        'version' => 'v3',
+    ],
+
 ];

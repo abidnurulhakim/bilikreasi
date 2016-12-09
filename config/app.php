@@ -181,6 +181,7 @@ return [
         Collective\Html\HtmlServiceProvider::class,
         Jenssegers\Rollbar\RollbarServiceProvider::class,
         Laravel\Socialite\SocialiteServiceProvider::class,
+        Sichikawa\LaravelSendgridDriver\SendgridTransportServiceProvider::class,
     ],
 
     /*

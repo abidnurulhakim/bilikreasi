@@ -8,12 +8,14 @@ use Illuminate\Queue\SerializesModels;
 use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Broadcasting\PresenceChannel;
 use Illuminate\Broadcasting\InteractsWithSockets;
+use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
-class NewMessageEvent implements ShouldBroadcast 
+class NewMessageEvent implements ShouldBroadcast, ShouldQueue
 {
-    use SerializesModels;
+    use Queueable, SerializesModels;
     public $message;
+    public $broadcastQueue = 'broadcast-discussion-message';
 
     /**
      * Create a new event instance.
