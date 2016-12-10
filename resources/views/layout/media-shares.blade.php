@@ -8,7 +8,7 @@
     </a>
   </li>
   <li>
-    <a href="https://twitter.com/intent/tweet?text={{ urlencode(str_limit($idea->title, 100)) }}&url={{ urlencode(route('idea.show', $idea)) }}" class='twitter'>
+    <a href="https://twitter.com/intent/tweet?text={{ urlencode(str_limit($idea->title, 100)) }}&url={{ urlencode(route('idea.show', $idea)) }}" target="_blank">
       <span class="fa-stack fa-lg">
         <i class="fa fa-circle fa-stack-2x"></i>
         <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>

@@ -3136,16 +3136,78 @@ h6.header-index {
     max-width: 100%;
     display: block;
 }
+.card__image .card__date {
+  position: absolute;
+  top: 5px;
+  right: 10px;
+  z-index: 1;
+  background: rgba(81, 175, 174, 0.75);;
+  width: 55px;
+  height: 55px;
+  padding: 10px 0;
+  border-radius: 100%;
+  color: #fff;
+  font-weight: 700;
+  text-align: center;
+}
+.card__image .card__date .card__date__day {
+  font-size: 1.5rem;
+}
+.card__image .card__date .card__date__year {
+  padding-top: 8px;
+  font-size: 1.6rem; 
+}
+.card__image .card__date .card__date__month {
+  font-size: 1.3rem;
+  text-transform: uppercase;
+}
+.card__image .card__like {
+  position: absolute;
+  top: 5px;
+  left: 10px;
+  z-index: 1;
+  background: transparent;
+  width: 40px;
+  height: 40px;
+  padding: 10px 0;
+  font-size: 2rem;
+  border-radius: 100%;
+  border: 2px solid #fff;
+  color: #fff;
+  font-weight: 700;
+  text-align: center;
+  font-weight: bold;
+  color: #fff;
+}
+.card__image .card__like:hover {
+  color: #51AFAE;
+  border: 2px solid rgba(81, 175, 174, 1);
+}
+.card__image .card__like.active {
+  color: #51AFAE;
+  border: 2px solid rgba(81, 175, 174, 1);
+}
 
 .card__content {
     position: relative;
 }
+.card__content .card__category {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background: rgba(81, 175, 174, 0.75);
+  padding: 10px 15px;
+  color: #fff;
+  font-size: 1.5rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
 
 /* card meta */
 .card__meta time {
-    font-size: 1.5rem;
-    color: #bbb;
-    margin-left: 0.8rem;
+  font-size: 1.5rem;
+  color: #bbb;
+  margin-left: 0.8rem;
 }
 
 /* card article */
@@ -3176,19 +3238,27 @@ h6.header-index {
   overflow: hidden;
   padding: 1.3rem;  
 }
-     
-.card__author {}
 
-.card__author img,
-.card__author-content {
+.card__footer img,
+.card__footer-content {
   display: inline-block;
   vertical-align: middle;
 }
 
-.card__author img{
+.card__footer img{
   width: 40px;
   border-radius: 50%;
   margin-right: 0.6em;
+}
+.card__footer span.card__member__more { 
+  display: inline-block; 
+  width: 40px;
+  height: 40px; 
+  margin: 0 2px 0 0; 
+  line-height: 40px; 
+  vertical-align: middle;
+  font-size: 2rem;
+  color: #777;
 }
 
 .card__share {
