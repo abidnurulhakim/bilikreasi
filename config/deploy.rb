@@ -44,6 +44,7 @@ namespace :deploy do
       execute "cd '#{release_path}'; composer install"
       execute "cd '#{release_path}'; php artisan migrate -n"
       execute "cd '#{release_path}'; php artisan storage:link"
+      execute "cd '#{release_path}'; composer dump-autoload"
     end
   end
 

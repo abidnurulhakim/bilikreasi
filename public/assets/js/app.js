@@ -83,6 +83,7 @@ var Site = {
     Site.discussion();
     Site.carousel();
     Site.notify();
+    Site.shareCard();
   },
   moment : function() {
     if ($('.date-time-picker').length > 0) {
@@ -378,6 +379,15 @@ var Site = {
         '<a href="{3}" target="{4}" data-notify="url"></a>' +
       '</div>' 
     });
+  },
+  shareCard : function () {
+    if ($('.card__share > a').length > 0) {
+      $('.card__share > a').on('click', function(e){ 
+        e.preventDefault() // prevent default action - hash doesn't appear in url
+        $(this).parent().find( 'div' ).toggleClass( 'card__social--active' );
+        $(this).toggleClass('share-expanded');
+      });  
+    }
   },
 };
 
