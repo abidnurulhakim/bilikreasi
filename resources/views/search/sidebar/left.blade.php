@@ -2,7 +2,6 @@
   <div class="box box-primary">
     <div class="box-body">
       {!! Form::open(['route' => ['search.index'], 'class' => 'card-text', 'method' => 'GET']) !!}
-      <form class="card-text">
         <div class="form-group">
           {{ Form::text('q', app('request')->input('q'), ['class' => 'form-control', 'type' => 'search', 'id' => 'search-input', 'aria-describedby' => 'search-input', 'placeholder' => 'Pencaharian Ide']) }}
           <small id="search-help" class="form-text text-muted">Contoh: "Photograph, Web Developer, ..."</small>

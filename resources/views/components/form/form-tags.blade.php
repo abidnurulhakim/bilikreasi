@@ -12,7 +12,6 @@
   ?>
   {{ Form::label($name, $labelName) }}
   <small>*Gunakan <b>tanda koma (,)</b> sebagai pemisah</small>
-  <br>
   @php
     if(!is_null($value) && is_array($value)){
       foreach($value as $val){

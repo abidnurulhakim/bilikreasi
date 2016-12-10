@@ -29,16 +29,12 @@
             </div>
           </ul>
         </li>
-        <li class="search-input">
-          {!! Form::open(['route' => ['search.index'], 'method' => 'GET']) !!}
-          <div class="input-group col-sm-12">
-            {!! Form::text('q', app('request')->input('q', ''), ['class' => 'form-control input-lg', 'placeholder' => 'Cari Ide']) !!}
-            <span class="input-group-btn">
-              <button type='submit' class="btn btn-lg" type="button">
-                <i class="fa fa-search"></i>
-              </button>
+        <li class="search-menu">
+          {!! Form::open(['route' => ['search.index'], 'method' => 'GET', 'class' => 'searchbox']) !!}
+            {!! Form::text('q', app('request')->input('q', ''), ['class' => 'searchbox-input', 'placeholder' => 'Cari Ide']) !!}
+            <span class="input-group-btn searchbox-icon">
+              <i class="fa fa-search"></i>
             </span>
-          </div>
           {!! Form::close() !!}
         </li>
       </ul>

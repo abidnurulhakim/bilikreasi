@@ -20,14 +20,13 @@ class SearchController extends Controller
      */
     public function index(IndexRequest $request)
     {
-    	\View::share('pageTitle', 'Cari Ide');
+    	\View::share('pageHeader', false);
         $tags = [];
         foreach (Tag::publish()->get() as $tag){
             $tags[$tag->name] = $tag->name;
         }
         $keyword = $request->get('q', '');
         $filter = [];
-        $tagSelected = $request->get('tags', []);
         if (!empty($tagSelected)) {
             $filter['tags'] = $tagSelected;
         }

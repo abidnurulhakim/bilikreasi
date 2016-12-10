@@ -67,6 +67,9 @@ var assets = {
   _pusher         : {
                       js : 'https://js.pusher.com/3.1/pusher.min.js',
                     },
+  _masonry        : {
+                      js : path.plugins + 'masonry/masonry.min.js',
+                    },
 };
 
 var Site = {
@@ -84,6 +87,8 @@ var Site = {
     Site.carousel();
     Site.notify();
     Site.shareCard();
+    Site.searchbar();
+    Site.masonry();
   },
   moment : function() {
     if ($('.date-time-picker').length > 0) {
@@ -387,6 +392,34 @@ var Site = {
         $(this).parent().find( 'div' ).toggleClass( 'card__social--active' );
         $(this).toggleClass('share-expanded');
       });  
+    }
+  },
+  searchbar : function(){
+    $isOpen = false;
+    $('.searchbox-icon').click(function(){
+      if($isOpen == false){
+        $('.searchbox').addClass('searchbox-open');
+        $('.searchbox-input').focus();
+        $isOpen = true;
+      } else {
+        $('.searchbox').removeClass('searchbox-open');
+        $('.searchbox-input').focusout();
+        $isOpen = false;
+      }
+    });
+  },
+  masonry : function(){
+    if ($('.grid').length > 0) {
+      Modernizr.load({
+      load  : [
+              assets._masonry.js,
+      ],
+      complete : function(){
+          $('.grid').masonry({
+            itemSelector: '.grid-item',
+          });
+        }
+      });
     }
   },
 };
