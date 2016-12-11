@@ -36,7 +36,8 @@ class SearchController extends Controller
         if (!empty($request->get('status', ''))) {
             $filter['status'] = $request->get('status');
         }
-        $ideas = Idea::search($keyword, $filter)->paginate(10);
+        $ideas = Idea::search($keyword, $filter)->paginate(12);
+        $ideas->appends($request->all());
         if (Request()->ajax()) {
             return view('search.index-ajax', compact('ideas'));
         }
@@ -66,6 +67,7 @@ class SearchController extends Controller
             $filter['interest'] = $interestSelected;
         }
         $users = User::search($keyword, $filter)->paginate(12);
+        $users->appends($request->all());
         return view('partner.index', compact('idea','interests', 'interestSelected', 'skills', 'skillSelected', 'users'));
     }
 }
