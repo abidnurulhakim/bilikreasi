@@ -3543,3 +3543,7 @@ input[type="search"].select2-search__field {
   box-shadow: none;
   -webkit-appearance: textfield;
 }
+
+.grid {
+  margin-top: 10px;
+}

@@ -70,6 +70,9 @@ var assets = {
   _masonry        : {
                       js : path.plugins + 'masonry/masonry.min.js',
                     },
+  _infiniteScroll : {
+                      js : path.plugins + 'infinite-scroll/jquery.infinitescroll.min.js',
+                    },
 };
 
 var Site = {
@@ -88,7 +91,7 @@ var Site = {
     Site.notify();
     Site.shareCard();
     Site.searchbar();
-    Site.masonry();
+    Site.masonryLoad();
   },
   moment : function() {
     if ($('.date-time-picker').length > 0) {
@@ -408,20 +411,36 @@ var Site = {
       }
     });
   },
-  masonry : function(){
+  masonryLoad : function(){
     if ($('.grid').length > 0) {
       Modernizr.load({
-      load  : [
-              assets._masonry.js,
-      ],
-      complete : function(){
-          $('.grid').masonry({
-            itemSelector: '.grid-item',
-          });
-        }
+        load  : [
+                assets._masonry.js,
+                assets._infiniteScroll.js
+        ],
+        complete : Site.masonryInit
       });
     }
   },
+  masonryInit : function(){
+    $('.grid').masonry({
+      itemSelector: '.grid-item',
+    });
+    Site.masonryLoadMore();
+  },
+  masonryLoadMore : function() {
+    $('.grid').infinitescroll({
+      navSelector  : ".read-more",
+      nextSelector : ".read-more a",
+      itemSelector : ".grid-item",
+      loading: {
+        finishedMsg: 'No more pages to load.'
+        }
+      },
+      function( $newElements ) {
+        $('.grid').masonry( 'appended', $newElements, true );
+    });
+  }
 };
 
 var checkJquery = function () {

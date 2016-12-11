@@ -45,4 +45,9 @@
       <h4 class="text-center text-muted">-- Tidak ada ide yang ditemukan --</h4>
     @endforelse
   </div>
+  @if($ideas->hasMorePages())
+    <div class="grid-item read-more hidden">
+      <a href="{{ $ideas->nextPageUrl() }}"></a>
+    </div>
+  @endif
 @endsection

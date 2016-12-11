@@ -37,6 +37,9 @@ class SearchController extends Controller
             $filter['status'] = $request->get('status');
         }
         $ideas = Idea::search($keyword, $filter)->paginate(10);
+        if (Request()->ajax()) {
+            return view('search.index-ajax', compact('ideas'));
+        }
         return view('search.index', compact('tags', 'tagSelected', 'ideas'));
     }
 
