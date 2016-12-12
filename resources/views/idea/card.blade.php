@@ -16,9 +16,9 @@
     </div>
     @if(\Auth::check())
       @if($idea->hasLike(auth()->user()))
-        <a href="{{ route('idea.unlike', ['idea' => $idea, 'user' => auth()->user()]) }}" class="card__like fa fa-heart active"></a>
+        <a href="{{ route('idea.unlike', ['idea' => $idea, 'user' => auth()->user()]) }}" class="card__like fa fa-heart active" title="{{ $idea->like_count }} menyukai"></a>
       @else
-        <a href="{{ route('idea.like', ['idea' => $idea, 'user' => auth()->user()]) }}" class="card__like fa fa-heart"></a>
+        <a href="{{ route('idea.like', ['idea' => $idea, 'user' => auth()->user()]) }}" class="card__like fa fa-heart" title="{{ $idea->like_count }} menyukai"></a>
       @endif
     @endif
     <img src="{{ $idea->getCover(400, 250) }}" alt="image" class="border-tlr-radius">
@@ -55,7 +55,11 @@
   </div>
   <div class="card__action">
     <div class="card__footer">
-    @if(empty($user))
+    @if(isset($invitation))
+      <a href="{{ route('idea.join', $idea) }}" class="pull-left btn btn-primary btn-block">Gabung</a>
+    @elseif(isset($user))
+      <i class="fa fa-clock-o" aria-hidden="true"></i> <small>Bergabung sejak <span class="time-humanize " title="{{ Carbon::parse($idea->members()->find($user->id)->pivot->join_at)->toIso8601String() }}"></span></small>
+    @else
       @foreach($idea->members->take(4) as $member)
       <a href="{{ route('user.show', $member) }}">
         <img src="{{ $member->getPhoto(40) }}" alt="{{ $member->name }}" title="{{ $member->name }}">
@@ -64,8 +68,6 @@
       @if($idea->members->count() > 4)
       <span class="card__member_more">(+{{ $idea->members->count() - 4 }})</span>
       @endif
-    @else
-      <i class="fa fa-clock-o" aria-hidden="true"></i> <small>Bergabung sejak <span class="time-humanize " title="{{ Carbon::parse($idea->members()->find($user->id)->pivot->join_at)->toIso8601String() }}"></span></small>
     @endif
     </div>
   </div>

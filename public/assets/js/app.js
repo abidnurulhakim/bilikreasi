@@ -27,10 +27,6 @@ var assets = {
                       css : path.plugins + 'kartik/file-input/css/fileinput.min.css',
                       js : path.plugins + 'kartik/file-input/js/fileinput.min.js'
                     },
-  _navtab         : { 
-                      css : path.plugins + 'kartik/tabs-x/css/bootstrap-tabs-x.min.css',
-                      js : path.plugins + 'kartik/tabs-x/js/bootstrap-tabs-x.min.js'
-                    },
   _select2        : { 
                       css : path.plugins + 'select2/css/select2.min.css',
                       js : path.plugins + 'select2/js/select2.full.min.js'
@@ -73,13 +69,20 @@ var assets = {
   _infiniteScroll : {
                       js : path.plugins + 'infinite-scroll/jquery.infinitescroll.min.js',
                     },
+  _materialize    : {
+                      css : path.plugins + 'materialize/css/materialize.min.css',
+                      js : path.plugins + 'materialize/js/materialize.min.js',
+                    },
+  _tooltip        : {
+                      css : path.plugins + 'tooltipster/css/tooltipster.bundle.min.css',
+                      js : path.plugins + 'tooltipster/js/tooltipster.bundle.min.js',
+                    },
 };
 
 var Site = {
   init : function() {
     Site.moment();
     Site.fileInput();
-    Site.navtab();
     Site.select2();
     Site.textEditor();
     Site.timeAgo();
@@ -92,6 +95,7 @@ var Site = {
     Site.shareCard();
     Site.searchbar();
     Site.masonryLoad();
+    Site.tooltip();
   },
   moment : function() {
     if ($('.date-time-picker').length > 0) {
@@ -398,16 +402,13 @@ var Site = {
     }
   },
   searchbar : function(){
-    $isOpen = false;
     $('.searchbox-icon').click(function(){
-      if($isOpen == false){
+      if($('.searchbox.searchbox-open').length == 0){
         $('.searchbox').addClass('searchbox-open');
         $('.searchbox-input').focus();
-        $isOpen = true;
       } else {
         $('.searchbox').removeClass('searchbox-open');
         $('.searchbox-input').focusout();
-        $isOpen = false;
       }
     });
   },
@@ -440,7 +441,25 @@ var Site = {
       function( $newElements ) {
         $('.grid').masonry( 'appended', $newElements, true );
     });
-  }
+  },
+  tooltip : function(){
+    if ($('.tooltipster').length > 0) {
+      Modernizr.load({
+        load  : [
+                assets._tooltip.css,
+                assets._tooltip.js
+        ],
+        complete : function() {
+          $('.tooltipster').each(function(e){
+            $(this).tooltipster({
+              theme: ['tooltipster-noir', 'tooltipster-noir-customized'],
+              side: $(this).data('placement')
+            });
+          });
+        }
+      });
+    }
+  },
 };
 
 var checkJquery = function () {
@@ -457,6 +476,7 @@ Modernizr.load({
   load    : [
     assets._jquery_local.js,
     assets._fontawesome.css,
+    assets._materialize.js,
     assets._bootstrap.css,
     assets._bootstrap.js
   ],

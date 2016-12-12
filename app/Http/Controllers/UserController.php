@@ -37,12 +37,15 @@ class UserController extends Controller
      */
     public function show($username)
     {
-        \View::share('pageTitle', 'Buat Ide Baru');
+        \View::share('pageHeader', false);
         $user = User::where('username', $username)->firstOrFail();
         if (empty($user)) {
             return redirect(404);
         }
-        $ideas = $user->memberOf()->paginate(9);
+        $ideas = $user->memberOf()->paginate(12);
+        if (Request()->ajax()) {
+            return view('user.show-ajax', compact('ideas'));
+        }
         return view('user.show', compact('user', 'ideas'));
     }
 
@@ -127,9 +130,12 @@ class UserController extends Controller
 
     public function invitation($username)
     {
-        \View::share('pageTitle', 'Undangan Bergabung');
+        \View::share('pageHeader', false);
         $user = User::where('username', $username)->firstOrFail();
-        $invitations = $user->invitations()->paginate(9);
+        $invitations = $user->invitations()->paginate(6);
+        if (Request()->ajax()) {
+            return view('user.invitation-ajax', compact('user', 'invitations'));
+        }
         return view('user.invitation', compact('user', 'invitations'));
     }
 }

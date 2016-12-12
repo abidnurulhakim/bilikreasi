@@ -48,6 +48,21 @@
     <div class="container">
       @include('layout.page-header')
       @yield('content')
+      @if(auth()->check())
+      <div class="fixed-action-btn">
+        <a class="btn-floating btn-large red">
+          <i class="fa fa-bars fa-lg"></i>
+        </a>
+        <ul>
+          <li><a class="btn-floating tooltipster" href="{{ route('user.show', auth()->user()->username) }}" data-placement="left" title="Beranda"><i class="fa fa-home"></i></a></li>  
+          <li><a class="btn-floating tooltipster" href="{{ route('idea.create') }}" data-placement="left" title="Buat Ide"><i class="fa fa-lightbulb-o"></i></a></li>
+          <li><a class="btn-floating tooltipster" href="{{ route('discussion.index') }}" data-placement="left" title="Ruang diskusi"><i class="fa fa-comments"></i></a></li>
+          <li><a class="btn-floating tooltipster" href="{{ route('user.edit', auth()->user()->username) }}" data-placement="left" title="Perbarui profil"><i class="fa fa-user"></i></a></li>
+          <li><a class="btn-floating tooltipster" href="{{ route('user.edit-password', auth()->user()->username) }}" data-placement="left" title="Ganti password"><i class="fa fa-lock"></i></a></li>
+          <li><a class="btn-floating tooltipster" href="{{ route('session.logout') }}" data-placement="left" title="Keluar"><i class="fa fa-sign-out"></i></a></li>
+        </ul>
+      </div>
+      @endif
     </div>
     <!-- /.container -->
     @include('layout.footer')

@@ -40,13 +40,13 @@
                 </div>
               @endif
               <div class="input-group">
-                <span class="input-group-addon btn-primary"><span class="fa fa-user fa-lg"></span></span>
+                <span class="input-group-addon btn-primary"><span class="fa fa-user"></span></span>
                 {!! Form::text('username', old('username'), ['class' => 'form-control', 'placeholder' => 'Masukkan Username/Email Anda']) !!}
               </div>
               <span class="help-block"></span>
               <div class="input-group">
-                <span class="input-group-addon btn-primary"><span class="fa fa-lock fa-lg"></span></span>
-                {!! Form::password('password', ['class' => 'form-control']) !!}
+                <span class="input-group-addon btn-primary"><span class="fa fa-lock"></span></span>
+                {!! Form::password('password', ['class' => 'form-control', 'placeholder' => 'Password']) !!}
               </div>
               <br>
               <button class="btn btn-lg btn-primary btn-block" type="submit"><i class="fa fa-sign-in"></i> Masuk</button>
