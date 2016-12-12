@@ -48,7 +48,7 @@
     <div class="container">
       @include('layout.page-header')
       @yield('content')
-      @if(auth()->check())
+      @if(false)
       <div class="fixed-action-btn">
         <a class="btn-floating btn-large red">
           <i class="fa fa-bars fa-lg"></i>

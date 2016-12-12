@@ -1043,11 +1043,9 @@ button.list-group-item-danger.active:hover {
 }
 .navbar-default .navbar-nav>.user-menu.open>a,
 .navbar-default .navbar-nav>.user-menu.open>a:hover,
-.navbar-default .navbar-nav>.user-menu.open>a:focus {
-  padding: 0 6px;
+.navbar-default .navbar-nav>.user-menu.open>a:focus {  
   color: #fff;
   background: #51afae;
-  border: 2px solid #fff; 
 }
 
 .navbar-default .navbar-nav>.user-menu>a,
@@ -1103,9 +1101,12 @@ a.user-menu-mobile {
   font-size: 12px;
 }
 .navbar-nav > .user-menu > .dropdown-menu > .user-body {
-  padding: 15px;
+  padding: 12px;
   border-bottom: 1px solid #f4f4f4;
   border-top: 1px solid #dddddd;
+}
+.navbar-nav > .user-menu > .dropdown-menu > .user-body > .list-group {
+  margin-bottom: 0;
 }
 .navbar-nav > .user-menu > .dropdown-menu > .user-body:before,
 .navbar-nav > .user-menu > .dropdown-menu > .user-body:after {
@@ -1210,7 +1211,7 @@ a.user-menu-mobile {
 }
 .dropdown-menu {
   padding: 12px;
-  min-width: 300px;
+  min-width: 250px;
 }
 .dropdown.user-menu > .dropdown-toggle{
   padding: 0;
@@ -3731,3 +3732,4 @@ button.btn-floating {
   left: -3px;
   top: 0;
 }
+

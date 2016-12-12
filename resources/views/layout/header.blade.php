@@ -60,21 +60,14 @@
       <ul class="nav navbar-nav pull-right hidden-xs">
         <!-- User Account: style can be found in dropdown.less -->
         @if(\Auth::check())
+          <li class="pull-left" style="margin: 0 15px">
+            <a href="{{ route('idea.create') }}" class="btn btn-primary"><i class="fa fa-pencil"></i> Buat Ide</a>  
+          </li>
           <li class="dropdown user-menu pull-right hidden-xs">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <img src="{{ \Auth::user()->getPhoto(50) }}" class="img-circle" alt="User Image">
-              <span>{{ str_limit(\Auth::user()->name, 30) }}</span>
-              <span class="fa fa-caret-down fa-inverse"></span>
+              <img src="{{ \Auth::user()->getPhoto(50) }}" class="img-circle" alt="{{ \Auth::user()->name }}">
             </a>
             <ul class="dropdown-menu">
-              <!-- User image -->
-              <li class="user-header">
-                <img src="{{ \Auth::user()->getPhoto(100,100) }}" class="img-circle" alt="User Image">
-                <p>
-                  {{ \Auth::user()->name }}
-                  <small>Bergabung sejakt {{ \Auth::user()->created_at->format('%B %Y') }}</small>
-                </p>
-              </li>
               <!-- Menu Body -->
               <li class="user-body">
                 <div class="list-group">
@@ -84,9 +77,9 @@
                   <a href="{{ route('user.show', auth()->user()->username) }}" class="list-group-item"><i class="fa fa-home"></i> Beranda</a>
                   <a href="{{ route('idea.create') }}" class="list-group-item"><i class="fa fa-lightbulb-o"></i> Buat Ide Baru</a>
                   @if(\App\Models\IdeaMember::where('user_id', auth()->user()->id)->count() > 0)
-                  <a href="{{ route('discussion.index') }}" class="list-group-item"><i class="fa fa-users"></i> Ruang Diskusi</a>
+                  <a href="{{ route('discussion.index') }}" class="list-group-item"><i class="fa fa-comments"></i> Ruang Diskusi</a>
                   @endif
-                  <a href="{{ route('user.edit', auth()->user()->username) }}" class="list-group-item"><i class="fa fa-pencil"></i> Perbaharui Profil</a>
+                  <a href="{{ route('user.edit', auth()->user()->username) }}" class="list-group-item"><i class="fa fa-user"></i> Perbaharui Profil</a>
                   <a href="{{ route('user.edit-password', auth()->user()->username) }}" class="list-group-item"><i class="fa fa-key"></i> Ganti Password</a>
                 </div>
               </li>
