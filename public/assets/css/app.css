@@ -3311,67 +3311,6 @@ h6.header-index {
       color: #eee;
   }
 
-/*
-  Form input component
-*/
-input[type="text"],
-input[type="date"],
-input[type="datetime"],
-input[type="email"],
-input[type="number"],
-input[type="search"],
-input[type="time"],
-input[type="url"],
-input[type="password"]
-{
-  box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  outline: none;
-  display: block;
-  width: 100%;
-  border: none;
-  border-bottom: 2px solid #51afae;
-  background: transparent;
-  margin-bottom: 10px;
-  font: 16px Arial, Helvetica, sans-serif;
-  height: 45px;
-}
-
-input[type="text"]:focus,
-input[type="date"]:focus,
-input[type="datetime"]:focus,
-input[type="email"]:focus,
-input[type="number"]:focus,
-input[type="search"]:focus,
-input[type="time"]:focus,
-input[type="url"]:focus,
-input[type="password"]:focus
-{
-  box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  outline: none;
-  display: block;
-  width: 100%;
-  border: none;
-  border-bottom: 2px solid #51afae;
-  background: transparent;
-  font: 16px Arial, Helvetica, sans-serif;
-  height: 45px;
-}
-
-.input-group-addon {
-  color: #fff;
-  min-width: 45px;
-  background: #51afae;
-}
-.form-control:focus {
-  border: none;
-  -moz-box-shadow: inset 0 0px 0px rgba(0,0,0,0), 0 0 0px rgba(0, 0, 0, 0);
-  -webkit-box-shadow: inset 0 0px 0px rgba(0,0,0,0), 0 0 0px rgba(0, 0, 0, 0);
-  box-shadow: inset 0 0px 0px rgba(0,0,0,0), 0 0 0px rgba(0, 0, 0, 0);
-}
 
 /*
  Search Menu component 
