@@ -21,6 +21,14 @@ nav li a.btn:hover {
   border: 1px solid #fff;
 }
 
+nav .user-menubar {
+  min-width: 200px;
+}
+
+nav .user-menubar img {
+  vertical-align: middle;
+}
+
 .search-menu {
   min-width: 44rem;
   margin: 0 20px;
@@ -190,7 +198,37 @@ input[type="text"]:focus.searchbox-mobile-input {
 }
 
 .side-nav .btn-social {
-  width: inherit;
+  width: 90%;
+}
+
+.side-nav ul.side-user-menu {
+  padding: 2rem 1rem;
+}
+
+.side-nav ul.side-user-menu .row {
+  margin: 0;
+}
+
+.side-nav ul.side-user-menu li a {
+  color: #51AFAE;
+  border-bottom: solid 0.5px #51AFAE;
+}
+
+.side-nav ul.side-user-menu li a i {
+  color: #51AFAE;
+}
+
+.side-nav ul.side-user-menu li a:hover {
+  color: #fff;
+  background: #51AFAE;
+}
+
+.side-nav ul.side-user-menu li a:hover i {
+  color: #fff;
+}
+
+.side-nav ul.side-user-menu li i {
+  margin-right: .5rem;
 }
 
 .btn-block {
@@ -719,6 +757,10 @@ section .banners .slick-list {
   min-width: 2rem;
   margin: 0 .5rem;
   text-align: center;
+}
+
+footer {
+  background: #51AFAE;
 }
 
 /*# sourceMappingURL=application.css.map */

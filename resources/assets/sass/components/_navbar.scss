@@ -12,6 +12,12 @@ nav {
       border: 1px solid #fff;
     }
   }
+  .user-menubar {
+    min-width: 200px;
+    img {
+      vertical-align: middle;
+    }
+  }
 }
 
 .search-menu {
@@ -179,6 +185,35 @@ input[type="text"]:focus.searchbox-mobile-input {
     }
   }
   .btn-social {
-    width: inherit;
+    width: 90%;
+  }
+
+  ul.side-user-menu {
+    padding: 2rem 1rem;
+
+    .row {
+      margin: 0;
+    }
+
+    li {
+      a {
+      color: $primary-color;
+      border-bottom: solid 0.5px $primary-color;
+        i {
+          color: $primary-color;
+        }
+      }
+      a:hover {
+        color: #fff;
+        background: $primary-color;
+        i {
+          color: #fff;
+        }
+      }
+      i {
+        margin-right: .5rem;
+      }
+    }
+    
   }
 }
