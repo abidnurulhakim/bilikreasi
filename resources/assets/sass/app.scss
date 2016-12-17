@@ -1,9 +1,119 @@
+@import "components/variables";
 
-// Fonts
-@import url(https://fonts.googleapis.com/css?family=Raleway:300,400,600);
+html {
+  background: $body-bg;
+}
+html, body, .pushpin-block {
+  height: 100%;
+}
 
-// Variables
-@import "variables";
+.brand-logo {
+  img {
+    vertical-align: middle;
+  }
+}
 
-// Bootstrap
-@import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
+@import "components/navbar";
+@import "components/buttons";
+@import "components/popover";
+@import "components/carousel";
+@import "components/card";
+
+// Banner
+section {
+  .banners {
+    padding-top: .5rem;
+    @media #{$medium-and-down} {
+      max-height: 207px
+    }
+    @media #{$medium-and-up} {
+      max-height: 407px
+    }
+    .slick-list {
+      width: 100%;
+      @media #{$medium-and-down} {
+        max-height: 200px;
+        margin-top: -1rem;
+      }
+      @media #{$medium-and-up} {
+        max-height: 400px;
+      }
+    }
+  }
+}
+
+// Popular Idea
+.popular-idea{
+  .pushpin-block {
+    margin: 1rem 0;
+  }
+}
+// Class for when element is above threshold
+.pin-top {
+  position: relative;
+}
+// Class for when element is below threshold
+.pin-bottom {
+  position: relative;
+  display: none;
+}
+// Class for when element is pinned
+.pinned {
+  position: fixed !important;
+}
+.pushpin {
+  z-index: 20;
+}
+
+// custom or
+.hr-custom {
+  position: relative;
+  font-size: 1em;
+  color: #aaa;
+  margin-top: 1.5em;
+  margin-bottom: 1em;
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+}
+
+.hr-or {
+  background-color: #cdcdcd;
+  height: 1px;
+  margin-top: 0px !important;
+  margin-bottom: 0px !important;
+}
+
+.span-or {
+  display: block;
+  position: absolute;
+  left: 50%;
+  top: -1.5em;
+  margin-left: -1.5em;
+  background-color: white;
+  width: 3em;
+  text-align: center;
+}
+
+.chip-idea {
+  background: $primary-color;
+  color: #fff;
+  margin: 0;
+  font-size: .7rem;
+  height: 1.1rem;
+  line-height: 1.1rem;
+  max-width: 22%;
+  display: inline-block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  padding: 0 .5rem
+}
+
+.menu-mobile {
+  display: block;
+  li {
+    min-width: 2rem;
+    margin: 0 .5rem;
+    text-align: center;
+  }
+}

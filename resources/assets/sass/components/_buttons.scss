@@ -1,0 +1,51 @@
+// Button component
+
+.btn-block {
+  display: block;
+  width: 100%;
+  margin-bottom: 10px;
+}
+a.btn-social {
+  color: white;
+  opacity:0.9;
+}
+a.btn-social:hover {
+  color: white;
+  opacity:1;      
+}
+.btn-facebook, .btn-facebook:hover {
+  background: #3b5998;
+  border-color: #172d5e;
+}
+.btn-twitter, .btn-twitter:hover {
+  background: #00aced;
+  border-color:#043d52
+}
+.btn-google-plus, .btn-google-plus:hover {
+  background: #c32f10;
+  border-color: #6b1301;
+}
+.btn-soundcloud, .btn-soundcloud:hover {
+  background: #ff8800;
+  border-color: #c73e04;
+}
+.btn-github, .btn-github:hover {
+  background: #666666;
+  border-color: #333333;
+}
+.btn-pinterest, .btn-pinterest:hover {
+  background: #cc2127;
+  border-color:#780004;
+}
+.btn-spotify, .btn-sportify:hover {
+  background: #7ab800;
+  border-color:#3a5700;
+}
+.btn-linkedin, .btn-linkedin:hover {
+  background: #0976b4;
+  border-color:#004269;
+}
+.btn-tumblr, .btn-tumblr:hover {
+  background: #35465c;
+  border-color:#142030;
+}

@@ -45,6 +45,7 @@ namespace :deploy do
       execute "cd '#{release_path}'; php artisan migrate -n"
       execute "cd '#{release_path}'; php artisan storage:link"
       execute "cd '#{release_path}'; composer dump-autoload"
+      execute "cd '#{release_path}'; gulp"
     end
   end
 

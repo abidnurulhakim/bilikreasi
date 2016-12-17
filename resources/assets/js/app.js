@@ -1,20 +1,43 @@
+var path = {
+    plugins : myPrefix + 'vendor/'
+  };
 
-/**
- * First we will load all of this project's JavaScript dependencies which
- * include Vue and Vue Resource. This gives a great starting point for
- * building robust, powerful web applications using Vue and Laravel.
- */
+var assets = {
+  _jquery_local   : { js : path.plugins + 'jquery/js/jquery.min.js' },
+  _fontawesome    : { css : path.plugins + 'font-awesome/css/font-awesome.min.css' },
+};
 
-require('./bootstrap');
+var Site = {
+  init : function() {
+    Site.searchMenuBarInit();
+  },
+  searchMenuBarInit : function(){
+    $('.searchbox-icon').click(function(){
+      if($('.searchbox.searchbox-open').length == 0){
+        $('.searchbox').addClass('searchbox-open');
+        $('.searchbox-input').focus();
+      } else {
+        $('.searchbox').removeClass('searchbox-open');
+        $('.searchbox-input').focusout();
+      }
+    });
+  },
+};
 
-/**
- * Next, we will create a fresh Vue application instance and attach it to
- * the body of the page. From here, you may begin adding components to
- * the application, or feel free to tweak this setup for your needs.
- */
+var checkJquery = function () {
+  Modernizr.load([
+    {
+      test    : window.jQuery,
+      nope    : assets._jquery_local.js,
+      complete: Site.init
+    }
+  ]);
+};
 
-Vue.component('example', require('./components/Example.vue'));
-
-const app = new Vue({
-    el: '#app'
+Modernizr.load({
+  load    : [
+    assets._jquery_local.js,
+    assets._fontawesome.css,
+  ],
+  complete: checkJquery
 });

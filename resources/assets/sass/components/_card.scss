@@ -1,0 +1,144 @@
+// Card Styles
+.card {
+  .card-date {
+    position: absolute;
+    top: .5rem;
+    right: 1rem;
+    z-index: 1;
+    background: $primary-color;
+    opacity: .8;
+    width: 4rem;
+    height: 4rem;
+    padding: .75rem 0;
+    border-radius: 100%;
+    color: #fff;
+    font-weight: 700;
+    text-align: center;
+
+    .card-date-day {
+      font-size: .9rem;
+    }
+    .card-date-year {
+      font-size: 1.5rem;
+      line-height: 2.5rem;
+      vertical-align: middle;
+    }
+    .card-date-month {
+      font-size: .9rem;
+      text-transform: uppercase;
+    }
+  }
+  .card-category {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    background: $primary-color;
+    opacity: .8;
+    padding: 1rem;
+    color: #fff;
+    font-size: 1.2rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    z-index: 1;
+  }
+  .card-share {
+    right: 1rem;
+    position: absolute;
+    margin-top: -3rem;
+    z-index: 1;
+  }
+  .card-social {
+    position: absolute;
+    top: 0;
+    right: 0;
+    visibility: hidden;
+    width: 11rem;
+    transform: translateZ(0);
+    transform: translateX(0px);
+    transition: transform 0.35s ease;
+    
+    a {
+      color: #fff;
+    }
+  }
+  .card-social--active {
+    visibility: visible;
+    transform: translateZ(0);
+    transform: translateX(-38px);
+    transition: transform 0.35s ease;
+  }
+  .card-meta {
+    div.col {
+      margin-bottom: 1rem;
+    }
+    i + label {
+      font-size: 1rem;
+      color: #333;
+      font-weight: bold;
+      padding: .5rem;
+    }
+    div.col.card-members {
+      margin-bottom: 0;
+    }
+    .card-members {
+      a {
+        display: inline-block;
+      }
+      .more {
+        vertical-align: middle;
+        margin-top: -1.5rem;
+        font-size: 1.25rem;
+      }
+    }
+  }
+  .read-more {
+    text-decoration: none;
+    color: $primary-color;
+  }
+  .read-more:hover {
+    text-decoration: underline;
+  }
+}
+
+.share-toggle {
+    z-index: 2;
+}
+.share-toggle:before {
+  content: "\f1e0";
+  font-family: 'FontAwesome';
+  color: #3498db;
+}
+.share-toggle.share-expanded:before {
+  content: "\f00d";
+}
+.share-icon {
+  display: inline-block;
+  width: 3.1rem;
+  height: 3.1rem;
+  line-height: 3.1rem;
+  text-align: center;
+  border-radius: 50%;
+  background-color: #fff;
+  transition: all 0.3s ease;
+  outline: 0;
+
+  box-shadow: 
+          0 2px 4px rgba(0,0,0, 0.12),
+          0 2px 4px rgba(0,0,0, 0.24);
+}
+.share-icon:hover,
+.share-icon:focus {
+  box-shadow: 
+    0 3px 6px rgba(0,0,0, 0.12),
+    0 3px 6px rgba(0,0,0, 0.24);
+  transform: scale(1.2);
+}
+.facebook {
+    background-color: #3b5998; 
+}
+.twitter {
+    background-color: #00abe3; 
+}
+.googleplus {
+    background-color: #d3492c;
+}

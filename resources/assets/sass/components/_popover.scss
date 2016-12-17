@@ -1,0 +1,30 @@
+// Popover Component
+
+.webui-popover-content {
+  ul {
+    list-style-type: none;
+    min-width: 200px;
+    li {
+      padding: 1rem;
+      border-bottom: solid 0.5px $primary-color;
+      i {
+        margin-right: 10px;
+      }
+    }
+    a:hover {
+      li {
+        background: $primary-color;
+        color: #fff;
+      }
+    }
+  }
+  form {
+    min-width:280px;
+    .row {
+      margin-bottom: .5rem;
+    }
+    input {
+      margin-bottom: .5rem; 
+    }
+  }
+}

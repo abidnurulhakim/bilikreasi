@@ -1,0 +1,26 @@
+{
+  "name": "material-datepicker",
+  "homepage": "https://github.com/petalyaa/material-datepicker",
+  "version": "v0.1",
+  "authors": [
+    "Mohd Khairul Ikhwan bin Kamarudin <petalyaa@gmail.com>"
+  ],
+  "description": "A javascript based datepicker inspired by Google material design",
+  "main": "./js/material-datepicker.js",
+  "keywords": [
+    "material-datepicker"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests",
+    "screenshots"
+  ],
+  "dependencies": {
+    "font-awesome": "^4.6.3",
+    "roboto-fontface": "^0.4.5"
+  }
+}

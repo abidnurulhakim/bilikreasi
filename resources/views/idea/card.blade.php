@@ -1,32 +1,25 @@
-<div class="card__idea">
-  <div class="card__image border-tlr-radius">
-    <div class="card__date">
+<div class="card medium sticky-action">
+  <div class="card-image">
+    <div class="card-date">
       @if($idea->created_at->diffInYears(\Carbon::now()) > 0)
-      <div class="card__date__year">
+      <div class="card-date-year">
         {{ $idea->created_at->format('Y') }}
       </div>
       @else
-      <div class="card__date__day">
+      <div class="card-date-day">
         {{ $idea->created_at->format('d') }}
       </div>
-      <div class="card__date__month">
+      <div class="card-date-month">
         {{ $idea->created_at->format('M') }}
       </div>
       @endif
     </div>
-    @if(\Auth::check())
-      @if($idea->hasLike(auth()->user()))
-        <a href="{{ route('idea.unlike', ['idea' => $idea, 'user' => auth()->user()]) }}" class="card__like fa fa-heart active" title="{{ $idea->like_count }} menyukai"></a>
-      @else
-        <a href="{{ route('idea.like', ['idea' => $idea, 'user' => auth()->user()]) }}" class="card__like fa fa-heart" title="{{ $idea->like_count }} menyukai"></a>
-      @endif
-    @endif
-    <img src="{{ $idea->getCover(400, 250) }}" alt="image" class="border-tlr-radius">
+    <img src="{{ $idea->getCover(400, 400) }}" alt="image" class="activator">
+    <div class="card-category">{{ $idea->category }}</div>
   </div>
-  <div class="card__content card__padding">
-    <div class="card__category">{{ $idea->category }}</div>
-    <div class="card__share">
-      <div class="card__social">
+  <div class="card-content">
+    <div class="card-share">
+      <div class="card-social">
         <a class="share-icon facebook" href="https://www.facebook.com/dialog/feed?app_id={{ ENV('FACEBOOK_APP_ID') }}&display=popup&caption={{ urlencode($idea->title) }}&link={{ route('idea.show', $idea) }}&redirect_uri={{ route('idea.show', $idea) }}" target="_blank">
           <span class="fa fa-facebook"></span>
         </a>
@@ -37,38 +30,58 @@
           <span class="fa fa-google-plus"></span>
         </a>
       </div>
-      <a id="share" class="share-toggle share-icon text-primary" href="#"></a>
+      <a id="share" class="share-toggle share-icon primary-text" href="#"></a>
     </div>
-
-    <article class="card__article">
-      <h4><a href="{{ route('idea.show', $idea) }}">{{ str_limit($idea->title, 50) }}</a></h4>
-      <p>
-        {{ str_limit(htmlClear($idea->description), 175) }}
-        @if(strlen(htmlClear($idea->description)) > 175)
-          <a href="{{ route('idea.show', $idea) }}" class="read__more">lanjut baca</a>
+    <div class="card-title activator grey-text text-darken-4">
+      {{ str_limit($idea->title, 50) }}
+    </div>
+    <hr>
+    <div class="card-meta">
+      <div class="col s12 m12">
+        <i class="fa fa-tags fa-lg primary-text"></i>
+        @foreach(collect($idea->tags)->take(4) as $tag)
+          <div class="chip chip-idea">
+            {{ $tag }}
+          </div>
+        @endforeach
+      </div>    
+      <div class="col s6 m6">
+        <i class="fa fa-thumbs-up fa-lg primary-text"></i>
+        <label>{{ $idea->like_count }}</label>
+      </div>
+      <div class="col s6 m6">
+        <i class="fa fa-eye fa-lg primary-text"></i>
+        <label>100K</label>
+      </div>
+      <div class="col s12 m12 card-members">
+        @foreach($idea->members->take(7) as $member)
+          <a href="{{ route('user.show', $member) }}">
+            <img src="{{ $member->getPhoto(30) }}" class="circle responsive-img" alt="{{ $member->name }}" title="{{ $member->name }}">
+          </a>
+        @endforeach
+        @if($idea->members->count() > 7)
+          <a href="{{ route('idea.members', $idea) }}" class="more">(+{{ $idea->members->count() - 8 }})</a>
         @endif
-      </p>
-    </article>
-    <div class="card__meta">
-      <i class="fa fa-tags text-primary"></i> <span class="text-muted">{{ join(', ', $idea->tags) }}</span>
+      </div>
     </div>
   </div>
-  <div class="card__action">
-    <div class="card__footer">
+  <div class="card-reveal">
+    <span class="card-title grey-text text-darken-4"><div class="title-ellipsis">{{ str_limit($idea->title, 50) }}</div><i class="material-icons right">close</i></span>
+    <p>
+      {{ str_limit(htmlClear($idea->description), 300) }}
+      @if(strlen(htmlClear($idea->description)) > 300)
+        <a href="{{ route('idea.show', $idea) }}" class="read-more">selengkapnya</a>
+      @endif
+    </p>
+  </div>
+  <div class="card-action">
     @if(isset($invitation))
-      <a href="{{ route('idea.join', $idea) }}" class="pull-left btn btn-primary btn-block">Gabung</a>
+      <a class="btn btn-flat btn-block primary" href="{{ route('idea.join', $idea) }}">Gabung</a>
+      <a class="btn btn-flat btn-block primary" href="{{ route('idea.show', $idea) }}">Lihat</a>
     @elseif(isset($user))
       <i class="fa fa-clock-o" aria-hidden="true"></i> <small>Bergabung sejak <span class="time-humanize " title="{{ Carbon::parse($idea->members()->find($user->id)->pivot->join_at)->toIso8601String() }}"></span></small>
     @else
-      @foreach($idea->members->take(4) as $member)
-      <a href="{{ route('user.show', $member) }}">
-        <img src="{{ $member->getPhoto(40) }}" alt="{{ $member->name }}" title="{{ $member->name }}">
-      </a>
-      @endforeach
-      @if($idea->members->count() > 4)
-      <span class="card__member_more">(+{{ $idea->members->count() - 4 }})</span>
-      @endif
+      <a class="btn btn-flat btn-block primary" href="{{ route('idea.show', $idea) }}">Lihat</a>  
     @endif
-    </div>
   </div>
 </div>

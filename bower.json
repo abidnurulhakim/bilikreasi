@@ -1,0 +1,30 @@
+{
+    "name": "bilikreasi",
+    "description": "Bilikreasi front-end",
+    "license": "MIT",
+    "private": true,
+    "dependencies": {
+        "modernizr": "2.8.3",
+        "jquery": "*",
+        "materialize": "*",
+        "moment": "*",
+        "font-awesome": "*",
+        "material-datepicker": "*",
+        "select2": "*",
+        "slimScroll": "*",
+        "fastclick": "*",
+        "summernote": "*",
+        "timeago": "*",
+        "icheck": "*",
+        "autosize": "*",
+        "adminlte": "*",
+        "jquery-form": "*",
+        "animate.css": "*",
+        "infiniteScroll": "*",
+        "lazy-load": "*",
+        "masonry": "*",
+        "tooltipster": "*",
+        "webui-popover": "*",
+        "slick-carousel": "*"
+  }
+}
