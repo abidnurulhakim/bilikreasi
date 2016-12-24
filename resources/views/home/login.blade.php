@@ -1,59 +1,37 @@
 @extends('layout.app')
 
 @section('content')
-  <div class="col-md-8 col-md-offset-2 col-sm-12">
+<div class="row">
+  <div class="col s12 m8 offset-m2">
     <div class="card">
-      <div class="card-block">
-        <div class="onl_login">
-          <h3 class="text-center page-header">
-            Masuk atau <a href="{{ route('home.register') }}" class="text-primary">Daftar</a>
-          </h3>
-          <div class="col-sm-12 text-center">
-            <div class="col-xs-offset-3 col-sm-offset-3 col-xs-3 col-sm-3">
-              <a href="{{ route('auth.social.facebook') }}" class="btn btn-lg btn-block btn-facebook" data-toggle="tooltip" data-placement="top" title="Facebook">
-                <i class="fa fa-facebook fa-2x"></i>
-                <span class="hidden-xs"></span>
-              </a>
-            </div>
-            <div class="col-xs-3 col-sm-3">
-              <a href="{{ route('auth.social.google') }}" class="btn btn-lg btn-block btn-google" data-toggle="tooltip" data-placement="top" title="Google+">
-                <i class="fa fa-google fa-2x"></i>
-                <span class="hidden-xs"></span>
-              </a>
-            </div>
+      <div class="card-panel">
+        <h5 class="center-align">
+          Masuk atau <a href="{{ route('home.register') }}">Daftar</a>
+        </h5>
+        <br>
+        <div class="col s12 m12 center-align">
+          <div class="col s12 m6 offset-m3">
+            <a class="btn btn-flat btn-block btn-social btn-facebook" href="{{ route('auth.social.facebook') }}">
+              <i class="fa fa-facebook"></i> Masuk dengan Facebook
+            </a>
           </div>
-          <div class="col-sm-12">
-            <div class="col-xs-12 col-sm-offset-3 col-sm-6 hr-custom">
-              <hr class="hr-or">
-              <span class="span-or">or</span>
-            </div>
+          <div class="col s12 m6 offset-m3">
+            <a class="btn btn-flat btn-block btn-social btn-google-plus" href="{{ route('auth.social.google') }}">
+              <i class="fa fa-google"></i> Masuk dengan Google+
+            </a>
           </div>
-          <div class="col-xs-12 col-sm-6 col-sm-offset-3">
-            {!! Form::open(['route' => ['session.login'], 'method' => 'post']) !!}
-              @if (count($errors) > 0)
-                <div class="alert alert-danger">
-                  <ul>
-                    @foreach ($errors->all() as $error)
-                      <li>{{ $error }}</li>
-                    @endforeach
-                  </ul>
-                </div>
-              @endif
-              <div class="input-group">
-                <span class="input-group-addon btn-primary"><span class="fa fa-user"></span></span>
-                {!! Form::text('username', old('username'), ['class' => 'form-control', 'placeholder' => 'Masukkan Username/Email Anda']) !!}
-              </div>
-              <span class="help-block"></span>
-              <div class="input-group">
-                <span class="input-group-addon btn-primary"><span class="fa fa-lock"></span></span>
-                {!! Form::password('password', ['class' => 'form-control', 'placeholder' => 'Password']) !!}
-              </div>
-              <br>
-              <button class="btn btn-lg btn-primary btn-block" type="submit"><i class="fa fa-sign-in"></i> Masuk</button>
-            {!! Form::close() !!}
+        </div>
+        <div class="col s12 m12">
+          <div class="col s12 m12 hr-custom">
+            <hr class="hr-or">
+            <span class="span-or">atau</span>
           </div>
+        </div>
+        <div class="col s12 m6 offset-m3">
+          @include('concerns._form-user-login')
         </div>
       </div>
     </div>
   </div>
+</div>
 @endsection

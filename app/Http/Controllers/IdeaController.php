@@ -9,6 +9,7 @@ use App\Models\User;
 use App\Services\IdeaService;
 use App\Http\Requests\Idea\StoreRequest;
 use App\Http\Requests\Idea\UpdateRequest;
+use Cookie;
 use Illuminate\Http\Request;
 
 class IdeaController extends Controller
@@ -86,10 +87,14 @@ class IdeaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($slug)
+    public function show($slug, Request $request)
     {
         $idea = Idea::where('slug', $slug)->firstOrFail();
         \View::share('pageTitle', 'Detil Ide');
+        if (empty($request->cookie('viewer_idea:'.$idea->id))) {
+            $idea->increment('viewer_count');
+            Cookie::queue(Cookie::make('viewer_idea:'.$idea->id, true, 15));
+        };
         return view('idea.show', compact('idea'));
     }
 

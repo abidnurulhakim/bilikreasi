@@ -1,4 +1,4 @@
-<div class="card medium sticky-action">
+<div class="card sticky-action">
   <div class="card-image">
     <div class="card-date">
       @if($idea->created_at->diffInYears(\Carbon::now()) > 0)
@@ -14,7 +14,7 @@
       </div>
       @endif
     </div>
-    <img src="{{ $idea->getCover(400, 400) }}" alt="image" class="activator">
+    <img src="{{ $idea->getCover(400, 200) }}" alt="image" class="activator">
     <div class="card-category">{{ $idea->category }}</div>
   </div>
   <div class="card-content">
@@ -32,26 +32,26 @@
       </div>
       <a id="share" class="share-toggle share-icon primary-text" href="#"></a>
     </div>
-    <div class="card-title activator grey-text text-darken-4">
-      {{ str_limit($idea->title, 50) }}
-    </div>
+    <span class="card-title activator grey-text text-darken-4"><i class="material-icons right">more_vert</i>{{ str_limit($idea->title, 50) }}</span>
     <hr>
     <div class="card-meta">
-      <div class="col s12 m12">
+      <div class="col s12 m12 card-meta-tags">
         <i class="fa fa-tags fa-lg primary-text"></i>
-        @foreach(collect($idea->tags)->take(4) as $tag)
-          <div class="chip chip-idea">
-            {{ $tag }}
-          </div>
-        @endforeach
+        <span class="card-meta-tag">
+          @foreach(collect($idea->tags)->take(100) as $tag)
+            <div class="chip chip-idea">
+              {{ $tag }}
+            </div>
+          @endforeach  
+        </span>
       </div>    
       <div class="col s6 m6">
         <i class="fa fa-thumbs-up fa-lg primary-text"></i>
-        <label>{{ $idea->like_count }}</label>
+        <label><span class="abbr-number">{{ $idea->like_count }}</span></label>
       </div>
       <div class="col s6 m6">
         <i class="fa fa-eye fa-lg primary-text"></i>
-        <label>100K</label>
+        <label><span class="abbr-number">{{ $idea->viewer_count }}</span></label>
       </div>
       <div class="col s12 m12 card-members">
         @foreach($idea->members->take(7) as $member)
@@ -67,7 +67,7 @@
   </div>
   <div class="card-reveal">
     <span class="card-title grey-text text-darken-4"><div class="title-ellipsis">{{ str_limit($idea->title, 50) }}</div><i class="material-icons right">close</i></span>
-    <p>
+    <p class="flow-text">
       {{ str_limit(htmlClear($idea->description), 300) }}
       @if(strlen(htmlClear($idea->description)) > 300)
         <a href="{{ route('idea.show', $idea) }}" class="read-more">selengkapnya</a>
@@ -79,9 +79,10 @@
       <a class="btn btn-flat btn-block primary" href="{{ route('idea.join', $idea) }}">Gabung</a>
       <a class="btn btn-flat btn-block primary" href="{{ route('idea.show', $idea) }}">Lihat</a>
     @elseif(isset($user))
+      <a class="btn btn-flat btn-block primary" href="{{ route('idea.show', $idea) }}">Lihat</a>
       <i class="fa fa-clock-o" aria-hidden="true"></i> <small>Bergabung sejak <span class="time-humanize " title="{{ Carbon::parse($idea->members()->find($user->id)->pivot->join_at)->toIso8601String() }}"></span></small>
     @else
-      <a class="btn btn-flat btn-block primary" href="{{ route('idea.show', $idea) }}">Lihat</a>  
+      <a class="btn btn-flat btn-block primary" href="{{ route('idea.show', $idea) }}">Lihat</a>
     @endif
   </div>
 </div>

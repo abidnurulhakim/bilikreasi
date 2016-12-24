@@ -1,4 +1,4 @@
-<div class="form-group">
+<div class="input-field col s12">
   <?php
     if (!$attributes) {
       $attributes = [];

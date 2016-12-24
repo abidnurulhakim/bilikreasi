@@ -22,7 +22,7 @@ class AppServiceProvider extends ServiceProvider
         Form::component('formCheckbox', 'components.form.form-checkbox', ['name', 'value', 'attributes']);
         Form::component('formEmail', 'components.form.form-email', ['name', 'value', 'attributes']);
         Form::component('formDate', 'components.form.form-date', ['name', 'value', 'attributes']);
-        Form::component('formBirthDate', 'components.form.form-date', ['name', 'value', 'attributes']);
+        Form::component('formBirthDate', 'components.form.form-birthdate', ['name', 'value', 'attributes']);
         Form::component('formDateTime', 'components.form.form-datetime', ['name', 'value', 'attributes']);
         Form::component('formFile', 'components.form.form-file', ['name', 'value', 'attributes']);
         Form::component('formTags', 'components.form.form-tags', ['name', 'collection', 'value', 'attributes']);

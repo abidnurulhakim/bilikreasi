@@ -1,4 +1,4 @@
-{!! Form::open(['route' => ['session.login'], 'method' => 'post']) !!}
+{!! Form::open(['route' => 'session.login', 'method' => 'post']) !!}
   @if (count($errors) > 0)
     <div class="alert alert-danger">
       <ul>
@@ -8,19 +8,17 @@
       </ul>
     </div>
   @endif
-  <div class="form-group">
-    {!! Form::label('username', 'Username/Email') !!}
-    {!! Form::text('username', old('username'), ['class' => 'form-control', 'placeholder' => 'Masukkan Username/Email Anda']) !!}
+  <div class="row">
+    {!! Form::formText('username', old('username'), ['label' => 'Username/Email']) !!}
   </div>
-  <div class="form-group">
-    {!! Form::label('password', 'Password') !!}
-    {!! Form::password('password', ['class' => 'form-control']) !!}
+  <div class="row">
+    {!! Form::formPassword('password', old('password')) !!}
   </div>
-  <div class='col-sm-12 no-padding'>
-    Belum terdaftar? <a href="{{ route('home.register') }}">Daftar disini</a>
+  <div class="row">
+    <div class="col s12">
+      {!! Form::formCheckbox('remember_me', 1, ['label' => 'Ingatkan Saya']) !!}  
+    </div>
   </div>
-  <br><br>
-  <center>
-    {!! Form::submit('Masuk', ['class' => 'btn btn-primary btn-lg']); !!}
-  </center>
+  <br>
+  <button class="btn btn-flat primary btn-block" type="submit"><i class="fa fa-sign-in"></i> Masuk</button>
 {!! Form::close() !!}

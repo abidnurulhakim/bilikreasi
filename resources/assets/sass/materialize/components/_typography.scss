@@ -2,6 +2,9 @@
 a {
   text-decoration: none;
 }
+a:hover {
+  color: $link-color-hover;
+}
 
 html{
   line-height: 1.5;
@@ -49,7 +52,7 @@ small { font-size: 75%; }
   $i: 0;
   @while $i <= $intervals {
     @media only screen and (min-width : 360 + ($i * $interval-size)) {
-      font-size: 1.2rem * (1 + (.02 * $i));
+      font-size: 1.2rem * (1 + (.002 * $i));
     }
     $i: $i + 1;
   }

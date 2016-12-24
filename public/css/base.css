@@ -2628,7 +2628,7 @@ ul:not(.browser-default) li {
 }
 
 a {
-  color: #00897b;
+  color: #51afae;
   text-decoration: none;
   -webkit-tap-highlight-color: transparent;
 }
@@ -3148,7 +3148,7 @@ td, th {
   display: block;
   -webkit-transition: .25s;
   transition: .25s;
-  color: #42A5F5;
+  color: #51afae;
 }
 
 .collection a.collection-item:not(.active):hover {
@@ -4328,6 +4328,10 @@ a {
   text-decoration: none;
 }
 
+a:hover {
+  color: #00897b;
+}
+
 html {
   line-height: 1.5;
   font-family: "Roboto", sans-serif;
@@ -4430,121 +4434,121 @@ small {
 
 @media only screen and (min-width: 390px) {
   .flow-text {
-    font-size: 1.224rem;
+    font-size: 1.2024rem;
   }
 }
 
 @media only screen and (min-width: 420px) {
   .flow-text {
-    font-size: 1.248rem;
+    font-size: 1.2048rem;
   }
 }
 
 @media only screen and (min-width: 450px) {
   .flow-text {
-    font-size: 1.272rem;
+    font-size: 1.2072rem;
   }
 }
 
 @media only screen and (min-width: 480px) {
   .flow-text {
-    font-size: 1.296rem;
+    font-size: 1.2096rem;
   }
 }
 
 @media only screen and (min-width: 510px) {
   .flow-text {
-    font-size: 1.32rem;
+    font-size: 1.212rem;
   }
 }
 
 @media only screen and (min-width: 540px) {
   .flow-text {
-    font-size: 1.344rem;
+    font-size: 1.2144rem;
   }
 }
 
 @media only screen and (min-width: 570px) {
   .flow-text {
-    font-size: 1.368rem;
+    font-size: 1.2168rem;
   }
 }
 
 @media only screen and (min-width: 600px) {
   .flow-text {
-    font-size: 1.392rem;
+    font-size: 1.2192rem;
   }
 }
 
 @media only screen and (min-width: 630px) {
   .flow-text {
-    font-size: 1.416rem;
+    font-size: 1.2216rem;
   }
 }
 
 @media only screen and (min-width: 660px) {
   .flow-text {
-    font-size: 1.44rem;
+    font-size: 1.224rem;
   }
 }
 
 @media only screen and (min-width: 690px) {
   .flow-text {
-    font-size: 1.464rem;
+    font-size: 1.2264rem;
   }
 }
 
 @media only screen and (min-width: 720px) {
   .flow-text {
-    font-size: 1.488rem;
+    font-size: 1.2288rem;
   }
 }
 
 @media only screen and (min-width: 750px) {
   .flow-text {
-    font-size: 1.512rem;
+    font-size: 1.2312rem;
   }
 }
 
 @media only screen and (min-width: 780px) {
   .flow-text {
-    font-size: 1.536rem;
+    font-size: 1.2336rem;
   }
 }
 
 @media only screen and (min-width: 810px) {
   .flow-text {
-    font-size: 1.56rem;
+    font-size: 1.236rem;
   }
 }
 
 @media only screen and (min-width: 840px) {
   .flow-text {
-    font-size: 1.584rem;
+    font-size: 1.2384rem;
   }
 }
 
 @media only screen and (min-width: 870px) {
   .flow-text {
-    font-size: 1.608rem;
+    font-size: 1.2408rem;
   }
 }
 
 @media only screen and (min-width: 900px) {
   .flow-text {
-    font-size: 1.632rem;
+    font-size: 1.2432rem;
   }
 }
 
 @media only screen and (min-width: 930px) {
   .flow-text {
-    font-size: 1.656rem;
+    font-size: 1.2456rem;
   }
 }
 
 @media only screen and (min-width: 960px) {
   .flow-text {
-    font-size: 1.68rem;
+    font-size: 1.248rem;
   }
 }
 
@@ -4561,6 +4565,7 @@ small {
   margin: 0.5rem 0 1rem 0;
   border-radius: 2px;
   background-color: #fff;
+  overflow: auto;
 }
 
 .card {
@@ -4574,16 +4579,15 @@ small {
 
 .card .card-title {
   font-size: 1.5rem;
-  vertical-align: middle;
   font-weight: 300;
-  max-width: 100%;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
 }
 
 .card .card-title.activator {
   cursor: pointer;
+}
+
+.card .card-title i {
+  margin-top: .3rem;
 }
 
 .card.small, .card.medium, .card.large {
@@ -4591,11 +4595,12 @@ small {
 }
 
 .card.small .card-image, .card.medium .card-image, .card.large .card-image {
-  max-height: 200px;
+  max-height: 60%;
+  overflow: hidden;
 }
 
 .card.small .card-image + .card-content, .card.medium .card-image + .card-content, .card.large .card-image + .card-content {
-  min-height: 200px;
+  max-height: 40%;
 }
 
 .card.small .card-content, .card.medium .card-content, .card.large .card-content {
@@ -4603,16 +4608,23 @@ small {
   overflow: hidden;
 }
 
+.card.small .card-action, .card.medium .card-action, .card.large .card-action {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
 .card.small {
-  min-height: 300px;
+  height: 300px;
 }
 
 .card.medium {
-  min-height: 400px;
+  height: 400px;
 }
 
 .card.large {
-  min-height: 500px;
+  height: 500px;
 }
 
 .card.horizontal {
@@ -4678,7 +4690,6 @@ small {
   top: 0;
   bottom: 0;
   width: 100%;
-  max-height: 200px;
 }
 
 .card .card-image .card-title {
@@ -4713,7 +4724,7 @@ small {
 }
 
 .card .card-action a:not(.btn):not(.btn-large):not(.btn-large):not(.btn-floating) {
-  color: #ffab40;
+  color: #51afae;
   margin-right: 20px;
   -webkit-transition: color .3s ease;
   transition: color .3s ease;
@@ -4721,7 +4732,7 @@ small {
 }
 
 .card .card-action a:not(.btn):not(.btn-large):not(.btn-large):not(.btn-floating):hover {
-  color: #ffd8a6;
+  color: #97cfcf;
 }
 
 .card .card-reveal {
@@ -4741,7 +4752,6 @@ small {
   cursor: pointer;
   display: block;
   margin: 0;
-  max-width: none;
 }
 
 .card .card-reveal .card-title .title-ellipsis {
@@ -4750,6 +4760,12 @@ small {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+.card .card-reveal .card-title i {
+  margin-top: .3rem;
+  max-width: 10%;
+  margin-left: 3%;
 }
 
 #toast-container {
@@ -4972,10 +4988,11 @@ small {
   display: inline-block;
   height: 36px;
   line-height: 36px;
-  padding: 0 2rem;
+  padding: 0 0.2rem;
   text-transform: uppercase;
   vertical-align: middle;
   -webkit-tap-highlight-color: transparent;
+  text-align: center;
 }
 
 .btn.disabled, .disabled.btn-large,
@@ -6387,7 +6404,7 @@ form p:last-child {
   height: 25px;
   line-height: 25px;
   font-size: 1rem;
-  color: #51afae;
+  color: #333;
   -webkit-user-select: none;
   /* webkit (safari, chrome) browsers */
   -moz-user-select: none;
@@ -8390,7 +8407,7 @@ input[type=range]:focus::-ms-fill-upper {
 
 .picker__date-display {
   text-align: center;
-  background-color: #42A5F5;
+  background-color: #51afae;
   color: #fff;
   padding-bottom: 15px;
   font-weight: 300;
@@ -8400,11 +8417,11 @@ input[type=range]:focus::-ms-fill-upper {
 .picker__nav--next:hover {
   cursor: pointer;
   color: #000000;
-  background: #edf6fc;
+  background: #d1e2e1;
 }
 
 .picker__weekday-display {
-  background-color: #2095f3;
+  background-color: #459796;
   padding: 10px;
   font-weight: 200;
   letter-spacing: .5;
@@ -8453,7 +8470,7 @@ input[type=range]:focus::-ms-fill-upper {
 }
 
 .picker__day.picker__day--today {
-  color: #42A5F5;
+  color: #51afae;
 }
 
 .picker__day.picker__day--today.picker__day--selected {
@@ -8470,14 +8487,14 @@ input[type=range]:focus::-ms-fill-upper {
   border-radius: 50%;
   -webkit-transform: scale(0.9);
   transform: scale(0.9);
-  background-color: #42A5F5;
+  background-color: #51afae;
   color: #ffffff;
 }
 
 .picker__day--selected.picker__day--outfocus,
 .picker__day--selected:hover.picker__day--outfocus,
 .picker--focused .picker__day--selected.picker__day--outfocus {
-  background-color: #edf6fc;
+  background-color: #d1e2e1;
 }
 
 .picker__footer {
@@ -8485,10 +8502,10 @@ input[type=range]:focus::-ms-fill-upper {
   padding: 5px 10px;
 }
 
-.picker__close, .picker__today {
+.picker__close, .picker__today, .picker__clear {
   font-size: 1.1rem;
   padding: 0 1rem;
-  color: #42A5F5;
+  color: #51afae;
 }
 
 .picker__nav--prev:before,
@@ -8509,7 +8526,7 @@ input[type=range]:focus::-ms-fill-upper {
 }
 
 button.picker__today:focus, button.picker__clear:focus, button.picker__close:focus {
-  background-color: #edf6fc;
+  background-color: #d1e2e1;
 }
 
 /* ==========================================================================

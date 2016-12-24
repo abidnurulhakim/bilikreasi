@@ -44,7 +44,7 @@
       <div id="notification-error" data-text="{{ Session::get('error') }}" class="hidden"></div> 
     @endif
 
-    @include('layout.header')
+    @include('layout.navigation.layout')
     <!-- Page Content -->
     <div class="container">
       @yield('content')

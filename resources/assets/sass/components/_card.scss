@@ -68,18 +68,33 @@
     transition: transform 0.35s ease;
   }
   .card-meta {
+    overflow: auto;
+    .card-meta-tags {
+      display: flex;
+      i {
+        flex: 1;
+        max-width: 15%;
+      }
+      .card-meta-tag {
+        max-width: 85%;
+      }
+    }
+
     div.col {
       margin-bottom: 1rem;
     }
+
     i + label {
       font-size: 1rem;
       color: #333;
       font-weight: bold;
       padding: .5rem;
     }
+
     div.col.card-members {
       margin-bottom: 0;
     }
+
     .card-members {
       a {
         display: inline-block;

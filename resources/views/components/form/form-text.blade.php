@@ -1,4 +1,4 @@
-<div class="form-group">
+<div class="input-field col s12">
   <?php
     if (!$attributes) {
       $attributes = [];
@@ -10,6 +10,6 @@
       $labelName = ucfirst($name);
     }
   ?>
+  {{ Form::text($name, $value, $attributes) }}
   {{ Form::label($name, $labelName) }}
-  {{ Form::text($name, $value, array_merge(['class' => 'form-control'], $attributes)) }}
 </div>

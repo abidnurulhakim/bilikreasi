@@ -6,6 +6,7 @@ var assets = {
   _jquery_local       : { js : path.plugins + 'jquery/dist/jquery.min.js' },
   _materialize_local  : { js : path.plugins + 'materialize/dist/js/materialize.min.js' },  
   _fontawesome        : { css : path.plugins + 'font-awesome/css/font-awesome.min.css' },
+  _abbr_number        : { js : path.plugins + 'numfuzz/numfuzz.js' },
   _popover            : { 
                           css : path.plugins + 'webui-popover/dist/jquery.webui-popover.css',
                           js : path.plugins + 'webui-popover/dist/jquery.webui-popover.min.js'
@@ -14,15 +15,42 @@ var assets = {
                           css : path.plugins + 'slick-carousel/slick/slick.css',
                           js : path.plugins + 'slick-carousel/slick/slick.min.js',
                         },
+  _masonry            : { js : path.plugins + 'masonry/dist/masonry.pkgd.min.js' },
+  _infiniteScroll     : { js : path.plugins + 'infinite-scroll/jquery.infinitescroll.min.js' },
+  _materialnote       : { 
+                          css : path.plugins + 'materialNote/css/materialNote.css',
+                          js : path.plugins + 'materialNote/js/materialNote.min.js',
+                          lang : path.plugins + 'summernote/dist/lang/summernote-id-ID.js'
+                        },
+  _summernote         : { 
+                          css : path.plugins + 'summernote/dist/summernote.min.css',
+                          js : path.plugins + 'summernote/dist/summernote.min.js',
+                          lang : path.plugins + 'summernote/dist/lang/summernote-id-ID.js'
+                        },
+
 };
 
 var Site = {
   init : function() {
+    Site.abbrNumberInit();
     Site.navbarInit();
     Site.searchMenuBarInit();
     Site.popoverInit();
     Site.slickInit();
     Site.cardShare();
+    Site.masonryLoad();
+    Site.form();
+    Site.materialNoteLoad();
+  },
+  abbrNumberInit : function() {
+    Modernizr.load({
+      load    : [
+        assets._abbr_number.js,
+      ],
+      complete: function(){
+        $('.abbr-number').numFuzz();
+      }
+    });
   },
   navbarInit : function() {
     $(".button-collapse").sideNav();
@@ -58,7 +86,7 @@ var Site = {
           $(this).webuiPopover();
         });
       }
-    });    
+    });
   },
   slickInit : function() {
     Modernizr.load({
@@ -146,6 +174,77 @@ var Site = {
       $(this).parent().find( 'div' ).toggleClass( 'card-social--active' );
       $(this).toggleClass('share-expanded');
     });  
+  },
+  masonryLoad : function(){
+    if ($('.grid').length > 0) {
+      Modernizr.load({
+        load  : [
+                assets._masonry.js,
+                assets._infiniteScroll.js
+        ],
+        complete : Site.masonryInit
+      });
+    }
+  },
+  masonryInit : function(){
+    $('.grid').masonry({
+      itemSelector: '.grid-item',
+    });
+    Site.masonryLoadMore();
+  },
+  masonryLoadMore : function() {
+    $('.grid').infinitescroll({
+      navSelector  : ".read-more",
+      nextSelector : ".read-more a",
+      itemSelector : ".grid-item",
+      loading: {
+        finishedMsg: 'No more pages to load.'
+        }
+      },
+      function( $newElements ) {
+        $('.grid').masonry( 'appended', $newElements, true );
+    });
+  },
+  form : function() {
+    $('.date-picker').each(function(){
+      $(this).pickadate({
+        max: $(this).data('end-date') == 'today' ? new Date : $(this).data('end-date'),
+        selectMonths: true,
+        selectYears: 200,
+        format: $(this).data('date-format')
+      });
+    })
+  },
+  materialNoteLoad : function() {
+    if ($('[summernote]').length > 0) {
+      Modernizr.load({
+        load  : [
+                // assets._summernote.css,
+                assets._summernote.js,
+                // assets._materialnote.css,
+                assets._materialnote.js,
+                assets._materialnote.lang,
+        ],
+        complete : function(){
+          Site.textEditorInit();
+        }
+      });
+    }
+  },
+  textEditorInit : function() {
+    $('[summernote]').each(function(){
+      $(this).materialnote({
+        lang : 'id-ID',
+        height: $(this).height(),
+        toolbar: [
+          ['style', ['bold', 'italic', 'underline', 'clear']],
+          ['fontsize', ['fontsize']],
+          ['color', ['color']],
+          ['para', ['ul', 'ol', 'paragraph']],
+          ['height', ['height']]
+        ]
+      });
+    });
   },
 };
 

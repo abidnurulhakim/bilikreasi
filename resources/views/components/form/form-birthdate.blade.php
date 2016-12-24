@@ -1,4 +1,4 @@
-<div class="form-group">
+<div class="input-field col s12">
   <?php
     if (!$attributes) {
       $attributes = [];
@@ -10,6 +10,6 @@
       $labelName = ucfirst($name);
     }
   ?>
+  {{ Form::birthDate($name, $value,  $attributes) }}
   {{ Form::label($name, $labelName) }}
-  {{ Form::text($name, $value, array_merge(['data-date-format' => 'yyyy-mm-dd', 'data-end-date' => 'today', 'class' => 'form-control date-picker'], $attributes)) }}
 </div>

@@ -13,6 +13,7 @@
         "select2": "*",
         "slimScroll": "*",
         "fastclick": "*",
+        "materialNote": "*",
         "summernote": "*",
         "timeago": "*",
         "icheck": "*",
@@ -20,11 +21,12 @@
         "adminlte": "*",
         "jquery-form": "*",
         "animate.css": "*",
-        "infiniteScroll": "*",
+        "infinite-scroll": "*",
         "lazy-load": "*",
         "masonry": "*",
         "tooltipster": "*",
         "webui-popover": "*",
-        "slick-carousel": "*"
-  }
+        "slick-carousel": "*",
+        "bootstrap#v4.0.0-alpha.5": "*"
+    }
 }

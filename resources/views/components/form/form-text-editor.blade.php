@@ -1,4 +1,4 @@
-<div class="form-group">
+<div class="input-field col s12">
   <?php
     if (!$attributes) {
       $attributes = [];
@@ -11,5 +11,5 @@
     }
   ?>
   {{ Form::label($name, $labelName) }}
-  {{ Form::textEditor($name, $value, array_merge(['class' => 'form-control', 'rows' => 5], $attributes)) }}
+  {{ Form::textEditor($name, $value, array_merge(['rows' => 5], $attributes)) }}
 </div>

@@ -8,7 +8,7 @@
       </ul>
     </div>
   @endif
-  {!! Form::formText('title', null, ['label' => 'Judul Ide', 'placeholder' => 'Judul Ide'] ) !!}
+  {!! Form::formText('title', null, ['label' => 'Judul Ide'] ) !!}
   {!! Form::formTextEditor('description', null, ['label' => 'Deskripsi Ide', 'placeholder' => 'Deskripsi Idea'] ) !!}
   {!! Form::formFile('cover', null, ['label' => 'Gambar Cover Ide', 'placeholder' => 'Gambar Ide', 'data-max-file-count' => '1', 'data-max-file-size' => '2048', 'data-allowed-file-types' => '["image"]'] ) !!}
   {!! Form::formSelect('category', \App\Models\Idea::CATEGORY, null, ['label' => 'Kategori Ide', 'placeholder' => 'Kategori Ide'] ) !!}
