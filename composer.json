@@ -14,7 +14,8 @@
         "doctrine/dbal": "^2.5",
         "pusher/pusher-php-server": "^2.6",
         "pda/pheanstalk": "^3.1",
-        "s-ichikawa/laravel-sendgrid-driver": "^1.1"
+        "s-ichikawa/laravel-sendgrid-driver": "^1.1",
+        "twbs/bootstrap": "^3.3"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

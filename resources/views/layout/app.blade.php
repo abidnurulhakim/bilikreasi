@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=1260, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
     <meta name="description" content="Idea-sharing platform pertama di Indonesia yang juga menjadi wadah kolaborasi bagi para user untuk menciptakan perubahan melalui ide yang tersalurkan baik dalam bentuk usaha profitable, komunitas, aksi/gerakan, riset/proyek, ataupun bentuk kegiatan lainnya">
     <meta name="author" content="Bilikreasi">
     <meta name="title" content="Bilikreasi - Connecting People Through Ideas">
@@ -27,6 +27,7 @@
     @endif
     <title>Bilikreasi - Connecting People Through Ideas</title>
     <link rel="icon" type="image/png" href="{{ asset('assets/images/favicon.png') }}" />
+    <link rel="stylesheet" href="{{ elixir('css/application.css') }}">
 </head>
 
 <body>
@@ -43,10 +44,9 @@
       <div id="notification-error" data-text="{{ Session::get('error') }}" class="hidden"></div> 
     @endif
 
-    @include('layout.header')
+    @include('navigation.layout')
     <!-- Page Content -->
     <div class="container">
-      @include('layout.page-header')
       @yield('content')
       @if(false)
       <div class="fixed-action-btn">
@@ -65,12 +65,10 @@
       @endif
     </div>
     <!-- /.container -->
-    @include('layout.footer')
-    <script src="{{ asset('assets/js/modernizr.min.js') }}"></script>
-    <script type="text/javascript"> var myPrefix = '{{ asset('') }}';</script>
-    <script type="text/javascript"> var pusherKey = '{{ config('broadcasting.connections.pusher.key') }}';</script>
-    <script src="{{ asset('assets/js/app.js') }}"></script>
-    <link href="{{ asset('assets/css/app.css') }}" rel="stylesheet">
+    @include('layout.footer.layout')
+    
 </body>
-
+  <script type="text/javascript"> var myPrefix = '{{ asset('') }}';</script>
+  <script type="text/javascript"> var pusherKey = '{{ config('broadcasting.connections.pusher.key') }}';</script>
+  <script src="{{ elixir('js/application.js') }}"></script>
 </html>

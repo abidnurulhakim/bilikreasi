@@ -14,6 +14,24 @@ require('laravel-elixir-vue-2');
  */
 
 elixir(mix => {
-    mix.sass('app.scss')
-       .webpack('app.js');
+    mix.less('popover.less', 'resources/assets/sass/components/_popover.scss');
+    mix.sass([
+        '../vendor/font-awesome/css/font-awesome.min.css',
+        'app.scss'
+        ], 'public/css/application.css');
+    mix.scripts([
+        'modernizr.min.js',
+        'app.js'
+        ], 'public/js/application.js');
+    mix.version(['css/application.css', 'js/application.js']);
+    /*copy dependencies*/
+    mix.copy('resources/assets/vendor/jquery/dist', 'public/vendor/jquery');
+    mix.copy('resources/assets/vendor/bootstrap/dist', 'public/vendor/bootstrap');
+    mix.copy('resources/assets/vendor/materialize/dist', 'public/vendor/materialize');
+
+    mix.copy('resources/assets/vendor/infinite-scroll', 'public/vendor/infinite-scroll');
+    mix.copy('resources/assets/vendor/masonry/dist', 'public/vendor/masonry');
+    mix.copy('resources/assets/vendor/slick/slick', 'public/vendor/slick');
+    mix.copy('resources/assets/vendor/summernote/dist', 'public/vendor/summernote');
+    mix.copy('resources/assets/vendor/webui-popover/dist', 'public/vendor/webui-popover');
 });
