@@ -33,8 +33,9 @@ class Idea extends BaseModel
     protected $table = 'ideas';
 
     protected $fillable = [
-        'user_id', 'title', 'slug', 'description', 'type', 'cover', 'category', 'status', 'location', 'start_at', 'finish_at',
-        'tags'
+        'user_id', 'title', 'slug', 'description',
+        'type', 'cover', 'category', 'status',
+        'location', 'start_at', 'finish_at', 'tags'
     ];
 
     protected $dates = [

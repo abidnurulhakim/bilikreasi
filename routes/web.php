@@ -12,26 +12,36 @@
 */
 Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 'auth.admin', 'as' => 'admin.'], function () {
     Route::get('', ['uses'=>'AdminController@index', 'as' => 'index']);
-    Route::resource('user', 'UserController');
-    Route::resource('idea', 'IdeaController');
-    Route::get('tag/{id}/publish', ['uses'=>'TagController@publish', 'as' => 'tag.publish']);
-    Route::get('tag/{id}/unpublish', ['uses'=>'TagController@unpublish', 'as' => 'tag.unpublish']);
-    Route::resource('tag', 'TagController');
-    Route::get('skill/{id}/publish', ['uses'=>'SkillController@publish', 'as' => 'skill.publish']);
-    Route::get('skill/{id}/unpublish', ['uses'=>'SkillController@unpublish', 'as' => 'skill.unpublish']);
-    Route::resource('skill', 'SkillController');
-    Route::get('interest/{id}/publish', ['uses'=>'InterestController@publish', 'as' => 'interest.publish']);
-    Route::get('interest/{id}/unpublish', ['uses'=>'InterestController@unpublish', 'as' => 'interest.unpublish']);
-    Route::resource('interest', 'InterestController');
     Route::get('banner/{id}/publish', ['uses'=>'BannerController@publish', 'as' => 'banner.publish']);
     Route::get('banner/{id}/unpublish', ['uses'=>'BannerController@unpublish', 'as' => 'banner.unpublish']);
     Route::resource('banner', 'BannerController');
+
+    Route::resource('idea', 'IdeaController');
+    
+    Route::get('feedback/{id}/reply', ['uses'=>'FeedbackController@reply', 'as' => 'feedback.reply']);
+    Route::post('feedback/{id}/reply', ['uses'=>'FeedbackController@replyStore', 'as' => 'feedback.reply.store']);
+    Route::resource('feedback', 'FeedbackController');
+
+    Route::get('interest/{id}/publish', ['uses'=>'InterestController@publish', 'as' => 'interest.publish']);
+    Route::get('interest/{id}/unpublish', ['uses'=>'InterestController@unpublish', 'as' => 'interest.unpublish']);
+    Route::resource('interest', 'InterestController');
+    
     Route::get('popular/{id}/idea/create', ['uses'=>'PopularController@createIdea', 'as' => 'popular.idea.create']);
     Route::post('popular/{id}/idea', ['uses'=>'PopularController@storeIdea', 'as' => 'popular.idea.store']);
     Route::delete('popular/idea/{id}', ['uses'=>'PopularController@destroyIdea', 'as' => 'popular.idea.destroy']);
     Route::get('popular/{id}/publish', ['uses'=>'PopularController@publish', 'as' => 'popular.publish']);
     Route::get('popular/{id}/unpublish', ['uses'=>'PopularController@unpublish', 'as' => 'popular.unpublish']);
     Route::resource('popular', 'PopularController');
+    
+    Route::get('skill/{id}/publish', ['uses'=>'SkillController@publish', 'as' => 'skill.publish']);
+    Route::get('skill/{id}/unpublish', ['uses'=>'SkillController@unpublish', 'as' => 'skill.unpublish']);
+    Route::resource('skill', 'SkillController');
+    
+    Route::get('tag/{id}/publish', ['uses'=>'TagController@publish', 'as' => 'tag.publish']);
+    Route::get('tag/{id}/unpublish', ['uses'=>'TagController@unpublish', 'as' => 'tag.unpublish']);
+    Route::resource('tag', 'TagController');
+    
+    Route::resource('user', 'UserController');
 });
 Route::group(['prefix' => '/'], function () {
     Route::get('', ['uses'=>'HomeController@index', 'as' => 'home.index']);
@@ -54,6 +64,9 @@ Route::group(['prefix' => '/'], function () {
     Route::get('discussion/{id}/message/unread', ['uses'=>'DiscussionController@unreadMessages', 'as' => 'discussion.message.unread', 'middleware' => 'auth']);
     Route::get('discussion/{id}/message/read', ['uses'=>'DiscussionController@readMessages', 'as' => 'discussion.message.read', 'middleware' => 'auth']);
     Route::post('discussion/{id}/message', ['uses'=>'DiscussionController@sendMessage', 'as' => 'discussion.send.message', 'middleware' => 'auth']);
+
+    /*route for feedback*/
+    Route::post('feedback', ['uses'=>'FeedbackController@store', 'as' => 'feedback.store']);
 
     /*route for idea*/
     Route::get('idea/{slug}/invitation/{user}', ['uses'=>'IdeaController@invitation', 'as' => 'idea.invitation']);
