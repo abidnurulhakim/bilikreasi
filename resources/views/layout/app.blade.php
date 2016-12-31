@@ -48,19 +48,56 @@
     <!-- Page Content -->
     <div class="container">
       @yield('content')
-      @if(false)
+      @if(true)
       <div class="fixed-action-btn">
-        <a class="btn-floating btn-large red">
-          <i class="fa fa-bars fa-lg"></i>
+        <a class="btn-floating btn-large red tooltipster" data-toggle="modal" data-target="#modalFeedback" data-placement="top" title="Feedback">
+          <i class="fa fa-envelope fa-lg"></i>
         </a>
-        <ul>
-          <li><a class="btn-floating tooltipster" href="{{ route('user.show', auth()->user()->username) }}" data-placement="left" title="Beranda"><i class="fa fa-home"></i></a></li>  
-          <li><a class="btn-floating tooltipster" href="{{ route('idea.create') }}" data-placement="left" title="Buat Ide"><i class="fa fa-lightbulb-o"></i></a></li>
-          <li><a class="btn-floating tooltipster" href="{{ route('discussion.index') }}" data-placement="left" title="Ruang diskusi"><i class="fa fa-comments"></i></a></li>
-          <li><a class="btn-floating tooltipster" href="{{ route('user.edit', auth()->user()->username) }}" data-placement="left" title="Perbarui profil"><i class="fa fa-user"></i></a></li>
-          <li><a class="btn-floating tooltipster" href="{{ route('user.edit-password', auth()->user()->username) }}" data-placement="left" title="Ganti password"><i class="fa fa-lock"></i></a></li>
-          <li><a class="btn-floating tooltipster" href="{{ route('session.logout') }}" data-placement="left" title="Keluar"><i class="fa fa-sign-out"></i></a></li>
-        </ul>
+      </div>
+      <!-- Modal -->
+      <div class="modal fade" id="modalFeedback" tabindex="-1" role="dialog" aria-labelledby="modalFeedbackLabel">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <h4 class="modal-title" id="myModalLabel">Kritik, Saran dan Keluhan</h4>
+            </div>
+            {!! Form::open(['route' => 'feedback.store', 'method' => 'post', 'files' => true]) !!}
+            <div class="modal-body">
+              @if (count($errors) > 0)
+                <div class="alert alert-danger">
+                  <ul>
+                    @foreach ($errors->all() as $error)
+                      <li>{{ $error }}</li>
+                    @endforeach
+                  </ul>
+                </div>
+              @endif
+              <div class="form-group">
+                {!! Form::label('name', 'Nama') !!}
+                {!! Form::text('name', null, ['class' => 'form-control', 'placeholder' => 'Masukkan Nama Anda', 'required' => true]) !!}
+              </div>
+              <div class="form-group">
+                {!! Form::label('email', 'Email') !!}
+                {!! Form::email('email', (auth()->user() ? auth()->user()->email : null), ['class' => 'form-control', 'placeholder' => 'Masukkan Email Anda', 'required' => true]) !!}
+              </div>
+              <div class="form-group">
+                {!! Form::label('subject', 'Judul') !!}
+                {!! Form::text('subject', null, ['class' => 'form-control', 'placeholder' => 'Judul', 'required' => true]) !!}
+              </div>
+              <div class="form-group">
+                {!! Form::label('content', 'Isi') !!}
+                {!! Form::textarea('content', null, ['class' => 'form-control', 'placeholder' => 'Isi', 'required' => true]) !!}
+              </div>
+              {!! Form::formFile('attachments', null, ['label' => 'Attachment (Gambar)', 'placeholder' => 'Attachment', 'data-max-file-count' => '5', 'data-max-file-size' => '20480', 'data-allowed-file-types' => '["image"]', 'multiple' => 'true'] ) !!}
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              {!! Form::submit('Kirim', ['class' => 'btn btn-primary']); !!}
+            </div>
+            {!! Form::close() !!}
+          </div>
+        </div>
       </div>
       @endif
     </div>

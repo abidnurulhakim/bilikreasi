@@ -81,6 +81,14 @@
           </span>
         </a>
       </li>
+      <li @if(isset($feedbackMenu)) class="active" @endif>
+        <a href="{{ route('admin.feedback.index') }}">
+          <i class="fa fa-envelope"></i> <span>Feedback</span>
+          <span class="pull-right-container">
+            <small class="label pull-right bg-green">new</small>
+          </span>
+        </a>
+      </li>
     </ul>
   </section>
   <!-- /.sidebar -->

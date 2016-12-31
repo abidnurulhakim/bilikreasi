@@ -3672,3 +3672,12 @@ button.btn-floating {
   top: 0;
 }
 
+.tooltipster-sidetip.tooltipster-top .tooltipster-arrow-border {
+  border-top-color: #51afae;
+}
+.tooltipster-sidetip.tooltipster-top .tooltipster-arrow-background {
+  border-top-color: #51afae;
+  top: -3px;
+  left: 0;
+}
+
