@@ -12,3 +12,4 @@ public/js/*
 public/css/*
 public/build/css/*
 public/build/js/*
+public/build/rev-manifest.json
