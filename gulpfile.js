@@ -21,6 +21,7 @@ elixir(mix => {
         ], 'public/css/application.css');
     mix.scripts([
         'modernizr.min.js',
+        'numfuzz.js',
         'app.js'
         ], 'public/js/application.js');
     mix.version(['css/application.css', 'js/application.js']);
