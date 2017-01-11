@@ -2,47 +2,58 @@
 //
 // Copyright (C) 2013 Ramon Torres <http://github.com/raymondjavaxx>
 // Licenced under the MIT License <http://opensource.org/licenses/MIT>
+var jquery_assets = {
+  _jquery_local       : { js : myPrefix + 'vendor/' + 'jquery/jquery.min.js' },
+}
 
-(function () {
-  "use strict";
+Modernizr.load({
+  load    : [
+    jquery_assets._jquery_local.js,
+  ],
+  complete: function() {
+    (function () {
+      "use strict";
 
-  var NumFuzz = {};
+      var NumFuzz = {};
 
-  NumFuzz.fuzzy = function (number) {
-    if (typeof number !== 'number') {
-      number = parseInt(number, 10);
-    }
+      NumFuzz.fuzzy = function (number) {
+        if (typeof number !== 'number') {
+          number = parseInt(number, 10);
+        }
 
-    if (Math.abs(number) >= 1000000) {
-      return this.round(number / 1000000.0, 1) + "M";
-    }
+        if (Math.abs(number) >= 1000000) {
+          return this.round(number / 1000000.0, 1) + "M";
+        }
 
-    if (Math.abs(number) >= 1000) {
-      return this.round(number / 1000.0, 1) + "k";
-    }
+        if (Math.abs(number) >= 1000) {
+          return this.round(number / 1000.0, 1) + "k";
+        }
 
-    return number.toString();
-  };
+        return number.toString();
+      };
 
-  NumFuzz.round = function (number, dec) {
-    var truncated = Number((Math.floor(number * 10) / 10).toFixed(dec));
-    if (truncated % 1 === 0) {
-      return truncated.toFixed(0);
-    }
+      NumFuzz.round = function (number, dec) {
+        var truncated = Number((Math.floor(number * 10) / 10).toFixed(dec));
+        if (truncated % 1 === 0) {
+          return truncated.toFixed(0);
+        }
 
-    return truncated.toFixed(1);
-  };
+        return truncated.toFixed(1);
+      };
 
-  window['NumFuzz'] = NumFuzz;
-})();
+      window['NumFuzz'] = NumFuzz;
+    })();
 
-// jQuery micro-pluggin
-(function ($) {
-  $.fn.numFuzz = function (method) {
-    this.each(function (i, elem) {
-      var num = parseInt($(elem).text(), 10);
-      var fuzzy = NumFuzz.fuzzy(num);
-      $(elem).attr('title', num.toLocaleString()).text(fuzzy).data('numfuzz-val', num);
-    });
-  };
-})(jQuery);
+    // jQuery micro-pluggin
+    (function ($) {
+      $.fn.numFuzz = function (method) {
+        this.each(function (i, elem) {
+          var num = parseInt($(elem).text(), 10);
+          var fuzzy = NumFuzz.fuzzy(num);
+          $(elem).attr('title', num.toLocaleString()).text(fuzzy).data('numfuzz-val', num);
+        });
+      };
+    })(jQuery);
+  }
+});
+

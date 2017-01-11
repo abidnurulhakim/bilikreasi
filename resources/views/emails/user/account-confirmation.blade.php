@@ -147,7 +147,7 @@
                           <w:anchorlock/>
                           <center>
                         <![endif]-->
-                            <a href="{{ route('home.register.confirmation', ['id' => $user->id])."?token=$user->token_confirmation" }}"
+                            <a href="{{ route('home.register.confirmation', ['id' => $user->id])."?token=$user->confirmation_token" }}"
                       style="background-color:#178f8f;border-radius:4px;color:#ffffff;display:inline-block;font-family:Helvetica, Arial, sans-serif;font-size:16px;font-weight:bold;line-height:50px;text-align:center;text-decoration:none;width:200px;-webkit-text-size-adjust:none;">Konfirmasi Akun!</a>
                         <!--[if mso]>
                           </center>

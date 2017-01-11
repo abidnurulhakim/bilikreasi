@@ -35,7 +35,8 @@ class Idea extends BaseModel
     protected $fillable = [
         'user_id', 'title', 'slug', 'description',
         'type', 'cover', 'category', 'status',
-        'location', 'start_at', 'finish_at', 'tags'
+        'location', 'start_at', 'finish_at', 'tags',
+        'viewer_count', 'member_count', 'like_count'
     ];
 
     protected $dates = [

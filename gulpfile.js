@@ -35,4 +35,6 @@ elixir(mix => {
     mix.copy('resources/assets/vendor/slick/slick', 'public/vendor/slick');
     mix.copy('resources/assets/vendor/summernote/dist', 'public/vendor/summernote');
     mix.copy('resources/assets/vendor/webui-popover/dist', 'public/vendor/webui-popover');
+    mix.copy('resources/assets/vendor/tooltipster/dist', 'public/vendor/tooltipster');
+    mix.copy('resources/assets/vendor/slick-carousel/slick', 'public/vendor/slick');
 });

@@ -22,7 +22,7 @@ class UserService
 
     public static function confirmation($userId, $token)
     {
-        $user = User::whereId($userId)->where('token_confirmation', $token)->first();
+        $user = User::whereId($userId)->where('confirmation_token', $token)->first();
         if ($user) {
             $user->confirmed = true;
             $user->save();

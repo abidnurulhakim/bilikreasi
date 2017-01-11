@@ -889,50 +889,61 @@ Modernizr.addTest('mediaqueries', Modernizr.mq('only all'));// code.google.com/s
 //
 // Copyright (C) 2013 Ramon Torres <http://github.com/raymondjavaxx>
 // Licenced under the MIT License <http://opensource.org/licenses/MIT>
+var jquery_assets = {
+  _jquery_local       : { js : myPrefix + 'vendor/' + 'jquery/jquery.min.js' },
+}
 
-(function () {
-  "use strict";
+Modernizr.load({
+  load    : [
+    jquery_assets._jquery_local.js,
+  ],
+  complete: function() {
+    (function () {
+      "use strict";
 
-  var NumFuzz = {};
+      var NumFuzz = {};
 
-  NumFuzz.fuzzy = function (number) {
-    if (typeof number !== 'number') {
-      number = parseInt(number, 10);
-    }
+      NumFuzz.fuzzy = function (number) {
+        if (typeof number !== 'number') {
+          number = parseInt(number, 10);
+        }
 
-    if (Math.abs(number) >= 1000000) {
-      return this.round(number / 1000000.0, 1) + "M";
-    }
+        if (Math.abs(number) >= 1000000) {
+          return this.round(number / 1000000.0, 1) + "M";
+        }
 
-    if (Math.abs(number) >= 1000) {
-      return this.round(number / 1000.0, 1) + "k";
-    }
+        if (Math.abs(number) >= 1000) {
+          return this.round(number / 1000.0, 1) + "k";
+        }
 
-    return number.toString();
-  };
+        return number.toString();
+      };
 
-  NumFuzz.round = function (number, dec) {
-    var truncated = Number((Math.floor(number * 10) / 10).toFixed(dec));
-    if (truncated % 1 === 0) {
-      return truncated.toFixed(0);
-    }
+      NumFuzz.round = function (number, dec) {
+        var truncated = Number((Math.floor(number * 10) / 10).toFixed(dec));
+        if (truncated % 1 === 0) {
+          return truncated.toFixed(0);
+        }
 
-    return truncated.toFixed(1);
-  };
+        return truncated.toFixed(1);
+      };
 
-  window['NumFuzz'] = NumFuzz;
-})();
+      window['NumFuzz'] = NumFuzz;
+    })();
 
-// jQuery micro-pluggin
-(function ($) {
-  $.fn.numFuzz = function (method) {
-    this.each(function (i, elem) {
-      var num = parseInt($(elem).text(), 10);
-      var fuzzy = NumFuzz.fuzzy(num);
-      $(elem).attr('title', num.toLocaleString()).text(fuzzy).data('numfuzz-val', num);
-    });
-  };
-})(jQuery);
+    // jQuery micro-pluggin
+    (function ($) {
+      $.fn.numFuzz = function (method) {
+        this.each(function (i, elem) {
+          var num = parseInt($(elem).text(), 10);
+          var fuzzy = NumFuzz.fuzzy(num);
+          $(elem).attr('title', num.toLocaleString()).text(fuzzy).data('numfuzz-val', num);
+        });
+      };
+    })(jQuery);
+  }
+});
+
 
 var path = {
     plugins : myPrefix + 'vendor/'
@@ -943,13 +954,7 @@ var assets = {
   _materialize_local  : { js : path.plugins + 'materialize/js/materialize.min.js' },
   _bootstrap_local    : { js : path.plugins + 'bootstrap/js/bootstrap.min.js' },  
   _abbr_number        : { js : path.plugins + 'numfuzz/numfuzz.js' },
-  _popover            : { 
-                          js : path.plugins + 'webui-popover/jquery.webui-popover.min.js'
-                        },
-  _slick              : { 
-                          css : path.plugins + 'slick/slick.css',
-                          js : path.plugins + 'slick/slick.min.js',
-                        },
+  _popover            : { js : path.plugins + 'webui-popover/jquery.webui-popover.min.js' },
   _masonry            : { js : path.plugins + 'masonry/masonry.pkgd.min.js' },
   _infiniteScroll     : { js : path.plugins + 'infinite-scroll/jquery.infinitescroll.min.js' },
   _summernote         : { 
@@ -957,6 +962,8 @@ var assets = {
                           js : path.plugins + 'summernote/summernote.min.js',
                           lang : path.plugins + 'summernote/lang/summernote-id-ID.js'
                         },
+  _tooltip            : { js : path.plugins + 'tooltipster/js/tooltipster.bundle.min.js' },
+  _slick              : { js : path.plugins + 'slick/slick.min.js' },
 
 };
 
@@ -966,6 +973,9 @@ var Site = {
     Site.searchMenuBarInit();
     Site.popoverInit();
     Site.formMaterialize();
+    Site.bannerInit();
+    Site.popularIdeaInit();
+    Site.numfuzz();
   },
   navbarInit : function() {
     $(".button-collapse").sideNav();
@@ -993,7 +1003,7 @@ var Site = {
   popoverInit : function() {
     Modernizr.load({
       load    : [
-        assets._popover.js,
+        assets._popover.js
       ],
       complete: function(){
         $('.popover').each(function(){
@@ -1023,10 +1033,108 @@ var Site = {
   formMaterialize : function() {
     $('.input-field label').each(function(){
       $(this).click(function() {
-        $(this).prev().trigger('click');
+        $(this).prev().focus();
       });
     });
-  }
+  },
+  tooltip : function(){
+    if ($('.tooltipster').length > 0) {
+      Modernizr.load({
+        load  : [
+          assets._tooltip.js
+        ],
+        complete : function() {
+          $('.tooltipster').each(function(e){
+            $(this).tooltipster({
+              theme: ['tooltipster-noir', 'tooltipster-noir-customized'],
+              side: $(this).data('placement')
+            });
+          });
+        }
+      });
+    }
+  },
+  bannerInit : function() {
+    Site.slickLoad(Site.banner);
+  },
+  slickLoad : function($callback) {
+    Modernizr.load({
+      load    : [
+        assets._slick.js,
+      ],
+      complete: function(){
+        $callback();
+      }
+    });
+  },
+  banner : function() {
+    $('.banners').each(function(i){
+      $(this).slick({
+        dots: true,
+        infinite: true,
+        autoplay: true,
+        speed: 300,
+        prevArrow: "<a class='left slider-control slick-prev'><i class='fa fa-chevron-left fa-lg'></i></a>",
+        nextArrow: "<a class='right slider-control slick-next'><i class='fa fa-chevron-right fa-lg'></i></a>",
+        fade: true,
+        cssEase: 'linear',
+      });
+    })
+  },
+  popularIdeaInit : function() {
+    Site.slickLoad(Site.popularIdea);
+  },
+  popularIdea : function() {
+    $('section.popular-idea .idea-list').each(function(i){
+      $(this).on('init', function(){
+        Site.popularIdeaPushPinInit()
+      });
+      $(this).slick({
+        infinite: false,
+        speed: 300,
+        slidesToShow: 3,
+        prevArrow: "",
+        nextArrow: "",
+        responsive: [
+          {
+            breakpoint: 1024,
+            settings: {
+              slidesToShow: 3,
+              slidesToScroll: 3,
+            }
+          },
+          {
+            breakpoint: 600,
+            settings: {
+              slidesToShow: 1,
+              slidesToScroll: 1
+            }
+          },
+          {
+            breakpoint: 480,
+            settings: {
+              slidesToShow: 1,
+              slidesToScroll: 1
+            }
+          }
+        ]
+      });
+    });
+  },
+  popularIdeaPushPinInit : function() {
+    $('.pushpin').each(function(i){
+      $target = $('#' + $(this).attr('data-target'));
+      $top = $target.offset().top;
+      $bottom = $target.offset().top + $target.outerHeight();
+      $(this).pushpin({
+        top: $top,
+        bottom: $bottom,
+      });
+    });
+  },
+  numfuzz : function() {
+    $('.abbr-number').numFuzz();
+  },
 };
 
 var checkJquery = function () {

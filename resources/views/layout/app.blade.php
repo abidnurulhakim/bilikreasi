@@ -50,7 +50,7 @@
       @yield('content')
       @if(true)
       <div class="fixed-action-btn">
-        <a class="btn-floating btn-large red tooltipster" data-toggle="modal" data-target="#modalFeedback" data-placement="top" title="Feedback">
+        <a class="btn-floating btn-large primary tooltipster" data-toggle="modal" data-target="#modalFeedback" data-placement="top" title="Feedback">
           <i class="fa fa-envelope fa-lg"></i>
         </a>
       </div>
@@ -64,7 +64,7 @@
             </div>
             {!! Form::open(['route' => 'feedback.store', 'method' => 'post', 'files' => true]) !!}
             <div class="modal-body">
-              @if (count($errors) > 0)
+              @if (isset($errors) && count($errors) > 0)
                 <div class="alert alert-danger">
                   <ul>
                     @foreach ($errors->all() as $error)

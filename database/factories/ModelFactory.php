@@ -24,7 +24,15 @@ $factory->define(App\Models\User::class, function (Faker\Generator $faker) {
         'confirmed' => true,
         'gender' => ['male', 'female'][array_rand(['male', 'female'])],
         'role' => 'user',
-        'token_confirmation' => str_random(50),
+        'confirmation_token' => str_random(50),
+        'photo' => $faker->randomElement([
+            'assets/images/user.jpg',
+            'assets/images/user-1.jpg',
+            'assets/images/user-2.jpg',
+            'assets/images/user-3.jpg',
+            'assets/images/user-4.jpg',
+            'assets/images/user-5.jpg',
+            ]),
     ];
 });
 
@@ -34,5 +42,13 @@ $factory->define(App\Models\Idea::class, function (Faker\Generator $faker) {
         'description' => $faker->paragraph,
         'category' => ['business', 'campaign', 'community', 'project', 'event', 'other'][array_rand(['business', 'campaign', 'community', 'project', 'event', 'other'])],
         'status' => ['ready', 'ongoing', 'finish'][array_rand(['ready', 'ongoing', 'finish'])],
+        'cover' => $faker->randomElement([
+            'assets/images/idea.jpg',
+            'assets/images/idea-1.jpg',
+            'assets/images/idea-2.jpg',
+            'assets/images/idea-3.jpg',
+            'assets/images/idea-4.jpg',
+            'assets/images/idea-5.jpg',
+            ]),
     ];
 });

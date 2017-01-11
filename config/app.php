@@ -182,6 +182,7 @@ return [
         Jenssegers\Rollbar\RollbarServiceProvider::class,
         Laravel\Socialite\SocialiteServiceProvider::class,
         Sichikawa\LaravelSendgridDriver\SendgridTransportServiceProvider::class,
+        Dionera\BeanstalkdUI\BeanstalkdUIServiceProvider::class,
     ],
 
     /*

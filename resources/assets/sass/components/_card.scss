@@ -17,7 +17,7 @@
   border-radius: 2px;
 
   .card-title {
-    font-size: 1.5rem;
+    font-size: 1.25rem;
     font-weight: 300;
     &.activator {
       cursor: pointer;
@@ -149,7 +149,7 @@
       color: inherit;
     }
     .card-title {
-      line-height: 2.5rem;
+      line-height: 1.75rem;
     }
   }
 
@@ -288,8 +288,18 @@
     transform: translateX(-38px);
     transition: transform 0.35s ease;
   }
-  .card-meta {
-    overflow: auto;
+
+  .read-more {
+    text-decoration: none;
+    color: $primary-color;
+  }
+  .read-more:hover {
+    text-decoration: underline;
+  }
+
+  .card-block {
+    padding: .2rem .8rem;
+
     .card-meta-tags {
       display: flex;
       i {
@@ -327,13 +337,6 @@
       }
     }
   }
-  .read-more {
-    text-decoration: none;
-    color: $primary-color;
-  }
-  .read-more:hover {
-    text-decoration: underline;
-  }
 }
 
 .share-toggle {
@@ -370,11 +373,46 @@
   transform: scale(1.2);
 }
 .facebook {
-    background-color: #3b5998; 
+  background-color: #3b5998; 
 }
 .twitter {
-    background-color: #00abe3; 
+  background-color: #00abe3; 
 }
 .googleplus {
-    background-color: #d3492c;
+  background-color: #d3492c;
+}
+
+.btn-vote-down,
+.btn-vote-up {
+  display: inline-block;
+  width: 25%;
+  height: 40px;
+  font-align: center;
+}
+
+.meta-info {
+  list-style-type: none;
+  display: block;
+  width: 100%;
+  padding: .5rem 0;
+
+  .meta-info--item {
+    display: inline-block;
+    width: 32%;
+
+    &:not(:last-child) {
+      border-right: .5px solid #ccc;
+    }
+
+    i {
+      line-height: 1rem;
+      color: #444;
+    }
+
+    .meta-info--number {
+      color: #666;
+      font-size: 1rem;
+      font-weight: 400;
+    }
+  }
 }

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddTokenConfirmationToUserTable extends Migration
+class AddViewerCountToIdeasTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class AddTokenConfirmationToUserTable extends Migration
      */
     public function up()
     {
-        Schema::table('users', function ($table) {
-            $table->string('token_confirmation')->nullable();
+        Schema::table('ideas', function ($table) {
+            $table->integer('viewer_count')->unsigned()->default(0);
         });
     }
 
@@ -25,8 +25,8 @@ class AddTokenConfirmationToUserTable extends Migration
      */
     public function down()
     {
-        Schema::table('users', function ($table) {
-            $table->dropColumn(['token_confirmation']);
+        Schema::table('ideas', function ($table) {
+            $table->dropColumn(['viewer_count']);
         });
 
     }

@@ -1,39 +1,39 @@
 <li class="user-menu">
   @if(auth()->check())
-    <a class="popover right" href="#" data-placement="bottom-left">
+    <a class="popover pull-right text-xs-center" href="#" data-placement="bottom-left">
       <img src="{{ auth()->user()->getPhoto(40) }}" class="circle responsive-img">
     </a>
     <div class="webui-popover-content">
-      <ul>
+      <ul class="dropdown-menu">
         @if(auth()->user()->isAdmin())
         <a href="{{ route('admin.index') }}">
-          <li><i class="fa fa-dashboard"></i> Admin Dashboard</li>
+          <i class="fa fa-dashboard"></i> Admin Dashboard
         </a>
         @endif
         <a href="{{ route('user.show', auth()->user()->username) }}">
-          <li><i class="fa fa-home"></i> Beranda</li>
+          <i class="fa fa-home"></i> Beranda
         </a>
         <a href="{{ route('idea.create') }}">
-          <li><i class="fa fa-lightbulb-o"></i> Buat Ide Baru</li>
+          <i class="fa fa-lightbulb-o"></i> Buat Ide Baru
         </a>
         @if(\App\Models\IdeaMember::where('user_id', auth()->user()->id)->count() > 0)
         <a href="{{ route('discussion.index') }}">
-          <li><i class="fa fa-comments"></i> Ruang Diskusi</li>
+          <i class="fa fa-comments"></i> Ruang Diskusi
         </a>
         @endif
         <a href="{{ route('user.edit', auth()->user()->username) }}">
-          <li><i class="fa fa-user"></i> Perbaharui Profil</li>
+          <i class="fa fa-user"></i> Perbaharui Profil
         </a>
         <a href="{{ route('user.edit-password', auth()->user()->username) }}">
-          <li><i class="fa fa-key"></i> Ganti Password</li>
+          <i class="fa fa-key"></i> Ganti Password
         </a>
         <br>
-        <a href="{{ route('session.logout') }}" <a class="btn-flat btn-block btn-social primary">
+        <a href="{{ route('session.logout') }}" class="btn-flat btn-block btn-social primary">
           <i class="fa fa-sign-out"></i> Keluar
         </a>
       </ul>
     </div>
-    <a class="right" href="{{ route('user.show', auth()->user())}}">
+    <a class="pull-right" href="{{ route('user.show', auth()->user()) }}">
       {{ str_limit(auth()->user()->name, 15) }}
     </a>
   @else
