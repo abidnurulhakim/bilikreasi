@@ -23,7 +23,7 @@ $factory->define(App\Models\User::class, function (Faker\Generator $faker) {
         'hash_password' => $password ?: $password = hash('secret'),
         'confirmed' => true,
         'gender' => ['male', 'female'][array_rand(['male', 'female'])],
-        'role' => 'user',
+        'role' => $faker->randomElement(['user', 'admin']),
         'confirmation_token' => str_random(50),
         'photo' => $faker->randomElement([
             'assets/images/user.jpg',
@@ -33,6 +33,12 @@ $factory->define(App\Models\User::class, function (Faker\Generator $faker) {
             'assets/images/user-4.jpg',
             'assets/images/user-5.jpg',
             ]),
+        'profession' => $faker->word,
+        'live_at' => $faker->country,
+        'interests' => $faker->words($faker->numberBetween(1, 6), false),
+        'skills' => $faker->words($faker->numberBetween(1, 6), false),
+        'last_login_ip_address' => $faker->ipv4,
+        'last_login_at' => $faker->dateTime('now', date_default_timezone_get()),
     ];
 });
 
@@ -50,5 +56,7 @@ $factory->define(App\Models\Idea::class, function (Faker\Generator $faker) {
             'assets/images/idea-4.jpg',
             'assets/images/idea-5.jpg',
             ]),
+        'viewer_count' => $faker->numberBetween(0, 10000000),
+        'tags' => $faker->words($faker->numberBetween(1, 6), false),
     ];
 });

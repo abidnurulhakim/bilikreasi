@@ -25,6 +25,7 @@
         "tooltipster": "*",
         "webui-popover": "*",
         "slick-carousel": "*",
-        "bootstrap": "v3.3.7"
+        "bootstrap": "v3.3.7",
+        "colorbox": "*"
     }
 }

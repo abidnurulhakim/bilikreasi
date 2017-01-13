@@ -6705,7 +6705,7 @@ html {
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-family: Roboto, sans-serif;
   font-size: 1rem;
   line-height: 1.5;
   color: #373a3c;
@@ -9430,6 +9430,16 @@ input[type="button"].btn-block {
   border-color: #142030;
 }
 
+.btn-whatsapp, .btn-whatsapp:hover {
+  background: #34AF23;
+  border-color: #34AF23;
+}
+
+.btn-line-messenger, .btn-line-messenger:hover {
+  background: #00b900;
+  border-color: #00b900;
+}
+
 .btn-floating {
   display: inline-block;
   color: #fff;
@@ -11132,6 +11142,21 @@ input[type="text"].searchbox-input:-ms-input-placeholder, input[type="text"]:foc
   color: #666;
   font-size: 1rem;
   font-weight: 400;
+}
+
+ul.card-action-buttons {
+  margin: -50px -5px 0 0;
+  text-align: right;
+}
+
+ul.card-action-buttons li {
+  display: inline-block;
+  padding-left: 5px;
+}
+
+ul.card-action-buttons li a i {
+  color: #fff;
+  font-size: 1.2rem;
 }
 
 .breadcrumb {
@@ -12946,6 +12971,27 @@ section .banners .slick-list {
   }
 }
 
+.quick-look--header {
+  padding: 1rem 1rem .5rem 1rem;
+  text-align: center;
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.quick-look--body {
+  padding: 1rem;
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.quick-look--footer {
+  padding: 1rem;
+  text-align: right;
+}
+
+.quick-look--footer a.btn {
+  color: #fff;
+  min-width: 8rem;
+}
+
 .modal-open {
   overflow: hidden;
 }
@@ -13447,7 +13493,7 @@ section .banners .slick-list {
   position: absolute;
   z-index: 1070;
   display: block;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-family: Roboto, sans-serif;
   font-style: normal;
   font-weight: normal;
   letter-spacing: normal;
@@ -13973,6 +14019,27 @@ corresponds to the arrow we want to display */
   .pushpin-title {
     font-size: 1.4rem;
   }
+}
+
+#colorbox {
+  z-index: 1000;
+}
+
+#cboxContent {
+  background-color: #fff;
+}
+
+#cboxClose {
+  position: absolute;
+  top: -1rem;
+  right: -1rem;
+  width: 2rem;
+  height: 2rem;
+  overflow: hidden;
+  background-color: #51AFAE;
+  border: none;
+  text-align: center;
+  color: #fff;
 }
 
 .align-baseline {

@@ -4,7 +4,7 @@ use App\Models\User;
 use App\Services\IdeaService;
 use Illuminate\Database\Seeder;
 
-class IdeaMembersTableSeeder extends Seeder
+class LikesTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -17,7 +17,7 @@ class IdeaMembersTableSeeder extends Seeder
         foreach (\App\Models\Idea::all() as $idea) {
             $users = $faker->randomElements(User::all()->all(), $faker->numberBetween(1, User::count()));
             foreach ($users as $user) {
-                IdeaService::join($idea, $user);
+                IdeaService::like($idea, $user);
             }
         }
     }

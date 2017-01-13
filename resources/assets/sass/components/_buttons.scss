@@ -251,20 +251,29 @@ input[type="button"] {
 }
 .btn-pinterest, .btn-pinterest:hover {
   background: #cc2127;
-  border-color:#780004;
+  border-color: #780004;
 }
 .btn-spotify, .btn-sportify:hover {
   background: #7ab800;
-  border-color:#3a5700;
+  border-color: #3a5700;
 }
 .btn-linkedin, .btn-linkedin:hover {
   background: #0976b4;
-  border-color:#004269;
+  border-color: #004269;
 }
 .btn-tumblr, .btn-tumblr:hover {
   background: #35465c;
-  border-color:#142030;
+  border-color: #142030;
 }
+.btn-whatsapp, .btn-whatsapp:hover {
+  background: #34AF23;
+  border-color: #34AF23;
+}
+.btn-line-messenger, .btn-line-messenger:hover {
+  background: #00b900;
+  border-color: #00b900;
+}
+
 
 // Floating button
 .btn-floating {

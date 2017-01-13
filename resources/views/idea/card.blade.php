@@ -18,32 +18,11 @@
     <div class="card-category">{{ $idea->category }}</div>
   </div>
   <div class="card-content">
-    <div class="card-share">
-      <div class="card-social">
-        <a class="share-icon facebook" href="https://www.facebook.com/dialog/feed?app_id={{ ENV('FACEBOOK_APP_ID') }}&display=popup&caption={{ urlencode($idea->title) }}&link={{ route('idea.show', $idea) }}&redirect_uri={{ route('idea.show', $idea) }}" target="_blank">
-          <span class="fa fa-facebook"></span>
-        </a>
-        <a class="share-icon twitter" href="https://twitter.com/intent/tweet?text={{ urlencode(str_limit($idea->title, 100)) }}&url={{ urlencode(route('idea.show', $idea)) }}" target="_blank">
-          <span class="fa fa-twitter"></span>
-        </a>
-        <a class="share-icon googleplus" href="#">
-          <span class="fa fa-google-plus"></span>
-        </a>
-      </div>
-      <a id="share" class="share-toggle share-icon primary-text" href="#"></a>
-    </div>
-    <span class="card-title grey-text text-darken-4">{{ str_limit($idea->title, 50) }}</span>
-    <hr>
-    <div class="card-block row flex-items-xs-top">
-      <div class="col-xs-1">
-        <i class="fa fa-tags fa-lg"></i>
-      </div>
-      <div class="col-xs-11">
-        @foreach(collect($idea->tags)->take(100) as $tag)
-          <div class="tag tag-pill tag-primary">{{ $tag }}</div>
-        @endforeach  
-      </div>
-    </div>
+    <ul class="card-action-buttons">
+      <li>
+        <a href="{{ route('idea.quick-look', $idea) }}" class="btn-floating light-blue quick-look" title="Quick Look"><i class="fa fa-search"></i></a>
+      </li>
+    </ul>
     <div class="card-block row flex-items-xs-middle text-xs-center meta">
       <ul class="meta-info">
         <li class="meta-info--item">
@@ -72,6 +51,33 @@
         </li>
       </ul>
     </div>
+    <div class="card-block row flex-items-xs-middle text-xs-center meta-share">
+      <div class="col-xs">
+        <a class="btn btn-flat btn-social btn-facebook" href="https://www.facebook.com/dialog/feed?app_id={{ ENV('FACEBOOK_APP_ID') }}&display=popup&caption={{ urlencode($idea->title) }}&link={{ route('idea.show', $idea) }}&redirect_uri={{ route('idea.show', $idea) }}" target="_blank" title="Share to Facebook">
+          <span class="fa fa-facebook"></span>
+        </a>  
+      </div>
+      <div class="col-xs">
+        <a class="btn btn-flat btn-social btn-twitter" href="https://twitter.com/intent/tweet?text={{ urlencode(str_limit($idea->title, 100)) }}&url={{ urlencode(route('idea.show', $idea)) }}" target="_blank" title="Tweet to Twitter">
+          <span class="fa fa-twitter"></span>
+        </a>
+      </div>
+      <div class="col-xs">
+        <a class="btn btn-flat btn-social btn-google-plus" href="https://plus.google.com/share?url={{ route('idea.show', $idea) }}" title="Share to Google Plus">
+          <span class="fa fa-google"></span>
+        </a>
+      </div>
+      <div class="col-xs">
+        <a class="btn btn-flat btn-social btn-whatsapp" href="whatsapp://send?text={{ $idea->title }} {{ route('idea.show', $idea) }}" target="_blank" title="Share to WhatsApp">
+          <span class="fa fa-whatsapp"></span>
+        </a>
+      </div>
+      <div class="col-xs">
+        <a class="btn btn-flat btn-social btn-line-messenger" href="http://line.me/R/msg/text/?{{ $idea->title }} {{ route('idea.show', $idea) }}" target="_blank" title="Share to LINE Messenger">
+          <img src="{{ asset('assets/images/line-messenger-30x30.png') }}" width="20px" height="20px">
+        </a>
+      </div>
+    </div>
   </div>
   <div class="card-reveal">
     <span class="card-title grey-text text-darken-4"><div class="title-ellipsis">{{ str_limit($idea->title, 50) }}</div><i class="material-icons right">close</i></span>
@@ -84,10 +90,10 @@
   </div>
   <div class="card-action">
     @if(isset($invitation))
-      <a class="btn btn-flat btn-block primary" href="{{ route('idea.join', $idea) }}">Gabung</a>
-      <a class="btn btn-flat btn-block primary" href="{{ route('idea.show', $idea) }}">Lihat</a>
+      <a class="btn btn-flat btn-block btn-primary" href="{{ route('idea.join', $idea) }}">Gabung</a>
+      <a class="btn btn-flat btn-block btn-primary" href="{{ route('idea.show', $idea) }}">Lihat</a>
     @elseif(isset($user))
-      <a class="btn btn-flat btn-block primary" href="{{ route('idea.show', $idea) }}">Lihat</a>
+      <a class="btn btn-flat btn-block btn-primary" href="{{ route('idea.show', $idea) }}">Lihat</a>
       <i class="fa fa-clock-o" aria-hidden="true"></i> <small>Bergabung sejak <span class="time-humanize " title="{{ Carbon::parse($idea->members()->find($user->id)->pivot->join_at)->toIso8601String() }}"></span></small>
     @else
       <a class="btn btn-flat btn-block btn-primary" href="{{ route('idea.show', $idea) }}">Lihat</a>

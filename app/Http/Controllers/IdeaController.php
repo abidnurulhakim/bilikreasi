@@ -13,34 +13,19 @@ use Illuminate\Http\Request;
 
 class IdeaController extends Controller
 {
-    /**
-     * Instantiate a new UserController instance.
-     *
-     * @return void
-     */
     public function __construct()
     {
         parent::__construct();
         $this->middleware('auth', ['except' => [
-            'index', 'show'
+            'index', 'show', 'quickLook'
         ]]);
     }
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         return redirect()->route('search.index');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         $this->authorize('create', Idea::class);
@@ -54,12 +39,6 @@ class IdeaController extends Controller
         return view('idea.create', compact('tags'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(StoreRequest $request)
     {
         $this->authorize('store', Idea::class);
@@ -80,12 +59,6 @@ class IdeaController extends Controller
         return redirect()->back()->withInput();
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($slug)
     {
         $idea = Idea::where('slug', $slug)->firstOrFail();
@@ -93,12 +66,6 @@ class IdeaController extends Controller
         return view('idea.show', compact('idea'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($slug)
     {
         $idea = Idea::where('slug', $slug)->firstOrFail();
@@ -111,13 +78,6 @@ class IdeaController extends Controller
         return view('idea.edit', compact('idea', 'tags'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(UpdateRequest $request, $slug)
     {
         $idea = Idea::where('slug', $slug)->firstOrFail();
@@ -138,12 +98,6 @@ class IdeaController extends Controller
         return redirect()->back()->withInput();
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($slug)
     {
         $idea = Idea::where('slug', $slug)->firstOrFail();
@@ -216,5 +170,11 @@ class IdeaController extends Controller
         $like = IdeaService::unlike($idea, $user);
         \Session::flash('alert', 'Anda tidak jadi menyukai ide ini');
         return redirect()->back();
+    }
+
+    public function quickLook($slug)
+    {
+        $idea = Idea::where('slug', $slug)->firstOrFail();
+        return view('idea.quick-look', compact('idea'));
     }
 }

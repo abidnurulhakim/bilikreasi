@@ -37,4 +37,5 @@ elixir(mix => {
     mix.copy('resources/assets/vendor/webui-popover/dist', 'public/vendor/webui-popover');
     mix.copy('resources/assets/vendor/tooltipster/dist', 'public/vendor/tooltipster');
     mix.copy('resources/assets/vendor/slick-carousel/slick', 'public/vendor/slick');
+    mix.copy('resources/assets/vendor/colorbox', 'public/vendor/colorbox');
 });

@@ -17,6 +17,7 @@ var assets = {
                         },
   _tooltip            : { js : path.plugins + 'tooltipster/js/tooltipster.bundle.min.js' },
   _slick              : { js : path.plugins + 'slick/slick.min.js' },
+  _colorbox           : { js : path.plugins + 'colorbox/jquery.colorbox-min.js' },
 
 };
 
@@ -29,6 +30,7 @@ var Site = {
     Site.bannerInit();
     Site.popularIdeaInit();
     Site.numfuzz();
+    Site.quickLookInit();
   },
   navbarInit : function() {
     $(".button-collapse").sideNav();
@@ -187,6 +189,51 @@ var Site = {
   },
   numfuzz : function() {
     $('.abbr-number').numFuzz();
+  },
+  colorboxLoad : function($callback) {
+    Modernizr.load({
+      load    : [
+        assets._colorbox.js,
+      ],
+      complete: function(){
+        $callback();
+      }
+    });
+  },
+  quickLookInit : function() {
+    if ($('.quick-look').length > 0) {
+      Site.colorboxLoad(Site.quickLook);
+    }
+  },
+  quickLook : function() {
+    $('.quick-look').each(function(i){
+      $(this).colorbox({
+        transition: 'fade',
+        maxWidth: '85%',
+        maxHeight: '95%',
+        title: false,
+        close: '<i class="fa fa-close"></i>',
+        className: 'quick-look--modal'
+      });
+    });
+    $(document).bind('cbox_complete', function(){
+      Site.galleryQuickLookInit();
+    });
+  },
+  galleryQuickLookInit : function() {
+    Site.slickLoad(Site.galleryQuickLook);
+  },
+  galleryQuickLook : function() {
+    $('.quick-look--modal .gallery').slick({
+      dots: true,
+      infinite: true,
+      autoplay: true,
+      speed: 300,
+      prevArrow: "<a class='left slider-control slick-prev'><i class='fa fa-chevron-left fa-lg'></i></a>",
+      nextArrow: "<a class='right slider-control slick-next'><i class='fa fa-chevron-right fa-lg'></i></a>",
+      fade: true,
+      cssEase: 'linear',
+    });
   },
 };
 
