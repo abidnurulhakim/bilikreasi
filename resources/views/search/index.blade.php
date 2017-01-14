@@ -1,48 +1,56 @@
 @extends('search.layout')
 @section('search-content')
-  <div class="col-sm-10 col-sm-offset-1">
+  <div class="col-xs-12 col-md-10 offset-md-1">
     <div class="card">
-      <div class="card-block">
+      <div class="card-panel search-panel">
         {!! Form::open(['route' => ['search.index'], 'class' => 'card-text', 'method' => 'GET']) !!}
-          <div class="search-input col-padding">
-            <div class="input-group col-sm-12">
-              {!! Form::text('q', app('request')->input('q', ''), ['class' => 'form-control', 'placeholder' => 'Cari Ide']) !!}
+          <div class="materialize-input">
+            <div class="input-field input-group">
+              <i class="fa fa-search prefix"></i>
+              {!! Form::text('q', app('request')->input('q', ''), ['placeholder' => 'Cari Ide', 'autofocus' => 'autofocus']) !!}
               <span class="input-group-btn">
-                <button type='submit' class="btn btn-lg" type="button">
-                  <i class="fa fa-search"></i>
-                </button>
+                {!! Form::submit('Cari', ['class' => 'btn btn-primary btn-flat']) !!}
               </span>
             </div>
           </div>
-          <div class="collapse 
-          @if(!empty(app('request')->get('category')) || !empty(app('request')->get('status')) || !empty(app('request')->get('tags')))
-          in
-          @endif
-          " id="advanced-search">
-            <div class="col-sm-6">
-              {{ Form::select('category', \App\Models\Idea::CATEGORY, app('request')->get('category'), ['class' => 'form-control', 'style' => 'width: 100%', 'placeholder' => 'Kategori Ide']) }}
+            
+          <div class="row">
+            <div class="col-xs-12 advanced-search">
+              <a class="btn btn-sm btn-flat btn-primary pull-right" data-toggle="collapse" data-target="#advanced-search" aria-expanded="false" aria-controls="advanced-search">
+                <i class="fa fa-gears"></i> Pengaturan pencarian
+              </a>
             </div>
-            <div class="col-sm-6">
-              {!! Form::select('status', \App\Models\Idea::STATUS, app('request')->get('status'), ['class' => 'form-control', 'style' => 'width: 100%', 'placeholder' => 'Status Ide']) !!}
-            </div>
-            <div class="col-sm-12" style="margin-top: 10px">
-              {!! Form::formTags('tags', $tags, app('request')->get('tags', []), ['label' => 'Tag Ide', 'placeholder' => 'Tag Ide']) !!}
+            <div class="col-xs-12">
+              <div class="collapse 
+                @if(!empty(app('request')->get('category')) || !empty(app('request')->get('status')) || !empty(app('request')->get('tags')))
+                in
+                @endif
+                " id="advanced-search">
+                  <div class="row">
+                    <div class="col-xs-12 col-md-6">
+                      {{ Form::select('category', \App\Models\Idea::CATEGORY, app('request')->get('category'), ['class' => 'form-control', 'style' => 'width: 100%', 'placeholder' => 'Kategori Ide']) }}
+                    </div>
+                    <div class="col-xs-12 col-md-6">
+                      {!! Form::select('status', \App\Models\Idea::STATUS, app('request')->get('status'), ['class' => 'form-control', 'style' => 'width: 100%', 'placeholder' => 'Status Ide']) !!}
+                    </div>
+                    <div class="col-xs-12" style="margin-top: 10px">
+                      {!! Form::formTags('tags', $tags, app('request')->get('tags', []), ['label' => 'Tag Ide', 'placeholder' => 'Tag Ide']) !!}
+                    </div>  
+                  </div>
+                </div>
             </div>
           </div>
-          <button class="btn btn-xs btn-primary pull-right advanced-search" type="button" data-toggle="collapse" data-target="#advanced-search" aria-expanded="false" aria-controls="advanced-search">
-            <i class="fa fa-gears"></i> Pengaturan pencarian
-          </button>
         {!! Form::close() !!}  
       </div>
-    </div>  
+    </div>
   </div>
-  <div class="grid col-sm-12 no-padding">
+  <div class="col-xs-12 grid">
     @forelse($ideas as $idea)
-      <div class="grid-item col-sm-3 col-padding">
+      <div class="grid-item col-xs-12 col-md-4">
         @include('idea.card', $idea)
       </div>
     @empty
-      <h4 class="text-center text-muted">-- Tidak ada ide yang ditemukan --</h4>
+      <h4 class="text-xs-center text-muted">-- Tidak ada ide yang ditemukan --</h4>
     @endforelse
   </div>
   @if($ideas->hasMorePages())

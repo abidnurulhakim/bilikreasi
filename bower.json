@@ -28,6 +28,7 @@
         "bootstrap": "v3.3.7",
         "colorbox": "*",
         "slimScroll": "*",
-        "remarkable-bootstrap-notify": "*"
+        "remarkable-bootstrap-notify": "*",
+        "select2-bootstrap-theme": "*"
     }
 }

@@ -948,16 +948,15 @@ Modernizr.load({
 var path = {
     plugins : myPrefix + 'vendor/'
   };
-
 var assets = {
   _jquery_local       : { js : path.plugins + 'jquery/jquery.min.js' },
   _materialize_local  : { js : path.plugins + 'materialize/js/materialize.min.js' },
-  _bootstrap_local    : { js : path.plugins + 'bootstrap/js/bootstrap.min.js' },  
+  _bootstrap_local    : { js : path.plugins + 'bootstrap/js/bootstrap.min.js' },
   _abbr_number        : { js : path.plugins + 'numfuzz/numfuzz.js' },
   _popover            : { js : path.plugins + 'webui-popover/jquery.webui-popover.min.js' },
   _masonry            : { js : path.plugins + 'masonry/masonry.pkgd.min.js' },
   _infiniteScroll     : { js : path.plugins + 'infinite-scroll/jquery.infinitescroll.min.js' },
-  _summernote         : { 
+  _summernote         : {
                           css : path.plugins + 'summernote/summernote.min.css',
                           js : path.plugins + 'summernote/summernote.min.js',
                           lang : path.plugins + 'summernote/lang/summernote-id-ID.js'
@@ -967,7 +966,9 @@ var assets = {
   _colorbox           : { js : path.plugins + 'colorbox/jquery.colorbox-min.js' },
   _slimscroll         : { js : path.plugins + 'slimscroll/jquery.slimscroll.min.js' },
   _notify             : { js : path.plugins + 'notify/bootstrap-notify.min.js' },
-
+  _select2            : { js : path.plugins + 'select2/js/select2.full.min.js' },
+  _masonry            : { js : path.plugins + 'masonry/masonry.pkgd.min.js' },
+  _infiniteScroll     : { js : path.plugins + 'infinite-scroll/jquery.infinitescroll.min.js' },
 };
 
 var Site = {
@@ -982,6 +983,8 @@ var Site = {
     Site.searchMenuBarInit();
     Site.tooltipInit();
     Site.alertNotificationInit();
+    Site.selectInit();
+    Site.masonryInit();
   },
   slickLoad : function($callback, $args = []) {
     Modernizr.load({
@@ -1043,6 +1046,36 @@ var Site = {
       }
     });
   },
+  select2Load : function($callback, $args = []) {
+    Modernizr.load({
+      load  : [
+              assets._select2.js,
+      ],
+      complete : function(){
+        $callback(...$args);
+      }
+    });
+  },
+  masonryLoad : function($callback, $args = []){
+    Modernizr.load({
+      load  : [
+              assets._masonry.js,
+      ],
+      complete : function(){
+        $callback(...$args);
+      }
+    });
+  },
+  infiniteScrollLoad : function($callback, $args = []) {
+    Modernizr.load({
+      load  : [
+              assets._infiniteScroll.js
+      ],
+      complete : function(){
+        $callback(...$args);
+      }
+    });
+  },
   navbarInit : function() {
     $(".button-collapse").sideNav();
   },
@@ -1068,7 +1101,7 @@ var Site = {
   },
   popoverInit : function() {
     if ($('.popover').length > 0) {
-      Site.popoverLoad(Site.popover);  
+      Site.popoverLoad(Site.popover);
     }
   },
   popover : function() {
@@ -1282,7 +1315,61 @@ var Site = {
           '<div class="progress-bar progress-bar-{0}" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;"></div>' +
         '</div>' +
         '<a href="{3}" target="{4}" data-notify="url"></a>' +
-      '</div>' 
+      '</div>'
+    });
+  },
+  selectInit : function () {
+    if ($('select').length > 0) {
+      Site.select2Load(Site.select);
+    }
+  },
+  select : function() {
+    $('select').each(function(e){
+      if ($(this).data('tag')) {
+        $(this).select2({
+          language: "id",
+          tags: true,
+          theme: "bootstrap",
+          tokenSeparators: [',']
+        })
+      }else {
+        $(this).select2({
+          language: "id",
+          theme: "bootstrap",
+          placeholder: $(this).attr('placeholder')
+        });
+        $(this).on('change', function(evt){
+          if ($(this).val() == 'event') {
+            $('.show-cat-event').removeClass('hidden');
+          } else {
+            $('.show-cat-event').addClass('hidden');
+          }
+        });
+      }
+    });
+  },
+  masonryInit : function(){
+    if ($('.grid').length > 0) {
+      Site.masonryLoad(Site.masonry);
+    }
+  },
+  masonry : function(){
+    $('.grid').masonry({
+      itemSelector: '.grid-item',
+    });
+    Site.infiniteScrollLoad(Site.masonryItemMore);
+  },
+  masonryItemMore : function() {
+    $('.grid').infinitescroll({
+      navSelector  : ".read-more",
+      nextSelector : ".read-more a",
+      itemSelector : ".grid-item",
+      loading: {
+        finishedMsg: 'No more pages to load.'
+        }
+      },
+      function( $newElements ) {
+        $('.grid').masonry( 'appended', $newElements, true );
     });
   },
 };
