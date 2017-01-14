@@ -29,6 +29,7 @@
         "colorbox": "*",
         "slimScroll": "*",
         "remarkable-bootstrap-notify": "*",
-        "select2-bootstrap-theme": "*"
+        "select2-bootstrap-theme": "*",
+        "nicescroll": "*"
     }
 }

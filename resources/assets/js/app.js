@@ -20,14 +20,14 @@ var assets = {
   _slimscroll         : { js : path.plugins + 'slimscroll/jquery.slimscroll.min.js' },
   _notify             : { js : path.plugins + 'notify/bootstrap-notify.min.js' },
   _select2            : { js : path.plugins + 'select2/js/select2.full.min.js' },
-  _masonry            : { js : path.plugins + 'masonry/masonry.pkgd.min.js' },
-  _infiniteScroll     : { js : path.plugins + 'infinite-scroll/jquery.infinitescroll.min.js' },
+  _niceScroll        : { js : path.plugins + 'nicescroll/jquery.nicescroll.min.js' },
 };
 
 var Site = {
   init : function() {
     Site.formMaterialize();
     Site.numfuzz();
+    Site.scrollHtmlInit();
     Site.bannerInit();
     Site.navbarInit();
     Site.popoverInit();
@@ -127,6 +127,24 @@ var Site = {
       complete : function(){
         $callback(...$args);
       }
+    });
+  },
+  niceScrollLoad : function($callback, $args = []) {
+    Modernizr.load({
+      load  : [
+              assets._niceScroll.js
+      ],
+      complete : function(){
+        $callback(...$args);
+      }
+    });
+  },
+  scrollHtmlInit : function () {
+    Site.niceScrollLoad(Site.scrollHtml);
+  },
+  scrollHtml : function () {
+    $("html").niceScroll({
+      mousescrollstep: 80
     });
   },
   navbarInit : function() {

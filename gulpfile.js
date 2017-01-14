@@ -44,5 +44,5 @@ elixir(mix => {
     mix.copy('resources/assets/vendor/remarkable-bootstrap-notify/dist', 'public/vendor/notify');
     mix.copy('resources/assets/vendor/select2/dist', 'public/vendor/select2');
     mix.copy('resources/assets/vendor/masonry/dist', 'public/vendor/masonry');
-    mix.copy('resources/assets/vendor/infinite-scroll', 'public/vendor/infinite-scroll');
+    mix.copy('resources/assets/vendor/nicescroll', 'public/vendor/nicescroll');
 });
