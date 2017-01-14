@@ -12,9 +12,9 @@
   right: -1rem;
   width: 2rem;
   height: 2rem;
-  overflow: hidden;
   background-color: $primary-color;
   border: none;
   text-align: center;
   color: #fff;
+  z-index: 1000;
 }

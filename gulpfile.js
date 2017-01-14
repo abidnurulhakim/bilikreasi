@@ -17,7 +17,8 @@ elixir(mix => {
     mix.less('popover.less', 'resources/assets/sass/components/_popover.scss');
     mix.sass([
         '../vendor/font-awesome/css/font-awesome.min.css',
-        'app.scss'
+        '../vendor/animate.css/animate.min.css',
+        'app.scss',
         ], 'public/css/application.css');
     mix.scripts([
         'modernizr.min.js',
@@ -38,4 +39,6 @@ elixir(mix => {
     mix.copy('resources/assets/vendor/tooltipster/dist', 'public/vendor/tooltipster');
     mix.copy('resources/assets/vendor/slick-carousel/slick', 'public/vendor/slick');
     mix.copy('resources/assets/vendor/colorbox', 'public/vendor/colorbox');
+    mix.copy('resources/assets/vendor/slimScroll', 'public/vendor/slimscroll');
+    mix.copy('resources/assets/vendor/remarkable-bootstrap-notify/dist', 'public/vendor/notify');
 });

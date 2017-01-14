@@ -1,32 +1,35 @@
 <!--Header-->
 <div class="quick-look--header">
-  <h4 class="quick-look--title">{{ $idea->title }}</h4>
+  <h3 class="quick-look--title">{{ $idea->title }}</h3>
 </div>
 <div class="quick-look--body">
   <div class="container-fluid">
     <div class="row">
       <!--First column-->
-      <div class="col-xs-12 col-md-4">
+      <div class="col-xs-12 col-md-4 quick-look--info">
         <h4>Gallery</h4>
         <hr>
-        <div class="gallery">
-          <div class="gallery-item"><img class="img-responsive" src="{{ $idea->getCover(400, 200) }}"></div>
-          @foreach($idea->media()->where('type', 'image')->take(5)->get() as $image)
-            <div class="gallery-item"><img class="img-responsive" src="{{ $banner->getUrl(400, 200) }}"></div>
-          @endforeach
+        <div class="col-xs-12 slick-mobile">
+          <div class="gallery">
+            <div class="gallery-item"><img class="img-responsive" src="{{ $idea->getCover(450, 200) }}"></div>
+            @foreach($idea->media()->where('type', 'image')->take(5)->get() as $image)
+              <div class="gallery-item"><img class="img-responsive" src="{{ $image->getUrl(450, 200) }}"></div>
+            @endforeach
+          </div>  
         </div>
       </div>
       <!--/.First column-->
 
       <!--Second column-->
-      <div class="col-xs-12 col-md-4">
+      <div class="col-xs-12 col-md-4 quick-look--info">
         <!--Title-->
         <h4>Deskripsi Singkat</h4>
         <hr>
         {{ $idea->description }}
         <br>
+        <hr>
         <!--Social buttons-->
-        <p class="text-xs-center">Bagikan ke teman kamu!</p>
+        <p class="text-xs-center"><b>Bagikan ke teman kamu!</b></p>
         <div class="row">
           <div class="col-xs">
             <a class="btn btn-flat btn-social btn-facebook" href="https://www.facebook.com/dialog/feed?app_id={{ ENV('FACEBOOK_APP_ID') }}&display=popup&caption={{ urlencode($idea->title) }}&link={{ route('idea.show', $idea) }}&redirect_uri={{ route('idea.show', $idea) }}" target="_blank" title="Share to Facebook">
@@ -58,25 +61,60 @@
       <!--/.Second column-->
 
       <!--Third column-->
-      <div class="col-xs-12 col-md-4">
+      <div class="col-xs-12 col-md-4 quick-look--info">
         <h4>Meta</h4>
         <hr>
-
+        <div class="quick-look--block row flex-items-xs-middle">
+          <div class="col-xs-2 text-xs-center">
+            <i class="fa fa-user fa-lg"></i>
+          </div>
+          <div class="col-xs-10">
+            <a href="{{ route('user.show', $idea->user) }}">
+              <div class="chip">
+                <img src="{{ $idea->user->getPhoto(40) }}" alt="Creator">
+                {{ user_name_limit($idea->user->name, 30) }}
+              </div>
+            </a>
+          </div>
+        </div>
+        <div class="quick-look--block row flex-items-xs-top">
+          <div class="col-xs-2 text-xs-center">
+            <i class="fa fa-tags fa-lg"></i>
+          </div>
+          <div class="col-xs-10">
+            @foreach(collect($idea->tags)->take(100) as $tag)
+              <div class="tag tag-pill tag-primary">{{ $tag }}</div>
+            @endforeach  
+          </div>
+        </div>
+        <div class="quick-look--block row flex-items-xs-top">
+          <div class="col-xs-2 text-xs-center">
+            <i class="fa fa-thumbs-up fa-lg"></i>
+          </div>
+          <div class="col-xs-10">
+            <span class="quick-look--meta-number">{{ $idea->like_count }}</span>
+          </div>
+        </div>
         <hr>
 
         <h4>Anggota ({{ $idea->member_count }})</h4>
         <hr>
-        <div class="row">
-          @foreach($idea->members()->take(7)->get() as $user)
-            <div class="col-xs-6 col-md-3 text-xs-center">
-              <div class="col-xs-12">
-                <a href="{{ route('user.show', $user) }}"><img class="rounded-circle" src="{{ $user->getPhoto(50) }}"></a>  
-              </div>
-              <div class="col-xs-12">
-                <a href="{{ route('user.show', $user) }}">{{ str_limit($user->name, 10) }}</a>
-              </div>
+        <div class="row flex-items-xs-middle">
+          @foreach($idea->members()->take(8)->get() as $user)
+            <div class="col-xs-6 col-md-4">
+              <a href="{{ route('user.show', $user) }}">
+                <div class="chip chip-member">
+                  <img src="{{ $user->getPhoto(40) }}" alt="member">
+                  {{ user_name_limit($user->name, 10) }}
+                </div>
+              </a>
             </div>
           @endforeach  
+          @if($idea->members()->count() > 8)
+            <div class="col-xs-6 col-md-4">
+              <a href="{{ route('idea.members', $idea) }}"> >> Semua</a>
+            </div>
+          @endif
         </div>
       </div>
       <!--/.Third column-->

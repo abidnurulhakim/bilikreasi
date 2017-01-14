@@ -333,3 +333,39 @@
       }
   }
 }
+
+.slick-mobile {
+  > .slick-slider {
+    .slick-prev {
+      left: 0;
+      [dir="rtl"] & {
+        left: auto;
+        right: 0;
+      }
+    }
+
+    .slick-next {
+      right: 0;
+      [dir="rtl"] & {
+        left: 0;
+        right: auto;
+      }
+    }
+    > .slider-control {
+      border-radius: 0;
+      width: 3rem;
+      height: 3rem;
+      line-height: 3rem;
+      &.slick-prev{
+        border-radius:none;
+        border-top-right-radius: 50%;
+        border-bottom-right-radius: 50%;
+      }
+      &.slick-next{
+        border-radius:none;
+        border-top-left-radius: 50%;
+        border-bottom-left-radius: 50%;
+      }
+    }
+  }
+}

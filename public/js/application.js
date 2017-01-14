@@ -965,19 +965,83 @@ var assets = {
   _tooltip            : { js : path.plugins + 'tooltipster/js/tooltipster.bundle.min.js' },
   _slick              : { js : path.plugins + 'slick/slick.min.js' },
   _colorbox           : { js : path.plugins + 'colorbox/jquery.colorbox-min.js' },
+  _slimscroll         : { js : path.plugins + 'slimscroll/jquery.slimscroll.min.js' },
+  _notify             : { js : path.plugins + 'notify/bootstrap-notify.min.js' },
 
 };
 
 var Site = {
   init : function() {
-    Site.navbarInit();
-    Site.searchMenuBarInit();
-    Site.popoverInit();
     Site.formMaterialize();
-    Site.bannerInit();
-    Site.popularIdeaInit();
     Site.numfuzz();
+    Site.bannerInit();
+    Site.navbarInit();
+    Site.popoverInit();
+    Site.popularIdeaInit();
     Site.quickLookInit();
+    Site.searchMenuBarInit();
+    Site.tooltipInit();
+    Site.alertNotificationInit();
+  },
+  slickLoad : function($callback, $args = []) {
+    Modernizr.load({
+      load    : [
+        assets._slick.js,
+      ],
+      complete: function(){
+        $callback(...$args);
+      }
+    });
+  },
+  colorboxLoad : function($callback, $args = []) {
+    Modernizr.load({
+      load    : [
+        assets._colorbox.js,
+      ],
+      complete: function(){
+        $callback(...$args);
+      }
+    });
+  },
+  slimscrollLoad : function($callback, $args = []) {
+    Modernizr.load({
+      load    : [
+        assets._slimscroll.js,
+      ],
+      complete: function(){
+        $callback(...$args);
+      }
+    });
+  },
+  popoverLoad : function($callback, $args = []) {
+    Modernizr.load({
+      load    : [
+        assets._popover.js,
+      ],
+      complete: function(){
+        $callback(...$args);
+      }
+    });
+  },
+  tooltipLoad : function($callback, $args = []) {
+    Modernizr.load({
+      load    : [
+        assets._tooltip.js,
+      ],
+      complete: function(){
+        $callback(...$args);
+      }
+    });
+  },
+  notifyLoad : function($callback, $args = []) {
+    Modernizr.load({
+      load  : [
+              assets._notify.js,
+      ],
+      complete : function(){
+        $callback(...$args);
+      }
+    });
   },
   navbarInit : function() {
     $(".button-collapse").sideNav();
@@ -1003,18 +1067,16 @@ var Site = {
     });
   },
   popoverInit : function() {
-    Modernizr.load({
-      load    : [
-        assets._popover.js
-      ],
-      complete: function(){
-        $('.popover').each(function(){
-          $popupTrigger = $(this).data('trigger') ? $(this).data('trigger') : 'click';
-          $(this).webuiPopover({
-            trigger: $popupTrigger,
-          });
-        });
-      }
+    if ($('.popover').length > 0) {
+      Site.popoverLoad(Site.popover);  
+    }
+  },
+  popover : function() {
+    $('.popover').each(function(){
+      $popupTrigger = $(this).data('trigger') ? $(this).data('trigger') : 'click';
+      $(this).webuiPopover({
+        trigger: $popupTrigger,
+      });
     });
   },
   textEditorInit : function() {
@@ -1039,35 +1101,21 @@ var Site = {
       });
     });
   },
-  tooltip : function(){
+  tooltipInit : function() {
     if ($('.tooltipster').length > 0) {
-      Modernizr.load({
-        load  : [
-          assets._tooltip.js
-        ],
-        complete : function() {
-          $('.tooltipster').each(function(e){
-            $(this).tooltipster({
-              theme: ['tooltipster-noir', 'tooltipster-noir-customized'],
-              side: $(this).data('placement')
-            });
-          });
-        }
-      });
+      Site.tooltipLoad(Site.tooltip);
     }
+  },
+  tooltip : function(){
+    $('.tooltipster').each(function(e){
+      $(this).tooltipster({
+        theme: ['tooltipster-noir', 'tooltipster-noir-customized'],
+        side: $(this).data('placement')
+      });
+    });
   },
   bannerInit : function() {
     Site.slickLoad(Site.banner);
-  },
-  slickLoad : function($callback) {
-    Modernizr.load({
-      load    : [
-        assets._slick.js,
-      ],
-      complete: function(){
-        $callback();
-      }
-    });
   },
   banner : function() {
     $('.banners').each(function(i){
@@ -1134,18 +1182,12 @@ var Site = {
       });
     });
   },
-  numfuzz : function() {
-    $('.abbr-number').numFuzz();
-  },
-  colorboxLoad : function($callback) {
-    Modernizr.load({
-      load    : [
-        assets._colorbox.js,
-      ],
-      complete: function(){
-        $callback();
-      }
-    });
+  numfuzz : function($selector = null) {
+    if ($selector) {
+      $selector.numFuzz();
+    } else {
+      $('.abbr-number').numFuzz();
+    }
   },
   quickLookInit : function() {
     if ($('.quick-look').length > 0) {
@@ -1154,10 +1196,14 @@ var Site = {
   },
   quickLook : function() {
     $('.quick-look').each(function(i){
+      $maxWidth = '75%';
+      if ($(window).width() < 992) {
+        $maxWidth = '95%';
+      }
       $(this).colorbox({
         transition: 'fade',
-        maxWidth: '85%',
-        maxHeight: '95%',
+        maxWidth: $maxWidth,
+        height: '500px',
         title: false,
         close: '<i class="fa fa-close"></i>',
         className: 'quick-look--modal'
@@ -1165,6 +1211,13 @@ var Site = {
     });
     $(document).bind('cbox_complete', function(){
       Site.galleryQuickLookInit();
+      Site.slimscrollLoad(Site.colorboxScroll, ['500px']);
+      Site.numfuzz($('.quick-look--meta-number'));
+    });
+  },
+  colorboxScroll : function($height) {
+    $('#cboxLoadedContent').slimScroll({
+      height: $height
     });
   },
   galleryQuickLookInit : function() {
@@ -1180,6 +1233,56 @@ var Site = {
       nextArrow: "<a class='right slider-control slick-next'><i class='fa fa-chevron-right fa-lg'></i></a>",
       fade: true,
       cssEase: 'linear',
+    });
+  },
+  alertNotificationInit : function() {
+    Site.notifyLoad(Site.alertNotification);
+  },
+  alertNotification : function() {
+    if ($('#notification-success').length > 0) {
+      Site.showAlertNotification('success', $('#notification-success'));
+    }
+    if ($('#notification-alert').length > 0) {
+      Site.showAlertNotification('warning', $('#notification-alert'));
+    }
+    if ($('#notification-info').length > 0) {
+      Site.showAlertNotification('info', $('#notification-info'));
+    }
+    if ($('#notification-error').length > 0) {
+      Site.showAlertNotification('danger', $('#notification-error'));
+    }
+  },
+  showAlertNotification : function($type, $selector) {
+    $.notify({
+      message: $selector.data('text'),
+    },{
+      // settings
+      element: 'body',
+      position: null,
+      type: $type,
+      allow_dismiss: true,
+      placement: {
+        from: "top",
+        align: "center"
+      },
+      offset: 200,
+      spacing: 10,
+      z_index: 1031,
+      delay: 2500,
+      animate: {
+        enter: 'animated fadeInDown',
+        exit: 'animated fadeOutUp'
+      },
+      template: '<div data-notify="container" class="col-xs-11 col-sm-3 alert alert-{0} text-center" role="alert">' +
+        '<button type="button" aria-hidden="true" class="close" data-notify="dismiss">×</button>' +
+        '<span data-notify="icon"></span> ' +
+        '<span data-notify="title">{1}</span> ' +
+        '<span data-notify="message">{2}</span>' +
+        '<div class="progress" data-notify="progressbar">' +
+          '<div class="progress-bar progress-bar-{0}" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;"></div>' +
+        '</div>' +
+        '<a href="{3}" target="{4}" data-notify="url"></a>' +
+      '</div>' 
     });
   },
 };

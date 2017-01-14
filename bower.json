@@ -26,6 +26,8 @@
         "webui-popover": "*",
         "slick-carousel": "*",
         "bootstrap": "v3.3.7",
-        "colorbox": "*"
+        "colorbox": "*",
+        "slimScroll": "*",
+        "remarkable-bootstrap-notify": "*"
     }
 }

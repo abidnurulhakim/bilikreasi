@@ -23,6 +23,18 @@
         <a href="{{ route('idea.quick-look', $idea) }}" class="btn-floating light-blue quick-look" title="Quick Look"><i class="fa fa-search"></i></a>
       </li>
     </ul>
+    <span class="card-title grey-text text-darken-4">{{ str_limit($idea->title, 50) }}</span>
+    <hr>
+    <div class="card-block row flex-items-xs-top">
+      <div class="col-xs-1">
+        <i class="fa fa-tags fa-lg"></i>
+      </div>
+      <div class="col-xs-11">
+        @foreach(collect($idea->tags)->take(100) as $tag)
+          <div class="tag tag-pill tag-primary">{{ $tag }}</div>
+        @endforeach  
+      </div>
+    </div>
     <div class="card-block row flex-items-xs-middle text-xs-center meta">
       <ul class="meta-info">
         <li class="meta-info--item">

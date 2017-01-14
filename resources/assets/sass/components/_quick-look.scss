@@ -1,5 +1,5 @@
 .quick-look--header {
-  padding: 1rem 1rem .5rem 1rem;
+  padding: 1.5rem 1rem .5rem 1rem;
   text-align: center;
   border-bottom: 1px solid #e5e5e5;
 }
@@ -17,4 +17,12 @@
     color: #fff;
     min-width: 8rem;
   }
+}
+
+.quick-look--info {
+  margin-bottom: 1rem;
+}
+
+.quick-look--block {
+  padding: .2rem .8rem;
 }
