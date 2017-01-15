@@ -165,18 +165,18 @@ class Idea extends BaseModel
 
     public function setStartAtAttribute($value)
     {
-        $value = trim($value);
-        if (!empty($value) && !is_null($value)) {
-            $this->attributes['start_at'] = \Carbon::createFromFormat('m/d/Y g:i A', $value);
+        if (is_string($value) && !empty($value) && !is_null($value)) {
+            $this->attributes['start_at'] = \Carbon::createFromFormat('m/d/Y g:i A', trim($value));
         }
+        $this->attributes['start_at'] = $value;
     }
 
     public function setFinishAtAttribute($value)
     {
-        $value = trim($value);
-        if (!empty($value) && !is_null($value)) {
+        if (is_string($value) && !empty($value) && !is_null($value)) {
             $this->attributes['finish_at'] = \Carbon::createFromFormat('m/d/Y g:i A', $value);
         }
+        $this->attributes['finish_at'] = $value;
     }
 
     public function invitations()
@@ -202,17 +202,33 @@ class Idea extends BaseModel
 
     public static function search($keyword = '', $filter = [])
     {
-        $words = explode(" ", trim($keyword));
         $query = self::query();
-        foreach ($words as $word) {
-            $query = $query->orWhere('title', 'like', '%'.$word.'%');
+        if (strlen(trim($keyword)) > 0) {
+            $words = preg_split('/\s+/', trim($keyword));
+            $query = $query->where(function($q) use ($words) {
+                foreach ($words as $word) {
+                    $q = $q->orWhere('name', 'like', '%'.$word.'%');
+                }
+            });
         }
         foreach ($filter as $key => $value) {
             if (is_array($value)) {
-                $query = $query->whereIn($key, $value);
+                foreach ($value as $val) {
+                    $words = preg_split('/\s+/', trim($val));
+                    $query = $query->where(function($q) use ($key, $words) {
+                        foreach ($words as $word) {
+                            $q = $q->orWhere($key, 'like', '%'.$word.'%');
+                        }
+                    });
+                }
             } else {
-                $query = $query->where($key, $value);
-            }
+                $words = preg_split('/\s+/', trim($value));
+                $query = $query->where(function($q) use ($key, $words) {
+                    foreach ($words as $word) {
+                        $q = $q->orWhere($key, 'like', '%'.$word.'%');
+                    }
+                });
+            }    
         }
         return $query;
     }

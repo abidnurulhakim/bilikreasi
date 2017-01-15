@@ -1,40 +1,90 @@
-<div class="info-box">
-  <span class="info-box-icon">
-    <img src="{{ $user->getPhoto(110, 110) }}" alt="{{ $user->name }}" style="margin-top: -8px">
-  </span>
-  <div class="info-box-content text-primary">
-    <span class="info-box-text"><a href="{{ route('user.show', $user) }}">{{ $user->name }}</a></span>
-    <span class="info-box-text">
-      <div class="col-sm-1 no-padding"><i class="fa fa-heart text-primary"></i></div>
-      <div class="col-sm-10 no-padding">
-        @foreach($user->interests as $interest)
-          <span class="label label-primary">{{ $interest }}</span>
-        @endforeach  
+<div class="card-container">
+  <div class="card">
+    <div class="front">
+      <div class="cover">
+        <img src="{{ asset('assets/images/background-user.jpg') }}"/>
       </div>
-    </span>
-    <span class="info-box-text">
-      <div class="col-sm-1 no-padding"><i class="fa fa-gears text-primary"></i></div>
-      <div class="col-sm-10 no-padding">
-        @foreach($user->skills as $skill)
-          <span class="label label-primary">{{ $skill }}</span>
-        @endforeach
+      <div class="user">
+        <img class="rounded-circle" src="{{ $user->getPhoto(50)}}"/>
       </div>
-    </span>
-    <span class="info-box-text">
-    <div class="col-sm-1 no-padding"><i class="fa fa-suitcase text-primary"></i></div>
-    <div class="col-sm-10 no-padding">{{ $user->profession }}</div>
-    </span>
-    <span class="info-box-text">
-    <div class="col-sm-1 no-padding"><i class="fa fa-map-marker text-primary"></i></div>
-    <div class="col-sm-10 no-padding">{{ $user->live_at }}</div>
-    </span>
-  </div>
-  @if($idea->hasInvite($user) && !$idea->isMember($user))
-    <a href="{{ route('idea.invitation.remove', [$idea, $user]) }}" class="btn btn-primary btn-block">Hapus Undangan</a>
-  @elseif(!$idea->hasInvite($user) && !$idea->isMember($user))
-    <a href="{{ route('idea.invitation', [$idea, $user]) }}" class="btn btn-primary btn-block">Undang</a>
-  @else
-    <a href="{{ route('user.show', $user) }}" class="btn btn-primary btn-block">Profil</a>
-  @endif
-  <!-- /.info-box-content -->
-</div>
+      <div class="content">
+        <div class="main">
+          <h3 class="name">{{ $user->name }}</h3>
+          <p class="profession">{{ $user->profession ? $user->profession : '-' }}</p>
+          <p class="text-center">"{{ str_limit($user->about, 250) }}"</p>
+        </div>
+        <div class="footer row">
+          @if(!$idea->hasInvite($user) && !$idea->isMember($user))
+            <div class="col-xs">
+              <a href="{{ route('idea.invitation', [$idea, $user]) }}" class="btn btn-primary btn-block">Undang</a>  
+            </div>
+          @endif
+          <div class="col-xs">
+            <a href="{{ route('user.show', $user) }}" class="btn btn-primary btn-block">Profil</a>
+          </div>
+        </div>
+      </div>
+    </div> <!-- end front panel -->
+     <div class="back">
+        <div class="content">
+          <div class="main">
+            <div class="row">
+              <div class="stats col-xs">
+                <h3>{{ $user->ideas()->count() }}</h3>
+                <p>
+                  Ide dibuat
+                </p>
+              </div>
+              <div class="stats col-xs">
+                <h3>{{ $user->memberOf()->count() }}</h3>
+                <p>
+                  Ide berpartisipai
+                </p>
+              </div>
+            </div>
+            <hr>
+            <div class="row flex-items-xs-top">
+              <div class="col-xs-1">
+                <i class="fa fa-heart fa-lg"></i>
+              </div>
+              <div class="col-xs-11">
+                @foreach(collect($user->interests)->take(10) as $interest)
+                  <div class="chip tag-primary">{{ $interest }}</div>
+                @endforeach  
+              </div>
+            </div>
+            <hr>
+            <div class="row flex-items-xs-top">
+              <div class="col-xs-1">
+                <i class="fa fa-gears fa-lg"></i>
+              </div>
+              <div class="col-xs-11">
+                @foreach(collect($user->skills)->take(10) as $skill)
+                  <div class="chip tag-primary">{{ $skill }}</div>
+                @endforeach  
+              </div>
+            </div>
+            <hr>
+            <div class="row flex-items-xs-top">
+              <div class="col-xs-1">
+                <i class="fa fa-home fa-lg"></i>
+              </div>
+              <div class="col-xs-11">
+                <div class="chip tag-primary">{{ $user->live_at ? $user->live_at : 'Indonesia'}}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="footer row">
+          @if(!$idea->hasInvite($user) && !$idea->isMember($user))
+            <div class="col-xs">
+              <a href="{{ route('idea.invitation', [$idea, $user]) }}" class="btn btn-primary btn-block">Undang</a>  
+            </div>
+          @endif
+          <div class="col-xs">
+            <a href="{{ route('user.show', $user) }}" class="btn btn-primary btn-block">Profil</a>
+          </div>
+        </div>
+    </div> <!-- end back panel -->
+  </div> <!-- end card -->
+</div> <!-- end card-container -->

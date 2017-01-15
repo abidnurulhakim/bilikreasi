@@ -62,7 +62,7 @@
 
       <!--Third column-->
       <div class="col-xs-12 col-md-4 quick-look--info">
-        <h4>Meta</h4>
+        <h4>Informasi</h4>
         <hr>
         <div class="quick-look--block row flex-items-xs-middle">
           <div class="col-xs-2 text-xs-center">
@@ -95,24 +95,36 @@
             <span class="quick-look--meta-number">{{ $idea->like_count }}</span>
           </div>
         </div>
+        <div class="quick-look--block row flex-items-xs-middle">
+          <div class="col-xs-2 text-xs-center">
+            <i class="fa fa-map-marker fa-lg"></i>
+          </div>
+          <div class="col-xs-10">
+            <div class="chip">
+              {{ $idea->location }}    
+            </div>
+          </div>
+        </div>
         <hr>
 
         <h4>Anggota ({{ $idea->member_count }})</h4>
         <hr>
         <div class="row flex-items-xs-middle">
           @foreach($idea->members()->take(8)->get() as $user)
-            <div class="col-xs-6 col-md-4">
-              <a href="{{ route('user.show', $user) }}">
-                <div class="chip chip-member">
-                  <img src="{{ $user->getPhoto(40) }}" alt="member">
-                  {{ user_name_limit($user->name, 10) }}
-                </div>
-              </a>
-            </div>
+            <a href="{{ route('user.show', $user) }}">
+              <div class="chip chip-member">
+                <img src="{{ $user->getPhoto(40) }}" alt="member">
+                {{ user_name_limit($user->name, 10) }}
+              </div>
+            </a>
           @endforeach  
           @if($idea->members()->count() > 8)
-            <div class="col-xs-6 col-md-4">
-              <a href="{{ route('idea.members', $idea) }}"> >> Semua</a>
+            <div class="col-xs-12 text-xs-center">
+              <a href="{{ route('idea.members', $idea) }}">
+                <div class="chip chip-member">
+                  Semua Anggota
+                </div>
+              </a>
             </div>
           @endif
         </div>

@@ -29,23 +29,15 @@ class IdeaMedia extends BaseModel
         
         static::bootAttachableTrait();
         static::creating(function($ideaMedia){
-            $mime = mime_content_type($ideaMedia->url);
-            if(strstr($mime, "video/")){
-                $ideaMedia->type = 'video';
-            }else if(strstr($mime, "image/")){
-                $ideaMedia->type = 'image';
-            } else {
-                $ideaMedia->type = 'file';
-            }
-        });
-        static::saving(function($ideaMedia){
-            $mime = mime_content_type($ideaMedia->url);
-            if(strstr($mime, "video/")){
-                $ideaMedia->type = 'video';
-            }else if(strstr($mime, "image/")){
-                $ideaMedia->type = 'image';
-            } else {
-                $ideaMedia->type = 'file';
+            if (!is_string($ideaMedia->url)) {
+                $mime = mime_content_type($ideaMedia->url);
+                if(strstr($mime, "video/")){
+                    $ideaMedia->type = 'video';
+                }else if(strstr($mime, "image/")){
+                    $ideaMedia->type = 'image';
+                } else {
+                    $ideaMedia->type = 'file';
+                }
             }
         });
     }

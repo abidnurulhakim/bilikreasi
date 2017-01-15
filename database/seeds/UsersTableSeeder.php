@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\User;
+use App\Models\Idea;
 use Illuminate\Database\Seeder;
 
 class UsersTableSeeder extends Seeder
@@ -11,8 +13,8 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Models\User::class, 20)->create()->each(function ($user) {
-            $user->ideas()->saveMany(factory(App\Models\Idea::class, rand($min = 2, $max = 10))->make());
+        factory(User::class, 40)->create()->each(function ($user) {
+            $user->ideas()->saveMany(factory(Idea::class, rand($min = 2, $max = 10))->make());
         });
     }
 }

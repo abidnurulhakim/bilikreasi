@@ -17,7 +17,7 @@
           <div class="row">
             <div class="col-xs-12 advanced-search">
               <a class="btn btn-sm btn-flat btn-primary pull-right" data-toggle="collapse" data-target="#advanced-search" aria-expanded="false" aria-controls="advanced-search">
-                <i class="fa fa-gears"></i> Pengaturan pencarian
+                <i class="fa fa-gears"></i> Saring pencarian
               </a>
             </div>
             <div class="col-xs-12">

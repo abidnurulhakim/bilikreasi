@@ -24,8 +24,11 @@ class User extends Authenticatable
     protected $table = 'users';
 
     protected $fillable = [
-        'name', 'email', 'secret_password', 'hash_password', 'confirmed', 'role', 'last_login_at', 'last_login_ip_address',
-        'birthday', 'username', 'gender', 'photo','phone_number', 'profession', 'live_at', 'skills', 'interests', 'confirmation_token'
+        'name', 'email', 'secret_password', 'hash_password',
+        'confirmed', 'role', 'last_login_at', 'last_login_ip_address',
+        'birthday', 'username', 'gender', 'photo','phone_number',
+        'profession', 'live_at', 'skills', 'interests',
+        'confirmation_token', 'about'
     ];
 
     protected $dates = [
@@ -167,13 +170,17 @@ class User extends Authenticatable
 
     public static function search($keyword = '', $filter = [])
     {
-        $words = explode(" ", trim($keyword));
         $query = self::query();
-        foreach ($words as $word) {
-            $query = $query->orWhere('name', 'like', '%'.$word.'%');
+        if (strlen(trim($keyword)) > 0) {
+            $words = preg_split('/\s+/', trim($keyword));
+            $query = $query->where(function($q) use ($words) {
+                foreach ($words as $word) {
+                    $q = $q->orWhere('name', 'like', '%'.$word.'%');
+                }
+            });
         }
         foreach ($filter as $key => $value) {
-            if ($key = 'not_member_idea') {
+            if ($key == 'not_member_idea') {
                 $user_ids = IdeaMember::where('idea_id', $value)
                                     ->select('user_id')
                                     ->get()
@@ -183,9 +190,21 @@ class User extends Authenticatable
                 $query = $query->whereNotIn('id', $user_ids);
             } else {
                 if (is_array($value)) {
-                    $query = $query->whereIn($key, $value);
+                    foreach ($value as $val) {
+                        $words = preg_split('/\s+/', trim($val));
+                        $query = $query->where(function($q) use ($key, $words) {
+                            foreach ($words as $word) {
+                                $q = $q->orWhere($key, 'like', '%'.$word.'%');
+                            }
+                        });
+                    }
                 } else {
-                    $query = $query->where($key, $value);
+                    $words = preg_split('/\s+/', trim($value));
+                    $query = $query->where(function($q) use ($key, $words) {
+                        foreach ($words as $word) {
+                            $q = $q->orWhere($key, 'like', '%'.$word.'%');
+                        }
+                    });
                 }    
             }
         }

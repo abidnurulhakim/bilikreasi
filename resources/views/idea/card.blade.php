@@ -30,7 +30,7 @@
         <i class="fa fa-tags fa-lg"></i>
       </div>
       <div class="col-xs-11">
-        @foreach(collect($idea->tags)->take(100) as $tag)
+        @foreach(collect($idea->tags)->take(10) as $tag)
           <div class="tag tag-pill tag-primary">{{ $tag }}</div>
         @endforeach  
       </div>

@@ -12,7 +12,7 @@
             <li>
               <i class="fa fa-sign-in light-blue"></i>
               <div class="timeline-item">
-                <h3 class="timeline-header no-border">Daftar menjadi user bilikreasi</h3>
+                <h3 class="timeline-header no-border">Daftar menjadi user Bilikreasi</h3>
               </div>
             </li>
             <li>
@@ -30,31 +30,31 @@
             <li>
               <i class="fa fa-save teal"></i>
               <div class="timeline-item">
-                <h3 class="timeline-header no-border">Submit ide anda</h3>
+                <h3 class="timeline-header no-border">Submit ide Anda</h3>
               </div>
             </li>
             <li>
               <i class="fa fa-users orange"></i>
               <div class="timeline-item">
-                <h3 class="timeline-header no-border">Cari Partner yang cocok untuk menjalankan ide anda, berikan permintaan bergabung</h3>
+                <h3 class="timeline-header no-border">Cari partner yang cocok untuk menjalankan ide Anda, berikan permintaan bergabung</h3>
               </div>
             </li>
             <li>
               <i class="fa fa-comments green darken-1"></i>
               <div class="timeline-item">
-                <h3 class="timeline-header no-border">Komunikasi dengan partner baru anda melalui ruang diskusi untuk mengubah ide anda menjadi kenyataan</h3>
+                <h3 class="timeline-header no-border">Komunikasi dengan partner baru anda melalui ruang diskusi untuk mengubah ide Anda menjadi kenyataan</h3>
               </div>
             </li>
             <li>
               <i class="fa fa-share-alt purple lighten-1"></i>
               <div class="timeline-item">
-                <h3 class="timeline-header no-border">Bagikan ide anda melalui media sosial lain</h3>
+                <h3 class="timeline-header no-border">Bagikan ide Anda melalui media sosial lain</h3>
               </div>
             </li>
             <li>
               <i class="fa fa-edit brown darken-2"></i>
               <div class="timeline-item">
-                <h3 class="timeline-header no-border">Update ide anda dengan foto-foto dan video baru</h3>
+                <h3 class="timeline-header no-border">Update ide Anda dengan foto-foto dan video baru</h3>
               </div>
             </li>
           </ul>
