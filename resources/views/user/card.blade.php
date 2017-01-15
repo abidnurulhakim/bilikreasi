@@ -11,7 +11,7 @@
         <div class="main">
           <h3 class="name">{{ $user->name }}</h3>
           <p class="profession">{{ $user->profession ? $user->profession : '-' }}</p>
-          <p class="text-center">"{{ str_limit($user->about, 250) }}"</p>
+          <p class="text-center">"{{ str_limit($user->about, 150) }}"</p>
         </div>
         <div class="footer row">
           @if(!$idea->hasInvite($user) && !$idea->isMember($user))

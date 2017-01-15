@@ -120,11 +120,15 @@ class IdeaController extends Controller
         }
     }
 
-    public function members($slug)
+    public function members(Request $request, $slug)
     {
         $idea = Idea::where('slug', $slug)->firstOrFail();
         \View::share('pageTitle', "Anggota '$idea->title'");
-        $users = $idea->members()->paginate(24);
+        $users = $idea->members()->paginate(12);
+        $users->appends($request->all());
+        if ($request->ajax()) {
+            return view('idea.members-ajax', compact('users', 'idea'));
+        }
         return view('idea.members', compact('idea', 'users'));
     }
 
