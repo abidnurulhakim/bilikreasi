@@ -101,7 +101,7 @@
           </div>
           <div class="col-xs-10">
             <div class="chip">
-              {{ $idea->location }}    
+              {{ $idea->location }}
             </div>
           </div>
         </div>

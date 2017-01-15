@@ -41,14 +41,16 @@
       </div>
     </div>
   </div>
-  <div class="col-xs-12 grid">
-    @forelse($users as $user)
-      <div class="grid-item col-xs-12 col-md-4">
-        @include('user.card', $user)
-      </div>
-    @empty
-      <h4 class="text-xs-center text-muted">-- Tidak ada user yang ditemukan --</h4>
-    @endforelse
+  <div class="row">
+    <div class="col-xs-12 grid">
+      @forelse($users as $user)
+        <div class="grid-item col-xs-12 col-md-4">
+          @include('user.card', $user)
+        </div>
+      @empty
+        <h4 class="text-xs-center text-muted">-- Tidak ada user yang ditemukan --</h4>
+      @endforelse
+    </div>
   </div>
   @if($users->hasMorePages())
     <div class="grid-item read-more hidden">

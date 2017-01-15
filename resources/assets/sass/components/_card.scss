@@ -622,3 +622,49 @@ ul.card-action-buttons {
 .card .stats p{
   color: #777777;
 }
+
+.card-profile {
+  
+  .card-profile--background-image {
+    height: 15rem;
+  }
+
+  @include media-breakpoint-up(md) {
+    .card-profile--user-image {
+      width: 100px;
+      position: absolute;
+      top: 190px;
+      z-index: 1;
+      left: 40px;
+      cursor: pointer;
+      margin: 0;
+    }
+  }
+  @include media-breakpoint-down(md) {
+    .card-profile--user-image {
+      width: 100px;
+      position: absolute;
+      top: 7.5rem;
+      z-index: 1;
+      left: 40%;
+      cursor: pointer;
+      margin: 0;
+    }
+  }
+
+  ul.card-profile--action-buttons {
+    text-align: right;
+    list-style-type: none;
+    position: absolute;
+    top: 15rem;
+    right: 2rem;
+    margin-top: -20px;
+  }
+
+  .card-profile--user-detail {
+
+    i {
+      min-width: 2rem;
+    }
+  }
+}

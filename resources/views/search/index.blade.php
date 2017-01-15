@@ -44,14 +44,16 @@
       </div>
     </div>
   </div>
-  <div class="col-xs-12 grid">
-    @forelse($ideas as $idea)
-      <div class="grid-item col-xs-12 col-md-4">
-        @include('idea.card', $idea)
-      </div>
-    @empty
-      <h4 class="text-xs-center text-muted">-- Tidak ada ide yang ditemukan --</h4>
-    @endforelse
+  <div class="row">
+    <div class="col-xs-12 grid">
+      @forelse($ideas as $idea)
+        <div class="grid-item col-xs-12 col-md-4">
+          @include('idea.card', $idea)
+        </div>
+      @empty
+        <h4 class="text-xs-center text-muted">-- Tidak ada ide yang ditemukan --</h4>
+      @endforelse
+    </div>
   </div>
   @if($ideas->hasMorePages())
     <div class="grid-item read-more hidden">

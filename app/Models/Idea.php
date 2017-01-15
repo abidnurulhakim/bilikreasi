@@ -207,7 +207,7 @@ class Idea extends BaseModel
             $words = preg_split('/\s+/', trim($keyword));
             $query = $query->where(function($q) use ($words) {
                 foreach ($words as $word) {
-                    $q = $q->orWhere('name', 'like', '%'.$word.'%');
+                    $q = $q->orWhere('title', 'like', '%'.$word.'%');
                 }
             });
         }

@@ -1,4 +1,4 @@
-<div class="card sticky-action">
+<div class="card sticky-action z-depth-2">
   <div class="card-image">
     <div class="card-date">
       @if($idea->created_at->diffInYears(\Carbon::now()) > 0)
@@ -103,12 +103,7 @@
   <div class="card-action">
     @if(isset($invitation))
       <a class="btn btn-flat btn-block btn-primary" href="{{ route('idea.join', $idea) }}">Gabung</a>
-      <a class="btn btn-flat btn-block btn-primary" href="{{ route('idea.show', $idea) }}">Lihat</a>
-    @elseif(isset($user))
-      <a class="btn btn-flat btn-block btn-primary" href="{{ route('idea.show', $idea) }}">Lihat</a>
-      <i class="fa fa-clock-o" aria-hidden="true"></i> <small>Bergabung sejak <span class="time-humanize " title="{{ Carbon::parse($idea->members()->find($user->id)->pivot->join_at)->toIso8601String() }}"></span></small>
-    @else
-      <a class="btn btn-flat btn-block btn-primary" href="{{ route('idea.show', $idea) }}">Lihat</a>
     @endif
+    <a class="btn btn-flat btn-block btn-primary" href="{{ route('idea.show', $idea) }}">Lihat</a>
   </div>
 </div>  

@@ -8506,6 +8506,34 @@ textarea {
   margin-bottom: .8rem;
 }
 
+.z-depth-0 {
+  box-shadow: none !important;
+}
+
+.z-depth-1 {
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
+}
+
+.z-depth-1-half {
+  box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.14), 0 1px 7px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -1px rgba(0, 0, 0, 0.2);
+}
+
+.z-depth-2 {
+  box-shadow: 0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12), 0 2px 4px -1px rgba(0, 0, 0, 0.3);
+}
+
+.z-depth-3 {
+  box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.14), 0 1px 18px 0 rgba(0, 0, 0, 0.12), 0 3px 5px -1px rgba(0, 0, 0, 0.3);
+}
+
+.z-depth-4 {
+  box-shadow: 0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12), 0 5px 5px -3px rgba(0, 0, 0, 0.3);
+}
+
+.z-depth-5 {
+  box-shadow: 0 16px 24px 2px rgba(0, 0, 0, 0.14), 0 6px 30px 5px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.3);
+}
+
 @media print {
   *,
   *::before,
@@ -14469,6 +14497,47 @@ ul.card-action-buttons li a i {
 
 .card .stats p {
   color: #777777;
+}
+
+.card-profile .card-profile--background-image {
+  height: 15rem;
+}
+
+@media (min-width: 768px) {
+  .card-profile .card-profile--user-image {
+    width: 100px;
+    position: absolute;
+    top: 190px;
+    z-index: 1;
+    left: 40px;
+    cursor: pointer;
+    margin: 0;
+  }
+}
+
+@media (max-width: 991px) {
+  .card-profile .card-profile--user-image {
+    width: 100px;
+    position: absolute;
+    top: 7.5rem;
+    z-index: 1;
+    left: 40%;
+    cursor: pointer;
+    margin: 0;
+  }
+}
+
+.card-profile ul.card-profile--action-buttons {
+  text-align: right;
+  list-style-type: none;
+  position: absolute;
+  top: 15rem;
+  right: 2rem;
+  margin-top: -20px;
+}
+
+.card-profile .card-profile--user-detail i {
+  min-width: 2rem;
 }
 
 .breadcrumb {
