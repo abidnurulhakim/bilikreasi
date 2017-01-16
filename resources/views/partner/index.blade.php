@@ -48,7 +48,11 @@
           @include('user.card', $user)
         </div>
       @empty
-        <h4 class="text-xs-center text-muted">-- Tidak ada user yang ditemukan --</h4>
+        <div class="card z-depth-2">
+          <div class="card-panel">
+            <h4 class="text-xs-center text-muted">-- Tidak ada calon partner yang sesuai --</h4>
+          </div>
+        </div>
       @endforelse
     </div>
   </div>

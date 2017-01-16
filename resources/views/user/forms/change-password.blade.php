@@ -8,9 +8,9 @@
       </ul>
     </div>
   @endif
-  {!! Form::formPassword('old_password', ['label' => 'Password Lama', 'placeholder' => 'Masukkan Password Lama Anda'] ) !!}
-  {!! Form::formPassword('password', ['label' => 'Password Baru', 'placeholder' => 'Masukkan Password Baru Anda'] ) !!}
-  {!! Form::formPassword('password_confirmation', ['label' => 'Konfirmasi Password', 'placeholder' => 'Masukkan Password Baru Anda Kembali'] ) !!}
-  {!! Form::reset('Reset', ['class' => 'btn btn-danger btn-lg pull-left']); !!}
-  {!! Form::submit('Simpan', ['class' => 'btn btn-primary btn-lg pull-right']); !!}
+  {!! Form::formMaterializePassword('old_password', ['label' => 'Password Lama'] ) !!}
+  {!! Form::formMaterializePassword('password', ['label' => 'Password Baru'] ) !!}
+  {!! Form::formMaterializePassword('password_confirmation', ['label' => 'Konfirmasi Password Baru'] ) !!}
+  {!! Form::reset('Reset', ['class' => 'btn btn-danger pull-left']); !!}
+  {!! Form::submit('Simpan', ['class' => 'btn btn-primary pull-right']); !!}
 {!! Form::close() !!}

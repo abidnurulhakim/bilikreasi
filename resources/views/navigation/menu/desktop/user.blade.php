@@ -24,6 +24,9 @@
         <a href="{{ route('user.edit', auth()->user()->username) }}">
           <i class="fa fa-user"></i> Perbaharui Profil
         </a>
+        <a href="{{ route('user.invitation', auth()->user()->username) }}">
+          <i class="fa fa-envelope-open"></i> Undangan gabung
+        </a>
         <a href="{{ route('user.edit-password', auth()->user()->username) }}">
           <i class="fa fa-key"></i> Ganti Password
         </a>

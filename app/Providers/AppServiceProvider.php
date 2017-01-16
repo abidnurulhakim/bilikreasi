@@ -50,15 +50,15 @@ class AppServiceProvider extends ServiceProvider
         Form::component('formMaterializeDateTime', 'components.form.materialize.form.form-datetime', ['name', 'value', 'attributes']);
         Form::component('formMaterializeFile', 'components.form.materialize.form-file', ['name', 'value', 'attributes']);
         Form::component('formMaterializeTags', 'components.form.materialize.form-tags', ['name', 'collection', 'value', 'attributes']);
-        Form::component('formMaterializeTextArea', 'components.materialize.form.form-text-area', ['name', 'value', 'attributes']);
+        Form::component('formMaterializeTextarea', 'components.form.materialize.form-textarea', ['name', 'value', 'attributes']);
         Form::component('formMaterializeSelect', 'components.form.materialize.form-select', ['name', 'collection', 'value', 'attributes']);
         Form::component('formMaterializeTextEditor', 'components.form.materialize.form-text-editor', ['name', 'value', 'attributes']);
         Form::component('materializeFile', 'components.form.materialize.form-date', ['name', 'value', 'attributes']);
         Form::component('materializeDate', 'components.form.materialize.date', ['name', 'value', 'attributes']);
         Form::component('materializeBirthDate', 'components.form.materialize.birthdate', ['name', 'value', 'attributes']);
-        Form::component('MaterializeDateTime', 'components.form.materialize.datetime', ['name', 'value', 'attributes']);
-        Form::component('MaterializeTextarea', 'components.form.materialize.text-area', ['name', 'value', 'attributes']);
-        Form::component('MaterializeTextEditor', 'components.form.materialize.text-editor', ['name', 'value', 'attributes']);
+        Form::component('materializeDateTime', 'components.form.materialize.datetime', ['name', 'value', 'attributes']);
+        Form::component('materializeTextarea', 'components.form.materialize.textarea', ['name', 'value', 'attributes']);
+        Form::component('materializeTextEditor', 'components.form.materialize.text-editor', ['name', 'value', 'attributes']);
         Form::component('formMaterializeDateTimeLink', 'components.form.materialize.form-datetime-link', ['nameStart', 'nameFinish', 'valueStart', 'valueFinish', 'attributes']);
 
         Form::component('avatar', 'components.form.materialize.avatar', ['name', 'value', 'attributes']);

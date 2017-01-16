@@ -20,6 +20,7 @@
       {!! Form::formMaterializeRadio('gender', ['male' => 'Laki-laki', 'female' => 'Perempuan'], ['checked' => [$user->gender]]) !!}
     </div>
     <div class="col-xs-12">
+      {!! Form::formMaterializeTextarea('about', $user->about, ['label' => 'Tentang Saya', ] ) !!}
       {!! Form::formMaterializeBirthDate('birthday', null, ['label' => 'Tanggal Lahir']) !!}
       {!! Form::formTags('interests', $interests, $user->interests, ['label' => 'Minat']) !!}
       {!! Form::formTags('skills', $skills, $user->skills, ['label' => 'Kemampuan']) !!}
@@ -28,6 +29,6 @@
       {!! Form::formMaterializeText('phone_number', null, ['label' => 'Nomor HP', ] ) !!}
     </div>
   </div>
-  {!! Form::reset('Reset', ['class' => 'btn btn-danger btn-lg pull-left']); !!}
-  {!! Form::submit('Simpan', ['class' => 'btn btn-primary btn-lg pull-right']); !!}
+  {!! Form::reset('Reset', ['class' => 'btn btn-danger pull-left']); !!}
+  {!! Form::submit('Simpan', ['class' => 'btn btn-primary pull-right']); !!}
 {!! Form::close() !!}

@@ -51,7 +51,11 @@
           @include('idea.card', $idea)
         </div>
       @empty
-        <h4 class="text-xs-center text-muted">-- Tidak ada ide yang ditemukan --</h4>
+        <div class="card z-depth-2">
+          <div class="card-panel">
+            <h4 class="text-xs-center text-muted">-- Tidak ada ide yang ditemukan --</h4>
+          </div>
+        </div>
       @endforelse
     </div>
   </div>
