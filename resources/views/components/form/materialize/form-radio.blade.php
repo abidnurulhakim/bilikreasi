@@ -17,12 +17,12 @@
   @if(is_array($value))
     @if(array_keys($value) !== range(0, count($value) - 1))
       @foreach ($value as $key => $val)
-        <input type="radio" class="with-gap" name="{{ $name }}[]" id="{{ $name.'_'.$key }}" value="{{ $key }}" @if(in_array($key, $attributes['checked'])) checked @endif>
+        <input type="radio" class="with-gap" name="{{ $name }}" id="{{ $name.'_'.$key }}" value="{{ $key }}" @if(in_array($key, $attributes['checked'])) checked @endif>
         <label for="{{ $name.'_'.$key }}">{{ $val }}</label>
       @endforeach    
     @else
       @foreach ($value as $val)
-        <input type="radio" class="with-gap" name="{{ $name }}[]" id="{{ $name.'_'.$val }}" value="{{ $val }}" @if(in_array($val, $attributes['checked'])) checked @endif>
+        <input type="radio" class="with-gap" name="{{ $name }}" id="{{ $name.'_'.$val }}" value="{{ $val }}" @if(in_array($val, $attributes['checked'])) checked @endif>
         <label for="{{ $name.'_'.$val }}">{{ $val }}</label>
       @endforeach
     @endif

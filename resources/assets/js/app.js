@@ -20,7 +20,15 @@ var assets = {
   _slimscroll         : { js : path.plugins + 'slimscroll/jquery.slimscroll.min.js' },
   _notify             : { js : path.plugins + 'notify/bootstrap-notify.min.js' },
   _select2            : { js : path.plugins + 'select2/js/select2.full.min.js' },
-  _niceScroll        : { js : path.plugins + 'nicescroll/jquery.nicescroll.min.js' },
+  _niceScroll         : { js : path.plugins + 'nicescroll/jquery.nicescroll.min.js' },
+  _fileinput          : { 
+                          css : path.plugins + 'bootstrap-fileinput/css/fileinput.min.css',
+                          js : path.plugins + 'bootstrap-fileinput/js/fileinput.min.js'
+                        },
+  _datepicker         : { 
+                          css : path.plugins + 'bootstrap-datepicker/css/bootstrap-datepicker3.min.css',
+                          js : path.plugins + 'bootstrap-datepicker/js/bootstrap-datepicker.min.js'
+                        },
 };
 
 var Site = {
@@ -38,6 +46,8 @@ var Site = {
     Site.alertNotificationInit();
     Site.selectInit();
     Site.masonryInit();
+    Site.inputAvatarInit();
+    Site.datepickerInit();
   },
   slickLoad : function($callback, $args = []) {
     Modernizr.load({
@@ -133,6 +143,28 @@ var Site = {
     Modernizr.load({
       load  : [
               assets._niceScroll.js
+      ],
+      complete : function(){
+        $callback(...$args);
+      }
+    });
+  },
+  fileInputLoad : function($callback, $args = []) {
+    Modernizr.load({
+      load  : [
+              assets._fileinput.css,
+              assets._fileinput.js
+      ],
+      complete : function(){
+        $callback(...$args);
+      }
+    });
+  },
+  datepickerLoad : function($callback, $args = []) {
+    Modernizr.load({
+      load  : [
+              assets._datepicker.css,
+              assets._datepicker.js
       ],
       complete : function(){
         $callback(...$args);
@@ -443,6 +475,35 @@ var Site = {
         $('.grid').masonry( 'appended', $newElements, true );
     });
   },
+  inputAvatarInit : function() {
+    if ($('.user-picture-input .user-picture-input--file').length > 0) {
+      $('.user-picture-input .user-picture-input--file').each(function(){
+        $(this).change(function(){
+          if (this.files && this.files[0]) {
+            $reader = new FileReader();
+            $reader.readAsDataURL(this.files[0]);
+            $prev = $(this).prev();
+            $reader.onload = function (e) {
+              $prev.attr('src', e.target.result).fadeIn('slow');
+            }
+          }
+        });
+      });
+    }
+  },
+  datepickerInit : function() {
+    if ($('input[type="text"].date-picker').length > 0) {
+      Site.datepickerLoad(Site.datepicker);
+    }
+  },
+  datepicker : function() {
+    $('input[type="text"].date-picker').each(function(index){
+      $(this).datepicker({
+        format: $(this).data('date-format'),
+        endDate: $(this).data('end-date'),
+      });
+    });
+  }
 };
 
 var checkJquery = function () {
@@ -458,8 +519,8 @@ var checkJquery = function () {
 Modernizr.load({
   load    : [
     assets._jquery_local.js,
-    assets._bootstrap_local.js,
     assets._materialize_local.js,
+    assets._bootstrap_local.js,
   ],
   complete: checkJquery
 });

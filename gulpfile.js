@@ -45,4 +45,6 @@ elixir(mix => {
     mix.copy('resources/assets/vendor/select2/dist', 'public/vendor/select2');
     mix.copy('resources/assets/vendor/masonry/dist', 'public/vendor/masonry');
     mix.copy('resources/assets/vendor/nicescroll', 'public/vendor/nicescroll');
+    mix.copy('resources/assets/vendor/bootstrap-fileinput', 'public/vendor/bootstrap-fileinput');
+    mix.copy('resources/assets/vendor/bootstrap-datepicker/dist', 'public/vendor/bootstrap-datepicker');
 });

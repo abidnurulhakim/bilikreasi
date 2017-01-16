@@ -25,7 +25,7 @@
         </div>
 
         <div class="col-xs">
-          @include('concerns._form-user-register')    
+          @include('concerns._form-user-register')
         </div>
       </div>
     </div>

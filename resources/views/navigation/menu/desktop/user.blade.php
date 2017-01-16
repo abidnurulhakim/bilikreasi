@@ -37,7 +37,8 @@
       {{ str_limit(auth()->user()->name, 15) }}
     </a>
   @else
-    <a class='popover' href='#' data-placement="bottom">Masuk</a>
+    <a class="pull-right" href="{{ route('home.register') }}">Daftar</a>
+    <a class="popover pull-right" href='#' data-placement="bottom">Masuk</a>
     <div class="webui-popover-content">
       {!! Form::open(['route' => 'session.login', 'method' => 'post', 'class' => 'col-md-12']) !!}
         <div class="materialize-input">
@@ -69,6 +70,5 @@
         </a>
       {!! Form::close() !!}
     </div>
-    <a href="{{ route('home.register') }}">Daftar</a>
   @endif
 </li>

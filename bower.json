@@ -30,6 +30,8 @@
         "slimScroll": "*",
         "remarkable-bootstrap-notify": "*",
         "select2-bootstrap-theme": "*",
-        "nicescroll": "*"
+        "nicescroll": "*",
+        "bootstrap-fileinput": "*",
+        "bootstrap-datepicker": "*"
     }
 }
