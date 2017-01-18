@@ -1,10 +1,15 @@
 @extends('idea.layout')
 @section('idea-content')
-  <div class="col-sm-12">
-    <div class="card">
-      <div class="card-block">
-        <div class="col-sm-12 col-padding">
-          @include('concerns._form-idea-create')
+  <div class="col-xs-12 col-sm-12 col-md-10 offset-md-1">
+    <div class="card z-depth-3">
+      <div class="card-panel row">
+        <div class="col-xs">
+          <h3 class="text-xs-center">
+            <b>Buat</b> Ide Baru
+          </h3>
+          <hr>
+          <br>
+          @include('idea.forms.create')
         </div>
       </div>
     </div>

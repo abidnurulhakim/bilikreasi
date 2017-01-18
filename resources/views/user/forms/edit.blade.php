@@ -13,7 +13,7 @@
       {!! Form::avatar('photo', $user->getPhoto(), []) !!}
     </div>
     <div class="col-xs-12 col-md-9">
-      {!! Form::formMaterializeText('name', null, ['label' => 'Nama', ] ) !!}
+      {!! Form::formMaterializeText('name', null, ['label' => 'Nama'] ) !!}
       <div class="row col-xs">
         Jenis Kelamin
       </div>
@@ -29,6 +29,7 @@
       {!! Form::formMaterializeText('phone_number', null, ['label' => 'Nomor HP', ] ) !!}
     </div>
   </div>
+  <hr>
   {!! Form::reset('Reset', ['class' => 'btn btn-danger pull-left']); !!}
   {!! Form::submit('Simpan', ['class' => 'btn btn-primary pull-right']); !!}
 {!! Form::close() !!}

@@ -32,6 +32,7 @@
         "select2-bootstrap-theme": "*",
         "nicescroll": "*",
         "bootstrap-fileinput": "*",
-        "bootstrap-datepicker": "*"
+        "bootstrap-datepicker": "*",
+        "dropzone": "*"
     }
 }

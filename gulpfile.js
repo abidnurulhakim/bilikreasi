@@ -47,4 +47,5 @@ elixir(mix => {
     mix.copy('resources/assets/vendor/nicescroll', 'public/vendor/nicescroll');
     mix.copy('resources/assets/vendor/bootstrap-fileinput', 'public/vendor/bootstrap-fileinput');
     mix.copy('resources/assets/vendor/bootstrap-datepicker/dist', 'public/vendor/bootstrap-datepicker');
+    mix.copy('resources/assets/vendor/dropzone/dist/min', 'public/vendor/dropzone');
 });

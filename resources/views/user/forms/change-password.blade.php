@@ -11,6 +11,7 @@
   {!! Form::formMaterializePassword('old_password', ['label' => 'Password Lama'] ) !!}
   {!! Form::formMaterializePassword('password', ['label' => 'Password Baru'] ) !!}
   {!! Form::formMaterializePassword('password_confirmation', ['label' => 'Konfirmasi Password Baru'] ) !!}
+  <hr>
   {!! Form::reset('Reset', ['class' => 'btn btn-danger pull-left']); !!}
   {!! Form::submit('Simpan', ['class' => 'btn btn-primary pull-right']); !!}
 {!! Form::close() !!}
