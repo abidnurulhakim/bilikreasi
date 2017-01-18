@@ -76,10 +76,12 @@ class Idea extends BaseModel
         
         static::bootAttachableTrait();
         static::bootSluggableTrait();
-        static::created(function($idea){
-            $discussion = DiscussionService::create($idea);
-            IdeaService::join($idea, $idea->user, 'admin');
-            DiscussionService::addParticipant($discussion, $idea->user);
+        static::saved(function($idea){
+            if (strlen($idea->title) && $idea->discussions()->count() == 0) {
+                $discussion = DiscussionService::create($idea);
+                IdeaService::join($idea, $idea->user, 'admin');
+                DiscussionService::addParticipant($discussion, $idea->user);
+            }
         });
         static::saving(function($idea){
             if ($idea->category != 'event') {
@@ -166,7 +168,7 @@ class Idea extends BaseModel
     public function setStartAtAttribute($value)
     {
         if (is_string($value) && !empty($value) && !is_null($value)) {
-            $this->attributes['start_at'] = \Carbon::createFromFormat('m/d/Y g:i A', trim($value));
+            $this->attributes['start_at'] = \Carbon::createFromFormat('d/m/Y h:i', trim($value));
         }
         $this->attributes['start_at'] = $value;
     }
@@ -174,7 +176,7 @@ class Idea extends BaseModel
     public function setFinishAtAttribute($value)
     {
         if (is_string($value) && !empty($value) && !is_null($value)) {
-            $this->attributes['finish_at'] = \Carbon::createFromFormat('m/d/Y g:i A', $value);
+            $this->attributes['finish_at'] = \Carbon::createFromFormat('d/m/Y h:i', trim($value));
         }
         $this->attributes['finish_at'] = $value;
     }

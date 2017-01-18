@@ -33,10 +33,14 @@ class IdeaController extends Controller
             \Session::flash('success', "Tolong cek inbox/spam email Anda untuk konfirmasi akun Anda, agar Anda dapat membuat ide");
             return redirect()->back();
         }
-        \View::share('pageTitle', 'Buat Ide Baru');
+        $idea = Idea::onlyTrashed()->where('user_id', auth()->user()->id)->whereNull('status')->first();
+        if (!$idea) {
+            $idea = Idea::create(['user_id' => auth()->user()->id, 'slug' => str_random(20)]);
+            $idea->delete();
+        }
         $tags = Tag::publish()->get()->map(function($tag) {
             return $tag->name; })->toArray();
-        return view('idea.create', compact('tags'));
+        return view('idea.create', compact('idea', 'tags'));
     }
 
     public function store(StoreRequest $request)
@@ -70,7 +74,6 @@ class IdeaController extends Controller
     {
         $idea = Idea::where('slug', $slug)->firstOrFail();
         $this->authorize('edit', $idea);
-        \View::share('pageTitle', 'Perbaharui Ide');
         $tags = [];
         foreach (Tag::publish()->get() as $tag){
             $tags[$tag->name] = $tag->name;
@@ -80,9 +83,13 @@ class IdeaController extends Controller
 
     public function update(UpdateRequest $request, $slug)
     {
-        $idea = Idea::where('slug', $slug)->firstOrFail();
+        $idea = Idea::withTrashed()->where('slug', $slug)->firstOrFail();
         $this->authorize('update', $idea);
         $idea->fill($request->all());
+        if ($idea->trashed()) {
+            $idea->generateSlug('slug');
+            $idea->restore();
+        }
         if ($idea->save()) {
             if ($request->file('media')) {
                 foreach ($request->file('media') as $photo) {

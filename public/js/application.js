@@ -957,7 +957,7 @@ var assets = {
   _masonry            : { js : path.plugins + 'masonry/masonry.pkgd.min.js' },
   _infiniteScroll     : { js : path.plugins + 'infinite-scroll/jquery.infinitescroll.min.js' },
   _summernote         : {
-                          css : path.plugins + 'summernote/summernote.min.css',
+                          css : path.plugins + 'summernote/summernote.css',
                           js : path.plugins + 'summernote/summernote.min.js',
                           lang : path.plugins + 'summernote/lang/summernote-id-ID.js'
                         },
@@ -976,6 +976,11 @@ var assets = {
                           css : path.plugins + 'bootstrap-datepicker/css/bootstrap-datepicker3.min.css',
                           js : path.plugins + 'bootstrap-datepicker/js/bootstrap-datepicker.min.js'
                         },
+  _datetimepicker     : { 
+                          css : path.plugins + 'bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css',
+                          js : path.plugins + 'bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js'
+                        },
+  _moment             : { js : path.plugins + 'moment/moment-with-locales.min.js' },
 };
 
 var Site = {
@@ -993,8 +998,11 @@ var Site = {
     Site.alertNotificationInit();
     Site.selectInit();
     Site.masonryInit();
-    Site.inputAvatarInit();
+    Site.imageInputInit();
     Site.datepickerInit();
+    Site.textEditorInit();
+    Site.dateTimePickerInit();
+    Site.dateTimePickerLinkInit();
   },
   slickLoad : function($callback, $args = []) {
     Modernizr.load({
@@ -1118,6 +1126,39 @@ var Site = {
       }
     });
   },
+  summernoteLoad : function($callback, $args = []) {
+    Modernizr.load({
+      load  : [
+              assets._summernote.css,
+              assets._summernote.js,
+              assets._summernote.lang
+      ],
+      complete : function(){
+        $callback(...$args);
+      }
+    });
+  },
+  dateTimePickerLoad : function($callback, $args = []) {
+    Modernizr.load({
+      load  : [
+              assets._datetimepicker.css,
+              assets._datetimepicker.js
+      ],
+      complete : function(){
+        $callback(...$args);
+      }
+    });
+  },
+  momentLoad : function($callback, $args = []) {
+    Modernizr.load({
+      load  : [
+              assets._moment.js
+      ],
+      complete : function(){
+        $callback(...$args);
+      }
+    });
+  },
   scrollHtmlInit : function () {
     Site.niceScrollLoad(Site.scrollHtml);
   },
@@ -1159,21 +1200,6 @@ var Site = {
       $popupTrigger = $(this).data('trigger') ? $(this).data('trigger') : 'click';
       $(this).webuiPopover({
         trigger: $popupTrigger,
-      });
-    });
-  },
-  textEditorInit : function() {
-    $('[summernote]').each(function(){
-      $(this).materialnote({
-        lang : 'id-ID',
-        height: $(this).height(),
-        toolbar: [
-          ['style', ['bold', 'italic', 'underline', 'clear']],
-          ['fontsize', ['fontsize']],
-          ['color', ['color']],
-          ['para', ['ul', 'ol', 'paragraph']],
-          ['height', ['height']]
-        ]
       });
     });
   },
@@ -1382,7 +1408,7 @@ var Site = {
           theme: "bootstrap",
           tokenSeparators: [',']
         })
-      }else {
+      } else {
         $(this).select2({
           language: "id",
           theme: "bootstrap",
@@ -1391,8 +1417,10 @@ var Site = {
         $(this).on('change', function(evt){
           if ($(this).val() == 'event') {
             $('.show-cat-event').removeClass('hidden');
+            $('.show-cat-event').removeClass('hidden-xs-up');
           } else {
             $('.show-cat-event').addClass('hidden');
+            $('.show-cat-event').addClass('hidden-xs-up');
           }
         });
       }
@@ -1422,9 +1450,9 @@ var Site = {
         $('.grid').masonry( 'appended', $newElements, true );
     });
   },
-  inputAvatarInit : function() {
-    if ($('.user-picture-input .user-picture-input--file').length > 0) {
-      $('.user-picture-input .user-picture-input--file').each(function(){
+  imageInputInit : function() {
+    if ($('.image-input').length > 0) {
+      $('.image-input input[type=file]').each(function(){
         $(this).change(function(){
           if (this.files && this.files[0]) {
             $reader = new FileReader();
@@ -1439,18 +1467,76 @@ var Site = {
     }
   },
   datepickerInit : function() {
-    if ($('input[type="text"].date-picker').length > 0) {
+    if ($('input[type=text].date-picker').length > 0) {
       Site.datepickerLoad(Site.datepicker);
     }
   },
   datepicker : function() {
-    $('input[type="text"].date-picker').each(function(index){
+    $('input[type=text].date-picker').each(function(index){
       $(this).datepicker({
         format: $(this).data('date-format'),
         endDate: $(this).data('end-date'),
       });
     });
-  }
+  },
+  textEditorInit : function() {
+    if ($('[text-editor]').length > 0) {
+      Site.summernoteLoad(Site.textEditor);
+    }
+  },
+  textEditor : function() {
+    $('[text-editor]').each(function(){
+      $(this).summernote({
+        lang : 'id-ID',
+        height: 200,
+        toolbar: [
+          ['style', ['bold', 'italic', 'underline', 'clear']],
+          ['font', ['strikethrough', 'superscript', 'subscript']],
+          ['fontsize', ['fontsize']],
+          ['para', ['ul', 'ol', 'paragraph']],
+          ['view', ['fullscreen', 'codeview', 'undo', 'redo']]
+        ]
+      });
+    });
+  },
+  dateTimePickerInit : function() {
+    if ($('.date-time-picker').length > 0) {
+      Site.momentLoad(Site.dateTimePickerLoad, [Site.dateTimePicker]);
+    }
+  },
+  dateTimePicker : function() {
+    $('.date-time-picker').each(function(index){
+      $(this).datetimepicker({
+        locale: 'id',
+        format: 'DD/MM/YYYY HH:mm'
+      });
+    });
+  },
+  dateTimePickerLinkInit : function() {
+    if ($('.date-time-picker-link').length > 0) {
+      Site.momentLoad(Site.dateTimePickerLoad, [Site.dateTimePickerLink]);
+      ;
+    }
+  },
+  dateTimePickerLink : function() {
+    $('.date-time-picker-link').each(function(index){
+      $(this).datetimepicker({
+        locale: 'id',
+        format: 'DD/MM/YYYY HH:mm'
+      });
+      $(this).show();
+      $("#"+$(this).data('finish-selector')).datetimepicker({
+        useCurrent: false,
+        locale: 'id'
+      });
+      $(this).on("dp.change", function (e) {
+        $("#"+$(this).data('finish-selector')).data("DateTimePicker").minDate(e.date);
+      });
+      $("#"+$(this).data('finish-selector')).on("dp.change", function (e) {
+        $(this).data("DateTimePicker").maxDate(e.date);
+      });
+    });
+  },
 };
 
 var checkJquery = function () {

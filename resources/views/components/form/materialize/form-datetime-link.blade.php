@@ -1,43 +1,37 @@
 <?php
-    if (!$attributes) {
-      $attributes = [];
-    } 
-    if (!empty($attributes['label-start'])){
-      $labelNameStart = ucfirst($attributes['label-start']);
-      unset($attributes['label-start']);
-    } else {
-      $labelNameStart = ucfirst($nameStart);
-    }
-    if (!empty($attributes['label-finish'])){
-      $labelNameFinish = ucfirst($attributes['label-finish']);
-      unset($attributes['label-finish']);
-    } else {
-      $labelNameFinish = ucfirst($nameFinish);
-    }
-  ?>
-<div class="form-group">
-  {{ Form::label($nameStart, $labelNameStart) }}
-  <div class='input-group date-time-picker-link' id="{{ $nameStart }}" data-start="true" data-finish-selector="{{ $nameFinish }}">
-    <input type='text' name={{ $nameStart }} value="
-    @if(!empty($valueStart))
-      {{ \Carbon::createFromFormat('Y-m-d H:i:s', $valueStart)->format('m/d/Y g:i A') }}
-    @endif
-    " class="form-control">
-    <span class="input-group-addon">
-      <span class="fa fa-calendar"></span>
-    </span>
+  if (!$attributes) {
+    $attributes = [];
+  } 
+  if (!empty($attributes['label-start'])){
+    $labelNameStart = ucfirst($attributes['label-start']);
+    unset($attributes['label-start']);
+  } else {
+    $labelNameStart = ucfirst($nameStart);
+  }
+  if (!empty($attributes['label-finish'])){
+    $labelNameFinish = ucfirst($attributes['label-finish']);
+    unset($attributes['label-finish']);
+  } else {
+    $labelNameFinish = ucfirst($nameFinish);
+  }
+  if (!empty($valueStart)) {
+    $valueStart = \Carbon::createFromFormat('Y-m-d H:i:s', $valueStart)->format('m/d/Y g:i A');
+  }
+  if (!empty($valueFinish)) {
+    $valueFinish = \Carbon::createFromFormat('Y-m-d H:i:s', $valueFinish)->format('m/d/Y g:i A');
+  }
+?>
+<div class="materialize-input">
+  <div class="input-field" >
+    <i class="fa fa-clock-o prefix"></i>
+    {{ Form::text($nameStart, $valueStart, array_merge([ 'id' => $nameStart, 'data-start' => true, 'data-finish-selector' => $nameFinish, 'class' => 'date-time-picker-link'], $attributes)) }}
+    {{ Form::label($nameStart, $labelNameStart) }}
   </div>
 </div>
-<div class="form-group">
-  {{ Form::label($nameFinish, $labelNameFinish) }}
-  <div class='input-group' id="{{ $nameFinish }}" data-finish="true" data-start-selector="{{ $nameStart }}">
-    <input type='text' name={{ $nameFinish }} value="
-    @if(!empty($valueFinish))
-      {{ \Carbon::createFromFormat('Y-m-d H:i:s', $valueFinish)->format('m/d/Y g:i A') }}
-    @endif
-    " class="form-control">
-    <span class="input-group-addon">
-      <span class="fa fa-calendar"></span>
-    </span>
+<div class="materialize-input">
+  <div class="input-field">
+    <i class="fa fa-clock-o prefix"></i>
+    {{ Form::text($nameFinish, $valueFinish, array_merge([ 'id' => $nameFinish, 'data-finish' => true, 'data-start-selector' => $nameStart ], $attributes)) }}
+    {{ Form::label($nameFinish, $labelNameFinish) }}
   </div>
 </div>

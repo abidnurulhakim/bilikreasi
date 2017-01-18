@@ -15,6 +15,7 @@ require('laravel-elixir-vue-2');
 
 elixir(mix => {
     mix.less('popover.less', 'resources/assets/sass/components/_popover.scss');
+    mix.less('glyphicons.less', 'resources/assets/sass/components/_glyphicons.scss');
     mix.sass([
         '../vendor/font-awesome/css/font-awesome.min.css',
         '../vendor/animate.css/animate.min.css',
@@ -48,4 +49,6 @@ elixir(mix => {
     mix.copy('resources/assets/vendor/bootstrap-fileinput', 'public/vendor/bootstrap-fileinput');
     mix.copy('resources/assets/vendor/bootstrap-datepicker/dist', 'public/vendor/bootstrap-datepicker');
     mix.copy('resources/assets/vendor/dropzone/dist/min', 'public/vendor/dropzone');
+    mix.copy('resources/assets/vendor/eonasdan-bootstrap-datetimepicker/build', 'public/vendor/bootstrap-datetimepicker');
+    mix.copy('resources/assets/vendor/moment/min', 'public/vendor/moment');
 });

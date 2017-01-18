@@ -9,7 +9,7 @@
           </h3>
           <hr>
           <br>
-          @include('idea.forms.create')
+          @include('idea.forms.update')
         </div>
       </div>
     </div>
