@@ -15,10 +15,10 @@
     $labelNameFinish = ucfirst($nameFinish);
   }
   if (!empty($valueStart)) {
-    $valueStart = \Carbon::createFromFormat('Y-m-d H:i:s', $valueStart)->format('m/d/Y g:i A');
+    $valueStart = \Carbon::createFromFormat('Y-m-d H:i:s', $valueStart)->format('d-m-Y H:i');
   }
   if (!empty($valueFinish)) {
-    $valueFinish = \Carbon::createFromFormat('Y-m-d H:i:s', $valueFinish)->format('m/d/Y g:i A');
+    $valueFinish = \Carbon::createFromFormat('Y-m-d H:i:s', $valueFinish)->format('d-m-Y H:i');
   }
 ?>
 <div class="materialize-input">

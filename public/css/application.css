@@ -17799,6 +17799,48 @@ section .banners .slick-list {
   display: none;
 }
 
+.card.idea .card-title {
+  font-weight: 700;
+}
+
+.card.idea .idea--cover {
+  position: relative;
+  cursor: pointer;
+  text-align: center;
+}
+
+.card.idea .idea--cover img {
+  width: 200px;
+  height: 200px;
+  border: 4px solid #CCC;
+  border-radius: .5rem;
+  margin: 1rem auto;
+  overflow: hidden;
+  transition: all 0.2s;
+  -webkit-transition: all 0.2s;
+}
+
+.card.idea .idea--cover img:hover {
+  border-color: #51AFAE;
+}
+
+.card.idea .idea--criteria .item {
+  text-align: center;
+  border-left: .5px dashed #CCC;
+  border-right: .5px dashed #CCC;
+}
+
+.card.idea video {
+  max-width: 100%;
+  height: auto;
+}
+
+.idea .gallery .gallery-item img {
+  max-width: 100%;
+  height: auto;
+  margin: auto;
+}
+
 .modal-open {
   overflow: hidden;
 }

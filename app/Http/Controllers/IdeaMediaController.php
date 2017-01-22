@@ -22,9 +22,11 @@ class IdeaMediaController extends Controller
         $media->idea()->associate($idea);
         $media->url = $request->file('media');
         if ($media->save()) {
+            $data = $media->toArray();
+            $media->delete();
             return response()->json([
                 'status' => 200,
-                'media' => $media->toArray(),
+                'media' => $data,
                 'message' => 'OK'
             ]);
         }

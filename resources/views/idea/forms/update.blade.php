@@ -19,14 +19,18 @@
     </div>
     <div class="col-xs-12">
       {!! Form::formMaterializeTextEditor('description', $idea->description, ['label' => 'Deskripsi Ide', 'placeholder' => 'Deskripsi Idea'] ) !!}
-      <div class="show-cat-event hidden-xs-up">
-        {!! Form::formMaterializeDateTimeLink('start_at', 'finish_at', null, null, ['label-start' => 'Waktu Mulai', 'label-finish' => 'Waktu Berakhir']) !!}
+      <div class="show-cat-event @unless($idea->category == 'event')hidden-xs-up @endunless">
+        {!! Form::formMaterializeDateTimeLink('start_at', 'finish_at', $idea->start_at, $idea->finish_at, ['label-start' => 'Waktu Mulai', 'label-finish' => 'Waktu Berakhir']) !!}
       </div>
-      {!! Form::formTags('tags', $tags, null, ['label' => 'Tag Ide']) !!}
-      {!! Form::formMaterializeText('location', null, ['label' => 'Lokasi', 'autofocus' => 'true'] ) !!}
+      {!! Form::formTags('tags', $tags, $idea->tags, ['label' => 'Tag Ide']) !!}
+      {!! Form::formMaterializeText('location', $idea->location, ['label' => 'Lokasi', 'autofocus' => 'true'] ) !!}
       {!! Form::formMaterializeDropzone('media', route('idea.media.store', $idea), ['label' => 'Gambar/Video', 'data-max-file-size' => '130048', 'data-accept-file-types' => 'image/*, video/*', 'multiple' => true] ) !!}
       <hr>
-      {!! Form::submit('Buat Ide', ['class' => 'btn btn-primary pull-right']); !!}    
+      @if($idea->trashed())
+        {!! Form::submit('Buat Ide', ['class' => 'btn btn-primary pull-right']); !!}
+      @else
+        {!! Form::submit('Perbaharui Ide', ['class' => 'btn btn-primary pull-right']); !!}
+      @endif
     </div>
   </div>
 {!! Form::close() !!}

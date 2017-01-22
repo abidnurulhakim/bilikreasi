@@ -15,7 +15,7 @@
             @foreach($idea->media()->where('type', 'image')->take(5)->get() as $image)
               <div class="gallery-item"><img class="img-responsive" src="{{ $image->getUrl(450, 200) }}"></div>
             @endforeach
-          </div>  
+          </div>
         </div>
       </div>
       <!--/.First column-->

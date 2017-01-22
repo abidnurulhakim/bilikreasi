@@ -169,16 +169,18 @@ class Idea extends BaseModel
     {
         if (is_string($value) && !empty($value) && !is_null($value)) {
             $this->attributes['start_at'] = \Carbon::createFromFormat('d/m/Y h:i', trim($value));
+        } else {
+            $this->attributes['start_at'] = $value;
         }
-        $this->attributes['start_at'] = $value;
     }
 
     public function setFinishAtAttribute($value)
     {
         if (is_string($value) && !empty($value) && !is_null($value)) {
             $this->attributes['finish_at'] = \Carbon::createFromFormat('d/m/Y h:i', trim($value));
+        } else {
+            $this->attributes['finish_at'] = $value;
         }
-        $this->attributes['finish_at'] = $value;
     }
 
     public function invitations()

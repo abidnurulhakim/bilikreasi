@@ -1008,6 +1008,7 @@ var Site = {
     Site.dateTimePickerInit();
     Site.dateTimePickerLinkInit();
     Site.dropzoneFileInputInit();
+    Site.galleryIdeaInit();
   },
   slickLoad : function($callback, $args = []) {
     Modernizr.load({
@@ -1524,7 +1525,8 @@ var Site = {
     $('.date-time-picker').each(function(index){
       $(this).datetimepicker({
         locale: 'id',
-        format: 'DD/MM/YYYY HH:mm'
+        format: 'DD/MM/YYYY HH:mm',
+        viewDate: $(this).find('input').first().attr('value')
       });
     });
   },
@@ -1538,12 +1540,15 @@ var Site = {
     $('.date-time-picker-link').each(function(index){
       $(this).datetimepicker({
         locale: 'id',
-        format: 'DD/MM/YYYY HH:mm'
+        format: 'DD/MM/YYYY HH:mm',
+        viewDate: $(this).attr('value')
       });
       $(this).show();
       $("#"+$(this).data('finish-selector')).datetimepicker({
         useCurrent: false,
-        locale: 'id'
+        locale: 'id',
+        format: 'DD/MM/YYYY HH:mm',
+        viewDate: $("#"+$(this).data('finish-selector')).attr('value')
       });
       $(this).on("dp.change", function (e) {
         $("#"+$(this).data('finish-selector')).data("DateTimePicker").minDate(e.date);
@@ -1566,12 +1571,30 @@ var Site = {
         url: $(this).attr('action'),
         paramName: $(this).data('param-name'),
         maxFilesize: $(this).data('max-file-size'),
-        acceptedFiles: $(this).data('accept-file-types'),
         parallelUploads: 10,
         sending: function(file, xhr, formData) {
           formData.append("_token", token);
         },
       });
+    });
+  },
+  galleryIdeaInit : function() {
+    if ($('.gallery').length > 0) {
+      Site.slickLoad(Site.galleryIdea);
+    }
+  },
+  galleryIdea : function() {
+    $('.gallery').each(function(i){
+      $(this).slick({
+        dots: true,
+        infinite: true,
+        autoplay: true,
+        speed: 300,
+        prevArrow: "<a class='left slider-control slick-prev'><i class='fa fa-chevron-left fa-lg'></i></a>",
+        nextArrow: "<a class='right slider-control slick-next'><i class='fa fa-chevron-right fa-lg'></i></a>",
+        fade: true,
+        cssEase: 'linear',
+      }); 
     });
   },
 };

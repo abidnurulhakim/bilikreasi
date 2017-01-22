@@ -42,7 +42,7 @@ class IdeaController extends Controller
             $idea->delete();
         }
         foreach ($idea->media as $media) {
-            $media->delete();
+            $media->forceDelete();
         }
         $tags = Tag::publish()->get()->map(function($tag) {
             return $tag->name; })->toArray();
@@ -64,6 +64,9 @@ class IdeaController extends Controller
         foreach (Tag::publish()->get() as $tag){
             $tags[$tag->name] = $tag->name;
         }
+        foreach ($idea->media()->onlyTrashed()->get() as $media) {
+            $media->forceDelete();
+        }
         return view('idea.edit', compact('idea', 'tags'));
     }
 
@@ -76,13 +79,7 @@ class IdeaController extends Controller
             $idea->generateSlug('slug');
         }
         if ($idea->restore()) {
-            if ($request->file('media')) {
-                foreach ($request->file('media') as $photo) {
-                    if ($photo) {
-                        IdeaMedia::create(['idea_id' => $idea->id, 'url' => $photo]);
-                    }
-                }
-            }
+            $idea->media()->restore();
             \Session::flash('success', 'Ide berhasil diperbaharui');
             return redirect()->route('idea.show', $idea);
         }

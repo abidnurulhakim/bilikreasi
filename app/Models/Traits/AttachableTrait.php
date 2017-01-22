@@ -11,19 +11,25 @@ trait AttachableTrait
                 foreach ($model->attachmentable as $field => $options) {
                     if (gettype($model->$field) == 'object' && get_class($model->$field) == 'Illuminate\Http\UploadedFile') {
                         $fileName = uniqid().'.'.$model->$field->extension();
+                        if (isset($options['filename'])) {
+                            $model->attributes[$options['filename']] = $model->$field->getClientOriginalName();
+                        }
                         if ($model->$field->storeAs($options['path']['storage'], $fileName, 'public')) {
                             $oldFile = $model->getOriginal($field);
                             $model->$field = 'storage/'.$options['path']['storage'].'/'.$fileName;
                             if (!empty($oldFile)) {
-                                $name = basename($model->getOriginal($field));
-                                array_map('unlink', glob($options['path']['crop']."/".$name.'-*'));
-                                if ($oldFile != $options['default']) {
+                                $name = explode(".", basename($model->getOriginal($field)));
+                                array_map('unlink', glob($options['path']['crop']."/".$name[0].'-*'));
+                                if ($oldFile != $options['default'] && file_exists($oldFile)) {
                                     unlink($oldFile);
                                 }
                             }
                         }
                     } elseif (empty($model->$field)) {
                         $model->$field = $options['default'];
+                        if (isset($options['filename'])) {
+                            $model->attributes[$options['filename']] = basename($options['default']);
+                        }
                     }
                 }
             }            
@@ -57,9 +63,9 @@ trait AttachableTrait
                             return parent::__call($method, $arguments);
                             break;
                     }
-                    $name = basename($this->getOriginal($nameAttr));
+                    $name = $name = explode(".", basename($this->getOriginal($nameAttr)));
                     $ext = pathinfo($this->getOriginal($nameAttr), PATHINFO_EXTENSION);
-                    $fileName = $this->attachmentable[$nameAttr]['path']['crop'].'/'.$name.'-'.$width.'x'.$height.'.'.$ext;
+                    $fileName = $this->attachmentable[$nameAttr]['path']['crop'].'/'.$name[0].'-'.$width.'x'.$height.'.'.$ext;
                     if (!file_exists($fileName)) {
                         $this->generateImage($this->getOriginal($nameAttr), $fileName, $width, $height);
                     }
@@ -75,7 +81,9 @@ trait AttachableTrait
 
     private function generateImage($path, $fileName, $width = 300, $height = 300)
     {
-        $img = \Image::make($path)->fit($width, $height);
+        $img = \Image::make($path)->fit($width, $height, function ($constraint) {
+            $constraint->upsize();
+        });
         $img->save($fileName);
     }
 }
