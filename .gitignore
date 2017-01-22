@@ -6,10 +6,4 @@ Homestead.json
 .env
 public/attachments/
 log/*
-resources/assets/vendor/*
-public/vendor/*
-public/js/*
-public/css/*
-public/build/css/*
-public/build/js/*
-public/build/rev-manifest.json
+resources/assets/vendor/

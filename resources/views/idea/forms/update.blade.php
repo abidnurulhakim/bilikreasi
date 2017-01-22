@@ -18,13 +18,13 @@
       {!! Form::formSelect('status', \App\Models\Idea::STATUS, null, ['label' => 'Status Ide'] ) !!}
     </div>
     <div class="col-xs-12">
-      {!! Form::formMaterializeTextEditor('description', null, ['label' => 'Deskripsi Ide', 'placeholder' => 'Deskripsi Idea'] ) !!}
+      {!! Form::formMaterializeTextEditor('description', $idea->description, ['label' => 'Deskripsi Ide', 'placeholder' => 'Deskripsi Idea'] ) !!}
       <div class="show-cat-event hidden-xs-up">
         {!! Form::formMaterializeDateTimeLink('start_at', 'finish_at', null, null, ['label-start' => 'Waktu Mulai', 'label-finish' => 'Waktu Berakhir']) !!}
       </div>
       {!! Form::formTags('tags', $tags, null, ['label' => 'Tag Ide']) !!}
       {!! Form::formMaterializeText('location', null, ['label' => 'Lokasi', 'autofocus' => 'true'] ) !!}
-      {!! Form::formFile('media', null, ['label' => 'Gambar/Video', 'placeholder' => 'Gambar/Video', 'data-max-file-count' => '5', 'data-max-file-size' => '130048', 'data-allowed-file-types' => '["image", "video"]', 'multiple' => 'true'] ) !!}
+      {!! Form::formMaterializeDropzone('media', route('idea.media.store', $idea), ['label' => 'Gambar/Video', 'data-max-file-size' => '130048', 'data-accept-file-types' => 'image/*, video/*', 'multiple' => true] ) !!}
       <hr>
       {!! Form::submit('Buat Ide', ['class' => 'btn btn-primary pull-right']); !!}    
     </div>

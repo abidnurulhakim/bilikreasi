@@ -17791,6 +17791,14 @@ section .banners .slick-list {
   content: "\e260";
 }
 
+.note-image-popover {
+  display: none;
+}
+
+.note-link-popover {
+  display: none;
+}
+
 .modal-open {
   overflow: hidden;
 }

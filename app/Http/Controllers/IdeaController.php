@@ -7,7 +7,6 @@ use App\Models\IdeaMedia;
 use App\Models\Tag;
 use App\Models\User;
 use App\Services\IdeaService;
-use App\Http\Requests\Idea\StoreRequest;
 use App\Http\Requests\Idea\UpdateRequest;
 use Illuminate\Http\Request;
 
@@ -35,32 +34,19 @@ class IdeaController extends Controller
         }
         $idea = Idea::onlyTrashed()->where('user_id', auth()->user()->id)->whereNull('status')->first();
         if (!$idea) {
-            $idea = Idea::create(['user_id' => auth()->user()->id, 'slug' => str_random(20)]);
+            $slug = str_random(20);
+            while (Idea::where('slug', $slug)->withTrashed()->count()) {
+                $slug = str_random(20);
+            }
+            $idea = Idea::create(['user_id' => auth()->user()->id, 'slug' => $slug]);
             $idea->delete();
+        }
+        foreach ($idea->media as $media) {
+            $media->delete();
         }
         $tags = Tag::publish()->get()->map(function($tag) {
             return $tag->name; })->toArray();
         return view('idea.create', compact('idea', 'tags'));
-    }
-
-    public function store(StoreRequest $request)
-    {
-        $this->authorize('store', Idea::class);
-        $request->merge(['user_id' => auth()->user()->id]);
-        $idea = Idea::create($request->all());
-        if ($idea->id) {
-            if ($request->file('media')) {
-                foreach ($request->file('media') as $photo) {
-                    if ($photo) {
-                        IdeaMedia::create(['idea_id' => $idea->id, 'url' => $photo]);
-                    }
-                }
-            }
-            \Session::flash('success', 'Ide berhasil dibuat');
-            return redirect()->route('idea.show', $idea);
-        }
-        \Session::flash('alert', 'Ide gagal dibuat');
-        return redirect()->back()->withInput();
     }
 
     public function show($slug)
@@ -88,9 +74,8 @@ class IdeaController extends Controller
         $idea->fill($request->all());
         if ($idea->trashed()) {
             $idea->generateSlug('slug');
-            $idea->restore();
         }
-        if ($idea->save()) {
+        if ($idea->restore()) {
             if ($request->file('media')) {
                 foreach ($request->file('media') as $photo) {
                     if ($photo) {

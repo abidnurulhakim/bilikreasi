@@ -34,6 +34,10 @@ var assets = {
                           js : path.plugins + 'bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js'
                         },
   _moment             : { js : path.plugins + 'moment/moment-with-locales.min.js' },
+  _dropzone           : { 
+                          css : path.plugins + 'dropzone/dropzone.min.css',
+                          js : path.plugins + 'dropzone/dropzone.min.js'
+                        },
 };
 
 var Site = {
@@ -56,6 +60,7 @@ var Site = {
     Site.textEditorInit();
     Site.dateTimePickerInit();
     Site.dateTimePickerLinkInit();
+    Site.dropzoneFileInputInit();
   },
   slickLoad : function($callback, $args = []) {
     Modernizr.load({
@@ -206,6 +211,17 @@ var Site = {
     Modernizr.load({
       load  : [
               assets._moment.js
+      ],
+      complete : function(){
+        $callback(...$args);
+      }
+    });
+  },
+  dropzoneLoad : function($callback, $args = []) {
+    Modernizr.load({
+      load  : [
+              assets._dropzone.css,
+              assets._dropzone.js
       ],
       complete : function(){
         $callback(...$args);
@@ -587,6 +603,27 @@ var Site = {
       });
       $("#"+$(this).data('finish-selector')).on("dp.change", function (e) {
         $(this).data("DateTimePicker").maxDate(e.date);
+      });
+    });
+  },
+  dropzoneFileInputInit : function() {
+    if ($('[data-toggle="dropzone-input"]').length > 0) {
+      Site.dropzoneLoad(Site.dropzoneFileInput);
+    }
+  },
+  dropzoneFileInput : function() {
+    var token = '';
+    $('[data-toggle="dropzone-input"]').each(function(index){
+      token = $(this).data('token') ? $(this).data('token') : $(this).closest('form').find('input[name="_token"]').val();
+      $(this).dropzone({
+        url: $(this).attr('action'),
+        paramName: $(this).data('param-name'),
+        maxFilesize: $(this).data('max-file-size'),
+        acceptedFiles: $(this).data('accept-file-types'),
+        parallelUploads: 10,
+        sending: function(file, xhr, formData) {
+          formData.append("_token", token);
+        },
       });
     });
   },

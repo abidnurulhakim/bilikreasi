@@ -40,6 +40,13 @@ class IdeaMedia extends BaseModel
                 }
             }
         });
+        static::deleted(function($ideaMedia){
+            $name = basename($ideaMedia->url);
+            array_map('unlink', glob($ideaMedia->attachmentable['url']['path']['crop']."/".$name.'-*'));
+            if ($ideaMedia->url != $ideaMedia->attachmentable['url']['default']) {
+                unlink($ideaMedia->url);
+            }
+        });
     }
 
     public function idea()

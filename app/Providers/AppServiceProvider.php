@@ -54,6 +54,7 @@ class AppServiceProvider extends ServiceProvider
         Form::component('formMaterializeSelect', 'components.form.materialize.form-select', ['name', 'collection', 'value', 'attributes']);
         Form::component('formMaterializeTextEditor', 'components.form.materialize.form-text-editor', ['name', 'value', 'attributes']);
         Form::component('formMaterializeDateTimeLink', 'components.form.materialize.form-datetime-link', ['nameStart', 'nameFinish', 'valueStart', 'valueFinish', 'attributes']);
+        Form::component('formMaterializeDropzone', 'components.form.materialize.form-dropzone', ['name', 'url', 'attributes']);
         Form::component('materializeFile', 'components.form.materialize.form-date', ['name', 'value', 'attributes']);
         Form::component('materializeDate', 'components.form.materialize.date', ['name', 'value', 'attributes']);
         Form::component('materializeBirthDate', 'components.form.materialize.birthdate', ['name', 'value', 'attributes']);

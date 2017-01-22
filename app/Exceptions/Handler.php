@@ -37,7 +37,7 @@ class Handler extends ExceptionHandler
      */
     public function report(Exception $exception)
     {
-        if (App::environment('production')) {
+        if (\App::environment('production')) {
             \Log::error($exception);
         }
         parent::report($exception);

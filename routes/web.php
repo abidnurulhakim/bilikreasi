@@ -77,7 +77,8 @@ Route::group(['prefix' => '/'], function () {
     Route::get('idea/{slug}/members', ['uses'=>'IdeaController@members', 'as' => 'idea.members']);
     Route::get('idea/{slug}/quick-look', ['uses'=>'IdeaController@quickLook', 'as' => 'idea.quick-look']);
     Route::get('idea/{slug}/search', ['uses'=>'SearchController@partner', 'as' => 'idea.search.partner']);
-    Route::resource('idea', 'IdeaController');
+    Route::resource('idea', 'IdeaController', ['except' => ['store']]);
+    Route::post('idea-media/{slug}', ['uses'=>'IdeaMediaController@store', 'as' => 'idea.media.store']);
 
     /*route for search*/
     Route::get('search', ['uses'=>'SearchController@index', 'as' => 'search.index']);

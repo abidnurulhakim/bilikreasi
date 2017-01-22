@@ -3,10 +3,10 @@
 namespace App\Policies;
 
 use App\Models\User;
-use App\Models\Discuss;
+use App\Models\Discussion;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class DiscussPolicy
+class DiscussionPolicy
 {
     use HandlesAuthorization;
 
@@ -17,9 +17,9 @@ class DiscussPolicy
      * @param  \App\Idea  $idea
      * @return mixed
      */
-    public function view(User $user, Discuss $discuss)
+    public function view(User $user, Discussion $discussion)
     {
-        $idea = $discuss->$idea;
+        $idea = $discussion->$idea;
         return $idea->isMember($user) || $user->isAdmin();
     }
 
@@ -30,9 +30,9 @@ class DiscussPolicy
      * @param  \App\Idea  $idea
      * @return mixed
      */
-    public function messages(User $user, Discuss $discuss)
+    public function messages(User $user, Discussion $discussion)
     {
-        $idea = $discuss->$idea;
+        $idea = $discussion->$idea;
         return $idea->isMember($user) || $user->isAdmin();
     }
 
@@ -44,9 +44,9 @@ class DiscussPolicy
      * @param  \App\Idea  $idea
      * @return mixed
      */
-    public function delete(User $user, Discuss $discuss)
+    public function delete(User $user, Discussion $discussion)
     {
-        $idea = $discuss->$idea;
+        $idea = $discussion->$idea;
         return $idea->isAdmin($user) || $user->isAdmin();
     }
 
