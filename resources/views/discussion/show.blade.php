@@ -41,14 +41,39 @@
                         Belum ada diskusi
                       @endif
                     </div>
-                  </div>  
+                  </div>
                 </div>
               </a>
             @endforeach
           </ul>
         </div>
         <div class="col-md-8 discussion--messages">
-          
+          <ul class="discussion--message-group">
+            @foreach($messages->reverse() as $message)
+              @if($message->isOwner(auth()->user()))
+                @php
+                  $user = auth()->user()
+                @endphp
+                <li class="discussion--message current-user">
+              @else
+                @php
+                  $user = $message->user
+                @endphp
+                <li class="discussion--message">
+              @endif
+              <div class="discussion--message-info clearfix">
+                <span class="discussion--message-name">{{ user_name_limit($user->name, 40) }}</span>
+                <span class="discussion--message-timestamp">{{ $message->created_at }}</span>
+              </div>
+              <img class="discussion--message-avatar" src="{{ $user->getPhoto() }}" alt="Message User Image">
+              <div class="discussion--message-text--wrapper">
+                <div class="discussion--message-text">
+                  {!! $message->content !!}
+                </div>
+              </div>
+            </li>
+            @endforeach
+          </ul>
         </div>
       </div>
     </div>
@@ -81,7 +106,7 @@
                   {!! $message->content !!}
                 </div>
                 <!-- /.direct-chat-text -->
-              </div>  
+              </div>
               @else
               <!-- Message. Default to the left -->
               <div class="direct-chat-msg" data-message-id="{{ $message->id }}" data-dump="false">

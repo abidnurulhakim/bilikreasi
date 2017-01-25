@@ -13,7 +13,7 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
 class NewMessageEvent implements ShouldBroadcast, ShouldQueue
 {
-    use Queueable, SerializesModels;
+    use SerializesModels;
     public $message;
     public $broadcastQueue = 'broadcast-discussion-message';
 
