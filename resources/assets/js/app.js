@@ -21,22 +21,26 @@ var assets = {
   _notify             : { js : path.plugins + 'notify/bootstrap-notify.min.js' },
   _select2            : { js : path.plugins + 'select2/js/select2.full.min.js' },
   _niceScroll         : { js : path.plugins + 'nicescroll/jquery.nicescroll.min.js' },
-  _fileinput          : { 
+  _fileinput          : {
                           css : path.plugins + 'bootstrap-fileinput/css/fileinput.min.css',
                           js : path.plugins + 'bootstrap-fileinput/js/fileinput.min.js'
                         },
-  _datepicker         : { 
+  _datepicker         : {
                           css : path.plugins + 'bootstrap-datepicker/css/bootstrap-datepicker3.min.css',
                           js : path.plugins + 'bootstrap-datepicker/js/bootstrap-datepicker.min.js'
                         },
-  _datetimepicker     : { 
+  _datetimepicker     : {
                           css : path.plugins + 'bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css',
                           js : path.plugins + 'bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js'
                         },
   _moment             : { js : path.plugins + 'moment/moment-with-locales.min.js' },
-  _dropzone           : { 
+  _dropzone           : {
                           css : path.plugins + 'dropzone/dropzone.min.css',
                           js : path.plugins + 'dropzone/dropzone.min.js'
+                        },
+  _customScrollbar    : {
+                          css : path.plugins + 'custom-scrollbar/jquery.mCustomScrollbar.min.css',
+                          js : path.plugins + 'custom-scrollbar/jquery.mCustomScrollbar.js'
                         },
 };
 
@@ -62,6 +66,7 @@ var Site = {
     Site.dateTimePickerLinkInit();
     Site.dropzoneFileInputInit();
     Site.galleryIdeaInit();
+    Site.discussionInit();
   },
   slickLoad : function($callback, $args = []) {
     Modernizr.load({
@@ -223,6 +228,17 @@ var Site = {
       load  : [
               assets._dropzone.css,
               assets._dropzone.js
+      ],
+      complete : function(){
+        $callback(...$args);
+      }
+    });
+  },
+  customScrollbarLoad : function($callback, $args = []) {
+    Modernizr.load({
+      load  : [
+              assets._customScrollbar.css,
+              assets._customScrollbar.js
       ],
       complete : function(){
         $callback(...$args);
@@ -647,7 +663,31 @@ var Site = {
         nextArrow: "<a class='right slider-control slick-next'><i class='fa fa-chevron-right fa-lg'></i></a>",
         fade: true,
         cssEase: 'linear',
-      }); 
+      });
+    });
+  },
+  discussionInit : function() {
+    if ($('.discussion').length > 0) {
+      Site.customScrollbarLoad(Site.discussion);
+    }
+  },
+  discussion : function() {
+    $('.discussion').each(function(i){
+      $discussions = $(this).find('.discussion--list');
+      $messages = $(this).find('.discussion--messages');
+      $discussions.mCustomScrollbar({
+          axis:'y',
+          theme: 'minimal-dark',
+          moveDragger: true
+      });
+      $messages.mCustomScrollbar({
+          axis:'y',
+          theme: 'minimal-dark',
+          moveDragger: true,
+      });
+      $messages.mCustomScrollbar("scrollTo","bottom",{
+        scrollInertia: 1
+      });
     });
   },
 };

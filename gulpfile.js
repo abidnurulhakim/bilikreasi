@@ -51,4 +51,5 @@ elixir(mix => {
     mix.copy('resources/assets/vendor/dropzone/dist/min', 'public/vendor/dropzone');
     mix.copy('resources/assets/vendor/eonasdan-bootstrap-datetimepicker/build', 'public/vendor/bootstrap-datetimepicker');
     mix.copy('resources/assets/vendor/moment/min', 'public/vendor/moment');
+    mix.copy('resources/assets/vendor/malihu-custom-scrollbar-plugin', 'public/vendor/custom-scrollbar');
 });

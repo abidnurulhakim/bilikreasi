@@ -33,6 +33,7 @@
     "bootstrap-fileinput": "*",
     "bootstrap-datepicker": "*",
     "dropzone": "*",
-    "eonasdan-bootstrap-datetimepicker": "^4.17.45"
+    "eonasdan-bootstrap-datetimepicker": "^4.17.45",
+    "malihu-custom-scrollbar-plugin": "^3.1.5"
   }
 }
