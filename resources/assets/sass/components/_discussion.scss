@@ -74,6 +74,7 @@
 
   .discussion--messages {
     @extend .discussion--column;
+    height: 500px;
     padding-right: 1rem;
 
     .discussion--message-group {
@@ -130,22 +131,37 @@
         height: 3rem;
       }
 
-      .disccusion--message-info {
+      .discussion--message-info {
         display: block;
         margin-bottom: 2px;
-        font-size: 12px;
+        font-size: .8rem;
+        margin-left: 3.5rem;
       }
 
-      .disccusion--message-name {
+      .discussion--message-name {
         font-weight: 600;
       }
 
-      .disccusion--message-timestamp {
+      .discussion--message-timestamp {
         color: #999;
+        float: right;
       }
 
       &.current-user {
         float: right;
+
+        .discussion--message-info {
+          margin-right: 3.5rem;
+          margin-left: 0;
+        }
+
+        .discussion--message-name {
+          display: none;
+        }
+
+        .discussion--message-timestamp {
+          float: left;
+        }        
 
         .discussion--message-text--wrapper {
           margin-right: 3.5rem;
@@ -170,6 +186,13 @@
           float: right;
         }
       }
+    }
+  }
+
+  .discussion--input-message {
+
+    .discussion--input-text {
+      max-height: 67px;
     }
   }
 }

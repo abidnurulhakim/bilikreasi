@@ -42,6 +42,12 @@ var assets = {
                           css : path.plugins + 'custom-scrollbar/jquery.mCustomScrollbar.min.css',
                           js : path.plugins + 'custom-scrollbar/jquery.mCustomScrollbar.js'
                         },
+  _autosize           : { js : path.plugins + 'autosize/autosize.min.js' },
+  _pusher             : { js : 'https://js.pusher.com/3.1/pusher.min.js' },
+  _timeago            : { 
+                          js : path.plugins + 'timeago/jquery.timeago.js',
+                          js_id : path.plugins + 'timeago/locales/jquery.timeago.id.js'
+                        },
 };
 
 var Site = {
@@ -67,6 +73,8 @@ var Site = {
     Site.dropzoneFileInputInit();
     Site.galleryIdeaInit();
     Site.discussionInit();
+    Site.discussionInputTextInit();
+    Site.timeagoInit();
   },
   slickLoad : function($callback, $args = []) {
     Modernizr.load({
@@ -239,6 +247,27 @@ var Site = {
       load  : [
               assets._customScrollbar.css,
               assets._customScrollbar.js
+      ],
+      complete : function(){
+        $callback(...$args);
+      }
+    });
+  },
+  autosizeLoad : function($callback, $args = []) {
+    Modernizr.load({
+      load  : [
+              assets._autosize.js
+      ],
+      complete : function(){
+        $callback(...$args);
+      }
+    });
+  },
+  timeagoLoad : function($callback, $args = []) {
+    Modernizr.load({
+      load  : [
+              assets._timeago.js,
+              assets._timeago.js_id
       ],
       complete : function(){
         $callback(...$args);
@@ -689,6 +718,20 @@ var Site = {
         scrollInertia: 1
       });
     });
+  },
+  discussionInputTextInit : function() {
+    if ($('.discussion--input-text').length > 0) {
+      Site.autosizeLoad(Site.discussionInputText);
+    }
+  },
+  discussionInputText : function() {
+    autosize($('.discussion--input-text'));
+  },
+  timeagoInit : function() {
+    Site.timeagoLoad(Site.timeago);
+  },
+  timeago : function() {
+    $('.time-humanize').timeago();
   },
 };
 

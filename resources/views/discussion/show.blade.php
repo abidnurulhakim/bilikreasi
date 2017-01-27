@@ -47,34 +47,50 @@
             @endforeach
           </ul>
         </div>
-        <div class="col-md-8 discussion--messages">
-          <ul class="discussion--message-group">
-            @foreach($messages->reverse() as $message)
-              @if($message->isOwner(auth()->user()))
-                @php
-                  $user = auth()->user()
-                @endphp
-                <li class="discussion--message current-user">
-              @else
-                @php
-                  $user = $message->user
-                @endphp
-                <li class="discussion--message">
-              @endif
-              <div class="discussion--message-info clearfix">
-                <span class="discussion--message-name">{{ user_name_limit($user->name, 40) }}</span>
-                <span class="discussion--message-timestamp">{{ $message->created_at }}</span>
-              </div>
-              <img class="discussion--message-avatar" src="{{ $user->getPhoto() }}" alt="Message User Image">
-              <div class="discussion--message-text--wrapper">
-                <div class="discussion--message-text">
-                  {!! $message->content !!}
+        <div class="col-md-8">
+          <div class="col-md-12 discussion--messages" data-id="{{ $discussion->id }}" data-user-name="{{ auth()->user()->name }}" data-user-photo="{{ auth()->user()->getPhoto(128) }}" data-user-id="{{ auth()->user()->id }}" data-url-read-message="{{ route('discussion.message.read', $discussion) }}" data-url-unread-message="{{ route('discussion.message.unread', $discussion) }}" data-has-more-page="{{ $messages->hasMorePages() }}">          
+            <ul class="discussion--message-group">
+              @foreach($messages->reverse() as $message)
+                @if($message->isOwner(auth()->user()))
+                  @php
+                    $user = auth()->user()
+                  @endphp
+                  <li class="discussion--message current-user">
+                @else
+                  @php
+                    $user = $message->user
+                  @endphp
+                  <li class="discussion--message">
+                @endif
+                <div class="discussion--message-info">
+                  <span class="discussion--message-name">{{ user_name_limit($user->name, 40) }}</span>
+                  <span class="discussion--message-timestamp time-humanize" title="{{ $message->created_at->toIso8601String() }}"></span>
                 </div>
+                <img class="discussion--message-avatar" src="{{ $user->getPhoto() }}" alt="Message User Image">
+                <div class="discussion--message-text--wrapper">
+                  <div class="discussion--message-text">
+                    {!! nl2br($message->content) !!}
+                  </div>
+                </div>
+              </li>
+              @endforeach
+            </ul>
+          </div>
+          <hr>
+          <div class="col-md-12 discussion--input-message">
+            {!! Form::open(['route' => ['discussion.send.message', $discussion], 'method' => 'POST', 'id' => 'discussion--input-message--form']) !!}
+              <div class=" row flex-items-xs-bottom">
+                <div class="col-md-11">
+                  {!! Form::textArea('content', null, ['class' => 'form-control discussion--input-text', 'rows' => 1]) !!}
+                </div>
+                <div class="col-md-1">
+                  <button type="submit" class="btn btn-primary pull-right"><i class="fa fa-send"></i></button>  
+                </div>  
               </div>
-            </li>
-            @endforeach
-          </ul>
+            {!! Form::close() !!}
+          </div>
         </div>
+        
       </div>
     </div>
   </div>
