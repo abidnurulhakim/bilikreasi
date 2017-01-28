@@ -48,6 +48,7 @@ var assets = {
                           js : path.plugins + 'timeago/jquery.timeago.js',
                           js_id : path.plugins + 'timeago/locales/jquery.timeago.id.js'
                         },
+  _jqueryForm         : { js : path.plugins + 'jquery-form/jquery.form.js' },
 };
 
 var Site = {
@@ -74,7 +75,7 @@ var Site = {
     Site.galleryIdeaInit();
     Site.discussionInit();
     Site.discussionInputTextInit();
-    Site.timeagoInit();
+    Site.discussionInit();
   },
   slickLoad : function($callback, $args = []) {
     Modernizr.load({
@@ -268,6 +269,26 @@ var Site = {
       load  : [
               assets._timeago.js,
               assets._timeago.js_id
+      ],
+      complete : function(){
+        $callback(...$args);
+      }
+    });
+  },
+  pusherLoad : function($callback, $args = []) {
+    Modernizr.load({
+      load  : [
+              assets._pusher.js,
+      ],
+      complete : function(){
+        $callback(...$args);
+      }
+    });
+  },
+  jqueryFormLoad : function($callback, $args = []) {
+    Modernizr.load({
+      load  : [
+              assets._jqueryForm.js
       ],
       complete : function(){
         $callback(...$args);
@@ -697,27 +718,18 @@ var Site = {
   },
   discussionInit : function() {
     if ($('.discussion').length > 0) {
-      Site.customScrollbarLoad(Site.discussion);
+      Site.customScrollbarLoad(Site.jqueryFormLoad, [
+          Site.pusherLoad, [
+            Site.timeagoLoad, [
+              Site.discussion
+            ]
+          ]
+        ]
+      );
     }
   },
   discussion : function() {
-    $('.discussion').each(function(i){
-      $discussions = $(this).find('.discussion--list');
-      $messages = $(this).find('.discussion--messages');
-      $discussions.mCustomScrollbar({
-          axis:'y',
-          theme: 'minimal-dark',
-          moveDragger: true
-      });
-      $messages.mCustomScrollbar({
-          axis:'y',
-          theme: 'minimal-dark',
-          moveDragger: true,
-      });
-      $messages.mCustomScrollbar("scrollTo","bottom",{
-        scrollInertia: 1
-      });
-    });
+    Discussion.load();
   },
   discussionInputTextInit : function() {
     if ($('.discussion--input-text').length > 0) {
@@ -732,7 +744,7 @@ var Site = {
   },
   timeago : function() {
     $('.time-humanize').timeago();
-  },
+  }
 };
 
 var checkJquery = function () {

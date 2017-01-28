@@ -190,9 +190,21 @@
   }
 
   .discussion--input-message {
+    margin: 10px 0;
+    padding-top: 10px;
+    border-top: solid 1px #d5d5d5;
+    height: 90px;
+    position: relative;
 
-    .discussion--input-text {
-      max-height: 67px;
+    form {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      padding: 0 1rem 0 .5rem;
+
+      .discussion--input-text {
+        max-height: 67px;
+      }
     }
   }
 }

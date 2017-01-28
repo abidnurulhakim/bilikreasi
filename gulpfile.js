@@ -26,7 +26,7 @@ elixir(mix => {
         'modernizr.min.js',
         'numfuzz.js',
         'app.js',
-        'discussion.js'
+        'discussion.js',
         ], 'public/js/application.js');
     mix.version(['css/application.css', 'js/application.js']);
     /*copy dependencies*/
@@ -55,4 +55,5 @@ elixir(mix => {
     mix.copy('resources/assets/vendor/malihu-custom-scrollbar-plugin', 'public/vendor/custom-scrollbar');
     mix.copy('resources/assets/vendor/autosize/dist', 'public/vendor/autosize');
     mix.copy('resources/assets/vendor/timeago', 'public/vendor/timeago');
+    mix.copy('resources/assets/vendor/jquery-form', 'public/vendor/jquery-form');
 });
