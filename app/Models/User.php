@@ -8,13 +8,14 @@ use App\Models\IdeaMember;
 use App\Models\Skill;
 use App\Models\Interest;
 use App\Models\Traits\AttachableTrait;
+use App\Models\Traits\SluggableTrait;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use App\Models\Traits\SluggableTrait;
 
 class User extends Authenticatable
 {
-    use AttachableTrait, SoftDeletes, SluggableTrait;
+    use AttachableTrait, SluggableTrait, Notifiable, SoftDeletes;
 
     const TYPE = [
         'admin' => 'Admin',
