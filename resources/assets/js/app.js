@@ -717,7 +717,7 @@ var Site = {
     });
   },
   discussionInit : function() {
-    if ($('.discussion').length > 0) {
+    if ($('.discussion').length > 0 || $('.discussion-mobile').length > 0) {
       Site.customScrollbarLoad(Site.jqueryFormLoad, [
           Site.pusherLoad, [
             Site.timeagoLoad, [

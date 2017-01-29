@@ -1,39 +1,86 @@
 var messageIdDump = 0;
 var pusher;
 var channel;
+var btnMorePage;
 var Discussion = {
   load : function() {
     $('.discussion').each(function(i){
-      discussionData = $('.discussion--messages').first();
-      discussionGroup = $('.discussion--messages .discussion--message-group').first();
-      $discussions = $(this).find('.discussion--list');
-      $messages = $(this).find('.discussion--messages');
-      $discussions.mCustomScrollbar({
-        axis:'y',
-        theme: 'minimal-dark',
-        moveDragger: true
-      });
-      $messages.mCustomScrollbar({
-        axis:'y',
-        theme: 'minimal-dark',
-        moveDragger: true,
-        callbacks: {
-          onOverflowYNone: function() {
-            Discussion.morePage();
-          },
-          onScroll: function() {
-            if (this.mcs.top > -50 && discussionData.data('has-more-page')) {
+      if ($(this).css('display') != 'none') {
+        $('.time-humanize').each(function(index){
+          $(this).timeago();
+        });
+        console.log('discussion-desktop');
+        discussionData = $('.discussion--messages').first();
+        discussionGroup = $('.discussion--messages .discussion--message-group').first();
+        $discussions = $(this).find('.discussion--list');
+        $messages = $(this).find('.discussion--messages');
+        $discussions.mCustomScrollbar({
+          axis:'y',
+          theme: 'minimal-dark',
+          moveDragger: true
+        });
+        $messages.mCustomScrollbar({
+          axis:'y',
+          theme: 'minimal-dark',
+          moveDragger: true,
+          callbacks: {
+            onOverflowYNone: function() {
               Discussion.morePage();
-            }
-          },          
-        }
-      });
-      $messages.mCustomScrollbar('scrollTo', 'bottom', {
-        scrollInertia: 1
-      });
-      Discussion.initAjaxForm();
-      Discussion.initPusher();
-      Discussion.pusherBind();
+            },
+            onScroll: function() {
+              if (this.mcs.top > -50 && discussionData.data('has-more-page')) {
+                Discussion.morePage();
+              }
+            },          
+          }
+        });
+        $messages.mCustomScrollbar('scrollTo', 'bottom', {
+          scrollInertia: 1
+        });
+        Discussion.initAjaxForm();
+        Discussion.initPusher();
+        Discussion.pusherBind();
+      }
+    });
+    $('.discussion-mobile').each(function(i){
+      if ($(this).css('display') != 'none') {
+        $('.time-humanize').each(function(index){
+          $(this).timeago();
+        });
+        console.log('discussion-mobile');
+        $(this).find('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+          $('.discussion-mobile a[data-toggle="tab"]').removeClass('active');
+          $(e.target).addClass('active');
+        });
+        discussionData = $('.discussion-mobile .discussion--messages').first();
+        discussionGroup = $('.discussion-mobile .discussion--messages .discussion--message-group').first();
+        $discussions = $(this).find('.discussion--list');
+        $messages = $(this).find('.discussion--messages');
+        $discussions.mCustomScrollbar({
+          axis:'y',
+          theme: 'minimal-dark',
+          moveDragger: true
+        });
+        $messages.mCustomScrollbar({
+          axis:'y',
+          theme: 'minimal-dark',
+          moveDragger: true,
+          callbacks: {
+            onOverflowYNone: function() {
+              btnMorePage = $('.btn-load-more').first().clone();
+              $('.btn-load-more').remove();
+              Discussion.morePage();
+            },
+          }
+        });
+        $messages.mCustomScrollbar('scrollTo', 'bottom', {
+          scrollInertia: 1
+        });
+        Discussion.initAjaxForm();
+        Discussion.initPusher();
+        Discussion.pusherBind();
+        Discussion.buttonMoreMessage();
+      }
     });
   },
   initPusher : function () {
@@ -68,25 +115,29 @@ var Discussion = {
       beforeSubmit:  Discussion.preAction,
       success:  Discussion.postAction,
       dataType: 'json',
-      timeout:  30000
+      timeout:  5000
+    });
+    $('#discussion--input-message--form--mobile').ajaxForm({
+      beforeSubmit:  Discussion.preAction,
+      success:  Discussion.postAction,
+      dataType: 'json',
+      timeout:  5000
     });
   },
   morePage : function() {
     if (discussionData.data('has-more-page')) {
       $('#alert_loading').removeClass('hidden-xs-up');
-      $loading = $("#alert_loading").clone();
-      $('#alert_loading').remove();
-      $firstMessage = $('.discussion--message').first();
-      discussionGroup.prepend($loading);
       $.get(
         discussionData.data('url-read-message'),
-        { last_message_id: $firstMessage.data('message-id') },
+        { last_message_id: discussionData.data('last-message-id') },
         function($response) {
           $('#alert_loading').addClass('hidden-xs-up');
+          $prevLastMessageId = discussionData.data('last-message-id');
           if ($response.status == 'ok') {
             discussionData.data('has-more-page', $response.has_more_page);
             for ($i = 0; $i < $response.data.length; $i++) {
               $data = $response.data[$i];
+              discussionData.data('last-message-id', $data.id);
               if ($('.discussion--message[data-message-id="' + $data.id + '"]').length == 0) {
                 discussionGroup.prepend(Discussion.addMessage($data, discussionData.data('user-id')));
               }  
@@ -95,12 +146,13 @@ var Discussion = {
               $(this).timeago();
             });
           }
-          $('.discussion--messages').mCustomScrollbar('scrollTo',
-            $('.discussion--message[data-message-id="' + $firstMessage.data('message-id') + '"]'),
-            { scrollInertia: 1 }
-          );
-          $('#alert_loading').remove();
-          discussionGroup.prepend($loading);
+          if ($('.discussion').css('display') != 'none') {
+            $('.discussion .discussion--messages').mCustomScrollbar('scrollTo',
+              $('.discussion--message[data-message-id="' + $prevLastMessageId + '"]'),
+              { scrollInertia: 1 }
+            );
+          }
+          discussionGroup.prepend(btnMorePage);
           $('#alert_loading').addClass('hidden-xs-up');
         },
         'json');
@@ -114,7 +166,17 @@ var Discussion = {
         'json');
   },
   preAction: function($formData, $jqForm, $options) {
-    $valid = $("#discussion--input-message").val().length > 0;
+    if ($('.discussion').css('display') != 'none') {
+      $valid = $('.discussion .discussion--input-text').val().length > 0;
+      $text = $('.discussion .discussion--input-text').val();
+      $('.discussion .discussion--input-text').val('');
+      $('.discussion .discussion--input-text').attr('');
+    } else {
+      $valid = $('.discussion-mobile .discussion--input-text').val().length > 0;
+      $text = $('.discussion-mobile .discussion--input-text').val();
+      $('.discussion-mobile .discussion--input-text').val('');
+      $('.discussion-mobile .discussion--input-text').attr('');
+    }
     $objDump = Object.assign({}, $formData[0]);
     $objDump.name = 'message_id_dump';
     $objDump.required = 'false';
@@ -128,12 +190,13 @@ var Discussion = {
         user_id: discussionData.data('user-id'),
         user_name: discussionData.data('user-name'),
         user_photo: discussionData.data('user-photo'),
-        content: $("#discussion--input-message").val().replace(/\n\r?/g, '<br />'),
+        user_link: '',
+        content: $text.replace(/\n\r?/g, '<br />'),
         created_at: new Date().toISOString(),
         type: 'text'
       };
       messageIdDump++;
-      $(".discussion--input-text").first().val('');
+      
       discussionGroup.append(Discussion.addMessage($data, $data.user_id));
       $('.time-humanize').each(function(index){
         $(this).timeago();
@@ -176,7 +239,7 @@ var Discussion = {
       $element += '<li class="discussion--message" data-message-id="' + data.id + '" data-message-id-dump="' + data.id_dump + '">';
     }
     $element += '<div class="discussion--message-info">';
-    $element += '<span class="discussion--message-name">' + data.user_name + '</span>';
+    $element += '<a href="' + data.user_link + '"class="discussion--message-name">' + data.user_name + '</a>';
     $element += '<span class="discussion--message-timestamp time-humanize" title="' + new Date(data.created_at).toISOString() + '"></span>';
     $element += '</div>';
     $element += '<img class="discussion--message-avatar" src="' + data.user_photo + '" alt="' + data.user_name + '">';
@@ -196,4 +259,11 @@ var Discussion = {
     $element = '';
     return $element;
   },
+  buttonMoreMessage : function(){
+    $('.discussion-mobile').on('click', '.btn-load-more', function(){
+      btnMorePage = $('.btn-load-more').first().clone();
+      $('.btn-load-more').remove();
+      Discussion.morePage();
+    });
+  }
 }

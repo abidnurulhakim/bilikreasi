@@ -10,6 +10,12 @@
   @endif  
   {!! Form::formMaterializeText('username', old('username'), ['label' => 'Username/Email Anda']) !!}
   {!! Form::formMaterializePassword('password', ['label' => 'Password']) !!}
+  <br>
+  <div class="materialize-input">
+    <input type="checkbox" class="filled-in" id="remember_me" name="remember_me" value="1"/>
+    <label for="remember_me">Ingatkan saya</label>
+  </div>
+  <br>
   <div class='col-xs'>
     Belum terdaftar? <a href="{{ route('home.register') }}">Daftar disini</a>
   </div>

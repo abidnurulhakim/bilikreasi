@@ -38,14 +38,14 @@ class DiscussionController extends Controller
         $discussion = Discussion::findOrFail($id);
         $discussions = $this->getDiscussions();
         DiscussionService::markAsRead($discussion, auth()->user());
-        $messages = $discussion->messages()->last()->paginate(5);
+        $messages = $discussion->messages()->last()->paginate(20);
         return view('discussion.show', compact('discussion', 'discussions', 'messages'));
     }
 
     public function readMessages(Request $request, $id)
     {
         $discussion = Discussion::findOrFail($id);
-        $messages = $discussion->messages()->where('id', '<', $request->get('last_message_id', $discussion->messages()->last()->first()->id))->last()->paginate(5);
+        $messages = $discussion->messages()->where('id', '<', $request->get('last_message_id', $discussion->messages()->last()->first()->id))->last()->paginate(20);
         $result = [];
         $result['status'] = 'ok';
         $result['has_more_page'] = false;
@@ -59,6 +59,7 @@ class DiscussionController extends Controller
                 'user_id' => $user->id,
                 'user_name' => $user->name,
                 'user_photo' => $user->getPhoto(128),
+                'user_link' => route('user.show', $user),
                 'created_at' => $message->created_at->toIso8601String()
             ];
             array_push($result['data'], $msg);
@@ -85,6 +86,7 @@ class DiscussionController extends Controller
                 'user_id' => $user->id,
                 'user_name' => $user->name,
                 'user_photo' => $user->getPhoto(128),
+                'user_link' => route('user.show', $user),
                 'created_at' => $message->created_at->toIso8601String()
             ];
             array_push($result['data'], $msg);
