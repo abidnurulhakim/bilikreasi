@@ -1,0 +1,30 @@
+// Banner
+section {
+  .banners {
+    padding-top: .5rem;
+    @media #{$medium-and-down} {
+      margin-top: 1rem;
+      img {
+        width: 100%;
+        height: auto;
+      }
+      
+    }
+    @media #{$medium-and-up} {
+      img {
+        width: 100%;
+        height: auto;
+      }
+    }
+    .slick-list {
+      width: 100%;
+      @media #{$medium-and-down} {
+        max-height: 200px;
+        margin-top: -1rem;
+      }
+      @media #{$medium-and-up} {
+        height: auto;
+      }
+    }
+  }
+}

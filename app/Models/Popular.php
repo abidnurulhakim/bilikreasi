@@ -43,6 +43,6 @@ class Popular extends BaseModel
 
     public function ideas()
     {
-    	return $this->hasMany('App\Models\PopularIdea', 'popular_id');
+    	return $this->belongsToMany('App\Models\Idea', 'popular_ideas', 'popular_id', 'idea_id')->withPivot('id', 'order_number');;
     }
 }

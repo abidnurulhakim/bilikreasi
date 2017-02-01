@@ -8,13 +8,14 @@ use App\Models\IdeaMember;
 use App\Models\Skill;
 use App\Models\Interest;
 use App\Models\Traits\AttachableTrait;
+use App\Models\Traits\SluggableTrait;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use App\Models\Traits\SluggableTrait;
 
 class User extends Authenticatable
 {
-    use AttachableTrait, SoftDeletes, SluggableTrait;
+    use AttachableTrait, SluggableTrait, Notifiable, SoftDeletes;
 
     const TYPE = [
         'admin' => 'Admin',
@@ -24,8 +25,11 @@ class User extends Authenticatable
     protected $table = 'users';
 
     protected $fillable = [
-        'name', 'email', 'secret_password', 'hash_password', 'confirmed', 'role', 'last_login_at', 'last_login_ip_address',
-        'birthday', 'username', 'gender', 'photo','phone_number', 'profession', 'live_at', 'skills', 'interests', 'token_confirmation'
+        'name', 'email', 'secret_password', 'hash_password',
+        'confirmed', 'role', 'last_login_at', 'last_login_ip_address',
+        'birthday', 'username', 'gender', 'photo','phone_number',
+        'profession', 'live_at', 'skills', 'interests',
+        'confirmation_token', 'about'
     ];
 
     protected $dates = [
@@ -62,7 +66,7 @@ class User extends Authenticatable
         parent::boot();
         static::bootAttachableTrait();
         static::creating(function($user){
-            $user->token_confirmation = str_random(66);
+            $user->confirmation_token = str_random(66);
         });
         static::saving(function($user){
             if (!is_array($user->skills) ) {
@@ -167,13 +171,17 @@ class User extends Authenticatable
 
     public static function search($keyword = '', $filter = [])
     {
-        $words = explode(" ", trim($keyword));
         $query = self::query();
-        foreach ($words as $word) {
-            $query = $query->orWhere('name', 'like', '%'.$word.'%');
+        if (strlen(trim($keyword)) > 0) {
+            $words = preg_split('/\s+/', trim($keyword));
+            $query = $query->where(function($q) use ($words) {
+                foreach ($words as $word) {
+                    $q = $q->orWhere('name', 'like', '%'.$word.'%');
+                }
+            });
         }
         foreach ($filter as $key => $value) {
-            if ($key = 'not_member_idea') {
+            if ($key == 'not_member_idea') {
                 $user_ids = IdeaMember::where('idea_id', $value)
                                     ->select('user_id')
                                     ->get()
@@ -183,9 +191,21 @@ class User extends Authenticatable
                 $query = $query->whereNotIn('id', $user_ids);
             } else {
                 if (is_array($value)) {
-                    $query = $query->whereIn($key, $value);
+                    foreach ($value as $val) {
+                        $words = preg_split('/\s+/', trim($val));
+                        $query = $query->where(function($q) use ($key, $words) {
+                            foreach ($words as $word) {
+                                $q = $q->orWhere($key, 'like', '%'.$word.'%');
+                            }
+                        });
+                    }
                 } else {
-                    $query = $query->where($key, $value);
+                    $words = preg_split('/\s+/', trim($value));
+                    $query = $query->where(function($q) use ($key, $words) {
+                        foreach ($words as $word) {
+                            $q = $q->orWhere($key, 'like', '%'.$word.'%');
+                        }
+                    });
                 }    
             }
         }

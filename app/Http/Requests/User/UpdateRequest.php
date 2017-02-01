@@ -35,6 +35,7 @@ class UpdateRequest extends FormRequest
             'skills' => '',
             'live_at' => '',
             'profession' => '',
+            'about' => '',
         ];
     }
 }

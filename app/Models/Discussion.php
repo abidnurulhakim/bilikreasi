@@ -26,18 +26,39 @@ class Discussion extends BaseModel
         return $this->belongsTo('App\Models\Idea', 'idea_id');
     }
 
+    public function getLastMessage()
+    {
+        return $this->messages()->orderBy('created_at', 'desc')->first();
+    }
+
     public static function search($keyword = '', $filter = [])
     {
-        $words = explode(" ", trim($keyword));
         $query = self::query();
-        foreach ($words as $word) {
-            $query = $query->orWhere('name', 'like', '%'.$word.'%');
+        if (strlen(trim($keyword)) > 0) {
+            $words = preg_split('/\s+/', trim($keyword));
+            $query = $query->where(function($q) use ($words) {
+                foreach ($words as $word) {
+                    $q = $q->orWhere('name', 'like', '%'.$word.'%');
+                }
+            });
         }
         foreach ($filter as $key => $value) {
             if (is_array($value)) {
-                $query = $query->whereIn($key, $value);
+                foreach ($value as $val) {
+                    $words = preg_split('/\s+/', trim($val));
+                    $query = $query->where(function($q) use ($key, $words) {
+                        foreach ($words as $word) {
+                            $q = $q->orWhere($key, 'like', '%'.$word.'%');
+                        }
+                    });
+                }
             } else {
-                $query = $query->where($key, $value);
+                $words = preg_split('/\s+/', trim($value));
+                $query = $query->where(function($q) use ($key, $words) {
+                    foreach ($words as $word) {
+                        $q = $q->orWhere($key, 'like', '%'.$word.'%');
+                    }
+                });
             }    
         }
         return $query;

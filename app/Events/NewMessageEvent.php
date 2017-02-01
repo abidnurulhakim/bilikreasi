@@ -3,17 +3,18 @@
 namespace App\Events;
 
 use App\Models\Message;
+use Illuminate\Bus\Queueable;
 use Illuminate\Broadcasting\Channel;
+use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Broadcasting\PresenceChannel;
-use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
 class NewMessageEvent implements ShouldBroadcast, ShouldQueue
 {
-    use Queueable, SerializesModels;
+    use Queueable, InteractsWithQueue, SerializesModels;
     public $message;
     public $broadcastQueue = 'broadcast-discussion-message';
 

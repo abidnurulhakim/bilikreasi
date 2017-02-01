@@ -41,6 +41,9 @@ namespace :deploy do
   desc 'Restart application'
   task :restart do
     on roles(:app), in: :sequence, wait: 5 do
+      execute "cd '#{release_path}'; npm install"
+      execute "cd '#{release_path}'; bower install"
+      execute "cd '#{release_path}'; gulp"
       execute "cd '#{release_path}'; composer install"
       execute "cd '#{release_path}'; php artisan migrate -n"
       execute "cd '#{release_path}'; php artisan storage:link"

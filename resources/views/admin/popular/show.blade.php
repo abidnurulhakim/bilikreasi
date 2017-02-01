@@ -37,12 +37,9 @@
         </tr>
         </thead>
         <tbody>
-        @foreach($popularIdeas as $popularIdea)
-        @php
-          $idea = $popularIdea->idea
-        @endphp
+        @foreach($popularIdeas as $idea)
         <tr>
-          <td>{{ $popularIdea->order_number }}</td>
+          <td>{{ $idea->pivot->order_number }}</td>
           <td>{{ $idea->id }}</td>
           <td>{{ $idea->title }}</td>
           <td>{{ $idea->slug }}</td>
@@ -52,7 +49,7 @@
           <td>{{ $idea->updated_at }}</td>
           <td>{{ $idea->created_at }}</td>
           <td>
-            @include('admin.popular.concerns.form-idea-delete', compact('$popularIdea'))
+            @include('admin.popular.concerns.form-idea-delete', ['popularIdea' => $idea->pivot])
           </td>
         </tr>
         @endforeach

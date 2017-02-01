@@ -36,6 +36,34 @@ class AppServiceProvider extends ServiceProvider
         Form::component('textArea', 'components.form.text-area', ['name', 'value', 'attributes']);
         Form::component('textEditor', 'components.form.text-editor', ['name', 'value', 'attributes']);
         Form::component('formDateTimeLink', 'components.form.form-datetime-link', ['nameStart', 'nameFinish', 'valueStart', 'valueFinish', 'attributes']);
+
+        /*Materialize form*/
+        Form::component('formMaterializeText', 'components.form.materialize.form-text', ['name', 'value', 'attributes']);
+        Form::component('formMaterializeNumber', 'components.form.materialize.form-number', ['name', 'value', 'attributes']);
+        Form::component('formMaterializePassword', 'components.form.materialize.form-password', ['name', 'attributes']);
+        Form::component('formMaterializeSearch', 'components.form.materialize.form-search', ['name', 'value', 'attributes']);
+        Form::component('formMaterializeRadio', 'components.form.materialize.form-radio', ['name', 'value', 'attributes']);
+        Form::component('formMaterializeCheckbox', 'components.form.materialize.form-checkbox', ['name', 'value', 'attributes']);
+        Form::component('formMaterializeEmail', 'components.form.materialize.form-email', ['name', 'value', 'attributes']);
+        Form::component('formMaterializeDate', 'components.form.materialize.form-date', ['name', 'value', 'attributes']);
+        Form::component('formMaterializeBirthDate', 'components.form.materialize.form-birthdate', ['name', 'value', 'attributes']);
+        Form::component('formMaterializeDateTime', 'components.form.materialize.form.form-datetime', ['name', 'value', 'attributes']);
+        Form::component('formMaterializeFile', 'components.form.materialize.form-file', ['name', 'value', 'attributes']);
+        Form::component('formMaterializeTags', 'components.form.materialize.form-tags', ['name', 'collection', 'value', 'attributes']);
+        Form::component('formMaterializeTextarea', 'components.form.materialize.form-textarea', ['name', 'value', 'attributes']);
+        Form::component('formMaterializeSelect', 'components.form.materialize.form-select', ['name', 'collection', 'value', 'attributes']);
+        Form::component('formMaterializeTextEditor', 'components.form.materialize.form-text-editor', ['name', 'value', 'attributes']);
+        Form::component('formMaterializeDateTimeLink', 'components.form.materialize.form-datetime-link', ['nameStart', 'nameFinish', 'valueStart', 'valueFinish', 'attributes']);
+        Form::component('formMaterializeDropzone', 'components.form.materialize.form-dropzone', ['name', 'url', 'attributes']);
+        Form::component('materializeFile', 'components.form.materialize.form-date', ['name', 'value', 'attributes']);
+        Form::component('materializeDate', 'components.form.materialize.date', ['name', 'value', 'attributes']);
+        Form::component('materializeBirthDate', 'components.form.materialize.birthdate', ['name', 'value', 'attributes']);
+        Form::component('materializeDateTime', 'components.form.materialize.datetime', ['name', 'value', 'attributes']);
+        Form::component('materializeTextarea', 'components.form.materialize.textarea', ['name', 'value', 'attributes']);
+        Form::component('materializeTextEditor', 'components.form.materialize.text-editor', ['name', 'value', 'attributes']);
+
+        Form::component('avatar', 'components.form.materialize.avatar', ['name', 'value', 'attributes']);
+        Form::component('cover', 'components.form.materialize.cover', ['name', 'value', 'attributes']);
     }
 
     /**

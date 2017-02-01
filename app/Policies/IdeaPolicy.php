@@ -11,18 +11,6 @@ class IdeaPolicy
     use HandlesAuthorization;
 
     /**
-     * Determine whether the user can view the idea.
-     *
-     * @param  \App\User  $user
-     * @param  \App\Idea  $idea
-     * @return mixed
-     */
-    public function view(User $user, Idea $idea)
-    {
-        //
-    }
-
-    /**
      * Determine whether the user can create ideas.
      *
      * @param  \App\User  $user
@@ -33,17 +21,6 @@ class IdeaPolicy
         return true;
     }
 
-    /**
-     * Determine whether the user can update the idea.
-     *
-     * @param  \App\User  $user
-     * @param  \App\Idea  $idea
-     * @return mixed
-     */
-    public function store(User $user)
-    {
-        return $user->confirmed;
-    }
 
     /**
      * Determine whether the user can update the idea.
@@ -66,7 +43,7 @@ class IdeaPolicy
      */
     public function update(User $user, Idea $idea)
     {
-        return $idea->isAdmin($user);
+        return $idea->isAdmin($user) || ($idea->user_id == $user->id && $idea->trashed());
     }
 
     /**

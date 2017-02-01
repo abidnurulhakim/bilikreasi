@@ -3,7 +3,7 @@
 namespace App\Services;
 
 use App\Models\User;
-use App\Mail\AccountConfirmation;
+use App\Notifications\User\ConfirmationEmail;
 
 class UserService
 {
@@ -14,7 +14,7 @@ class UserService
         $user->password = $attributes['password'];
         if ($user->save()) {
             self::authenticate($user, false);
-            \Mail::send(new AccountConfirmation($user));
+            $user->notify(new ConfirmationEmail($user));
             return $user;
         }
         return null;
@@ -22,7 +22,7 @@ class UserService
 
     public static function confirmation($userId, $token)
     {
-        $user = User::whereId($userId)->where('token_confirmation', $token)->first();
+        $user = User::whereId($userId)->where('confirmation_token', $token)->first();
         if ($user) {
             $user->confirmed = true;
             $user->save();

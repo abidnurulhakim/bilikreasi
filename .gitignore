@@ -6,3 +6,4 @@ Homestead.json
 .env
 public/attachments/
 log/*
+resources/assets/vendor/

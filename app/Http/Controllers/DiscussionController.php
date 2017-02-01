@@ -20,14 +20,12 @@ class DiscussionController extends Controller
 
     public function index(Request $request)
     {
-        $discussions = $this->getDiscussions($request->get('name', ''));
+        $discussions = $this->getDiscussions($request->get('name', ''), 10);
         if ($discussions->count() > 0) {
             $discussion = $discussions->first();
-            \View::share('pageTitle', 'Ruang diskusi dari \''.str_limit($discussion->idea->title, 30).'\'');
             DiscussionService::markAsRead($discussion, auth()->user());
             $messages = $discussion->messages()->last()->paginate(20);
         } else {
-            \View::share('pageTitle', 'Tidak ruang diskusi yang tersedia');
             $discussion = null;
             $messages = collect();
         }
@@ -38,7 +36,6 @@ class DiscussionController extends Controller
     public function show($id)
     {
         $discussion = Discussion::findOrFail($id);
-        \View::share('pageTitle', 'Ruang diskusi dari \''.str_limit($discussion->idea->title, 30).'\'');
         $discussions = $this->getDiscussions();
         DiscussionService::markAsRead($discussion, auth()->user());
         $messages = $discussion->messages()->last()->paginate(20);
@@ -62,12 +59,13 @@ class DiscussionController extends Controller
                 'user_id' => $user->id,
                 'user_name' => $user->name,
                 'user_photo' => $user->getPhoto(128),
+                'user_link' => route('user.show', $user),
                 'created_at' => $message->created_at->toIso8601String()
             ];
             array_push($result['data'], $msg);
         }
         if ($messages->hasMorePages()) {
-            $result['has_next_page'] = true;
+            $result['has_more_page'] = true;
         }
         return response()->json($result);
     }
@@ -88,6 +86,7 @@ class DiscussionController extends Controller
                 'user_id' => $user->id,
                 'user_name' => $user->name,
                 'user_photo' => $user->getPhoto(128),
+                'user_link' => route('user.show', $user),
                 'created_at' => $message->created_at->toIso8601String()
             ];
             array_push($result['data'], $msg);
@@ -121,14 +120,14 @@ class DiscussionController extends Controller
                 ]);
     }
 
-    private function getDiscussions($keyword = '')
+    private function getDiscussions($keyword = '', $limit = 1000)
     {
         $discussion_ids = DiscussionParticipant::whereUserId(auth()->user()->id)
                             ->get()->map(function($participant) {
                                 return $participant->discussion_id; 
                             })->toArray();
         $discussions = Discussion::search($keyword)->whereIn('id', $discussion_ids)
-                            ->orderBy('updated_at', 'desc')->get();
+                            ->orderBy('updated_at', 'desc')->take($limit)->get();
         return $discussions;
     }
 }

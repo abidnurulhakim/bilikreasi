@@ -61,13 +61,16 @@ class SearchController extends Controller
         $interestSelected = $request->get('interests', []);
         $filter = ['not_member_idea' => $idea->id];
         if (!empty($skillSelected)) {
-            $filter['skill'] = $skillSelected;
+            $filter['skills'] = $skillSelected;
         }
         if (!empty($interestSelected)) {
-            $filter['interest'] = $interestSelected;
+            $filter['interests'] = $interestSelected;
         }
-        $users = User::search($keyword, $filter)->paginate(12);
+        $users = User::search($keyword, $filter)->paginate(9);
         $users->appends($request->all());
+        if (Request()->ajax()) {
+            return view('partner.index-ajax', compact('users', 'idea'));
+        }
         return view('partner.index', compact('idea','interests', 'interestSelected', 'skills', 'skillSelected', 'users'));
     }
 }

@@ -1,31 +1,35 @@
 @extends('user.layout')
 @section('user-content')
-  <div class="nav-tab-custom">
-    <ul class="nav-tabs">
-      <li class="tab"><a href="{{ route('user.show', $user) }}"><i class="fa fa-lightbulb-o"></i> Ide Terhubung</a></li>
-      <li class="tab active"><a href="{{ route('user.invitation', $user) }}"><i class="fa fa-envelope-o"></i> Undangan Bergabung</a></li>
-      <hr class="tab-underline"/>
-    </ul>
+  <div class="card z-depth-2">
+    <div class="card-panel">
+      <h3 class="text-xs-center">
+        Undangan Bergabung
+      </h3>
+    </div>
   </div>
-  <div class="grid col-sm-12 no-padding">
-    @include('user.profile-mini', $user)
-    @forelse($invitations as $invitation)
-      @php
-        $idea = $invitation->idea;
-        $user = null
-      @endphp
-      <div class="grid-item col-sm-3 col-padding">
-        @include('idea.card', compact('idea', 'invitation', 'user'))
-      </div>
-    @empty
-      <div class="grid-item col-sm-3 col-padding">
-        <h4 class="text-center text-muted">-- Tidak ada ide yang ditemukan --</h4>
-      </div>
-    @endforelse
-    @if($invitations->hasMorePages())
-      <div class="grid-item read-more hidden">
-        <a href="{{ $invitations->nextPageUrl() }}"></a>
-      </div>
-    @endif
+  <div class="row">
+    <div class="col-xs-12 grid">
+      @forelse($invitations as $invitation)
+        @php
+          $idea = $invitation->idea 
+        @endphp
+        <div class="grid-item col-xs-12 col-md-4">
+          @include('idea.card', $idea)
+        </div>
+      @empty
+        <div class="grid-item col-xs-12 col-md-12">
+          <div class="card z-depth-2">
+            <div class="card-panel">
+              <h4 class="text-xs-center text-muted">-- Belum ada undangan untuk bergabung --</h4>
+            </div>
+          </div>
+        </div>
+      @endforelse
+      @if($invitations->hasMorePages())
+        <div class="grid-item read-more hidden">
+          <a href="{{ $invitations->nextPageUrl() }}"></a>
+        </div>
+      @endif
+    </div>  
   </div>
 @endsection

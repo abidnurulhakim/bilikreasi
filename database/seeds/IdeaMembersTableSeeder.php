@@ -1,5 +1,8 @@
 <?php
 
+use App\Models\User;
+use App\Models\Idea;
+use App\Services\IdeaService;
 use Illuminate\Database\Seeder;
 
 class IdeaMembersTableSeeder extends Seeder
@@ -11,10 +14,12 @@ class IdeaMembersTableSeeder extends Seeder
      */
     public function run()
     {
-    	$faker = \Faker\Factory::create();
-        $users = \App\Models\User::all();
-        foreach (\App\Models\Idea::all() as $idea) {
-        	$idea->members()->attach($faker->randomElements([1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20], $faker->numberBetween($min = 1, $max = 20)));
+        $faker = \Faker\Factory::create();
+        foreach (Idea::all() as $idea) {
+            $users = $faker->randomElements(User::all()->all(), $faker->numberBetween(1, User::count()));
+            foreach ($users as $user) {
+                IdeaService::join($idea, $user);
+            }
         }
     }
 }

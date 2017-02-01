@@ -10,7 +10,6 @@
 | the IoC container for the system binding all of the various parts.
 |
 */
-date_default_timezone_set("Asia/Jakarta");
 $app = new Illuminate\Foundation\Application(
     realpath(__DIR__.'/../')
 );

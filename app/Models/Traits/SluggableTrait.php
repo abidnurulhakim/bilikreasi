@@ -25,8 +25,29 @@ trait SluggableTrait
                     }
                 }
             }
-            
         });
+    }
+
+    public function generateSlug($key = '')
+    {
+        if (empty($key)) {
+            $key = key($this->sluggable);
+        }
+        $textSlug = $this->attributes[$this->sluggable[$key]];
+        $codeUnique = static::withoutGlobalScopes()->where($key, str_slug($textSlug, "-"))->count($key);
+        while ($codeUnique > 0) {
+            $total = static::withoutGlobalScopes()->where($key, str_slug($textSlug, '-')."-$codeUnique")->count();
+            if ($total == 0) {
+                break;
+            } else {
+                $codeUnique++;
+            }
+        }
+        if ($codeUnique == 0) {
+            $this->$key = str_slug($textSlug, '-');
+        } else {
+            $this->$key = str_slug($textSlug, '-')."-$codeUnique";
+        }       
     }
 }
 

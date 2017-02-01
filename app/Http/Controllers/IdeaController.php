@@ -7,40 +7,24 @@ use App\Models\IdeaMedia;
 use App\Models\Tag;
 use App\Models\User;
 use App\Services\IdeaService;
-use App\Http\Requests\Idea\StoreRequest;
 use App\Http\Requests\Idea\UpdateRequest;
 use Illuminate\Http\Request;
 
 class IdeaController extends Controller
 {
-    /**
-     * Instantiate a new UserController instance.
-     *
-     * @return void
-     */
     public function __construct()
     {
         parent::__construct();
         $this->middleware('auth', ['except' => [
-            'index', 'show'
+            'index', 'show', 'quickLook'
         ]]);
     }
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         return redirect()->route('search.index');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         $this->authorize('create', Idea::class);
@@ -48,44 +32,23 @@ class IdeaController extends Controller
             \Session::flash('success', "Tolong cek inbox/spam email Anda untuk konfirmasi akun Anda, agar Anda dapat membuat ide");
             return redirect()->back();
         }
-        \View::share('pageTitle', 'Buat Ide Baru');
+        $idea = Idea::onlyTrashed()->where('user_id', auth()->user()->id)->whereNull('status')->first();
+        if (!$idea) {
+            $slug = str_random(20);
+            while (Idea::where('slug', $slug)->withTrashed()->count()) {
+                $slug = str_random(20);
+            }
+            $idea = Idea::create(['user_id' => auth()->user()->id, 'slug' => $slug]);
+            $idea->delete();
+        }
+        foreach ($idea->media as $media) {
+            $media->forceDelete();
+        }
         $tags = Tag::publish()->get()->map(function($tag) {
             return $tag->name; })->toArray();
-        return view('idea.create', compact('tags'));
+        return view('idea.create', compact('idea', 'tags'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(StoreRequest $request)
-    {
-        $this->authorize('store', Idea::class);
-        $request->merge(['user_id' => auth()->user()->id]);
-        $idea = Idea::create($request->all());
-        if ($idea->id) {
-            if ($request->file('media')) {
-                foreach ($request->file('media') as $photo) {
-                    if ($photo) {
-                        IdeaMedia::create(['idea_id' => $idea->id, 'url' => $photo]);
-                    }
-                }
-            }
-            \Session::flash('success', 'Ide berhasil dibuat');
-            return redirect()->route('idea.show', $idea);
-        }
-        \Session::flash('alert', 'Ide gagal dibuat');
-        return redirect()->back()->withInput();
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($slug)
     {
         $idea = Idea::where('slug', $slug)->firstOrFail();
@@ -93,44 +56,30 @@ class IdeaController extends Controller
         return view('idea.show', compact('idea'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($slug)
     {
         $idea = Idea::where('slug', $slug)->firstOrFail();
         $this->authorize('edit', $idea);
-        \View::share('pageTitle', 'Perbaharui Ide');
         $tags = [];
         foreach (Tag::publish()->get() as $tag){
             $tags[$tag->name] = $tag->name;
         }
+        foreach ($idea->media()->onlyTrashed()->get() as $media) {
+            $media->forceDelete();
+        }
         return view('idea.edit', compact('idea', 'tags'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(UpdateRequest $request, $slug)
     {
-        $idea = Idea::where('slug', $slug)->firstOrFail();
+        $idea = Idea::withTrashed()->where('slug', $slug)->firstOrFail();
         $this->authorize('update', $idea);
         $idea->fill($request->all());
-        if ($idea->save()) {
-            if ($request->file('media')) {
-                foreach ($request->file('media') as $photo) {
-                    if ($photo) {
-                        IdeaMedia::create(['idea_id' => $idea->id, 'url' => $photo]);
-                    }
-                }
-            }
+        if ($idea->trashed()) {
+            $idea->generateSlug('slug');
+        }
+        if ($idea->restore()) {
+            $idea->media()->restore();
             \Session::flash('success', 'Ide berhasil diperbaharui');
             return redirect()->route('idea.show', $idea);
         }
@@ -138,12 +87,6 @@ class IdeaController extends Controller
         return redirect()->back()->withInput();
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($slug)
     {
         $idea = Idea::where('slug', $slug)->firstOrFail();
@@ -166,11 +109,15 @@ class IdeaController extends Controller
         }
     }
 
-    public function members($slug)
+    public function members(Request $request, $slug)
     {
         $idea = Idea::where('slug', $slug)->firstOrFail();
         \View::share('pageTitle', "Anggota '$idea->title'");
-        $users = $idea->members()->paginate(24);
+        $users = $idea->members()->paginate(12);
+        $users->appends($request->all());
+        if ($request->ajax()) {
+            return view('idea.members-ajax', compact('users', 'idea'));
+        }
         return view('idea.members', compact('idea', 'users'));
     }
 
@@ -216,5 +163,11 @@ class IdeaController extends Controller
         $like = IdeaService::unlike($idea, $user);
         \Session::flash('alert', 'Anda tidak jadi menyukai ide ini');
         return redirect()->back();
+    }
+
+    public function quickLook($slug)
+    {
+        $idea = Idea::where('slug', $slug)->firstOrFail();
+        return view('idea.quick-look', compact('idea'));
     }
 }

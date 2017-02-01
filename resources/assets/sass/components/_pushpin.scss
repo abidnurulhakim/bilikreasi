@@ -1,0 +1,54 @@
+// Popular Idea
+.popular-idea{
+  .pushpin-block {
+    margin: 1rem 0;
+  }
+  .pushpin-content {
+    margin-top: .5rem;
+  }
+}
+// Class for when element is above threshold
+.pin-top {
+  position: relative;
+}
+// Class for when element is below threshold
+.pin-bottom {
+  position: relative;
+  display: none;
+}
+// Class for when element is pinned
+.pinned {
+  position: fixed !important;
+
+  .pushpin-title {
+    display: inline-block;
+    font-size: 2rem;
+    background: $primary-color;
+    padding: .25rem 1rem;
+    text-align: center;
+    border-top-right-radius: 2px;
+    border-bottom-right-radius: 2px;
+
+    @media #{$medium-and-down} {
+      font-size: 1.4rem;
+    }
+  }
+}
+.pushpin {
+  z-index: 20;
+}
+
+.pushpin-title {
+  display: block;
+  width: 100%;
+  font-size: 2rem;
+  color: #fff;
+  background: $primary-color;
+  padding: .25rem;
+  text-align: center;
+  border-radius: 2px;
+
+  @media #{$medium-and-down} {
+    font-size: 1.4rem;
+  }
+}

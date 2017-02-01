@@ -1,0 +1,70 @@
+.image-input {
+  .user-picture--container{
+    position: relative;
+    cursor: pointer;
+    text-align: center;
+  }
+  .user-picture {
+    width: 100px;
+    height: 100px;
+    background-color: #999;
+    border: 4px solid #CCC;
+    color: #FFFFFF;
+    border-radius: 50%;
+    margin: 5px auto;
+    overflow: hidden;
+    transition: all 0.2s;
+    -webkit-transition: all 0.2s;
+  }
+  .user-picture:hover{
+    border-color: $primary-color;
+  }
+  .user-picture input[type="file"] {
+    cursor: pointer;
+    display: block;
+    height: 100%;
+    left: 0;
+    opacity: 0 !important;
+    position: absolute;
+    top: 0;
+    width: 100%;
+  }
+  .user-picture--src{
+    width: 100%;
+  }
+
+
+  .idea-cover-input--container{
+    position: relative;
+    cursor: pointer;
+    text-align: center;
+  }
+  .idea-cover {
+    width: 200px;
+    height: 200px;
+    background-color: #999;
+    border: 4px solid #CCC;
+    color: #FFF;
+    border-radius: 6px;
+    margin: 5px auto;
+    overflow: hidden;
+    transition: all 0.2s;
+    -webkit-transition: all 0.2s;
+  }
+  .idea-cover:hover{
+    border-color: $primary-color;
+  }
+  .idea-cover input[type="file"] {
+    cursor: pointer;
+    display: block;
+    height: 100%;
+    left: 0;
+    opacity: 0 !important;
+    position: absolute;
+    top: 0;
+    width: 100%;
+  }
+  .idea-cover--src{
+    width: 100%;
+  }    
+}

@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "0d992862ad760017c52d0de3c59361ae",
-    "content-hash": "56d25f878f532cbac891b869308953f2",
+    "hash": "b330aaded4725a6ff5956a5443b6c58f",
+    "content-hash": "c44ee009ca39a4bf6e858e5cfeece344",
     "packages": [
         {
             "name": "classpreloader/classpreloader",
@@ -60,6 +60,46 @@
                 "preload"
             ],
             "time": "2015-11-09 22:51:51"
+        },
+        {
+            "name": "dionera/laravel-beanstalkd-ui",
+            "version": "0.3.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Dionera/laravel-beanstalkd-admin-ui.git",
+                "reference": "7aec58d8075136355d05fceec5ab1acb10b0bd00"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Dionera/laravel-beanstalkd-admin-ui/zipball/7aec58d8075136355d05fceec5ab1acb10b0bd00",
+                "reference": "7aec58d8075136355d05fceec5ab1acb10b0bd00",
+                "shasum": ""
+            },
+            "require": {
+                "laravel/framework": "^5.1",
+                "pda/pheanstalk": "~3.0"
+            },
+            "require-dev": {
+                "phpspec/phpspec": "^3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Dionera\\BeanstalkdUI\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Kai Sassnowski",
+                    "email": "ksassnowski@gmail.com"
+                }
+            ],
+            "description": "An Admin UI for Beanstalkd and Laravel",
+            "time": "2016-09-09 13:16:33"
         },
         {
             "name": "dnoegel/php-xdg-base-dir",
@@ -2909,6 +2949,57 @@
                 "dump"
             ],
             "time": "2016-11-03 08:04:31"
+        },
+        {
+            "name": "twbs/bootstrap",
+            "version": "v3.3.7",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/twbs/bootstrap.git",
+                "reference": "0b9c4a4007c44201dce9a6cc1a38407005c26c86"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/twbs/bootstrap/zipball/0b9c4a4007c44201dce9a6cc1a38407005c26c86",
+                "reference": "0b9c4a4007c44201dce9a6cc1a38407005c26c86",
+                "shasum": ""
+            },
+            "replace": {
+                "twitter/bootstrap": "self.version"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.3.x-dev"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jacob Thornton",
+                    "email": "jacobthornton@gmail.com"
+                },
+                {
+                    "name": "Mark Otto",
+                    "email": "markdotto@gmail.com"
+                }
+            ],
+            "description": "The most popular front-end framework for developing responsive, mobile first projects on the web.",
+            "homepage": "http://getbootstrap.com",
+            "keywords": [
+                "JS",
+                "css",
+                "framework",
+                "front-end",
+                "less",
+                "mobile-first",
+                "responsive",
+                "web"
+            ],
+            "time": "2016-07-25 15:51:55"
         },
         {
             "name": "vlucas/phpdotenv",

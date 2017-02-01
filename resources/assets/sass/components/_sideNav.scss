@@ -1,0 +1,365 @@
+.side-nav {
+  position: fixed;
+  width: 300px;
+  left: 0;
+  top: 0;
+  margin: 0;
+  transform: translateX(-100%);
+  height: 100%;
+  height: calc(100% + 60px);
+  height: -moz-calc(100%); //Temporary Firefox Fix
+  padding: 0 0 4rem 0;
+  background-color: $sidenav-bg-color;
+  z-index: 999;
+  overflow-y: auto;
+  will-change: transform;
+  backface-visibility: hidden;
+  transform: translateX(-105%);
+
+  // Right Align
+  &.right-aligned {
+    right: 0;
+    transform: translateX(105%);
+    left: auto;
+    transform: translateX(100%);
+  }
+
+  .collapsible {
+    margin: 0;
+  }
+
+
+  li {
+    float: none;
+    line-height: $sidenav-item-height;
+    border-bottom: .2px solid $primary-color;
+
+    &.active { background-color: rgba(0,0,0,.05); }
+
+    &:first-child {
+      border: none;
+    }
+
+    &:last-of-type {
+      border: none;
+      margin-bottom: 1rem;
+    }
+  }
+
+  a {
+    color: $sidenav-font-color;
+    display: block;
+    font-size: $sidenav-font-size;
+    font-weight: 500;
+    height: $sidenav-item-height;
+    line-height: $sidenav-item-height;
+    padding: 0 ($sidenav-padding * 2);
+
+    &:hover { background-color: rgba(0,0,0,.05);}
+    &.btn-flat {
+      margin: 0 0 .5em 0;
+      line-height: 3rem;
+      height: 3rem;
+      color: #fff;
+    }
+  }
+
+  li > a > i,
+  li > a > [class^="mdi-"], li > a > [class*="mdi-"],
+  li > a > i.material-icons {
+    float: left;
+    height: $sidenav-item-height;
+    line-height: $sidenav-item-height;
+    margin: 0 $sidenav-padding 0 0;
+    width: $sidenav-item-height / 2;
+    color: $primary-color;
+  }
+
+  .divider {
+    margin: ($sidenav-padding / 2) 0 .5rem 0;
+    border-bottom: 1px solid #ccc;
+  }
+
+  .subheader {
+    &:hover {
+      background-color: transparent;
+    }
+
+    cursor: initial;
+    pointer-events: none;
+    color: rgba(0,0,0,.54);
+    font-size: $sidenav-font-size;
+    font-weight: 500;
+    line-height: $sidenav-item-height;
+  }
+
+  .userView {
+    position: relative;
+    padding: ($sidenav-padding * 2) ($sidenav-padding * 2) 0;
+    margin-bottom: $sidenav-padding / 2;
+
+    & > a {
+      &:hover { background-color: transparent; }
+      height: auto;
+      padding: 0;
+    }
+
+    .background {
+      overflow: hidden;
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      z-index: -1;
+    }
+
+    .circle, .name, .email {
+      display: block;
+    }
+
+    .circle {
+      height: 64px;
+      width: 64px;
+    }
+
+    .name,
+    .email {
+      font-size: $sidenav-font-size;
+      line-height: 24px;
+    }
+
+    .name {
+      margin-top: 16px;
+      font-weight: 500;
+    }
+
+    .email {
+      padding-bottom: 16px;
+      font-weight: 400;
+    }
+  }
+
+  .materialize-input {
+    .input-field {
+      input:not([type]),
+      input[type=text],
+      input[type=password],
+      input[type=email],
+      input[type=url],
+      input[type=time],
+      input[type=date],
+      input[type=datetime],
+      input[type=datetime-local],
+      input[type=tel],
+      input[type=number],
+      input[type=search],
+      textarea.materialize-textarea {
+
+        // General Styles
+        background-color: transparent;
+        border: none;
+        border-bottom: $input-border;
+        border-radius: 0;
+        outline: none;
+        height: $input-height;
+        width: 100%;
+        font-size: $input-font-size;
+        margin: $input-margin;
+        padding: $input-padding;
+        box-shadow: none;
+        box-sizing: content-box;
+        transition: $input-transition;
+
+        // Disabled input style
+        &:disabled,
+        &[readonly="readonly"] {
+          color: $input-disabled-color;
+          border-bottom: $input-disabled-border;
+        }
+
+        // Disabled label style
+        &:disabled+label,
+        &[readonly="readonly"]+label {
+          color: $input-disabled-color;
+        }
+
+        // Focused input style
+        &:focus:not([readonly]) {
+          border-bottom: 1px solid $input-focus-color;
+          box-shadow: 0 1px 0 0 $input-focus-color;
+        }
+
+        // Focused label style
+        &:focus:not([readonly])+label {
+          color: $input-focus-color;
+        }
+
+        // Valid Input Style
+        &.valid,
+        &:focus.valid {
+          border-bottom: 1px solid $input-success-color;
+          box-shadow: 0 1px 0 0 $input-success-color;
+        }
+
+        // Custom Success Message
+        &.valid + label:after,
+        &:focus.valid + label:after {
+          content: attr(data-success);
+          color: $input-success-color;
+          opacity: 1;
+        }
+
+        // Invalid Input Style
+        &.invalid,
+        &:focus.invalid {
+          border-bottom: $input-invalid-border;
+          box-shadow: 0 1px 0 0 $input-error-color;
+        }
+
+        // Custom Error message
+        &.invalid + label:after,
+        &:focus.invalid + label:after {
+          content: attr(data-error);
+          color: $input-error-color;
+          opacity: 1;
+        }
+
+        // Full width label when using validate for error messages
+        &.validate + label {
+          width: 100%;
+          pointer-events: none;
+        }
+
+        // Form Message Shared Styles
+        & + label:after {
+          display: block;
+          content: "";
+          position: absolute;
+          top: 60px;
+          opacity: 0;
+          transition: .2s opacity ease-out, .2s color ease-out;
+        }
+      }
+      label.active {
+        font-size: $label-font-size;
+        transform: translateY(-60%);
+      }
+    }
+  }
+
+  .note {
+    line-height: 1.5rem;
+    display: block;
+    width: 100%;
+    color: #000;
+    margin-bottom: .3rem;
+
+    a {
+      line-height: 1.5rem;
+      height: 1.5rem;
+      color: $primary-color;
+      display: inline-block;
+      padding: 0;
+      text-transform: none;
+    }
+  }
+
+  // custom or
+  .hr-custom {
+    position: relative;
+    font-size: 1em;
+    color: #aaa;
+    margin-top: 1.5em;
+    margin-bottom: 1em;
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+  }
+
+  .hr-or {
+    background-color: #cdcdcd;
+    height: 1px;
+    margin-top: 0px !important;
+    margin-bottom: 0px !important;
+  }
+
+  .span-or {
+    display: block;
+    position: absolute;
+    left: 50%;
+    top: -1.3rem;
+    height: 3em;
+    margin-left: -1.5em;
+    background-color: white;
+    width: 3em;
+    text-align: center;
+  }
+}
+
+
+// Touch interaction
+.drag-target {
+  height: 100%;
+  width: 10px;
+  position: fixed;
+  top: 0;
+  z-index: 998;
+}
+
+
+// Fixed side-nav shown
+.side-nav.fixed {
+  left: 0;
+  transform: translateX(0);
+  position: fixed;
+
+  // Right Align
+  &.right-aligned {
+    right: 0;
+    left: auto;
+  }
+}
+
+// Fixed sideNav hide on smaller
+@media #{max-width: 768px} {
+  .side-nav {
+    &.fixed {
+      transform: translateX(-105%);
+
+      &.right-aligned {
+        transform: translateX(105%);
+      }
+    }
+
+    a {
+      padding: 0 $sidenav-padding;
+    }
+
+    .userView {
+      padding: $sidenav-padding $sidenav-padding 0;
+    }
+  }
+}
+
+
+.side-nav .collapsible-body > ul:not(.collapsible) > li.active,
+.side-nav.fixed .collapsible-body > ul:not(.collapsible) > li.active {
+  background-color: $brand-primary;
+  a {
+    color: $sidenav-bg-color;
+  }
+}
+
+
+#sidenav-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+
+  height: 120vh;
+  background-color: rgba(0,0,0,.5);
+  z-index: 997;
+
+  will-change: opacity;
+}

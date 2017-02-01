@@ -31,9 +31,9 @@ class UpdateRequest extends FormRequest
             'tags' => '',
             'location' => '',
             'status' => 'required|in:'.join(',', array_keys(\App\Models\Idea::STATUS)),
-            'media' => 'array|max:10120',
-            'start_at' => 'date|after:now',
-            'finish_at' => 'date|after:start_at'
+            'start_at' => '',
+            'finish_at' => ''
         ];
+
     }
 }

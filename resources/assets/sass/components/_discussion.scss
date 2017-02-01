@@ -1,0 +1,445 @@
+.discussion {
+
+  .discussion--title {
+    background: $primary-color;
+    color: #fff;
+    font-size: 2rem;
+    font-weight: 500;
+    text-align: center;
+    padding: .5rem;
+  }
+
+  .discussion--column {
+    height: 600px;
+    overflow: auto;
+    padding-top: 1rem;
+  }
+
+  .discussion--list {
+    padding-right: 0;
+    border-right: 1px solid #d5d5d5;
+    @extend .discussion--column;
+
+    .discussion--search {
+      padding: 0 1rem;
+    }
+
+    .discussion--list-group {
+      padding: 0 .5rem;
+      margin: 0;
+
+      .discussion--list-item {
+        padding: .5rem;
+        color: #333;
+        display: block;
+        line-height: 1.2rem;
+
+        &.active,
+        &:hover {
+          background: $primary-color;
+          color: #fff;
+          text-decoration: none;
+        }
+
+        &:not(:last-child) {
+          border-bottom: 1px solid #d5d5d5;
+        }
+
+        .discussion--list-item--img-wrapper {
+          text-align: center;
+
+          img {
+            width: 2.5rem;
+            height: 2.5rem;
+          }
+        }
+
+        .discussion--list-item--wrapper {
+          .discussion--list-item--title {
+            line-height: 1.5rem;
+            font-size: 1rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+          }
+
+          .discussion--list-item--message {
+            line-height: 1rem;
+            font-size: .75rem;
+          }
+        }
+      }
+    }
+  }
+
+  .discussion--messages {
+    @extend .discussion--column;
+    height: 500px;
+    padding-right: 1rem;
+
+    .discussion--message-group {
+      list-style-type: none;
+      padding: 0;
+    }
+
+    .discussion--message {
+      float: left;
+      margin-bottom: 10px;
+      width: 100%;
+
+      .discussion--message-text--wrapper {
+        margin: .5rem 0 0 3.5rem;
+
+        .discussion--message-text {
+          display: inline-block;
+          border-radius: 2px;
+          position: relative;
+          padding: .5rem .75rem;
+          background: #d2d6de;
+          border: 1px solid #d2d6de;
+          color: #000;
+
+          //Create the arrow
+          &:after,
+          &:before {
+            position: absolute;
+            right: 100%;
+            top: 15px;
+            border: solid transparent;
+            border-right-color: #d2d6de;
+            content: ' ';
+            height: 0;
+            width: 0;
+            pointer-events: none;
+          }
+
+          &:after {
+            border-width: 5px;
+            margin-top: -5px;
+          }
+          &:before {
+            border-width: 6px;
+            margin-top: -6px;
+          }
+        }
+      }
+
+      .discussion--message-avatar {
+        border-radius: 50%;
+        float: left;
+        width: 3rem;
+        height: 3rem;
+      }
+
+      .discussion--message-info {
+        display: block;
+        margin-bottom: 2px;
+        font-size: .8rem;
+        margin-left: 3.5rem;
+      }
+
+      .discussion--message-name {
+        font-weight: 600;
+      }
+
+      .discussion--message-timestamp {
+        color: #999;
+        float: right;
+      }
+
+      &.current-user {
+        float: right;
+
+        .discussion--message-info {
+          margin-right: 3.5rem;
+          margin-left: 0;
+        }
+
+        .discussion--message-name {
+          display: none;
+        }
+
+        .discussion--message-timestamp {
+          float: left;
+        }        
+
+        .discussion--message-text--wrapper {
+          margin-right: 3.5rem;
+          margin-left: 0;
+          text-align: right;
+
+          .discussion--message-text {
+            color: #fff;
+            background-color: $primary-color;
+            border: 1px solid $primary-color;
+            &:after,
+            &:before {
+              right: auto;
+              left: 100%;
+              border-right-color: transparent;
+              border-left-color: $primary-color;
+            }
+          }
+        }
+
+        .discussion--message-avatar {
+          float: right;
+        }
+      }
+    }
+  }
+
+  .discussion--input-message {
+    margin: 10px 0;
+    padding-top: 10px;
+    border-top: solid 1px #d5d5d5;
+    height: 90px;
+    position: relative;
+
+    form {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      padding: 0 1rem 0 .5rem;
+
+      .discussion--input-text {
+        max-height: 67px;
+      }
+    }
+  }
+}
+
+
+.discussion-mobile {
+  margin: 0 -.5rem;
+
+  .discussion--title {
+    background: $primary-color;
+    color: #fff;
+    font-size: 1.5rem;
+    font-weight: 500;
+    text-align: center;
+    padding: .5rem;
+  }
+
+  .nav-item {
+    width: 50%;
+    background-color: $primary-color;
+
+    &+.nav-item {
+      margin-left: 0;
+    }
+
+    .nav-link {
+      font-size: 1.25rem;
+      text-align: center;
+      color: #fff;
+      border-bottom: 4px solid $primary-color;
+
+      &.active {
+        border-bottom: 4px solid #fff;
+      }
+    }
+  }
+
+  .tab-content {
+    padding-top: 1rem;
+    height: 600px;
+    overflow: auto;
+
+    .discussion--list {
+      padding-right: 0;
+      border-right: 1px solid #d5d5d5;
+
+      .discussion--search {
+        padding: 0 1rem;
+      }
+
+      .discussion--list-group {
+        padding: 0 .5rem;
+        margin: 0;
+
+        .discussion--list-item {
+          padding: .5rem;
+          color: #333;
+          display: block;
+          line-height: 1.2rem;
+
+          &.active,
+          &:hover {
+            background: $primary-color;
+            color: #fff;
+            text-decoration: none;
+          }
+
+          &:not(:last-child) {
+            border-bottom: 1px solid #d5d5d5;
+          }
+
+          .discussion--list-item--img-wrapper {
+            text-align: center;
+
+            img {
+              width: 2.5rem;
+              height: 2.5rem;
+            }
+          }
+
+          .discussion--list-item--wrapper {
+            .discussion--list-item--title {
+              line-height: 1.5rem;
+              font-size: 1rem;
+              white-space: nowrap;
+              overflow: hidden;
+              text-overflow: ellipsis;
+            }
+
+            .discussion--list-item--message {
+              line-height: 1rem;
+              font-size: .75rem;
+            }
+          }
+        }
+      }
+    }
+
+    .discussion--messages {
+      height: 500px;
+      overflow: auto;
+
+      .discussion--message-group {
+        list-style-type: none;
+        padding: 0;
+
+        .btn-load-more {
+          color: #fff;
+        }
+      }
+
+      .discussion--message {
+        float: left;
+        margin-bottom: 10px;
+        width: 100%;
+
+        .discussion--message-text--wrapper {
+          margin: .5rem 0 0 3.5rem;
+
+          .discussion--message-text {
+            display: inline-block;
+            border-radius: 2px;
+            position: relative;
+            padding: .5rem .75rem;
+            background: #d2d6de;
+            border: 1px solid #d2d6de;
+            color: #000;
+
+            //Create the arrow
+            &:after,
+            &:before {
+              position: absolute;
+              right: 100%;
+              top: 15px;
+              border: solid transparent;
+              border-right-color: #d2d6de;
+              content: ' ';
+              height: 0;
+              width: 0;
+              pointer-events: none;
+            }
+
+            &:after {
+              border-width: 5px;
+              margin-top: -5px;
+            }
+            &:before {
+              border-width: 6px;
+              margin-top: -6px;
+            }
+          }
+        }
+
+        .discussion--message-avatar {
+          border-radius: 50%;
+          float: left;
+          width: 3rem;
+          height: 3rem;
+        }
+
+        .discussion--message-info {
+          display: block;
+          margin-bottom: 2px;
+          font-size: .8rem;
+          margin-left: 3.5rem;
+        }
+
+        .discussion--message-name {
+          font-weight: 600;
+        }
+
+        .discussion--message-timestamp {
+          color: #999;
+          float: right;
+        }
+
+        &.current-user {
+          float: right;
+
+          .discussion--message-info {
+            margin-right: 3.5rem;
+            margin-left: 0;
+          }
+
+          .discussion--message-name {
+            display: none;
+          }
+
+          .discussion--message-timestamp {
+            float: left;
+          }        
+
+          .discussion--message-text--wrapper {
+            margin-right: 3.5rem;
+            margin-left: 0;
+            text-align: right;
+
+            .discussion--message-text {
+              color: #fff;
+              background-color: $primary-color;
+              border: 1px solid $primary-color;
+              &:after,
+              &:before {
+                right: auto;
+                left: 100%;
+                border-right-color: transparent;
+                border-left-color: $primary-color;
+              }
+            }
+          }
+
+          .discussion--message-avatar {
+            float: right;
+          }
+        }
+      }
+    }
+
+    .discussion--input-message {
+      margin: 10px 0;
+      padding-top: 10px;
+      border-top: solid 1px #d5d5d5;
+      height: 70px;
+      position: relative;
+
+      form {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        padding: 0 1rem 0 .5rem;
+
+        .discussion--input-text {
+          max-height: 67px;
+        }
+      }
+    }
+  }
+}

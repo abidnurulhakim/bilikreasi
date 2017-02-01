@@ -1,0 +1,54 @@
+.jumbotron {
+  padding: $jumbotron-padding ($jumbotron-padding / 2);
+  margin-bottom: $jumbotron-padding;
+  background-color: $jumbotron-bg;
+  @include border-radius($border-radius-lg);
+
+  @include media-breakpoint-up(sm) {
+    padding: ($jumbotron-padding * 2) $jumbotron-padding;
+  }
+}
+
+.jumbotron-hr {
+  border-top-color: darken($jumbotron-bg, 10%);
+}
+
+.jumbotron-fluid {
+  padding-right: 0;
+  padding-left: 0;
+  @include border-radius(0);
+}
+
+#induction {
+  .jumbotron {
+    margin-top: 1rem;
+    padding: $jumbotron-padding ($jumbotron-padding / 2);
+    margin-bottom: $jumbotron-padding;
+    background: url("../../assets/images/background-induction.jpg") no-repeat center center; 
+    -webkit-background-size: 100% 100%;
+    -moz-background-size: 100% 100%;
+    -o-background-size: 100% 100%;
+    background-size: 100% 100%;
+    color: #333;
+    @include border-radius($border-radius-lg);
+
+    @include media-breakpoint-up(sm) {
+      padding: ($jumbotron-padding * 2) $jumbotron-padding;
+    }
+
+    .description {
+      background-color: rgba(255, 255, 255, .8);
+      padding: 1rem;
+    }
+  }
+
+  .jumbotron-hr {
+    border-top-color: darken($jumbotron-bg, 10%);
+  }
+
+  .jumbotron-fluid {
+    padding-right: 0;
+    padding-left: 0;
+    @include border-radius(0);
+  }
+}

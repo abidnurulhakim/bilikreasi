@@ -35,7 +35,8 @@ class Idea extends BaseModel
     protected $fillable = [
         'user_id', 'title', 'slug', 'description',
         'type', 'cover', 'category', 'status',
-        'location', 'start_at', 'finish_at', 'tags'
+        'location', 'start_at', 'finish_at', 'tags',
+        'viewer_count', 'member_count', 'like_count'
     ];
 
     protected $dates = [
@@ -75,10 +76,12 @@ class Idea extends BaseModel
         
         static::bootAttachableTrait();
         static::bootSluggableTrait();
-        static::created(function($idea){
-            $discussion = DiscussionService::create($idea);
-            IdeaService::join($idea, $idea->user, 'admin');
-            DiscussionService::addParticipant($discussion, $idea->user);
+        static::saved(function($idea){
+            if (strlen($idea->title) && $idea->discussions()->count() == 0) {
+                $discussion = DiscussionService::create($idea);
+                IdeaService::join($idea, $idea->user, 'admin');
+                DiscussionService::addParticipant($discussion, $idea->user);
+            }
         });
         static::saving(function($idea){
             if ($idea->category != 'event') {
@@ -164,17 +167,19 @@ class Idea extends BaseModel
 
     public function setStartAtAttribute($value)
     {
-        $value = trim($value);
-        if (!empty($value) && !is_null($value)) {
-            $this->attributes['start_at'] = \Carbon::createFromFormat('m/d/Y g:i A', $value);
+        if (is_string($value) && !empty($value) && !is_null($value)) {
+            $this->attributes['start_at'] = \Carbon::createFromFormat('d/m/Y h:i', trim($value));
+        } else {
+            $this->attributes['start_at'] = $value;
         }
     }
 
     public function setFinishAtAttribute($value)
     {
-        $value = trim($value);
-        if (!empty($value) && !is_null($value)) {
-            $this->attributes['finish_at'] = \Carbon::createFromFormat('m/d/Y g:i A', $value);
+        if (is_string($value) && !empty($value) && !is_null($value)) {
+            $this->attributes['finish_at'] = \Carbon::createFromFormat('d/m/Y h:i', trim($value));
+        } else {
+            $this->attributes['finish_at'] = $value;
         }
     }
 
@@ -201,17 +206,33 @@ class Idea extends BaseModel
 
     public static function search($keyword = '', $filter = [])
     {
-        $words = explode(" ", trim($keyword));
         $query = self::query();
-        foreach ($words as $word) {
-            $query = $query->orWhere('title', 'like', '%'.$word.'%');
+        if (strlen(trim($keyword)) > 0) {
+            $words = preg_split('/\s+/', trim($keyword));
+            $query = $query->where(function($q) use ($words) {
+                foreach ($words as $word) {
+                    $q = $q->orWhere('title', 'like', '%'.$word.'%');
+                }
+            });
         }
         foreach ($filter as $key => $value) {
             if (is_array($value)) {
-                $query = $query->whereIn($key, $value);
+                foreach ($value as $val) {
+                    $words = preg_split('/\s+/', trim($val));
+                    $query = $query->where(function($q) use ($key, $words) {
+                        foreach ($words as $word) {
+                            $q = $q->orWhere($key, 'like', '%'.$word.'%');
+                        }
+                    });
+                }
             } else {
-                $query = $query->where($key, $value);
-            }
+                $words = preg_split('/\s+/', trim($value));
+                $query = $query->where(function($q) use ($key, $words) {
+                    foreach ($words as $word) {
+                        $q = $q->orWhere($key, 'like', '%'.$word.'%');
+                    }
+                });
+            }    
         }
         return $query;
     }
