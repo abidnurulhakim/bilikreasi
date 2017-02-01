@@ -58,7 +58,7 @@ class Handler extends ExceptionHandler
         if ($exception instanceof AuthorizationException || $exception instanceof AuthenticationException || $exception instanceof TokenMismatchException) {
             return response()->view('errors.401', [], 401);
         }
-        if (!config('app.debug')) {
+        if (!config('app.debug') && !($exception instanceof ValidationException)) {
             return response()->view('errors.500', [], 500);
         }
         return parent::render($request, $exception);

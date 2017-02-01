@@ -57,7 +57,6 @@ class Banner extends BaseModel
     
     public function scopePublish($query)
     {
-        date_default_timezone_set("Asia/Jakarta");
         return $query->where('publish', true)->where('start_at', '<=', \Carbon::now())->where('finish_at', '>=', \Carbon::now());
     }
 

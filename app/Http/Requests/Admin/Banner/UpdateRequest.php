@@ -28,7 +28,7 @@ class UpdateRequest extends FormRequest
             'description' => 'max:255',
             'url' => 'max:255',
             'image' => '',
-            'start_at' => 'date|after:now',
+            'start_at' => 'date',
             'finish_at' => 'date|after:start_at',
             'order_number' => 'integer|min:0',
             'publish' => 'required|in:0,1',
