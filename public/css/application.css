@@ -16391,13 +16391,17 @@ section .banners {
 @media only screen and (max-width: 992px) {
   section .banners {
     margin-top: 1rem;
-    max-height: 207px;
+  }
+  section .banners img {
+    width: 100%;
+    height: auto;
   }
 }
 
 @media only screen and (min-width: 601px) {
-  section .banners {
-    max-height: 407px;
+  section .banners img {
+    width: 100%;
+    height: auto;
   }
 }
 
@@ -16414,7 +16418,7 @@ section .banners .slick-list {
 
 @media only screen and (min-width: 601px) {
   section .banners .slick-list {
-    max-height: 400px;
+    height: auto;
   }
 }
 
