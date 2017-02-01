@@ -374,7 +374,7 @@ var Site = {
         fade: true,
         cssEase: 'linear',
       });
-    })
+    });
   },
   popularIdeaInit : function() {
     Site.slickLoad(Site.popularIdea);
@@ -413,6 +413,9 @@ var Site = {
             }
           }
         ]
+      });
+      $('section.popular-idea .idea-list .slick-track').each(function(i){
+        $(this).css('width', '100%');
       });
     });
   },
