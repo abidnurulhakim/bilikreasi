@@ -3,87 +3,83 @@ var pusher;
 var channel;
 var btnMorePage;
 var Discussion = {
-  load : function() {
+  init : function() {
     $('.discussion').each(function(i){
+      $('.time-humanize').each(function(index){
+        $(this).timeago();
+      });
       if ($(this).css('display') != 'none') {
-        $('.time-humanize').each(function(index){
-          $(this).timeago();
-        });
-        console.log('discussion-desktop');
-        discussionData = $('.discussion--messages').first();
-        discussionGroup = $('.discussion--messages .discussion--message-group').first();
-        $discussions = $(this).find('.discussion--list');
-        $messages = $(this).find('.discussion--messages');
-        $discussions.mCustomScrollbar({
-          axis:'y',
-          theme: 'minimal-dark',
-          moveDragger: true
-        });
-        $messages.mCustomScrollbar({
-          axis:'y',
-          theme: 'minimal-dark',
-          moveDragger: true,
-          callbacks: {
-            onOverflowYNone: function() {
-              Discussion.morePage();
-            },
-            onScroll: function() {
-              if (this.mcs.top > -50 && discussionData.data('has-more-page')) {
-                Discussion.morePage();
-              }
-            },          
-          }
-        });
-        $messages.mCustomScrollbar('scrollTo', 'bottom', {
-          scrollInertia: 1
-        });
-        Discussion.initAjaxForm();
-        Discussion.initPusher();
-        Discussion.pusherBind();
+        Discussion.desktopInit();
       }
-    });
-    $('.discussion-mobile').each(function(i){
       if ($(this).css('display') != 'none') {
-        $('.time-humanize').each(function(index){
-          $(this).timeago();
-        });
-        console.log('discussion-mobile');
-        $(this).find('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
-          $('.discussion-mobile a[data-toggle="tab"]').removeClass('active');
-          $(e.target).addClass('active');
-        });
-        discussionData = $('.discussion-mobile .discussion--messages').first();
-        discussionGroup = $('.discussion-mobile .discussion--messages .discussion--message-group').first();
-        $discussions = $(this).find('.discussion--list');
-        $messages = $(this).find('.discussion--messages');
-        $discussions.mCustomScrollbar({
-          axis:'y',
-          theme: 'minimal-dark',
-          moveDragger: true
-        });
-        $messages.mCustomScrollbar({
-          axis:'y',
-          theme: 'minimal-dark',
-          moveDragger: true,
-          callbacks: {
-            onOverflowYNone: function() {
-              btnMorePage = $('.btn-load-more').first().clone();
-              $('.btn-load-more').remove();
-              Discussion.morePage();
-            },
+        Discussion.mobileInit();
+      }
+      $messages.mCustomScrollbar('scrollTo', 'bottom', {
+        scrollInertia: 1
+      });
+      Discussion.ajaxFormInit();
+      Discussion.pusherInit();
+      Discussion.pusherBind();
+      Discussion.inputTextInit();
+    });
+  },
+  desktopInit : function () {
+    console.log('discussion-desktop');
+    discussionData = $('.discussion--messages').first();
+    discussionGroup = $('.discussion--messages .discussion--message-group').first();
+    $discussions = $(this).find('.discussion--list');
+    $messages = $(this).find('.discussion--messages');
+    $discussions.mCustomScrollbar({
+      axis:'y',
+      theme: 'minimal-dark',
+      moveDragger: true
+    });
+    $messages.mCustomScrollbar({
+      axis:'y',
+      theme: 'minimal-dark',
+      moveDragger: true,
+      callbacks: {
+        onOverflowYNone: function() {
+          Discussion.morePage();
+        },
+        onScroll: function() {
+          if (this.mcs.top > -50 && discussionData.data('has-more-page')) {
+            Discussion.morePage();
           }
-        });
-        $messages.mCustomScrollbar('scrollTo', 'bottom', {
-          scrollInertia: 1
-        });
-        Discussion.initAjaxForm();
-        Discussion.initPusher();
-        Discussion.pusherBind();
-        Discussion.buttonMoreMessage();
+        },
       }
     });
   },
-  initPusher : function () {
+  mobileInit : function () {
+    console.log('discussion-mobile');
+    $(this).find('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+      $('.discussion-mobile a[data-toggle="tab"]').removeClass('active');
+      $(e.target).addClass('active');
+    });
+    discussionData = $('.discussion-mobile .discussion--messages').first();
+    discussionGroup = $('.discussion-mobile .discussion--messages .discussion--message-group').first();
+    $discussions = $(this).find('.discussion--list');
+    $messages = $(this).find('.discussion--messages');
+    $discussions.mCustomScrollbar({
+      axis:'y',
+      theme: 'minimal-dark',
+      moveDragger: true
+    });
+    $messages.mCustomScrollbar({
+      axis:'y',
+      theme: 'minimal-dark',
+      moveDragger: true,
+      callbacks: {
+        onOverflowYNone: function() {
+          btnMorePage = $('.btn-load-more').first().clone();
+          $('.btn-load-more').remove();
+          Discussion.morePage();
+        },
+      }
+    });
+    Discussion.buttonMoreMessage();
+  },
+  pusherInit : function () {
     pusher = new Pusher(pusherKey, {
       cluster: 'ap1',
       encrypted: true,
@@ -110,7 +106,7 @@ var Discussion = {
       Discussion.markReadMessages();
     });
   },
-  initAjaxForm : function() {
+  ajaxFormInit : function() {
     $('#discussion--input-message--form').ajaxForm({
       beforeSubmit:  Discussion.preAction,
       success:  Discussion.postAction,
@@ -127,7 +123,7 @@ var Discussion = {
   morePage : function() {
     if (discussionData.data('has-more-page')) {
       $('#alert_loading').removeClass('hidden-xs-up');
-      $.get(
+      $.getJSON(
         discussionData.data('url-read-message'),
         { last_message_id: discussionData.data('last-message-id') },
         function($response) {
@@ -154,8 +150,7 @@ var Discussion = {
           }
           discussionGroup.prepend(btnMorePage);
           $('#alert_loading').addClass('hidden-xs-up');
-        },
-        'json');
+        });
     }
   },
   markReadMessages : function(){
@@ -265,5 +260,8 @@ var Discussion = {
       $('.btn-load-more').remove();
       Discussion.morePage();
     });
-  }
+  },
+  inputTextInit : function() {
+    autosize($('.discussion--input-text'));
+  },
 }

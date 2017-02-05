@@ -14,7 +14,8 @@
 @import "components/normalize";
 @import "components/print";
 
-.materialize-input { 
+.materialize-input {
+  margin-bottom: 1rem; 
   @import "components/forms/forms";
 }
 

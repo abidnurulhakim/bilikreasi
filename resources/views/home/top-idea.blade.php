@@ -8,10 +8,14 @@
         @foreach ($popular->ideas->chunk(3) as $chunk)
         <div class="row idea-list">
           @foreach($chunk as $idea)
-            <div class="col-sm-12 col-md-4">
+            <div class="col-xs-10 col-md-4">
               @include('idea.card', $idea)
             </div>
           @endforeach
+          @for ($i = 0; $i < (3 - sizeof($chunk)); $i++)
+            <div class="col-xs-12 col-md-4 hidden-sm-down">
+            </div>
+          @endfor
         </div>
         @endforeach
       </div>
@@ -22,26 +26,10 @@
     <h4 class="btn primary btn-block btn-flat">Ide Terbaru</h4>
     </div>
     <div class="pushpin-content">
-      @foreach(App\Models\Idea::take(6)->get()->chunk(3) as $ideas)
+      @foreach(App\Models\Idea::order('created_at', 'desc')->take(6)->get()->chunk(3) as $ideas)
       <div class="row idea-list">
         @foreach($ideas as $idea)
-          <div class="col-sm-12 col-md-4">
-            @include('idea.card', $idea)
-          </div>
-        @endforeach
-      </div>
-      @endforeach
-    </div>
-  </div>
-  <div id="popular_idea_2" class="pushpin-block">
-    <div class="pushpin" data-target="popular_idea_2">
-    <h4 class="btn primary btn-block btn-flat">Ide Keren</h4>
-    </div>
-    <div class="pushpin-content">
-      @foreach(App\Models\Idea::take(6)->offset(6)->get()->chunk(3) as $ideas)
-      <div class="row idea-list">
-        @foreach($ideas as $idea)
-          <div class="col-sm-12 col-md-4">
+          <div class="col-xs-12 col-md-4">
             @include('idea.card', $idea)
           </div>
         @endforeach
