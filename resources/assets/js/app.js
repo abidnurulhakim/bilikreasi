@@ -1,60 +1,7 @@
-var path = {
-    plugins : myPrefix + 'vendor/'
-  };
-var assets = {
-  _jquery_local       : { js : path.plugins + 'jquery/jquery.min.js' },
-  _materialize_local  : { js : path.plugins + 'materialize/js/materialize.min.js' },
-  _bootstrap_local    : { js : path.plugins + 'bootstrap/js/bootstrap.min.js' },
-  _abbr_number        : { js : path.plugins + 'numfuzz/numfuzz.js' },
-  _popover            : { js : path.plugins + 'webui-popover/jquery.webui-popover.min.js' },
-  _masonry            : { js : path.plugins + 'masonry/masonry.pkgd.min.js' },
-  _infiniteScroll     : { js : path.plugins + 'infinite-scroll/jquery.infinitescroll.min.js' },
-  _summernote         : {
-                          css : path.plugins + 'summernote/summernote.css',
-                          js : path.plugins + 'summernote/summernote.min.js',
-                          lang : path.plugins + 'summernote/lang/summernote-id-ID.js'
-                        },
-  _tooltip            : { js : path.plugins + 'tooltipster/js/tooltipster.bundle.min.js' },
-  _slick              : { js : path.plugins + 'slick/slick.min.js' },
-  _colorbox           : { js : path.plugins + 'colorbox/jquery.colorbox-min.js' },
-  _slimscroll         : { js : path.plugins + 'slimscroll/jquery.slimscroll.min.js' },
-  _notify             : { js : path.plugins + 'notify/bootstrap-notify.min.js' },
-  _select2            : { js : path.plugins + 'select2/js/select2.full.min.js' },
-  _niceScroll         : { js : path.plugins + 'nicescroll/jquery.nicescroll.min.js' },
-  _fileinput          : {
-                          css : path.plugins + 'bootstrap-fileinput/css/fileinput.min.css',
-                          js : path.plugins + 'bootstrap-fileinput/js/fileinput.min.js'
-                        },
-  _datepicker         : {
-                          css : path.plugins + 'bootstrap-datepicker/css/bootstrap-datepicker3.min.css',
-                          js : path.plugins + 'bootstrap-datepicker/js/bootstrap-datepicker.min.js'
-                        },
-  _datetimepicker     : {
-                          css : path.plugins + 'bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css',
-                          js : path.plugins + 'bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js'
-                        },
-  _moment             : { js : path.plugins + 'moment/moment-with-locales.min.js' },
-  _dropzone           : {
-                          css : path.plugins + 'dropzone/dropzone.min.css',
-                          js : path.plugins + 'dropzone/dropzone.min.js'
-                        },
-  _customScrollbar    : {
-                          css : path.plugins + 'custom-scrollbar/jquery.mCustomScrollbar.min.css',
-                          js : path.plugins + 'custom-scrollbar/jquery.mCustomScrollbar.js'
-                        },
-  _autosize           : { js : path.plugins + 'autosize/autosize.min.js' },
-  _pusher             : { js : 'https://js.pusher.com/3.1/pusher.min.js' },
-  _timeago            : { 
-                          js : path.plugins + 'timeago/jquery.timeago.js',
-                          js_id : path.plugins + 'timeago/locales/jquery.timeago.id.js'
-                        },
-  _jqueryForm         : { js : path.plugins + 'jquery-form/jquery.form.js' },
-};
-
 var Site = {
   init : function() {
     Site.formMaterialize();
-    Site.numfuzz();
+    Site.numfuzzInit();
     Site.scrollHtmlInit();
     Site.bannerInit();
     Site.navbarInit();
@@ -73,232 +20,10 @@ var Site = {
     Site.dateTimePickerLinkInit();
     Site.dropzoneFileInputInit();
     Site.galleryIdeaInit();
-    Site.discussionInit();
-    Site.discussionInputTextInit();
-    Site.discussionInit();
-  },
-  slickLoad : function($callback, $args = []) {
-    Modernizr.load({
-      load    : [
-        assets._slick.js,
-      ],
-      complete: function(){
-        $callback(...$args);
-      }
-    });
-  },
-  colorboxLoad : function($callback, $args = []) {
-    Modernizr.load({
-      load    : [
-        assets._colorbox.js,
-      ],
-      complete: function(){
-        $callback(...$args);
-      }
-    });
-  },
-  slimscrollLoad : function($callback, $args = []) {
-    Modernizr.load({
-      load    : [
-        assets._slimscroll.js,
-      ],
-      complete: function(){
-        $callback(...$args);
-      }
-    });
-  },
-  popoverLoad : function($callback, $args = []) {
-    Modernizr.load({
-      load    : [
-        assets._popover.js,
-      ],
-      complete: function(){
-        $callback(...$args);
-      }
-    });
-  },
-  tooltipLoad : function($callback, $args = []) {
-    Modernizr.load({
-      load    : [
-        assets._tooltip.js,
-      ],
-      complete: function(){
-        $callback(...$args);
-      }
-    });
-  },
-  notifyLoad : function($callback, $args = []) {
-    Modernizr.load({
-      load  : [
-              assets._notify.js,
-      ],
-      complete : function(){
-        $callback(...$args);
-      }
-    });
-  },
-  select2Load : function($callback, $args = []) {
-    Modernizr.load({
-      load  : [
-              assets._select2.js,
-      ],
-      complete : function(){
-        $callback(...$args);
-      }
-    });
-  },
-  masonryLoad : function($callback, $args = []){
-    Modernizr.load({
-      load  : [
-              assets._masonry.js,
-      ],
-      complete : function(){
-        $callback(...$args);
-      }
-    });
-  },
-  infiniteScrollLoad : function($callback, $args = []) {
-    Modernizr.load({
-      load  : [
-              assets._infiniteScroll.js
-      ],
-      complete : function(){
-        $callback(...$args);
-      }
-    });
-  },
-  niceScrollLoad : function($callback, $args = []) {
-    Modernizr.load({
-      load  : [
-              assets._niceScroll.js
-      ],
-      complete : function(){
-        $callback(...$args);
-      }
-    });
-  },
-  fileInputLoad : function($callback, $args = []) {
-    Modernizr.load({
-      load  : [
-              assets._fileinput.css,
-              assets._fileinput.js
-      ],
-      complete : function(){
-        $callback(...$args);
-      }
-    });
-  },
-  datepickerLoad : function($callback, $args = []) {
-    Modernizr.load({
-      load  : [
-              assets._datepicker.css,
-              assets._datepicker.js
-      ],
-      complete : function(){
-        $callback(...$args);
-      }
-    });
-  },
-  summernoteLoad : function($callback, $args = []) {
-    Modernizr.load({
-      load  : [
-              assets._summernote.css,
-              assets._summernote.js,
-              assets._summernote.lang
-      ],
-      complete : function(){
-        $callback(...$args);
-      }
-    });
-  },
-  dateTimePickerLoad : function($callback, $args = []) {
-    Modernizr.load({
-      load  : [
-              assets._datetimepicker.css,
-              assets._datetimepicker.js
-      ],
-      complete : function(){
-        $callback(...$args);
-      }
-    });
-  },
-  momentLoad : function($callback, $args = []) {
-    Modernizr.load({
-      load  : [
-              assets._moment.js
-      ],
-      complete : function(){
-        $callback(...$args);
-      }
-    });
-  },
-  dropzoneLoad : function($callback, $args = []) {
-    Modernizr.load({
-      load  : [
-              assets._dropzone.css,
-              assets._dropzone.js
-      ],
-      complete : function(){
-        $callback(...$args);
-      }
-    });
-  },
-  customScrollbarLoad : function($callback, $args = []) {
-    Modernizr.load({
-      load  : [
-              assets._customScrollbar.css,
-              assets._customScrollbar.js
-      ],
-      complete : function(){
-        $callback(...$args);
-      }
-    });
-  },
-  autosizeLoad : function($callback, $args = []) {
-    Modernizr.load({
-      load  : [
-              assets._autosize.js
-      ],
-      complete : function(){
-        $callback(...$args);
-      }
-    });
-  },
-  timeagoLoad : function($callback, $args = []) {
-    Modernizr.load({
-      load  : [
-              assets._timeago.js,
-              assets._timeago.js_id
-      ],
-      complete : function(){
-        $callback(...$args);
-      }
-    });
-  },
-  pusherLoad : function($callback, $args = []) {
-    Modernizr.load({
-      load  : [
-              assets._pusher.js,
-      ],
-      complete : function(){
-        $callback(...$args);
-      }
-    });
-  },
-  jqueryFormLoad : function($callback, $args = []) {
-    Modernizr.load({
-      load  : [
-              assets._jqueryForm.js
-      ],
-      complete : function(){
-        $callback(...$args);
-      }
-    });
+    Site.timeagoInit();
+    Discussion.init();
   },
   scrollHtmlInit : function () {
-    Site.niceScrollLoad(Site.scrollHtml);
-  },
-  scrollHtml : function () {
     $("html").niceScroll({
       mousescrollstep: 80
     });
@@ -327,11 +52,6 @@ var Site = {
     });
   },
   popoverInit : function() {
-    if ($('.popover').length > 0) {
-      Site.popoverLoad(Site.popover);
-    }
-  },
-  popover : function() {
     $('.popover').each(function(){
       $popupTrigger = $(this).data('trigger') ? $(this).data('trigger') : 'click';
       $(this).webuiPopover({
@@ -347,11 +67,6 @@ var Site = {
     });
   },
   tooltipInit : function() {
-    if ($('.tooltipster').length > 0) {
-      Site.tooltipLoad(Site.tooltip);
-    }
-  },
-  tooltip : function(){
     $('.tooltipster').each(function(e){
       $(this).tooltipster({
         theme: ['tooltipster-noir', 'tooltipster-noir-customized'],
@@ -360,9 +75,6 @@ var Site = {
     });
   },
   bannerInit : function() {
-    Site.slickLoad(Site.banner);
-  },
-  banner : function() {
     $('.banners').each(function(i){
       $(this).slick({
         dots: true,
@@ -377,12 +89,9 @@ var Site = {
     });
   },
   popularIdeaInit : function() {
-    Site.slickLoad(Site.popularIdea);
-  },
-  popularIdea : function() {
     $('section.popular-idea .idea-list').each(function(i){
       $(this).on('init', function(){
-        Site.popularIdeaPushPinInit()
+        Site.popularIdeaPushPinInit();
       });
       $(this).slick({
         infinite: false,
@@ -390,6 +99,7 @@ var Site = {
         slidesToShow: 3,
         prevArrow: "",
         nextArrow: "",
+        adaptiveHeight: true,
         responsive: [
           {
             breakpoint: 1024,
@@ -402,20 +112,17 @@ var Site = {
             breakpoint: 600,
             settings: {
               slidesToShow: 1,
-              slidesToScroll: 1
+              slidesToScroll: 1,
             }
           },
           {
             breakpoint: 480,
             settings: {
               slidesToShow: 1,
-              slidesToScroll: 1
+              slidesToScroll: 1,
             }
           }
         ]
-      });
-      $('section.popular-idea .idea-list .slick-track').each(function(i){
-        $(this).css('width', '100%');
       });
     });
   },
@@ -430,7 +137,7 @@ var Site = {
       });
     });
   },
-  numfuzz : function($selector = null) {
+  numfuzzInit : function($selector = null) {
     if ($selector) {
       $selector.numFuzz();
     } else {
@@ -438,11 +145,6 @@ var Site = {
     }
   },
   quickLookInit : function() {
-    if ($('.quick-look').length > 0) {
-      Site.colorboxLoad(Site.quickLook);
-    }
-  },
-  quickLook : function() {
     $('.quick-look').each(function(i){
       $maxWidth = '75%';
       if ($(window).width() < 992) {
@@ -459,19 +161,13 @@ var Site = {
     });
     $(document).bind('cbox_complete', function(){
       Site.galleryQuickLookInit();
-      Site.slimscrollLoad(Site.colorboxScroll, ['500px']);
+      $('#cboxLoadedContent').slimScroll({
+        height: '500px'
+      });
       Site.numfuzz($('.quick-look--meta-number'));
     });
   },
-  colorboxScroll : function($height) {
-    $('#cboxLoadedContent').slimScroll({
-      height: $height
-    });
-  },
   galleryQuickLookInit : function() {
-    Site.slickLoad(Site.galleryQuickLook);
-  },
-  galleryQuickLook : function() {
     $('.quick-look--modal .gallery').slick({
       dots: true,
       infinite: true,
@@ -484,9 +180,6 @@ var Site = {
     });
   },
   alertNotificationInit : function() {
-    Site.notifyLoad(Site.alertNotification);
-  },
-  alertNotification : function() {
     if ($('#notification-success').length > 0) {
       Site.showAlertNotification('success', $('#notification-success'));
     }
@@ -534,11 +227,6 @@ var Site = {
     });
   },
   selectInit : function () {
-    if ($('select').length > 0) {
-      Site.select2Load(Site.select);
-    }
-  },
-  select : function() {
     $('select').each(function(e){
       if ($(this).data('tag')) {
         $(this).select2({
@@ -566,17 +254,9 @@ var Site = {
     });
   },
   masonryInit : function(){
-    if ($('.grid').length > 0) {
-      Site.masonryLoad(Site.masonry);
-    }
-  },
-  masonry : function(){
     $('.grid').masonry({
       itemSelector: '.grid-item',
     });
-    Site.infiniteScrollLoad(Site.masonryItemMore);
-  },
-  masonryItemMore : function() {
     $('.grid').infinitescroll({
       navSelector  : ".read-more",
       nextSelector : ".read-more a",
@@ -606,11 +286,6 @@ var Site = {
     }
   },
   datepickerInit : function() {
-    if ($('input[type=text].date-picker').length > 0) {
-      Site.datepickerLoad(Site.datepicker);
-    }
-  },
-  datepicker : function() {
     $('input[type=text].date-picker').each(function(index){
       $(this).datepicker({
         format: $(this).data('date-format'),
@@ -619,11 +294,6 @@ var Site = {
     });
   },
   textEditorInit : function() {
-    if ($('[text-editor]').length > 0) {
-      Site.summernoteLoad(Site.textEditor);
-    }
-  },
-  textEditor : function() {
     $('[text-editor]').each(function(){
       $(this).summernote({
         lang : 'id-ID',
@@ -639,11 +309,6 @@ var Site = {
     });
   },
   dateTimePickerInit : function() {
-    if ($('.date-time-picker').length > 0) {
-      Site.momentLoad(Site.dateTimePickerLoad, [Site.dateTimePicker]);
-    }
-  },
-  dateTimePicker : function() {
     $('.date-time-picker').each(function(index){
       $(this).datetimepicker({
         locale: 'id',
@@ -653,12 +318,6 @@ var Site = {
     });
   },
   dateTimePickerLinkInit : function() {
-    if ($('.date-time-picker-link').length > 0) {
-      Site.momentLoad(Site.dateTimePickerLoad, [Site.dateTimePickerLink]);
-      ;
-    }
-  },
-  dateTimePickerLink : function() {
     $('.date-time-picker-link').each(function(index){
       $(this).datetimepicker({
         locale: 'id',
@@ -681,11 +340,6 @@ var Site = {
     });
   },
   dropzoneFileInputInit : function() {
-    if ($('[data-toggle="dropzone-input"]').length > 0) {
-      Site.dropzoneLoad(Site.dropzoneFileInput);
-    }
-  },
-  dropzoneFileInput : function() {
     var token = '';
     $('[data-toggle="dropzone-input"]').each(function(index){
       token = $(this).data('token') ? $(this).data('token') : $(this).closest('form').find('input[name="_token"]').val();
@@ -694,6 +348,7 @@ var Site = {
         paramName: $(this).data('param-name'),
         maxFilesize: $(this).data('max-file-size'),
         parallelUploads: 10,
+        dictDefaultMessage: 'Masukkan gambar atau video',
         sending: function(file, xhr, formData) {
           formData.append("_token", token);
         },
@@ -701,11 +356,6 @@ var Site = {
     });
   },
   galleryIdeaInit : function() {
-    if ($('.gallery').length > 0) {
-      Site.slickLoad(Site.galleryIdea);
-    }
-  },
-  galleryIdea : function() {
     $('.gallery').each(function(i){
       $(this).slick({
         dots: true,
@@ -719,52 +369,8 @@ var Site = {
       });
     });
   },
-  discussionInit : function() {
-    if ($('.discussion').length > 0 || $('.discussion-mobile').length > 0) {
-      Site.customScrollbarLoad(Site.jqueryFormLoad, [
-          Site.pusherLoad, [
-            Site.timeagoLoad, [
-              Site.discussion
-            ]
-          ]
-        ]
-      );
-    }
-  },
-  discussion : function() {
-    Discussion.load();
-  },
-  discussionInputTextInit : function() {
-    if ($('.discussion--input-text').length > 0) {
-      Site.autosizeLoad(Site.discussionInputText);
-    }
-  },
-  discussionInputText : function() {
-    autosize($('.discussion--input-text'));
-  },
   timeagoInit : function() {
-    Site.timeagoLoad(Site.timeago);
-  },
-  timeago : function() {
     $('.time-humanize').timeago();
-  }
+  },
 };
-
-var checkJquery = function () {
-  Modernizr.load([
-    {
-      test    : window.jQuery,
-      nope    : assets._jquery_local.js,
-      complete: Site.init
-    }
-  ]);
-};
-
-Modernizr.load({
-  load    : [
-    assets._jquery_local.js,
-    assets._materialize_local.js,
-    assets._bootstrap_local.js,
-  ],
-  complete: checkJquery
-});
+Site.init();

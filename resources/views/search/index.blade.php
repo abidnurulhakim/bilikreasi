@@ -45,19 +45,21 @@
     </div>
   </div>
   <div class="row">
-    <div class="col-xs-12 grid">
-      @forelse($ideas as $idea)
+    @forelse($ideas as $idea)
+      <div class="col-xs-12 grid">
         <div class="grid-item col-xs-12 col-md-4">
           @include('idea.card', $idea)
         </div>
-      @empty
+      </div>
+    @empty
+      <div class="col-xs-12 col-md-8 offset-md-2">
         <div class="card z-depth-2">
           <div class="card-panel">
             <h4 class="text-xs-center text-muted">-- Tidak ada ide yang ditemukan --</h4>
           </div>
         </div>
-      @endforelse
-    </div>
+      </div>
+    @endforelse
   </div>
   @if($ideas->hasMorePages())
     <div class="grid-item read-more hidden">

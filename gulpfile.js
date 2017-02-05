@@ -17,43 +17,47 @@ elixir(mix => {
     mix.less('popover.less', 'resources/assets/sass/components/_popover.scss');
     mix.less('glyphicons.less', 'resources/assets/sass/components/_glyphicons.scss');
     mix.sass([
-        '../vendor/font-awesome/css/font-awesome.min.css',
         '../vendor/animate.css/animate.min.css',
+        '../vendor/bootstrap-datepicker/dist/css/bootstrap-datepicker3.min.css',
+        '../vendor/bootstrap-fileinput/css/fileinput.min.css',
+        '../vendor/dropzone/dist/min/dropzone.min.css',
+        '../vendor/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.min.css',
+        '../vendor/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css',
+        '../vendor/font-awesome/css/font-awesome.min.css',
+        '../vendor/summernote/dist/summernote.css',
         'app.scss',
         '../vendor/select2-bootstrap-theme/dist/select2-bootstrap.min.css',
         ], 'public/css/application.css');
     mix.scripts([
-        'modernizr.min.js',
+        '../vendor/jquery/dist/jquery.min.js',
+        '../vendor/bootstrap/dist/js/bootstrap.min.js',
+        '../vendor/materialize/dist/js/materialize.min.js',
+        '../vendor/moment/min/moment-with-locales.min.js',
+        '../vendor/autosize/dist/autosize.min.js',
+        '../vendor/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js',
+        '../vendor/bootstrap-fileinput/js/fileinput.min.js',
+        '../vendor/colorbox/jquery.colorbox-min.js',
+        '../vendor/dropzone/dist/min/dropzone.min.js',
+        '../vendor/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js',
+        '../vendor/infinite-scroll/jquery.infinitescroll.min.js',
+        '../vendor/jquery-form/jquery.form.js',
+        '../vendor/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.js',
+        '../vendor/masonry/dist/masonry.pkgd.min.js',
+        '../vendor/nicescroll/jquery.nicescroll.min.js',
+        '../vendor/pusher/dist/web/pusher.js',
+        '../vendor/remarkable-bootstrap-notify/dist/bootstrap-notify.min.js',
+        '../vendor/select2/dist/js/select2.full.min.js',
+        '../vendor/slick-carousel/slick/slick.min.js',
+        '../vendor/slimScroll/jquery.slimscroll.min.js',
+        '../vendor/summernote/dist/summernote.min.js',
+        '../vendor/summernote/dist/lang/summernote-id-ID.js',
+        '../vendor/timeago/jquery.timeago.js',
+        '../vendor/timeago/locales/jquery.timeago.id.js',
+        '../vendor/tooltipster/dist/js/tooltipster.bundle.min.js',
+        '../vendor/webui-popover/dist/jquery.webui-popover.min.js',
         'numfuzz.js',
-        'app.js',
         'discussion.js',
+        'app.js',
         ], 'public/js/application.js');
     mix.version(['css/application.css', 'js/application.js']);
-    /*copy dependencies*/
-    mix.copy('resources/assets/vendor/jquery/dist', 'public/vendor/jquery');
-    mix.copy('resources/assets/vendor/bootstrap/dist', 'public/vendor/bootstrap');
-    mix.copy('resources/assets/vendor/materialize/dist', 'public/vendor/materialize');
-
-    mix.copy('resources/assets/vendor/infinite-scroll', 'public/vendor/infinite-scroll');
-    mix.copy('resources/assets/vendor/masonry/dist', 'public/vendor/masonry');
-    mix.copy('resources/assets/vendor/slick/slick', 'public/vendor/slick');
-    mix.copy('resources/assets/vendor/summernote/dist', 'public/vendor/summernote');
-    mix.copy('resources/assets/vendor/webui-popover/dist', 'public/vendor/webui-popover');
-    mix.copy('resources/assets/vendor/tooltipster/dist', 'public/vendor/tooltipster');
-    mix.copy('resources/assets/vendor/slick-carousel/slick', 'public/vendor/slick');
-    mix.copy('resources/assets/vendor/colorbox', 'public/vendor/colorbox');
-    mix.copy('resources/assets/vendor/slimScroll', 'public/vendor/slimscroll');
-    mix.copy('resources/assets/vendor/remarkable-bootstrap-notify/dist', 'public/vendor/notify');
-    mix.copy('resources/assets/vendor/select2/dist', 'public/vendor/select2');
-    mix.copy('resources/assets/vendor/masonry/dist', 'public/vendor/masonry');
-    mix.copy('resources/assets/vendor/nicescroll', 'public/vendor/nicescroll');
-    mix.copy('resources/assets/vendor/bootstrap-fileinput', 'public/vendor/bootstrap-fileinput');
-    mix.copy('resources/assets/vendor/bootstrap-datepicker/dist', 'public/vendor/bootstrap-datepicker');
-    mix.copy('resources/assets/vendor/dropzone/dist/min', 'public/vendor/dropzone');
-    mix.copy('resources/assets/vendor/eonasdan-bootstrap-datetimepicker/build', 'public/vendor/bootstrap-datetimepicker');
-    mix.copy('resources/assets/vendor/moment/min', 'public/vendor/moment');
-    mix.copy('resources/assets/vendor/malihu-custom-scrollbar-plugin', 'public/vendor/custom-scrollbar');
-    mix.copy('resources/assets/vendor/autosize/dist', 'public/vendor/autosize');
-    mix.copy('resources/assets/vendor/timeago', 'public/vendor/timeago');
-    mix.copy('resources/assets/vendor/jquery-form', 'public/vendor/jquery-form');
 });

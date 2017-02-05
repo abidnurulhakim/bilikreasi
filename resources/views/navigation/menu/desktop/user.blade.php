@@ -2,6 +2,7 @@
   @if(auth()->check())
     <a class="popover pull-right text-xs-center" href="#" data-placement="bottom-left">
       <img src="{{ auth()->user()->getPhoto(40) }}" class="circle responsive-img">
+      <i class="fa fa-caret-down"></i>
     </a>
     <div class="webui-popover-content">
       <ul class="dropdown-menu">

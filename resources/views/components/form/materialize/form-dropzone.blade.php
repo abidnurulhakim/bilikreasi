@@ -12,7 +12,7 @@
 ?>
 <div class="form-group">
   {{ Form::label($name, $labelName) }}
-  <div data-toggle="dropzone-input" data-param-name="{{ $name }}" action="{{ $url }}" class="dropzone"
+  <div data-toggle="dropzone-input" data-param-name="{{ $name }}" action="{{ $url }}" class="dropzone idea-media--input"
   @foreach ($attributes as $key => $val)
     {{ $key }}="{{ $val }}"
   @endforeach
