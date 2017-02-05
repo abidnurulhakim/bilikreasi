@@ -164,7 +164,7 @@ var Site = {
       $('#cboxLoadedContent').slimScroll({
         height: '500px'
       });
-      Site.numfuzz($('.quick-look--meta-number'));
+      Site.numfuzzInit($('.quick-look--meta-number'));
     });
   },
   galleryQuickLookInit : function() {
