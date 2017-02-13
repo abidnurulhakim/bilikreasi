@@ -183,6 +183,8 @@ return [
         Laravel\Socialite\SocialiteServiceProvider::class,
         Sichikawa\LaravelSendgridDriver\SendgridTransportServiceProvider::class,
         Dionera\BeanstalkdUI\BeanstalkdUIServiceProvider::class,
+        Laravel\Tinker\TinkerServiceProvider::class,
+        Barryvdh\Debugbar\ServiceProvider::class,
     ],
 
     /*
@@ -235,6 +237,7 @@ return [
         'Html' => Collective\Html\HtmlFacade::class,
         'Carbon' => Carbon\Carbon::class,
         'Socialite' => Laravel\Socialite\Facades\Socialite::class,
+        'Debugbar' => Barryvdh\Debugbar\Facade::class,
     ],
 
 ];
