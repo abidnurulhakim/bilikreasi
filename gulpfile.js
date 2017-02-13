@@ -19,7 +19,7 @@ elixir(mix => {
     mix.sass([
         '../vendor/animate.css/animate.min.css',
         '../vendor/bootstrap-datepicker/dist/css/bootstrap-datepicker3.min.css',
-        '../vendor/bootstrap-fileinput/css/fileinput.min.css',
+        '../vendor/bootstrap-fileinput/css/fileinput.css',
         '../vendor/dropzone/dist/min/dropzone.min.css',
         '../vendor/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.min.css',
         '../vendor/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css',
